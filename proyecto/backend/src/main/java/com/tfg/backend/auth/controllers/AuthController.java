@@ -75,47 +75,47 @@ public class AuthController {
   public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
     if (userRepository.existsByUsername(signUpRequest.getUsername())) {
       return ResponseEntity
-          .badRequest()
-          .body(new MessageResponse("Error: ¡El nombre de usuario ya está en uso!"));
+              .badRequest()
+              .body(new MessageResponse("Error: ¡El nombre de usuario ya está en uso!"));
     }
 
     if (userRepository.existsByEmail(signUpRequest.getEmail())) {
       return ResponseEntity
-          .badRequest()
-          .body(new MessageResponse("Error: ¡El email de usuario ya está en uso!"));
+              .badRequest()
+              .body(new MessageResponse("Error: ¡El email de usuario ya está en uso!"));
     }
 
-    // Create new user's account
+    // Crear usuario con credenciales encriptadas
     User user = new User(signUpRequest.getUsername(),
-               signUpRequest.getEmail(),
-               encoder.encode(signUpRequest.getPassword()));
+            signUpRequest.getEmail(),
+            encoder.encode(signUpRequest.getPassword()));
 
     Set<String> strRoles = signUpRequest.getRole();
     Set<Role> roles = new HashSet<>();
 
-    if (strRoles == null) {
+    if (strRoles == null || strRoles.isEmpty()) {
       Role userRole = roleRepository.findByName(RoleEnum.ROLE_USER)
-          .orElseThrow(() -> new RuntimeException("Error: Rol no encontrado."));
+              .orElseThrow(() -> new RuntimeException("Error: Rol no encontrado."));
       roles.add(userRole);
     } else {
       strRoles.forEach(role -> {
-        switch (role) {
-        case "admin":
-          Role adminRole = roleRepository.findByName(RoleEnum.ROLE_ADMIN)
-              .orElseThrow(() -> new RuntimeException("Error: Rol no encontrado."));
-          roles.add(adminRole);
-
-          break;
-        case "cliente":
-          Role modRole = roleRepository.findByName(RoleEnum.ROLE_EMPLEADO)
-              .orElseThrow(() -> new RuntimeException("Error: Rol no encontrado."));
-          roles.add(modRole);
-
-          break;
-        default:
-          Role userRole = roleRepository.findByName(RoleEnum.ROLE_USER)
-              .orElseThrow(() -> new RuntimeException("Error: Rol no encontrado."));
-          roles.add(userRole);
+        switch (role.toLowerCase()) {
+          case "superadmin":
+            roles.add(roleRepository.findByName(RoleEnum.ROLE_SUPER_ADMIN)
+                    .orElseThrow(() -> new RuntimeException("Error: Rol no encontrado.")));
+            break;
+          case "admin_empresa":
+            roles.add(roleRepository.findByName(RoleEnum.ROLE_ADMIN_EMPRESA)
+                    .orElseThrow(() -> new RuntimeException("Error: Rol no encontrado.")));
+            break;
+          case "empleado":
+            roles.add(roleRepository.findByName(RoleEnum.ROLE_EMPLEADO)
+                    .orElseThrow(() -> new RuntimeException("Error: Rol no encontrado.")));
+            break;
+          default:
+            roles.add(roleRepository.findByName(RoleEnum.ROLE_USER)
+                    .orElseThrow(() -> new RuntimeException("Error: Rol no encontrado.")));
+            break;
         }
       });
     }
@@ -125,4 +125,5 @@ public class AuthController {
 
     return ResponseEntity.ok(new MessageResponse("¡El usuario ha sido registrado!"));
   }
+
 }

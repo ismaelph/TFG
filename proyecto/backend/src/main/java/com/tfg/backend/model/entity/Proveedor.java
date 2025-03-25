@@ -15,18 +15,20 @@ import java.time.Instant;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "categorias")
-
-public class Categoria {
+@Table(name = "proveedores")
+public class Proveedor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String nombre;
-
-    @Column(nullable = true)
-    private String descripcion;
+    @Column(nullable = false, unique = true)
+    private String email;
+    @Column(nullable = false, unique = true)
+    private String telefono;
+    @Column(nullable = false)
+    private String direccion;
 
     @CreationTimestamp
     private Instant createdAt;

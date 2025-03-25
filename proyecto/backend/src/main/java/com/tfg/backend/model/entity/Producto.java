@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 
 @Data
@@ -15,9 +16,8 @@ import java.time.Instant;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "categorias")
-
-public class Categoria {
+@Table(name = "productos")
+public class Producto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,8 +28,18 @@ public class Categoria {
     @Column(nullable = true)
     private String descripcion;
 
+    @Column(nullable = true)
+    private String imagen;
+
+    @Column(nullable = true)
+    private BigDecimal precio; // Ahora puede ser nulo
+
+    @Column(nullable = false)
+    private Boolean usoInterno = false; // Si es para consumo interno
+
     @CreationTimestamp
     private Instant createdAt;
+
     @UpdateTimestamp
     private Instant updatedAt;
 }
