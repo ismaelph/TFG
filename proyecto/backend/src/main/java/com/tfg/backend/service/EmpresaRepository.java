@@ -1,0 +1,15 @@
+package com.tfg.backend.service;
+
+import com.tfg.backend.model.entity.Empresa;
+
+import java.util.List;
+
+public interface EmpresaRepository {
+    Empresa save(Empresa empresa);
+    Empresa update(Empresa empresa, long id);
+    void delete(long id);
+
+    Empresa findById(long id);
+    List<Empresa> findAll();
+    Empresa findByNombre(String nombre);
+}
