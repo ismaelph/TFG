@@ -33,7 +33,7 @@ public class MovimientoInventario {
     private TipoMovimiento tipoMovimiento;
 
     @Column(nullable = true)
-    private Integer cantidad;
+    private int cantidad;
 
     @Column(columnDefinition = "TEXT")
     private String descripcion;

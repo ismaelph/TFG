@@ -11,5 +11,5 @@ public interface ProductosService {
 
     List<Producto> findAll();
     Producto findById(long id);
-    List<Producto> findByNombre(String nombre);
+    Producto findByNombre(String nombre);
 }

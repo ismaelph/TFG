@@ -13,6 +13,6 @@ public interface ProductosUsuarioService {
 
     List<ProductoUsuario> findAll();
     ProductoUsuario findById(long id);
-    List<ProductoUsuario> findByProducto(Producto producto);
-    List<ProductoUsuario> findByUsuario(User usuario);
+    ProductoUsuario findByProducto(Producto producto);
+    ProductoUsuario findByUsuario(User usuario);
 }

@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface ProductoUsuarioRepository extends JpaRepository<ProductoUsuario, Long> {
     ProductoUsuario findById(long id);
-    List<ProductoUsuario> findByProductoId(long productoId);
-    List<ProductoUsuario> findByUsuarioId(long usuarioId);
+    ProductoUsuario findByProducto(long productoId);
+    ProductoUsuario findByUsuario(long usuarioId);
 }
