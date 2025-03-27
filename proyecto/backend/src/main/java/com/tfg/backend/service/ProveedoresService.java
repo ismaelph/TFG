@@ -11,6 +11,6 @@ public interface ProveedoresService {
 
     List<Proveedor> findAll();
     Proveedor findById(long id);
-    List<Proveedor> findByEmail(String email);
-    List<Proveedor> findByNombre(String nombre);
+    Proveedor findByEmail(String email);
+    Proveedor findByNombre(String nombre);
 }

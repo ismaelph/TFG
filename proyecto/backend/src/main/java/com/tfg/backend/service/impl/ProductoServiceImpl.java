@@ -27,7 +27,11 @@ public class ProductoServiceImpl implements ProductosService {
             productoBD.setDescripcion(producto.getDescripcion());
             productoBD.setImagen(producto.getImagen());
             productoBD.setPrecio(producto.getPrecio());
+            productoBD.setCantidad(producto.getCantidad());
             productoBD.setUsoInterno(producto.getUsoInterno());
+            productoBD.setCategoria(producto.getCategoria());
+            productoBD.setProveedor(producto.getProveedor());
+            productoBD.setAdministrador(producto.getAdministrador());
             productosRepository.save(productoBD);
         }
         return productoBD;

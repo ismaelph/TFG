@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface ProveedoresRepository extends JpaRepository<Proveedor, Long> {
     Proveedor findByEmail(String email);
     Proveedor findById(long id);
+    Proveedor findByNombre(String nombre);
 }

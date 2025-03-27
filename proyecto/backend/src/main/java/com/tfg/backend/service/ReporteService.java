@@ -11,5 +11,5 @@ public interface ReporteService {
 
     Reporte findById(long id);
     List<Reporte> findAll();
-    List<Reporte> findReportesUltimoMes();
+    Reporte findReportesUltimoMes();
 }

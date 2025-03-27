@@ -14,6 +14,6 @@ public interface ReporteRepository extends JpaRepository<Reporte, Long> {
     List<Reporte> findByNombreReporte(String nombre);
 
     @Query(value = "SELECT * FROM reporte WHERE fecha_generacion >= CURRENT_DATE - INTERVAL '30 days'", nativeQuery = true)
-    List<Reporte> findReportesUltimoMes();
+    Reporte findReportesUltimoMes();
 
 }
