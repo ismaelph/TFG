@@ -35,9 +35,6 @@ public class ProductoDto {
             dto.setPrecio(entity.getPrecio());
             dto.setCantidad(entity.getCantidad());
             dto.setUsoInterno(entity.getUsoInterno());
-            dto.setCategoria(CategoriaDto.from(entity.getCategoria()));
-            dto.setProveedor(ProveedorDto.from(entity.getProveedor()));
-            dto.setAdministrador(UserDto.from(entity.getAdministrador()));
         }
         return dto;
     }

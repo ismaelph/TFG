@@ -35,8 +35,8 @@ public class Producto {
     @Column(nullable = false)
     private Integer cantidad = 0; // Cantidad predeterminada
 
-    @Column(nullable = false)
-    private Boolean usoInterno = false;
+    @Column(nullable = false, columnDefinition = "TINYINT(1) DEFAULT 0")
+    private Boolean usoInterno;
 
     @ManyToOne
     @JoinColumn(name = "categoria_id", referencedColumnName = "id")
