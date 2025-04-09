@@ -60,7 +60,7 @@ public class User {
   private Set<Role> roles = new HashSet<>();
 
   @ManyToOne
-  @JoinColumn(name = "empresa_id", nullable = false)
+  @JoinColumn(name = "empresa_id", nullable = true)
   private Empresa empresa;
   @CreationTimestamp
   private Instant createdAt;

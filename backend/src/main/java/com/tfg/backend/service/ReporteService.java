@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface ReporteService {
     Reporte save(Reporte reporte);
-    void delete(Long id);
+    void delete(long id);
 
-    Reporte findById(Long id);
+    Reporte findById(long id);
     List<Reporte> findByUsuarioId(Long usuarioId);
 }

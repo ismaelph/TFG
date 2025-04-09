@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Repository
 public interface MovimientoRepository extends JpaRepository<Movimiento, Long> {
-    Optional<Movimiento> findById(Long id);
+    Movimiento findById(long id);
     List<Movimiento> findByProductoId(Long productoId);
     List<Movimiento> findByUsuarioId(Long usuarioId);
 

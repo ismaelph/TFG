@@ -1,30 +1,32 @@
 export interface LoginRequest {
-    email:          string,
+    username:       string,
     password:       string
 }
 
 export interface LoginResponse {
     token:          string,
     user:{
-        name:       string,
         username:   string,  
         email:      string,
-        id:         number
+        id:         number,
+        empresa:    number | null
     },
     roles:          string[] | null,
 }
 
 export interface RegisterRequest {
-    name:           string,
     username:       string,
     email:          string,
-    password:       string
+    password:       string,
+    roles:          string[] | null,
 }
 
 export interface RegisterResponse {
     accessToken:    string,
     user:{
         email:      string,
-        id:         number
-    }
+        id:         number,
+        empresa:    number | null
+    },
+    roles:          string[] | null,
 }

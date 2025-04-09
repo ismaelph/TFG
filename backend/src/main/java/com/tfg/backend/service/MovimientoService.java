@@ -6,10 +6,10 @@ import java.util.List;
 
 public interface MovimientoService {
     Movimiento save(Movimiento movimiento);
-    void delete(Long id);
+    void delete(long id);
 
-    Movimiento findById(Long id);
-    List<Movimiento> findByProductoId(Long productoId);
-    List<Movimiento> findByUsuarioId(Long usuarioId);
-    List<Movimiento> findByEmpresaId(Long empresaId);
+    Movimiento findById(long id);
+    List<Movimiento> findByProductoId(long productoId);
+    List<Movimiento> findByUsuarioId(long usuarioId);
+    List<Movimiento> findByEmpresaId(long empresaId);
 }

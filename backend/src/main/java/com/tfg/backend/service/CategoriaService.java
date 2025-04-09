@@ -11,5 +11,5 @@ public interface CategoriaService {
 
     List<Categoria> findAll();
     Categoria findById(long id);
-    List<Categoria> findByNombre(String nombre);
+    Categoria findByNombre(String nombre);
 }

@@ -8,6 +8,6 @@ import java.util.Optional;
 
 @Repository
 public interface ProveedorRepository extends JpaRepository<Proveedor, Long> {
-    Optional<Proveedor> findById(Long id);
-    Optional<Proveedor> findByNombre(String nombre);
+    Proveedor findById(long id);
+    Proveedor findByNombre(String nombre);
 }

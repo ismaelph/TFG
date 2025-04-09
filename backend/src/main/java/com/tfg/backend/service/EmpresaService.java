@@ -11,5 +11,5 @@ public interface EmpresaService {
 
     Empresa findById(long id);
     List<Empresa> findAll();
-    List<Empresa> findByNombre(String nombre);
+    Empresa findByNombre(String nombre);
 }
