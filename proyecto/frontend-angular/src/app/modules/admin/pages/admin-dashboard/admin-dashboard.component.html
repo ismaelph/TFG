@@ -1,0 +1,19 @@
+<div class="container mx-auto p-6">
+    <h1 class="text-2xl font-bold mb-4">Panel de Administración</h1>
+    
+    <!-- Estadísticas generales -->
+    <div class="grid grid-cols-2 gap-4 mb-6">
+      <div class="p-4 border rounded-lg shadow bg-light">
+        <h2 class="text-lg font-semibold mb-2">Usuarios</h2>
+        <p class="text-gray-700">Total registrados: {{ totalUsuarios }}</p>
+        <a routerLink="/admin/users" class="text-blue-500 hover:underline">Gestionar Usuarios</a>
+      </div>
+      <div class="p-4 border rounded-lg shadow bg-light">
+        <h2 class="text-lg font-semibold mb-2">Empresas</h2>
+        <p class="text-gray-700">Total activas: {{totalEmpresas}}</p>
+        <a routerLink="/admin/companies" class="text-blue-500 hover:underline">Gestionar Empresas</a>
+      </div>
+    </div>
+
+  </div>
+  

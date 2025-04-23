@@ -1,0 +1,110 @@
+<div class="container mx-auto p-6">
+  <h1 class="text-2xl font-bold mb-4">Gestión de Usuarios</h1>
+
+  <!-- Botón para abrir el modal de crear usuario -->
+  <button 
+    class="bg-secondary text-light px-4 py-2 rounded hover:bg-accent transition"
+    (click)="abrirModal('crear')">
+    Crear Usuario
+  </button>
+
+  <!-- Tabla de usuarios -->
+  <div class="mt-6">
+    <table class="table-auto w-full border-collapse border border-gray-300">
+      <thead class="bg-secondary text-light">
+        <tr>
+          <th class="border border-gray-300 px-4 py-2">ID</th>
+          <th class="border border-gray-300 px-4 py-2">Nombre</th>
+          <th class="border border-gray-300 px-4 py-2">Email</th>
+          <th class="border border-gray-300 px-4 py-2">Empresa</th>
+          <th class="border border-gray-300 px-4 py-2">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usuario of usuarios" class="hover:bg-gray-100">
+          <td class="border border-gray-300 px-4 py-2">{{ usuario.id }}</td>
+          <td class="border border-gray-300 px-4 py-2">{{ usuario.username }}</td>
+          <td class="border border-gray-300 px-4 py-2">{{ usuario.email }}</td>
+          <td class="border border-gray-300 px-4 py-2">{{ usuario.empresa }}</td>
+          <td class="border border-gray-300 px-4 py-2 flex justify-center gap-4">
+            <!-- Botón de editar -->
+            <button 
+              class="text-blue-500 hover:text-blue-700 transition"
+              (click)="abrirModal('editar', usuario)">
+              <i class="fas fa-edit"></i>
+            </button>
+            <!-- Botón de eliminar -->
+            <button 
+              class="text-red-500 hover:text-red-700 transition"
+              (click)="eliminarUsuario(usuario.id)">
+              <i class="fas fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Modal -->
+  <div 
+    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+    *ngIf="modalAbierto">
+    <div class="bg-white p-6 rounded shadow-lg w-96">
+      <h2 class="text-xl font-bold mb-4">{{ modalTitulo }}</h2>
+      <form (ngSubmit)="guardarUsuario()">
+        <div class="mb-4">
+          <label class="block text-sm font-medium mb-1">Nombre</label>
+          <input 
+            type="text" 
+            [(ngModel)]="usuarioSeleccionado.username" 
+            name="username"
+            class="w-full border border-gray-300 rounded px-3 py-2">
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium mb-1">Email</label>
+          <input 
+            type="email" 
+            [(ngModel)]="usuarioSeleccionado.email" 
+            name="email"
+            class="w-full border border-gray-300 rounded px-3 py-2">
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium mb-1">Empresa</label>
+          <input 
+            type="text" 
+            [(ngModel)]="usuarioSeleccionado.empresa" 
+            name="empresa"
+            class="w-full border border-gray-300 rounded px-3 py-2">
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium mb-1">Contraseña</label>
+          <input 
+            type="password" 
+            [(ngModel)]="usuarioSeleccionado.password" 
+            name="password"
+            class="w-full border border-gray-300 rounded px-3 py-2">
+        </div>
+        <div class="flex justify-end gap-2">
+          <button 
+            type="button" 
+            class="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400 transition"
+            (click)="cerrarModal()">
+            Cancelar
+          </button>
+          <button 
+            type="submit" 
+            class="bg-secondary text-light px-4 py-2 rounded hover:bg-accent transition">
+            Guardar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Notificación de éxito -->
+  <div 
+    class="fixed bottom-4 right-4 bg-green-500 text-light px-4 py-2 rounded shadow-lg"
+    *ngIf="notificacionVisible">
+    <i class="fas fa-check-circle mr-2"></i> {{ mensajeNotificacion }}
+  </div>
+</div>
