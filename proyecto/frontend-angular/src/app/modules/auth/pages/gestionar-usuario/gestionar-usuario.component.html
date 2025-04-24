@@ -1,0 +1,62 @@
+<style>
+    input {
+        /*border: none;
+        border-bottom: 1px solid #97b5c8;
+        background: transparent;
+        border-radius: 0;*/
+        border: 1px solid #97b5c8;
+        background-color: #eff2f9;
+    }
+
+    #guardar {
+        background-color: #fab43d;
+    }
+
+    #volver {
+        background-color: #97b5c8;
+    }
+</style>
+
+<div class="row m-auto w-75 pt-5">
+
+    <form (ngSubmit)="guardar()" [formGroup]="formulario" class="container" autocomplete="off">
+
+        <div class="mx-auto">
+            <input id="id" name="id" type="hidden" value="-1">
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                <label for="name" class="form-label">Nuevo nombre:</label>
+                <input formControlName="name" type="text" class="form-control">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                <label for="username" class="form-label">Nuevo nombre de usuario:</label>
+                <input formControlName="username" type="text" class="form-control">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                <label for="email" class="form-label">Nuevo email:</label>
+                <input formControlName="email" type="text" class="form-control">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                <label for="password" class="form-label">Nueva contraseña:</label>
+                <input formControlName="password" type="text" class="form-control">
+            </div>
+        </div>
+
+    </form>
+
+    <div class="d-flex justify-content-end">
+        <button id="volver" class="btn me-1 mt-4" routerLink="/home/">Volver</button>
+        <button id="guardar" class="btn ms-1 mt-4" (click)="guardar()" [disabled]="formulario.pending">Guardar cambios</button>
+    </div>
+</div>
