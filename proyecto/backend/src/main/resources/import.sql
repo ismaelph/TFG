@@ -11,11 +11,11 @@ INSERT INTO users (username, password, email) VALUES ('admin','$2a$10$xu5KDwUJcH
 INSERT INTO user_roles (user_id,role_id) VALUES (1,1);
 INSERT INTO user_roles (user_id,role_id) VALUES (1,2);
 
-INSERT INTO users (username, email, password) VALUES ('user1', 'user1@example.com', 'pass1234');
-INSERT INTO users (username, email, password) VALUES ('user2', 'user2@example.com', 'pass1234');
-INSERT INTO users (username, email, password) VALUES ('user3', 'user3@example.com', 'pass1234');
-INSERT INTO users (username, email, password) VALUES ('user4', 'user4@example.com', 'pass1234');
-INSERT INTO users (username, email, password) VALUES ('user5', 'user5@example.com', 'pass1234');
+INSERT INTO users (username, email, password) VALUES ('user1', 'user1@example.com', '$2a$10$xu5KDwUJcHHlJFR3PMFxlORNFFpGnozs3Q9sByBv5P5xayT/z4ax2');
+INSERT INTO users (username, email, password) VALUES ('user2', 'user2@example.com', '$2a$10$xu5KDwUJcHHlJFR3PMFxlORNFFpGnozs3Q9sByBv5P5xayT/z4ax2');
+INSERT INTO users (username, email, password) VALUES ('user3', 'user3@example.com', '$2a$10$xu5KDwUJcHHlJFR3PMFxlORNFFpGnozs3Q9sByBv5P5xayT/z4ax2');
+INSERT INTO users (username, email, password) VALUES ('user4', 'user4@example.com', '$2a$10$xu5KDwUJcHHlJFR3PMFxlORNFFpGnozs3Q9sByBv5P5xayT/z4ax2');
+INSERT INTO users (username, email, password) VALUES ('user5', 'user5@example.com', '$2a$10$xu5KDwUJcHHlJFR3PMFxlORNFFpGnozs3Q9sByBv5P5xayT/z4ax2');
 
 
 -- EMPRESAS

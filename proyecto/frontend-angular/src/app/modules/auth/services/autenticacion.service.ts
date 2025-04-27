@@ -30,6 +30,11 @@ export class AutenticacionService {
     );
   }
 
+  registrarUsuario(credenciales: { username: string; email: string; password: string }): Observable<any> {
+    const URL_SIGNUP = `${environment.urlBackendSpring}/api/auth/signup`;
+    return this.httpClient.post(URL_SIGNUP, credenciales);
+  }
+
   cerrarSesion(): void {
     // Eliminar el token del LocalStorage
     localStorage.removeItem('jwtToken');
