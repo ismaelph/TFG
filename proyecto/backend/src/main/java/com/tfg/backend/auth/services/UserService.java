@@ -13,4 +13,5 @@ public interface UserService {
     User findById(long id);
     List<User> findAll();
     void agregarUsuarioAEmpresa(User user, Empresa empresa);
+    User obtenerUsuarioActual();
 }

@@ -17,6 +17,7 @@ public class UserDto {
     private String password;
     private String email;
     private EmpresaDto empresa;
+    private String fotoPerfil;
 
     public static UserDto from(User entity) {
         UserDto dto = null;
@@ -26,6 +27,7 @@ public class UserDto {
             dto.setUsername(entity.getUsername());
             dto.setPassword(entity.getPassword());
             dto.setEmail(entity.getEmail());
+            dto.setFotoPerfil(entity.getFotoPerfil());
             dto.setEmpresa(entity.getEmpresa() != null ? EmpresaDto.from(entity.getEmpresa()) : null);
         }
         return dto;
@@ -48,6 +50,7 @@ public class UserDto {
         entity.setUsername(this.getUsername());
         entity.setPassword(this.getPassword());
         entity.setEmail(this.getEmail());
+        entity.setFotoPerfil(this.getFotoPerfil());
         entity.setEmpresa(this.empresa != null ? this.empresa.to() : null);
         return entity;
     }

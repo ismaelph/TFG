@@ -8,7 +8,8 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AutenticacionService {
-  private URL_LOGIN = `${environment.urlBackendSpring}/api/auth/login`;
+  private baseUrl = `${environment.urlBackendSpring}/api/auth`;
+  private URL_LOGIN = `${this.baseUrl}/login`;
   private sesionIniciadaSubject = new BehaviorSubject<boolean>(this.isTokenPresent());
 
   constructor(private httpClient: HttpClient) {}
@@ -31,7 +32,7 @@ export class AutenticacionService {
   }
 
   registrarUsuario(credenciales: { username: string; email: string; password: string }): Observable<any> {
-    const URL_SIGNUP = `${environment.urlBackendSpring}/api/auth/signup`;
+    const URL_SIGNUP = `${this.baseUrl}/signup`;
     return this.httpClient.post(URL_SIGNUP, credenciales);
   }
 
@@ -51,5 +52,16 @@ export class AutenticacionService {
 
   getToken(): string | null {
     return localStorage.getItem('jwtToken'); // Recupera el token del LocalStorage
+  }
+
+  // PERFIL
+  // Métodos para obtener y actualizar el perfil del usuario
+
+  obtenerPerfil(): Observable<any> {
+    return this.httpClient.get(`${this.baseUrl}/profile`);
+  }
+
+  actualizarPerfil(datos: any): Observable<any> {
+    return this.httpClient.put(`${this.baseUrl}/profile`, datos);
   }
 }

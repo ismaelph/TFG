@@ -5,6 +5,8 @@ import com.tfg.backend.auth.repository.UserRepository;
 import com.tfg.backend.auth.services.UserService;
 import com.tfg.backend.model.entity.Empresa;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,6 +32,7 @@ public class UserServiceImpl implements UserService {
             userBd.setPassword(user.getPassword());
             userBd.setEmail(user.getEmail());
             userBd.setEmpresa(user.getEmpresa());
+            userBd.setFotoPerfil(user.getFotoPerfil());
             return userRepository.save(userBd);
         }
 
@@ -56,5 +59,12 @@ public class UserServiceImpl implements UserService {
     public void agregarUsuarioAEmpresa(User user, Empresa empresa) {
         user.setEmpresa(empresa);
         userRepository.save(user);
+    }
+
+    @Override
+    public User obtenerUsuarioActual() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado con el nombre: " + username));
     }
 }

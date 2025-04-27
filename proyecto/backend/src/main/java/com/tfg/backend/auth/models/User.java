@@ -53,6 +53,9 @@ public class User {
   @Column(length = 60)
   private String password;
 
+  @Column(nullable = true)
+  private String fotoPerfil = "https://ui-avatars.com/api/?name=Default+User";;
+
   @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(  name = "user_roles", 
         joinColumns = @JoinColumn(name = "user_id"), 
