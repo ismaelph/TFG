@@ -3,10 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { InicioComponent } from './inicio/inicio.component';
 
 const routes: Routes = [
-
-  // REDIRIGE AL INICIO
+  // REDIRIGE AL INICIO AUTOMÁTICAMENTE
   { 
-    path: '', component: InicioComponent 
+    path: '', redirectTo: 'inicio', pathMatch: 'full' // Cambiado de '/inicio' a 'inicio'
   },
 
   // RUTA DEL INICIO
@@ -17,9 +16,8 @@ const routes: Routes = [
   // ESTA RUTA ES POR SI NO ENCUENTRA NINGUNA RUTA
   // REDIRIGE AL INICIO
   {
-    path: '**', redirectTo: '/main', pathMatch: 'full'
+    path: '**', redirectTo: 'inicio', pathMatch: 'full' // Cambiado de '/inicio' a 'inicio'
   }
-
 ];
 
 @NgModule({

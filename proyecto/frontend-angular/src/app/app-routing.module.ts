@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   // REDIRIGE AL INICIO
   { 
-    path: '', redirectTo: '/main', pathMatch: 'full' 
+    path: '', redirectTo: '/main/inicio', pathMatch: 'full' 
   }, 
 
   // RUTA DEL MAIN
@@ -17,11 +17,16 @@ const routes: Routes = [
     path: 'admin', loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule)
   },
 
+  // RUTA DEL AUTH
+  {
+    path: 'auth', loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)
+  },
+
 
   // ESTA RUTA ES POR SI NO ENCUENTRA NINGUNA RUTA
   // REDIRIGE AL INICIO
   { 
-    path: '**', redirectTo: '/main', pathMatch: 'full' 
+    path: '**', redirectTo: '/main/inicio', pathMatch: 'full' 
   }
 ];
 
