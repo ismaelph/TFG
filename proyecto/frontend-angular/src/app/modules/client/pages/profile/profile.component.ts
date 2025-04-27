@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AutenticacionService } from '../../services/autenticacion.service';
+import { ClientService } from '../../services/client.service';
 
 @Component({
   selector: 'app-profile',
@@ -16,14 +16,14 @@ export class ProfileComponent implements OnInit {
   };
   fotoPerfilUrl: string | null = null; // URL para mostrar la foto de perfil
 
-  constructor(private autenticacionService: AutenticacionService) {}
+  constructor(private client: ClientService) {}
 
   ngOnInit(): void {
     this.cargarPerfil();
   }
 
   cargarPerfil(): void {
-    this.autenticacionService.obtenerPerfil().subscribe((datos) => {
+    this.client.obtenerPerfil().subscribe((datos) => {
       // Asignar los datos recibidos al objeto usuario
       this.usuario = {
         username: datos.username || 'Sin usuario',
@@ -51,7 +51,7 @@ export class ProfileComponent implements OnInit {
   }
 
   actualizarPerfil(): void {
-    this.autenticacionService.actualizarPerfil(this.usuario).subscribe(() => {
+    this.client.actualizarPerfil(this.usuario).subscribe(() => {
       alert('Perfil actualizado correctamente');
     }, (error) => {
       console.error('Error al actualizar el perfil:', error);

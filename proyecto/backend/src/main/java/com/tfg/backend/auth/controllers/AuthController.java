@@ -183,26 +183,4 @@ public class AuthController {
     }
   }
 
-  @GetMapping("/profile")
-  public ResponseEntity<?> obtenerPerfil() {
-    User usuarioActual = userService.obtenerUsuarioActual();
-    Map<String, Object> perfil = new HashMap<>();
-    perfil.put("username", usuarioActual.getUsername());
-    perfil.put("email", usuarioActual.getEmail());
-    perfil.put("empresa", usuarioActual.getEmpresa() != null ? usuarioActual.getEmpresa().getNombre() : "Sin empresa");
-    perfil.put("rol", usuarioActual.getRoles().stream().findFirst().orElse(null).getName());
-    perfil.put("fotoPerfil", usuarioActual.getFotoPerfil());
-    return ResponseEntity.ok(perfil);
-  }
-
-  @PutMapping("/profile/photo")
-  public ResponseEntity<?> actualizarFotoPerfil(@RequestBody Map<String, String> request) {
-    String nuevaFoto = request.get("fotoPerfil");
-    User usuarioActual = userService.obtenerUsuarioActual();
-    usuarioActual.setFotoPerfil(nuevaFoto);
-    userRepository.save(usuarioActual);
-
-    return ResponseEntity.ok(new MessageResponse("Foto de perfil actualizada correctamente"));
-  }
-
 }

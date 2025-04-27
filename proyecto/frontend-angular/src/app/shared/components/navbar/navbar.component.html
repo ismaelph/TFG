@@ -25,13 +25,15 @@
       <div *ngIf="sesionIniciada" class="relative">
         <button (click)="toggleDropdown()"
           class="flex items-center space-x-2 hover:text-accent transition focus:outline-none">
-          <i class="bi bi-person-circle text-2xl"></i>
+          <!-- Foto de perfil -->
+          <img [src]="fotoPerfilUrl || 'assets/images/default-profile.png'" alt="Foto de perfil"
+            class="w-10 h-10 rounded-full border-2 border-white bg-white">
           <span>Mi Cuenta</span>
         </button>
 
         <!-- Dropdown -->
         <div *ngIf="dropdownVisible" class="absolute right-0 mt-2 w-48 bg-white text-primary rounded-lg shadow-lg z-50">
-          <a routerLink="/auth/profile" class="block px-4 py-2 hover:bg-gray-100">Perfil</a>
+          <a routerLink="/client/profile" class="block px-4 py-2 hover:bg-gray-100">Perfil</a>
           <hr class="border-gray-200">
           <button (click)="cerrarSesion()" class="block w-full text-left px-4 py-2 hover:bg-gray-100">Cerrar
             Sesión</button>

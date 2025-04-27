@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -54,14 +54,5 @@ export class AutenticacionService {
     return localStorage.getItem('jwtToken'); // Recupera el token del LocalStorage
   }
 
-  // PERFIL
-  // Métodos para obtener y actualizar el perfil del usuario
 
-  obtenerPerfil(): Observable<any> {
-    return this.httpClient.get(`${this.baseUrl}/profile`);
-  }
-
-  actualizarPerfil(datos: any): Observable<any> {
-    return this.httpClient.put(`${this.baseUrl}/profile`, datos);
-  }
 }

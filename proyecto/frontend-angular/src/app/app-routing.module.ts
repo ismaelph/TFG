@@ -22,6 +22,11 @@ const routes: Routes = [
     path: 'auth', loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)
   },
 
+  // RUTA DEL CLIENT
+  {
+    path: 'client', loadChildren: () => import('./modules/client/client.module').then(m => m.ClientModule)
+  },
+
 
   // ESTA RUTA ES POR SI NO ENCUENTRA NINGUNA RUTA
   // REDIRIGE AL INICIO
