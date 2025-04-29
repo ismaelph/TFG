@@ -11,12 +11,14 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { AutenticacionInterceptorService } from './modules/auth/services/autenticacion-interceptor.service';
+import { TablaGenericaComponent } from './shared/components/tabla-generica/tabla-generica.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    TablaGenericaComponent
   ],
   imports: [
     BrowserModule,
