@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class ClientService {
-  private baseUrl = `${environment.urlBackendSpring}/api/auth`;
+  private baseUrl = `${environment.urlBackendSpring}/api/user`;
 
   constructor(private httpClient: HttpClient) {}
 
