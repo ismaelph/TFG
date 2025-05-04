@@ -1,1 +1,55 @@
-<p>gestion-empresas works!</p>
+<div class="p-6 bg-background min-h-screen">
+    <h1 class="text-2xl font-bold text-accent-dark mb-4">Gestión de Empresas</h1>
+  
+    <button class="bg-accent text-white px-4 py-2 rounded mb-4" (click)="abrirModal()">Crear Empresa</button>
+  
+    <table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+      <thead class="bg-secondary text-white">
+        <tr>
+          <th class="p-3 text-left">ID</th>
+          <th class="p-3 text-left">Nombre</th>
+          <th class="p-3 text-left">Creador</th>
+          <th class="p-3 text-left">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let empresa of empresas" class="border-b hover:bg-gray-100">
+          <td class="p-3">{{ empresa.id }}</td>
+          <td class="p-3">{{ empresa.nombre }}</td>
+          <td class="p-3">{{ empresa.creador?.username }}</td>
+          <td class="p-3 space-x-2 flex justify-start items-center gap-2">
+            <button class="bg-accent-dark text-white px-3 py-1 rounded flex items-center gap-2" (click)="abrirModal(empresa)">
+              <i class="bi bi-pencil-square"></i>
+            </button>
+            <button class="bg-red-600 text-white px-3 py-1 rounded flex items-center gap-2" (click)="eliminarEmpresa(empresa.id)">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <!-- Modal -->
+  <div class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center" *ngIf="mostrarModal">
+    <div class="bg-white p-6 rounded-lg w-full max-w-md shadow-lg">
+      <h2 class="text-xl font-semibold mb-4 text-secondary">Formulario de Empresa</h2>
+  
+      <form (ngSubmit)="save()">
+        <div class="mb-4">
+          <label class="block text-secondary-light mb-1">Nombre</label>
+          <input [(ngModel)]="empresaEditada.nombre" name="nombre" class="w-full border p-2 rounded" required />
+        </div>
+        <div class="mb-4">
+          <label class="block text-secondary-light mb-1">Contraseña</label>
+          <input [(ngModel)]="empresaEditada.password" name="password" type="password" class="w-full border p-2 rounded" required />
+        </div>
+        <div class="flex justify-end space-x-2">
+          <button type="button" class="bg-gray-400 text-white px-4 py-2 rounded" (click)="cerrarModal()">Cancelar</button>
+          <button type="submit" class="bg-accent text-white px-4 py-2 rounded">
+            {{ empresaEditada.id ? 'Actualizar' : 'Crear' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>

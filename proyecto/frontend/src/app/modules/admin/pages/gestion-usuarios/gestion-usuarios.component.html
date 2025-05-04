@@ -1,77 +1,79 @@
 <div class="p-6 bg-background min-h-screen">
-    <h1 class="text-2xl font-bold text-accent-dark mb-4">Gestión de Usuarios</h1>
-  
-    <button class="bg-accent text-white px-4 py-2 rounded mb-4" (click)="abrirModal()">Crear Usuario</button>
-  
-    <table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
-      <thead class="bg-secondary text-white">
-        <tr>
-          <th class="p-3 text-left">ID</th>
-          <th class="p-3 text-left">Username</th>
-          <th class="p-3 text-left">Email</th>
-          <th class="p-3 text-left">Empresa</th>
-          <th class="p-3 text-left">Rol</th>
-          <th class="p-3 text-left">Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let usuario of usuarios" class="border-b hover:bg-gray-100">
-          <td class="p-3">{{ usuario.id }}</td>
-          <td class="p-3">{{ usuario.username }}</td>
-          <td class="p-3">{{ usuario.email }}</td>
-          <td class="p-3">{{ usuario.empresa }}</td>
-          <td class="p-3">{{ usuario.rol }}</td>
-          <td class="p-3 space-x-2">
-            <button class="bg-accent-dark text-white px-3 py-1 rounded flex items-center gap-2" (click)="abrirModal(usuario)">
-              <i class="bi bi-pencil-square"></i> Editar
-            </button>
-            <button class="bg-red-600 text-white px-3 py-1 rounded flex items-center gap-2" (click)="eliminarUsuario(usuario.id)">
-              <i class="bi bi-trash"></i> Eliminar
-            </button>
-          </td>
-          
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  
-  <!-- Modal -->
-  <div class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center" *ngIf="mostrarModal">
-    <div class="bg-white p-6 rounded-lg w-full max-w-md shadow-lg">
-      <h2 class="text-xl font-semibold mb-4 text-secondary">Formulario de Usuario</h2>
-  
-      <form (ngSubmit)="save()">
-        <div class="mb-4">
-          <label class="block text-secondary-light mb-1">Username</label>
-          <input [(ngModel)]="usuarioEditando.username" name="username" class="w-full border p-2 rounded" required />
-        </div>
-        <div class="mb-4">
-          <label class="block text-secondary-light mb-1">Email</label>
-          <input [(ngModel)]="usuarioEditando.email" name="email" class="w-full border p-2 rounded" required />
-        </div>
-        <div class="mb-4">
-          <label class="block text-secondary-light mb-1">Empresa</label>
-          <input [(ngModel)]="usuarioEditando.empresa" name="empresa" class="w-full border p-2 rounded" />
-        </div>
-        <div class="mb-4" *ngIf="!usuarioEditando.id">
-          <label class="block text-secondary-light mb-1">Password</label>
-          <input [(ngModel)]="usuarioEditando.password" name="password" type="password" class="w-full border p-2 rounded" required />
-        </div>
-        <div class="mb-4">
-          <label class="block text-secondary-light mb-1">Rol</label>
-          <select [(ngModel)]="usuarioEditando.rol" name="rol" class="w-full border p-2 rounded" required>
-            <option value="USER">USER</option>
-            <option value="ADMIN">ADMIN</option>
-          </select>
-        </div>
-  
-        <div class="flex justify-end space-x-2">
-          <button type="button" class="bg-gray-400 text-white px-4 py-2 rounded" (click)="cerrarModal()">Cancelar</button>
-          <button type="submit" class="bg-accent text-white px-4 py-2 rounded">
-            {{ usuarioEditando.id ? 'Actualizar' : 'Crear' }}
+  <h1 class="text-2xl font-bold text-accent-dark mb-4">Gestión de Usuarios</h1>
+
+  <button class="bg-accent text-white px-4 py-2 rounded mb-4" (click)="abrirModal()">Crear Usuario</button>
+
+  <table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+    <thead class="bg-secondary text-white">
+      <tr>
+        <th class="p-3 text-left">ID</th>
+        <th class="p-3 text-left">Username</th>
+        <th class="p-3 text-left">Email</th>
+        <th class="p-3 text-left">Empresa</th>
+        <th class="p-3 text-left">Rol</th>
+        <th class="p-3 text-left">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let usuario of usuarios" class="border-b hover:bg-gray-100">
+        <td class="p-3">{{ usuario.id }}</td>
+        <td class="p-3">{{ usuario.username }}</td>
+        <td class="p-3">{{ usuario.email }}</td>
+        <td class="p-3">{{ usuario.empresa }}</td>
+        <td class="p-3">{{ usuario.rol }}</td>
+        <td class="p-3 space-x-2 flex justify-start items-center gap-2">
+          <button class="bg-accent-dark text-white px-3 py-1 rounded flex items-center gap-2"
+            (click)="abrirModal(usuario)">
+            <i class="bi bi-pencil-square"></i>
           </button>
-        </div>
-      </form>
-    </div>
+          <button class="bg-red-600 text-white px-3 py-1 rounded flex items-center gap-2"
+            (click)="eliminarUsuario(usuario.id)">
+            <i class="bi bi-trash"></i>
+          </button>
+        </td>
+
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal -->
+<div class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center" *ngIf="mostrarModal">
+  <div class="bg-white p-6 rounded-lg w-full max-w-md shadow-lg">
+    <h2 class="text-xl font-semibold mb-4 text-secondary">Formulario de Usuario</h2>
+
+    <form (ngSubmit)="save()">
+      <div class="mb-4">
+        <label class="block text-secondary-light mb-1">Username</label>
+        <input [(ngModel)]="usuarioEditando.username" name="username" class="w-full border p-2 rounded" required />
+      </div>
+      <div class="mb-4">
+        <label class="block text-secondary-light mb-1">Email</label>
+        <input [(ngModel)]="usuarioEditando.email" name="email" class="w-full border p-2 rounded" required />
+      </div>
+      <div class="mb-4">
+        <label class="block text-secondary-light mb-1">Empresa</label>
+        <input [(ngModel)]="usuarioEditando.empresa" name="empresa" class="w-full border p-2 rounded" />
+      </div>
+      <div class="mb-4" *ngIf="!usuarioEditando.id">
+        <label class="block text-secondary-light mb-1">Password</label>
+        <input [(ngModel)]="usuarioEditando.password" name="password" type="password" class="w-full border p-2 rounded"
+          required />
+      </div>
+      <div class="mb-4">
+        <label class="block text-secondary-light mb-1">Rol</label>
+        <select [(ngModel)]="usuarioEditando.rol" name="rol" class="w-full border p-2 rounded" required>
+          <option value="USER">USER</option>
+          <option value="ADMIN">ADMIN</option>
+        </select>
+      </div>
+
+      <div class="flex justify-end space-x-2">
+        <button type="button" class="bg-gray-400 text-white px-4 py-2 rounded" (click)="cerrarModal()">Cancelar</button>
+        <button type="submit" class="bg-accent text-white px-4 py-2 rounded">
+          {{ usuarioEditando.id ? 'Actualizar' : 'Crear' }}
+        </button>
+      </div>
+    </form>
   </div>
-  
+</div>

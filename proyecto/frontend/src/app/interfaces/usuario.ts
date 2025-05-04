@@ -4,6 +4,7 @@ export interface Usuario {
     email: string;
     empresa: string | null;
     password: string;
-    created_at: string,
-    rol: string,
-}
+    created_at: string;
+    rol: string;
+    fotoPerfil?: string;
+  }

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { GestionUsuariosComponent } from './pages/gestion-usuarios/gestion-usuarios.component';
+import { GestionEmpresasComponent } from './pages/gestion-empresas/gestion-empresas.component';
 
 const routes: Routes = [
   // REDIRIGE AL DASHBOARD
@@ -21,7 +22,7 @@ const routes: Routes = [
 
   // RUTA DE EMPRESAS
   {
-    path: 'empresas', component: GestionUsuariosComponent
+    path: 'empresas', component: GestionEmpresasComponent
   },
 
   // RUTA POR DEFECTO
