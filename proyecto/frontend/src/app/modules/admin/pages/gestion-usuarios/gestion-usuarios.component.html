@@ -19,7 +19,7 @@
         <td class="p-3">{{ usuario.id }}</td>
         <td class="p-3">{{ usuario.username }}</td>
         <td class="p-3">{{ usuario.email }}</td>
-        <td class="p-3">{{ usuario.empresa }}</td>
+        <td class="p-3">{{ usuario.empresa?.nombre || 'Sin empresa' }}</td>
         <td class="p-3">{{ usuario.rol }}</td>
         <td class="p-3 space-x-2 flex justify-start items-center gap-2">
           <button class="bg-accent-dark text-white px-3 py-1 rounded flex items-center gap-2"
@@ -63,8 +63,8 @@
       <div class="mb-4">
         <label class="block text-secondary-light mb-1">Rol</label>
         <select [(ngModel)]="usuarioEditando.rol" name="rol" class="w-full border p-2 rounded" required>
-          <option value="USER">USER</option>
-          <option value="ADMIN">ADMIN</option>
+          <option value="ROLE_ADMIN_EMPRESA">Administrador de Empresa</option>
+          <option value="ROLE_EMPLEADO">Empleado</option>
         </select>
       </div>
 

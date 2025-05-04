@@ -8,7 +8,7 @@
         <tr>
           <th class="p-3 text-left">ID</th>
           <th class="p-3 text-left">Nombre</th>
-          <th class="p-3 text-left">Creador</th>
+          <th class="p-3 text-left">Administradores</th>
           <th class="p-3 text-left">Acciones</th>
         </tr>
       </thead>
@@ -16,7 +16,11 @@
         <tr *ngFor="let empresa of empresas" class="border-b hover:bg-gray-100">
           <td class="p-3">{{ empresa.id }}</td>
           <td class="p-3">{{ empresa.nombre }}</td>
-          <td class="p-3">{{ empresa.creador?.username }}</td>
+          <td class="p-3">
+            <ul>
+              <li *ngFor="let admin of empresa.admins">{{ admin.username }}</li>
+            </ul>
+          </td>
           <td class="p-3 space-x-2 flex justify-start items-center gap-2">
             <button class="bg-accent-dark text-white px-3 py-1 rounded flex items-center gap-2" (click)="abrirModal(empresa)">
               <i class="bi bi-pencil-square"></i>

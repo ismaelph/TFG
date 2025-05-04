@@ -10,6 +10,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Builder
@@ -26,13 +28,12 @@ public class Empresa {
     @Column(nullable = false, unique = true)
     private String nombre;
 
-    @ManyToOne
-    @JoinColumn(name = "creador_id", nullable = false)
-    private User creador;
+    @ManyToMany
+    @JoinTable(name = "empresa_admins", joinColumns = @JoinColumn(name = "empresa_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private Set<User> admins = new HashSet<>();
 
     @Column(nullable = false)
     private String password;
-
 
     @CreationTimestamp
     private Instant createdAt;

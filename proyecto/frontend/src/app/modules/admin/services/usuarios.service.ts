@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class UsuariosService {
 
-  private apiUrl = `${environment.urlBackendSpring}/api/auth`;
+  private apiUrl = `${environment.urlBackendSpring}/api/user`;
 
   constructor(private http: HttpClient) {}
 

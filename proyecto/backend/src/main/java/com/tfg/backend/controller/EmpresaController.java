@@ -32,7 +32,7 @@ public class EmpresaController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @GetMapping({""})
+    @GetMapping({ "" })
     public List<EmpresaDto> listAll() {
         return EmpresaDto.from(empresaService.findAll());
     }
@@ -89,7 +89,8 @@ public class EmpresaController {
     }
 
     @PostMapping("/{empresaId}/unirse")
-    public ResponseEntity<?> unirseAEmpresa(@PathVariable Long empresaId, @RequestParam String password, @AuthenticationPrincipal User usuarioActual) {
+    public ResponseEntity<?> unirseAEmpresa(@PathVariable Long empresaId, @RequestParam String password,
+            @AuthenticationPrincipal User usuarioActual) {
         Empresa empresa = empresaService.findById(empresaId);
         if (empresa != null && passwordEncoder.matches(password, empresa.getPassword())) {
             userService.agregarUsuarioAEmpresa(usuarioActual, empresa);
@@ -98,5 +99,26 @@ public class EmpresaController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Contraseña incorrecta.");
     }
 
+    @PostMapping("/{empresaId}/admins")
+    public ResponseEntity<?> agregarAdmin(@PathVariable Long empresaId, @RequestParam Long userId) {
+        Empresa empresa = empresaService.findById(empresaId);
+        User admin = userService.findById(userId);
+        if (empresa != null && admin != null) {
+            empresaService.agregarAdminAEmpresa(empresa, admin);
+            return ResponseEntity.ok("Administrador añadido a la empresa.");
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Empresa o usuario no encontrado.");
+    }
+
+    @DeleteMapping("/{empresaId}/admins")
+    public ResponseEntity<?> eliminarAdmin(@PathVariable Long empresaId, @RequestParam Long userId) {
+        Empresa empresa = empresaService.findById(empresaId);
+        User admin = userService.findById(userId);
+        if (empresa != null && admin != null) {
+            empresaService.eliminarAdminDeEmpresa(empresa, admin);
+            return ResponseEntity.ok("Administrador eliminado de la empresa.");
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Empresa o usuario no encontrado.");
+    }
 
 }

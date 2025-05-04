@@ -19,19 +19,11 @@ INSERT INTO users (username, email, password) VALUES ('user5', 'user5@example.co
 
 
 -- EMPRESAS
+INSERT INTO empresas (id, nombre, password) VALUES (1, 'Empresa A', 'pass1234');
+INSERT INTO empresas (id, nombre, password) VALUES (2, 'Empresa B', 'pass1234');
+INSERT INTO empresas (id, nombre, password) VALUES (3, 'Empresa C', 'pass1234');
 
-INSERT INTO empresas (nombre, password, creador_id) VALUES ('Empresa A', 'pass1234', 1);
-INSERT INTO empresas (nombre, password, creador_id) VALUES ('Empresa B', 'pass1234', 2);
-INSERT INTO empresas (nombre, password, creador_id) VALUES ('Empresa C', 'pass1234', 3);
-INSERT INTO empresas (nombre, password, creador_id) VALUES ('Empresa D', 'pass1234', 4);
-INSERT INTO empresas (nombre, password, creador_id) VALUES ('Empresa E', 'pass1234', 5);
-INSERT INTO empresas (nombre, password, creador_id) VALUES ('Empresa F', 'pass1234', 1);
-INSERT INTO empresas (nombre, password, creador_id) VALUES ('Empresa G', 'pass1234', 2);
-INSERT INTO empresas (nombre, password, creador_id) VALUES ('Empresa H', 'pass1234', 3);
-INSERT INTO empresas (nombre, password, creador_id) VALUES ('Empresa I', 'pass1234', 4);
-INSERT INTO empresas (nombre, password, creador_id) VALUES ('Empresa J', 'pass1234', 5);
-INSERT INTO empresas (nombre, password, creador_id) VALUES ('Empresa K', 'pass1234', 1);
-INSERT INTO empresas (nombre, password, creador_id) VALUES ('Empresa L', 'pass1234', 2);
-INSERT INTO empresas (nombre, password, creador_id) VALUES ('Empresa M', 'pass1234', 3);
-INSERT INTO empresas (nombre, password, creador_id) VALUES ('Empresa N', 'pass1234', 4);
-INSERT INTO empresas (nombre, password, creador_id) VALUES ('Empresa O', 'pass1234', 5);
+-- RELACIÓN EMPRESAS - ADMINISTRADORES
+INSERT INTO empresa_admins (empresa_id, user_id) VALUES (1, 1); -- Admin de Empresa A
+INSERT INTO empresa_admins (empresa_id, user_id) VALUES (2, 2); -- Admin de Empresa B
+INSERT INTO empresa_admins (empresa_id, user_id) VALUES (3, 3); -- Admin de Empresa C

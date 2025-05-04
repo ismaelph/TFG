@@ -139,48 +139,6 @@ public class AuthController {
     return ResponseEntity.ok(new MessageResponse("¡El usuario ha sido registrado!"));
   }
 
-  @GetMapping({""})
-  public List<UserDto> listAll() {
-    return UserDto.from(userService.findAll());
-  }
-  @GetMapping("/{id}")
-  public ResponseEntity<?> byId(@PathVariable long id) {
-    User userBd = userService.findById(id);
-    if (userBd != null) {
-      return ResponseEntity.status(HttpStatus.OK).body(UserDto.from(userBd));
-    } else {
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorDto.from("Usuario no encontrada"));
-    }
-  }
-
-  @DeleteMapping("/{id}")
-  public ResponseEntity<?> delete(@PathVariable long id) {
-    User userBd = userService.findById(id);
-    if (userBd != null) {
-      try {
-        userService.delete(userBd.getId());
-        return ResponseEntity.status(HttpStatus.OK).body(UserDto.from(userBd));
-      } catch (Exception e) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorDto.from("Usuario no borrada"));
-      }
-    } else {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorDto.from("Usuario no encontrada"));
-    }
-  }
-
-  @PutMapping("/{id}")
-  public ResponseEntity<?> update(@PathVariable long id, @RequestBody UserDto userDto) {
-    User userBd = userService.findById(id);
-    if (userBd != null) {
-      try {
-        userBd = userService.update(userDto.to(), userBd.getId());
-        return ResponseEntity.status(HttpStatus.OK).body(UserDto.from(userBd));
-      } catch (Exception e) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorDto.from("Usuario no modificada"));
-      }
-    } else {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorDto.from("Usuario no encontrada"));
-    }
-  }
+  
 
 }

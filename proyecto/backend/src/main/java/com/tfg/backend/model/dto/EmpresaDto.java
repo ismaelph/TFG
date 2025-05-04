@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,16 +18,14 @@ public class EmpresaDto {
     private Long id;
     private String nombre;
     private String password;
-    private User user;
+    private List<UserDto> admins;
 
     public static EmpresaDto from(Empresa entity) {
-        EmpresaDto dto = null;
-        if (entity != null) {
-            dto = new EmpresaDto();
-            dto.setId(entity.getId());
-            dto.setNombre(entity.getNombre());
-            dto.setPassword(entity.getPassword());
-        }
+        EmpresaDto dto = new EmpresaDto();
+        dto.setId(entity.getId());
+        dto.setNombre(entity.getNombre());
+        dto.setPassword(entity.getPassword());
+        dto.setAdmins(entity.getAdmins().stream().map(UserDto::from).toList());
         return dto;
     }
 
@@ -45,6 +44,10 @@ public class EmpresaDto {
         Empresa entity = new Empresa();
         entity.setId(this.getId());
         entity.setNombre(this.getNombre());
+        entity.setPassword(this.getPassword());
+        if (this.getAdmins() != null) {
+            entity.setAdmins(this.getAdmins().stream().map(UserDto::to).collect(Collectors.toSet())); // Convertir los admins
+        }
         return entity;
     }
 }
