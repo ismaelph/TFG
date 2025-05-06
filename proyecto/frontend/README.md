@@ -1,35 +1,27 @@
-# Invecta - Gestión de Inventario Empresarial  
+# Frontend
 
-Invecta es una plataforma avanzada para la gestión de inventarios en empresas. Su objetivo es proporcionar un entorno colaborativo donde los usuarios puedan administrar los recursos de su empresa de manera eficiente, manteniendo un control preciso de cada movimiento de inventario.  
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.6.
 
-## 🚀 Funcionalidades Principales  
+## Development server
 
-- **Creación y gestión de empresas:**  
-  - Los usuarios pueden crear una nueva empresa o unirse a una existente.  
-  - La administración recae en el creador de la empresa, quien tiene privilegios de configuración.  
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-- **Interacción con el inventario:**  
-  - Agregar, eliminar y modificar productos dentro del inventario.  
-  - Registrar cada movimiento de productos con información detallada.  
-  - Clasificación del inventario mediante categorías personalizadas dentro de cada empresa.  
+## Code scaffolding
 
-- **Control de acceso y auditoría:**  
-  - Registro de quién retira o añade productos al inventario.  
-  - Historial de modificaciones accesible para garantizar transparencia.  
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-- **Página de administración general:**  
-  - Visualización y gestión de todos los usuarios registrados en la plataforma.  
-  - Supervisión global del inventario y su estado en todas las empresas.  
+## Build
 
-- **Generación de reportes y documentos:**  
-  - Los administradores de cada empresa pueden generar PDFs y otros documentos con informes detallados del inventario.  
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## 🎯 Objetivo  
+## Running unit tests
 
-Invecta está diseñado para facilitar la gestión del inventario empresarial, permitiendo una administración efectiva de recursos y un seguimiento detallado de cada interacción dentro del sistema. Esto ayuda a minimizar pérdidas, mejorar la eficiencia y ofrecer una trazabilidad completa de los movimientos de inventario.  
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## 🛠 Tecnologías Utilizadas  
+## Running end-to-end tests
 
-- **Frontend:** Angular, TailwindCSS
-- **Backend:** Spring Boot
-- **Base de datos:** MySql
+Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.

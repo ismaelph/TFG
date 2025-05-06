@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "frontend-angular": {
+    "frontend": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/frontend-angular",
+            "outputPath": "dist/frontend",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -23,8 +23,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css",
-              "node_modules/bootstrap-icons/font/bootstrap-icons.css"
+              "src/styles.css"
             ],
             "scripts": []
           },
@@ -65,10 +64,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "frontend-angular:build:production"
+              "browserTarget": "frontend:build:production"
             },
             "development": {
-              "browserTarget": "frontend-angular:build:development"
+              "browserTarget": "frontend:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -76,7 +75,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "frontend-angular:build"
+            "browserTarget": "frontend:build"
           }
         },
         "test": {
@@ -100,6 +99,6 @@
     }
   },
   "cli": {
-    "analytics": "d794515b-9150-4d8d-aed9-08b3a90e45ac"
+    "analytics": "742c0b11-bce6-4d01-bb1d-68740eaa9349"
   }
 }

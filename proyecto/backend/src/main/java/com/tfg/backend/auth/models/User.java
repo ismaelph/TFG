@@ -1,6 +1,5 @@
 package com.tfg.backend.auth.models;
 
-import com.tfg.backend.model.entity.Empresa;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -53,18 +52,11 @@ public class User {
   @Column(length = 60)
   private String password;
 
-  @Column(nullable = true)
-  private String fotoPerfil = "https://ui-avatars.com/api/?name=Default+User";;
-
   @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(  name = "user_roles", 
         joinColumns = @JoinColumn(name = "user_id"), 
         inverseJoinColumns = @JoinColumn(name = "role_id"))
   private Set<Role> roles = new HashSet<>();
-
-  @ManyToOne
-  @JoinColumn(name = "empresa_id", nullable = true)
-  private Empresa empresa;
   @CreationTimestamp
   private Instant createdAt;
   @UpdateTimestamp

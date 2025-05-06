@@ -1,30 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './pages/login/login.component';
-import { SignupComponent } from './pages/signup/signup.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
-  // RUTAS DEL MÓDULO DE AUTENTICACIÓN
-
-  // RUTA BASE
-  {
-    path: '', redirectTo: 'login', pathMatch: 'full'
-  },
-
-  // RUTA DE LOGIN
-  {
-    path: 'login', component: LoginComponent
-  },
-
-  // RUTA DE REGISTRO
-  {
-    path: 'signup', component: SignupComponent
-  },
-
-  // RUTA POR DEFECTO
-  {
-    path: '**', redirectTo: 'login', pathMatch: 'full'
-  }
+  { path: '', redirectTo: 'login', pathMatch: 'full' },  // redirección por defecto
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: '**', redirectTo: 'login' }  // si la ruta no existe dentro del módulo
 ];
 
 @NgModule({

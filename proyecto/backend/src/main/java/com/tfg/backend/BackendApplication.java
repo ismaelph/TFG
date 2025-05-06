@@ -7,20 +7,20 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
-public class BackendApplication implements CommandLineRunner{
+public class BackendApplication implements CommandLineRunner {
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
-    public static void main(String[] args) {
-        SpringApplication.run(BackendApplication.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(BackendApplication.class, args);
+	}
 
-    @Override
-    public void run(String... args) throws Exception {
-        for (int i = 0; i < 5; i++) {
-            String passBCript = passwordEncoder.encode("castelar");
-            System.out.println("Contraseña encriptada inicial de admin (castelar): " + passBCript);
-        }
-    }
+	@Override
+	public void run(String... args) throws Exception {
+		for (int i = 0; i < 5; i++) {
+			String passBCrypt = passwordEncoder.encode("castelar");
+			System.out.println("Contraseña encriptada inicial de admin (castelar): " + passBCrypt);
+		}
+	}
 }

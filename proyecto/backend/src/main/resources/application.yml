@@ -10,6 +10,10 @@ spring:
     database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:
       ddl-auto: create
+  sql:
+    init:
+      mode: always
+
 logging:
   file:
     name: logs/app.log
