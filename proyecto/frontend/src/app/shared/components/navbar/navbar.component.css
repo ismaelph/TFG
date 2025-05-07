@@ -1,0 +1,15 @@
+nav {
+    transition: background-color 0.3s ease;
+}
+
+nav:hover {
+    background-color: #1b1b1b;
+}
+
+.dropdown-menu {
+    display: none;
+}
+
+.relative:hover .dropdown-menu {
+    display: block;
+}

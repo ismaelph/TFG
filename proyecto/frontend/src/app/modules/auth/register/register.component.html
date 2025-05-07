@@ -1,1 +1,69 @@
-<p>register works!</p>
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-accent to-secondary">
+    <div class="w-full max-w-md bg-white p-8 rounded-2xl shadow-2xl">
+      
+      <!-- Logo -->
+      <div class="flex justify-center mb-6">
+        <img src="assets/images/logo.png" alt="Logo Invecta" class="w-28 h-28 object-contain">
+      </div>
+  
+      <h2 class="text-2xl font-bold text-center text-primary mb-6">
+        Bienvenido a <span class="text-accent-dark">Invecta</span>
+      </h2>
+      <p class="text-sm text-center text-secondary-light mb-8">
+        Regístrate para comenzar a gestionar tu inventario.
+      </p>
+  
+      <!-- Formulario -->
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="space-y-6">
+  
+        <!-- Usuario -->
+        <div>
+          <label class="block text-sm text-secondary-light mb-2">Usuario</label>
+          <div class="flex items-center border border-gray-300 rounded-lg bg-gray-50">
+            <i class="bi bi-person px-3 text-secondary-light"></i>
+            <input formControlName="username" type="text" placeholder="Tu nombre de usuario"
+              class="w-full px-3 py-2 text-sm text-primary bg-transparent outline-none focus:ring-2 focus:ring-accent rounded-r-lg">
+          </div>
+        </div>
+  
+        <!-- Correo -->
+        <div>
+          <label class="block text-sm text-secondary-light mb-2">Correo electrónico</label>
+          <div class="flex items-center border border-gray-300 rounded-lg bg-gray-50">
+            <i class="bi bi-envelope px-3 text-secondary-light"></i>
+            <input formControlName="email" type="email" placeholder="Tu correo"
+              class="w-full px-3 py-2 text-sm text-primary bg-transparent outline-none focus:ring-2 focus:ring-accent rounded-r-lg">
+          </div>
+        </div>
+  
+        <!-- Contraseña -->
+        <div>
+          <label class="block text-sm text-secondary-light mb-2">Contraseña</label>
+          <div class="flex items-center border border-gray-300 rounded-lg bg-gray-50">
+            <i class="bi bi-key px-3 text-secondary-light"></i>
+            <input formControlName="password" [type]="mostrarPassword ? 'text' : 'password'" placeholder="Tu contraseña"
+              class="w-full px-3 py-2 text-sm text-primary bg-transparent outline-none focus:ring-2 focus:ring-accent rounded-r-lg">
+            <button type="button" (click)="mostrarPassword = !mostrarPassword" class="px-3">
+              <i [class]="mostrarPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+            </button>
+          </div>
+        </div>
+  
+        <!-- Mensajes -->
+        <p *ngIf="errorMsg" class="text-sm text-red-500 text-center">{{ errorMsg }}</p>
+        <p *ngIf="successMsg" class="text-sm text-green-600 text-center">{{ successMsg }}</p>
+  
+        <!-- Botón -->
+        <button type="submit" class="w-full bg-accent text-white py-3 rounded-lg shadow-lg hover:bg-accent-dark transition">
+          Registrarse
+        </button>
+      </form>
+  
+      <!-- Iniciar sesión -->
+      <p class="mt-6 text-center text-sm text-secondary-light">
+        ¿Ya tienes cuenta?
+        <a routerLink="/auth/login" class="text-accent font-semibold hover:underline">Inicia sesión aquí</a>
+      </p>
+    </div>
+  </div>
+  

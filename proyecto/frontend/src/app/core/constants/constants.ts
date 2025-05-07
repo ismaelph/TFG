@@ -3,8 +3,8 @@ export const TOKEN_KEY = 'invecta-token';
 export const USER_KEY = 'invecta-user';
 
 // Endpoints
-export const LOGIN_ENDPOINT = '/auth/login';
-export const REGISTER_ENDPOINT = '/auth/signup';
+export const LOGIN_ENDPOINT = '/api/auth/login';
+export const REGISTER_ENDPOINT = '/api/auth/signup';
 
 // Roles
 export const ROLE_ADMIN = 'ROLE_ADMIN';
