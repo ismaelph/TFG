@@ -3,6 +3,9 @@ package com.tfg.backend.model.dto;
 import com.tfg.backend.model.entity.Empresa;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -12,20 +15,30 @@ public class EmpresaDto {
     private String nombre;
     private String claveAcceso;
 
-    public static EmpresaDto from(Empresa empresa) {
-        if (empresa == null) return null;
-        return EmpresaDto.builder()
-                .id(empresa.getId())
-                .nombre(empresa.getNombre())
-                .claveAcceso(empresa.getClaveAcceso())
-                .build();
+    public static EmpresaDto from(Empresa entity) {
+        EmpresaDto dto = new EmpresaDto();
+        dto.setId(entity.getId());
+        dto.setNombre(entity.getNombre());
+        dto.setClaveAcceso(entity.getClaveAcceso());
+        return dto;
     }
 
     public Empresa to() {
-        return Empresa.builder()
-                .id(this.id)
-                .nombre(this.nombre)
-                .claveAcceso(this.claveAcceso)
-                .build();
+        Empresa entity = new Empresa();
+        entity.setId(this.getId());
+        entity.setNombre(this.getNombre());
+        entity.setClaveAcceso(this.getClaveAcceso());
+        return entity;
+    }
+
+    public static List<EmpresaDto> from(List<Empresa> list) {
+        List<EmpresaDto> dtos = null;
+        if (list != null) {
+            dtos = new ArrayList<EmpresaDto>();
+            for (Empresa entity : list) {
+                dtos.add(EmpresaDto.from(entity));
+            }
+        }
+        return dtos;
     }
 }
