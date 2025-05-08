@@ -1,5 +1,6 @@
 package com.tfg.backend.auth.models;
 
+import com.tfg.backend.model.entity.Empresa;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -61,4 +62,9 @@ public class User {
   private Instant createdAt;
   @UpdateTimestamp
   private Instant updatedAt;
+
+  @ManyToOne
+  @JoinColumn(name = "empresa_id")
+  private Empresa empresa;
+
 }
