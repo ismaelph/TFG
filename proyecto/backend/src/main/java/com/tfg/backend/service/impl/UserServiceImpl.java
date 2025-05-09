@@ -1,6 +1,7 @@
 package com.tfg.backend.service.impl;
 
 import com.tfg.backend.auth.models.User;
+import com.tfg.backend.auth.repository.UserRepository;
 import com.tfg.backend.model.entity.Empresa;
 import com.tfg.backend.model.repository.UsuarioRepository;
 import com.tfg.backend.service.UserService;
@@ -15,6 +16,8 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UsuarioRepository usuarioRepository;
+    @Autowired
+    private UserRepository userRepository;
 
 
     @Override
@@ -23,16 +26,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User update(User user, long id) {
-        User actual = findById(id);
-        if (actual != null) {
-            actual.setUsername(user.getUsername());
-            actual.setEmail(user.getEmail());
-            // No cambiamos password ni roles desde aquí
-            return usuarioRepository.save(actual);
-        }
-        return null;
+    public User update(User userEditado, long id) {
+        User userBD = findById(id);
+
+        if (userEditado.getUsername() != null)
+            userBD.setUsername(userEditado.getUsername());
+
+        if (userEditado.getEmail() != null)
+            userBD.setEmail(userEditado.getEmail());
+
+        return userRepository.save(userBD);
     }
+
 
     @Override
     public User findById(long id) {

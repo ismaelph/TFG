@@ -1,6 +1,7 @@
 package com.tfg.backend.controller;
 
 import com.tfg.backend.auth.models.User;
+import com.tfg.backend.model.dto.CambiarPasswordDto;
 import com.tfg.backend.model.dto.ErrorDto;
 import com.tfg.backend.model.dto.UserDto;
 import com.tfg.backend.model.entity.Empresa;
@@ -11,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 
 import java.util.List;
 
@@ -25,6 +28,10 @@ public class UserController {
 
     @Autowired
     private EmpresaService empresaService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
 
     // GET – listar todos
     @GetMapping("")
@@ -41,19 +48,6 @@ public class UserController {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(ErrorDto.from("Usuario no encontrado"));
-        }
-    }
-
-    // POST – crear usuario
-    @PostMapping("")
-    public ResponseEntity<?> save(@RequestBody UserDto userDto) {
-        try {
-            User user = userDto.to();
-            userService.save(user);
-            return ResponseEntity.status(HttpStatus.CREATED).body(UserDto.from(user));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(ErrorDto.from("Usuario no guardado"));
         }
     }
 
@@ -81,15 +75,17 @@ public class UserController {
         if (user != null) {
             try {
                 userService.delete(id);
-                return ResponseEntity.ok(UserDto.from(user));
+                return ResponseEntity.ok("Usuario eliminado correctamente.");
             } catch (Exception e) {
+                e.printStackTrace(); // útil para ver el error exacto en consola
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                        .body(ErrorDto.from("Usuario no eliminado"));
+                        .body(ErrorDto.from("Error interno al eliminar usuario"));
             }
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(ErrorDto.from("Usuario no encontrado"));
     }
+
 
     // POST – unir usuario a empresa
     @PostMapping("/{userId}/empresa/{empresaId}")
@@ -104,4 +100,28 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(ErrorDto.from("Usuario o empresa no encontrados"));
     }
+
+    @PutMapping("/{id}/cambiar-password")
+    public ResponseEntity<?> cambiarPassword(@PathVariable long id, @RequestBody CambiarPasswordDto dto) {
+        User user = userService.findById(id);
+
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(ErrorDto.from("Usuario no encontrado"));
+        }
+
+        // Verifica la contraseña actual
+        if (!passwordEncoder.matches(dto.getPasswordActual(), user.getPassword())) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(ErrorDto.from("La contraseña actual es incorrecta"));
+        }
+
+        // Actualiza la contraseña
+        user.setPassword(passwordEncoder.encode(dto.getNuevaPassword()));
+        userService.save(user);
+
+        return ResponseEntity.ok("Contraseña actualizada correctamente.");
+    }
+
+
 }
