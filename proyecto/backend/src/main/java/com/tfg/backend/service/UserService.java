@@ -20,4 +20,7 @@ public interface UserService {
 
     void actualizarRolYEmpresa(User user, Empresa empresa);
 
+    void procesarUsuariosAntesDeEliminarEmpresa(Empresa empresa);
+
+
 }

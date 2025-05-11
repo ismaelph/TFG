@@ -84,4 +84,21 @@ public class UserServiceImpl implements UserService {
         usuarioRepository.save(user);
     }
 
+    @Override
+    public void procesarUsuariosAntesDeEliminarEmpresa(Empresa empresa) {
+        List<User> usuarios = usuarioRepository.findByEmpresa(empresa);
+
+        Role rolUser = roleRepository.findByName(RoleEnum.ROLE_USER)
+                .orElseThrow(() -> new RuntimeException("Error: Rol USER no encontrado"));
+
+        for (User user : usuarios) {
+            user.setEmpresa(null);
+            user.getRoles().clear();
+            user.getRoles().add(rolUser);
+        }
+
+        usuarioRepository.saveAll(usuarios);
+    }
+
+
 }

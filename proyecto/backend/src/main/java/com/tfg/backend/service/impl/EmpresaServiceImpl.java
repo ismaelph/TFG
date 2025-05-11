@@ -4,6 +4,7 @@ package com.tfg.backend.service.impl;
 import com.tfg.backend.model.entity.Empresa;
 import com.tfg.backend.model.repository.EmpresaRepository;
 import com.tfg.backend.service.EmpresaService;
+import com.tfg.backend.service.UserService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,9 @@ import java.util.List;
 public class EmpresaServiceImpl implements EmpresaService {
     @Autowired
     private EmpresaRepository empresaRepository;
+
+    @Autowired
+    private UserService userService;
 
 
     @Override
@@ -45,6 +49,11 @@ public class EmpresaServiceImpl implements EmpresaService {
 
     @Override
     public void delete(long id) {
-        empresaRepository.deleteById(id);
+        Empresa empresa = empresaRepository.findById(id);
+        if (empresa != null) {
+            userService.procesarUsuariosAntesDeEliminarEmpresa(empresa);
+            empresaRepository.deleteById(id);
+        }
     }
+
 }

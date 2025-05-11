@@ -48,6 +48,18 @@ public class EmpresaController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorDto.from("Empresa no encontrada"));
     }
 
+    // GET – Empresa del usuario autenticado
+    @GetMapping("/mi-empresa")
+    public ResponseEntity<?> getEmpresaDelUsuario(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+        User user = userService.findById(userDetails.getId());
+
+        if (user.getEmpresa() != null) {
+            return ResponseEntity.ok(EmpresaDto.from(user.getEmpresa()));
+        } else {
+            return ResponseEntity.noContent().build(); 
+        }
+    }
+
     // POST – Crear empresa
     @PostMapping("")
     public ResponseEntity<?> save(@RequestBody EmpresaDto empresaDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {

@@ -13,7 +13,15 @@ export class TokenService {
   }
 
   getToken(): string | null {
-    return localStorage.getItem(TOKEN_KEY);
+    const user = localStorage.getItem(USER_KEY);
+    if (user) {
+      try {
+        return JSON.parse(user).accessToken || null;
+      } catch (e) {
+        return null;
+      }
+    }
+    return null;
   }
 
   clearToken(): void {
@@ -31,6 +39,11 @@ export class TokenService {
   getUser(): any {
     const user = localStorage.getItem(USER_KEY);
     return user ? JSON.parse(user) : null;
+  }
+
+  hasRole(rol: string): boolean {
+    const user = this.getUser();
+    return user?.roles?.includes(rol);
   }
 
   clearUser(): void {

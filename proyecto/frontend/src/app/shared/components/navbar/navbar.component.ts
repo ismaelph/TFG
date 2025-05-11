@@ -14,6 +14,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
   timeoutRef: any;
   sesionIniciada = false;
 
+  esAdmin = false;
+  esAdminEmpresa = false;
+  esEmpleado = false;
+
   private sessionSub!: Subscription;
 
   constructor(
@@ -27,6 +31,16 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
     this.sessionSub = this.sessionService.isSesionIniciada().subscribe((activa) => {
       this.sesionIniciada = activa;
+
+      if (activa) {
+        this.esAdmin = this.tokenService.hasRole('ROLE_ADMIN');
+        this.esAdminEmpresa = this.tokenService.hasRole('ROLE_ADMIN_EMPRESA') && !this.tokenService.hasRole('ROLE_USER');
+        this.esEmpleado = this.tokenService.hasRole('ROLE_EMPLEADO');
+      } else {
+        this.esAdmin = false;
+        this.esAdminEmpresa = false;
+        this.esEmpleado = false;
+      }
     });
   }
 
@@ -44,7 +58,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ocultarMenu() {
     this.timeoutRef = setTimeout(() => {
       this.dropdownVisible = false;
-    }, 150); 
+    }, 150);
   }
 
   cerrarSesion() {

@@ -1,0 +1,31 @@
+<div class="max-w-xl mx-auto p-6 bg-white rounded-xl shadow-md mt-10">
+  <h2 class="text-2xl font-semibold text-primary mb-4">Editar Empresa</h2>
+
+  <form [formGroup]="empresaForm" (ngSubmit)="onSubmit()" *ngIf="!cargando">
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700">Nombre</label>
+      <input type="text" formControlName="nombre"
+             class="mt-1 p-2 block w-full border rounded-md focus:ring-accent focus:border-accent">
+    </div>
+
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700">Clave de acceso</label>
+      <input type="text" formControlName="claveAcceso"
+             class="mt-1 p-2 block w-full border rounded-md focus:ring-accent focus:border-accent">
+    </div>
+
+    <div *ngIf="error" class="text-red-600 text-sm mb-2">
+      {{ error }}
+    </div>
+
+    <button type="submit"
+            class="w-full bg-accent text-white font-semibold py-2 px-4 rounded hover:bg-accent-dark transition">
+      Guardar Cambios
+    </button>
+  </form>
+
+  <div *ngIf="cargando" class="text-center py-6">
+    <div class="loader mx-auto mb-2"></div>
+    <p class="text-gray-500">Cargando empresa...</p>
+  </div>
+</div>
