@@ -1,6 +1,9 @@
 package com.tfg.backend.service.impl;
 
+import com.tfg.backend.auth.models.Role;
+import com.tfg.backend.auth.models.RoleEnum;
 import com.tfg.backend.auth.models.User;
+import com.tfg.backend.auth.repository.RoleRepository;
 import com.tfg.backend.auth.repository.UserRepository;
 import com.tfg.backend.model.entity.Empresa;
 import com.tfg.backend.model.repository.UsuarioRepository;
@@ -16,8 +19,13 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UsuarioRepository usuarioRepository;
+
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
+
 
 
     @Override
@@ -59,4 +67,21 @@ public class UserServiceImpl implements UserService {
         user.setEmpresa(empresa);
         usuarioRepository.save(user);
     }
+
+    @Override
+    public void actualizarRolYEmpresa(User user, Empresa empresa) {
+        // Asignar empresa
+        user.setEmpresa(empresa);
+
+        // Cambiar rol a ADMIN_EMPRESA
+        Role adminEmpresaRole = roleRepository
+                .findByName(RoleEnum.ROLE_ADMIN_EMPRESA)
+                .orElseThrow(() -> new RuntimeException("Error: Rol no encontrado."));
+
+        user.getRoles().clear();
+        user.getRoles().add(adminEmpresaRole);
+
+        usuarioRepository.save(user);
+    }
+
 }

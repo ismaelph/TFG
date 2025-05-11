@@ -17,4 +17,7 @@ public interface UserService {
     void delete(long id);
 
     void agregarUsuarioAEmpresa(User user, Empresa empresa);
+
+    void actualizarRolYEmpresa(User user, Empresa empresa);
+
 }

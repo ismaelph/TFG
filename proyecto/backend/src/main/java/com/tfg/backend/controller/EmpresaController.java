@@ -1,6 +1,7 @@
 package com.tfg.backend.controller;
 
 import com.tfg.backend.auth.models.User;
+import com.tfg.backend.auth.services.UserDetailsImpl;
 import com.tfg.backend.service.UserService;
 import com.tfg.backend.model.dto.EmpresaDto;
 import com.tfg.backend.model.dto.ErrorDto;
@@ -49,15 +50,29 @@ public class EmpresaController {
 
     // POST – Crear empresa
     @PostMapping("")
-    public ResponseEntity<?> save(@RequestBody EmpresaDto empresaDto) {
+    public ResponseEntity<?> save(@RequestBody EmpresaDto empresaDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         try {
+            // Recuperar entidad User desde el ID del token
+            User usuarioActual = userService.findById(userDetails.getId());
+
+            System.out.println("Usuario autenticado: " + usuarioActual.getUsername());
+
             Empresa empresa = empresaDto.to();
             empresaService.save(empresa);
+
+            System.out.println("Empresa guardada con ID: " + empresa.getId());
+
+            userService.actualizarRolYEmpresa(usuarioActual, empresa);
+
             return ResponseEntity.status(HttpStatus.CREATED).body(EmpresaDto.from(empresa));
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorDto.from("Empresa no guardada"));
         }
     }
+
+
+
 
     // PUT – Editar empresa
     @PutMapping("/{id}")
