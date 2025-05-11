@@ -22,7 +22,6 @@ export class LoginComponent {
     private tokenService: TokenService,
     private sessionService: SessionService,
     private router: Router
-    
   ) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
@@ -33,9 +32,12 @@ export class LoginComponent {
   onSubmit(): void {
     if (this.loginForm.invalid) return;
 
+    this.tokenService.clearToken(); 
+
     this.authService.login(this.loginForm.value).subscribe({
       next: (res: JwtResponse) => {
         this.tokenService.saveToken(res.token);
+        this.tokenService.saveUser(res); // 🔐 Añadido para guardar el usuario completo
         this.sessionService.notificarInicio();
         console.log('Roles guardado:', res.roles);
         this.redirigirPorRol(res.roles);

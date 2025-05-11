@@ -1,17 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { TokenService } from 'src/app/core/services/token.service';
 import { SessionService } from 'src/app/core/services/session.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
   dropdownVisible = false;
   timeoutRef: any;
   sesionIniciada = false;
+
+  private sessionSub!: Subscription;
 
   constructor(
     private tokenService: TokenService,
@@ -21,6 +24,16 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     this.sesionIniciada = this.tokenService.isLogged();
+
+    this.sessionSub = this.sessionService.isSesionIniciada().subscribe((activa) => {
+      this.sesionIniciada = activa;
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.sessionSub) {
+      this.sessionSub.unsubscribe();
+    }
   }
 
   mostrarMenu() {
@@ -31,7 +44,7 @@ export class NavbarComponent implements OnInit {
   ocultarMenu() {
     this.timeoutRef = setTimeout(() => {
       this.dropdownVisible = false;
-    }, 150); // retardo para evitar cierre brusco
+    }, 150); 
   }
 
   cerrarSesion() {

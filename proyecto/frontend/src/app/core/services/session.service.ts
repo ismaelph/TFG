@@ -11,12 +11,16 @@ export class SessionService {
   constructor(private tokenService: TokenService) {}
 
   cerrarSesion(): void {
-    this.tokenService.clearToken();
+    this.tokenService.clearAll();
     this.sesionIniciadaSubject.next(false);
   }
 
   notificarInicio(): void {
     this.sesionIniciadaSubject.next(true);
+  }
+
+  notificarCierre(): void {
+    this.sesionIniciadaSubject.next(false);
   }
 
   isSesionIniciada(): Observable<boolean> {
