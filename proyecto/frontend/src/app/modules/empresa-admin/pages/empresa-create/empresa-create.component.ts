@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmpresaService } from '../../services/empresa.service';
-import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -13,10 +12,11 @@ export class EmpresaCreateComponent implements OnInit {
   empresaForm!: FormGroup;
   error: string | null = null;
 
+  @Output() cerrar = new EventEmitter<void>(); // nuevo output para cerrar modal
+
   constructor(
     private fb: FormBuilder,
-    private empresaService: EmpresaService,
-    private router: Router
+    private empresaService: EmpresaService
   ) {}
 
   ngOnInit(): void {
@@ -34,7 +34,7 @@ export class EmpresaCreateComponent implements OnInit {
     this.empresaService.crearEmpresa(nuevaEmpresa).subscribe({
       next: () => {
         Swal.fire('¡Empresa creada!', 'Ya eres administrador de tu empresa.', 'success');
-        this.router.navigate(['/empresa-admin/list']);
+        this.cerrar.emit(); // cierra el modal
       },
       error: (err) => {
         console.error('Error al crear empresa:', err);
@@ -44,6 +44,6 @@ export class EmpresaCreateComponent implements OnInit {
   }
 
   cancelar(): void {
-    this.router.navigate(['/empresa-admin/list']);
+    this.cerrar.emit(); // antes hacía router.navigate, ahora solo cierra
   }
 }

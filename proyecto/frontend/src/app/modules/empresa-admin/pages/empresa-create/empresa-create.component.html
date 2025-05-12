@@ -1,16 +1,18 @@
-<div class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-  <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+<!-- Fondo semitransparente -->
+<div class="modal-overlay">
+  <!-- Contenedor del modal -->
+  <div class="modal-container fade-in">
     <h2 class="text-xl font-semibold text-primary mb-4">Crear Empresa</h2>
 
     <form [formGroup]="empresaForm" (ngSubmit)="onSubmit()">
       <div class="mb-4">
-        <label class="block text-sm font-medium text-gray-700">Nombre</label>
+        <label class="block text-sm font-medium text-secondary-light">Nombre</label>
         <input type="text" formControlName="nombre"
                class="mt-1 p-2 w-full border rounded-md focus:ring-accent focus:border-accent">
       </div>
 
       <div class="mb-4">
-        <label class="block text-sm font-medium text-gray-700">Clave de Acceso</label>
+        <label class="block text-sm font-medium text-secondary-light">Clave de Acceso</label>
         <input type="text" formControlName="claveAcceso"
                class="mt-1 p-2 w-full border rounded-md focus:ring-accent focus:border-accent">
       </div>
@@ -19,7 +21,7 @@
 
       <div class="flex justify-end space-x-3">
         <button type="button" (click)="cancelar()"
-                class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition">
+                class="px-4 py-2 bg-secondary-light text-white rounded hover:bg-secondary transition">
           Cancelar
         </button>
         <button type="submit"

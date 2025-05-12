@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EmpresaService } from '../../services/empresa.service';
-import { Empresa } from '../../interfaces/empresa';
+import { Empresa } from '../../../../core/interfaces/empresa';
 
 @Component({
   selector: 'app-empresa-form',

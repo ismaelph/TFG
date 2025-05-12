@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EmpresaService } from '../../services/empresa.service';
-import { Empresa } from '../../interfaces/empresa';
+import { Empresa } from '../../../../core/interfaces/empresa';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 

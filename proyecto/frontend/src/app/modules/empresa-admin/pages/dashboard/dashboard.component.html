@@ -1,0 +1,60 @@
+<div class="min-h-screen bg-background p-8 animate-fade-in">
+  <h1 class="text-3xl font-bold text-primary mb-6">
+    {{ tituloEmpresa || 'Panel de Administración' }}
+  </h1>
+
+  <div class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+
+    <!-- Card Empresa -->
+    <div class="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 p-6">
+      <h2 class="text-xl font-semibold text-secondary mb-2">Empresa</h2>
+      <p class="text-secondary-light mb-4">Gestiona los datos de tu empresa</p>
+
+      <ng-container *ngIf="empresa; else sinEmpresa">
+        <div class="flex justify-center">
+          <a routerLink="/empresa/empresa/list"
+             class="bg-accent hover:bg-accent-dark text-white px-4 py-2 rounded transition">
+            Gestión de Empresa
+          </a>
+        </div>
+      </ng-container>
+
+      <ng-template #sinEmpresa>
+        <p class="text-red-600 text-sm mb-4">Aún no tienes una empresa asociada.</p>
+        <div class="flex justify-center">
+          <button (click)="abrirModal()"
+                  class="bg-accent hover:bg-accent-dark text-white px-4 py-2 rounded">
+            Crear Empresa
+          </button>
+        </div>
+      </ng-template>
+    </div>
+
+    <!-- Categorías -->
+    <div *ngIf="empresa" class="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 p-6">
+      <h2 class="text-xl font-semibold text-secondary mb-2">Categorías</h2>
+      <p class="text-secondary-light mb-4">Organiza tus productos por categoría</p>
+      <div class="flex justify-center">
+        <a routerLink="/empresa/categoria-list"
+           class="bg-accent hover:bg-accent-dark text-white px-4 py-2 rounded transition">
+          Gestionar Categorías
+        </a>
+      </div>
+    </div>
+
+    <!-- Proveedores -->
+    <div *ngIf="empresa" class="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 p-6">
+      <h2 class="text-xl font-semibold text-secondary mb-2">Proveedores</h2>
+      <p class="text-secondary-light mb-4">Gestiona tus proveedores registrados</p>
+      <div class="flex justify-center">
+        <a routerLink="/empresa/proveedor-list"
+           class="bg-accent hover:bg-accent-dark text-white px-4 py-2 rounded transition">
+          Gestionar Proveedores
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Crear Empresa -->
+  <app-empresa-create *ngIf="mostrarModalEmpresa" (cerrar)="cerrarModal()"></app-empresa-create>
+</div>
