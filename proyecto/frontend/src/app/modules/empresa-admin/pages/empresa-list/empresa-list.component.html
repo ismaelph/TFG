@@ -1,32 +1,30 @@
-<div class="max-w-3xl mx-auto p-6 mt-10 bg-white rounded-lg shadow-md">
-  <h2 class="text-2xl font-semibold text-primary mb-6">Mi Empresa</h2>
+<div class="fade-slide-in p-8 max-w-3xl mx-auto">
+  <h2 class="text-3xl font-bold text-primary mb-6">Gestión de Empresa</h2>
 
-  <!-- Mostrar empresa si existe -->
-  <div *ngIf="empresa; else noEmpresa">
-    <div class="text-lg"><strong>Nombre:</strong> {{ empresa.nombre }}</div>
-    <div class="text-lg"><strong>Clave de acceso:</strong> {{ empresa.claveAcceso }}</div>
+  <div *ngIf="cargando" class="text-center text-secondary-light py-8">Cargando empresa...</div>
 
-    <div class="mt-4 space-x-4">
+  <div *ngIf="empresa; else errorContent" class="space-y-6">
+    <div class="text-lg">
+      <p><strong class="text-secondary">Nombre:</strong> {{ empresa.nombre }}</p>
+      <p><strong class="text-secondary">Clave de acceso:</strong> {{ empresa.claveAcceso }}</p>
+    </div>
+
+    <div class="flex justify-center gap-4">
       <button (click)="editar()"
-              class="bg-secondary text-white px-4 py-2 rounded hover:bg-secondary-light transition">
+        class="flex items-center gap-2 bg-secondary hover:bg-secondary-light text-white px-4 py-2 rounded transition-all duration-200">
+        <i class="bi bi-pencil-square"></i>
         Editar Empresa
       </button>
+
       <button (click)="borrar()"
-              class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition">
+        class="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded transition-all duration-200">
+        <i class="bi bi-trash"></i>
         Eliminar Empresa
       </button>
     </div>
   </div>
 
-  <!-- Mostrar si no hay empresa -->
-  <ng-template #noEmpresa>
-    <p class="text-red-600 text-sm mb-4" *ngIf="error">{{ error }}</p>
-    <p class="text-gray-600 text-base">
-      Aún no tienes una empresa asociada. ¡Crea tu primera empresa!
-    </p>
-    <button routerLink="/empresa/crear"
-            class="mt-4 bg-accent text-white px-4 py-2 rounded hover:bg-accent-dark transition">
-      Crear Empresa
-    </button>
+  <ng-template #errorContent>
+    <p class="text-red-600 text-center">{{ error }}</p>
   </ng-template>
 </div>

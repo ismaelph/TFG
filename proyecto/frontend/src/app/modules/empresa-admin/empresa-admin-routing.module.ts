@@ -24,10 +24,12 @@ const routes: Routes = [
   // CATEGORÍA
   { path: 'categoria-list', component: CategoriaListComponent },
   { path: 'categoria-create', component: CategoriaCreateComponent },
+  { path: 'categoria-edit/:id', component: CategoriaCreateComponent },
 
   // PROVEEDOR
   { path: 'proveedor-list', component: ProveedorListComponent },
   { path: 'proveedor-create', component: ProveedorCreateComponent },
+  { path: 'proveedor-edit/:id', component: ProveedorCreateComponent },
 
   // Fallback
   { path: '**', redirectTo: 'dashboard' }

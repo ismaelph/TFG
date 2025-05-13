@@ -123,6 +123,7 @@ public class ProveedorController {
         }
 
         proveedorService.delete(id);
-        return ResponseEntity.ok("Proveedor eliminado correctamente.");
+        return ResponseEntity.noContent().build();
     }
+
 }

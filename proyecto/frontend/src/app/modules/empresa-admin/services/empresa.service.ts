@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Empresa } from '../../../core/interfaces/empresa';
-import { environment } from 'src/environments/environment';
+import { EMPRESA_ENDPOINT } from 'src/app/core/constants/constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmpresaService {
 
-  private baseUrl = environment.apiUrl + '/api/empresas';
+  private baseUrl = EMPRESA_ENDPOINT;
 
   constructor(private http: HttpClient) {}
 

@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Categoria } from 'src/app/core/interfaces/categoria';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { CATEGORIA_ENDPOINT } from 'src/app/core/constants/constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoriaService {
 
-  private apiUrl = environment.apiUrl + 'api/categorias';
+  private apiUrl = CATEGORIA_ENDPOINT;
 
   constructor(private http: HttpClient) {}
 

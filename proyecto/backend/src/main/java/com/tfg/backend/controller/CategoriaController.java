@@ -121,6 +121,6 @@ public class CategoriaController {
         }
 
         categoriaService.delete(id);
-        return ResponseEntity.ok("Categoría eliminada correctamente.");
+        return ResponseEntity.noContent().build();
     }
 }

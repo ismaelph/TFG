@@ -1,1 +1,56 @@
-<p>proveedor-list works!</p>
+<div class="fade-slide-in p-8 max-w-6xl mx-auto">
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-2xl font-bold text-primary">Proveedores</h2>
+    <button routerLink="/empresa/proveedor-create"
+            class="flex items-center gap-2 bg-accent hover:bg-accent-dark text-white px-4 py-2 rounded transition">
+      <i class="bi bi-plus-circle"></i>
+      Nuevo Proveedor
+    </button>
+  </div>
+
+  <div *ngIf="cargando" class="text-center text-secondary-light py-8">Cargando proveedores...</div>
+
+  <div *ngIf="error" class="text-center text-red-600 py-8">{{ error }}</div>
+
+  <div *ngIf="!cargando && proveedores.length === 0" class="text-center text-secondary-light py-8">
+    No hay proveedores registrados aún.
+  </div>
+
+  <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3" *ngIf="proveedores.length > 0">
+    <div *ngFor="let prov of proveedores"
+         class="p-4 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition duration-300 flex flex-col justify-between">
+      <h3 class="text-lg font-semibold text-secondary mb-2">{{ prov.nombre }}</h3>
+      <div class="flex justify-between mt-4">
+        <button (click)="abrirModal(prov)"
+                class="text-sm bg-accent text-white px-3 py-1 rounded hover:bg-accent-dark transition">
+          <i class="bi bi-info-circle"></i> Más información
+        </button>
+        <div class="flex gap-2">
+          <button (click)="editar(prov)"
+                  class="text-sm bg-secondary text-white px-3 py-1 rounded hover:bg-secondary-light transition">
+            <i class="bi bi-pencil-square"></i>
+          </button>
+          <button (click)="eliminar(prov.id!)"
+                  class="text-sm bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 transition">
+            <i class="bi bi-trash"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL PROVEEDOR -->
+  <div *ngIf="proveedorSeleccionado" class="modal-overlay" (click)="cerrarModal()">
+    <div class="modal-content fade-slide-in" (click)="$event.stopPropagation()">
+      <h3 class="text-xl font-semibold text-primary mb-4">Detalles del proveedor</h3>
+      <p><strong class="text-secondary">Nombre:</strong> {{ proveedorSeleccionado.nombre }}</p>
+      <p><strong class="text-secondary">Email:</strong> {{ proveedorSeleccionado.email }}</p>
+      <p><strong class="text-secondary">Teléfono:</strong> {{ proveedorSeleccionado.telefono }}</p>
+      <div class="text-right mt-4">
+        <button (click)="cerrarModal()" class="px-4 py-2 bg-accent text-white rounded hover:bg-accent-dark transition">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

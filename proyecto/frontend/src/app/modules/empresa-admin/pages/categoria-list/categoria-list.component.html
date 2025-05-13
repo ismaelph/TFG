@@ -1,1 +1,37 @@
-<p>categoria-list works!</p>
+<div class="fade-slide-in p-8 max-w-6xl mx-auto">
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-2xl font-bold text-primary">Categorías</h2>
+    <button routerLink="/empresa/categoria-create"
+            class="flex items-center gap-2 bg-accent hover:bg-accent-dark text-white px-4 py-2 rounded transition">
+      <i class="bi bi-plus-circle"></i>
+      Nueva Categoría
+    </button>
+  </div>
+
+  <div *ngIf="cargando" class="text-center text-secondary-light py-8">Cargando categorías...</div>
+
+  <div *ngIf="error" class="text-center text-red-600 py-8">{{ error }}</div>
+
+  <div *ngIf="!cargando && categorias.length === 0" class="text-center text-secondary-light py-8">
+    No hay categorías registradas aún.
+  </div>
+
+  <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3" *ngIf="categorias.length > 0">
+    <div *ngFor="let cat of categorias"
+         class="p-4 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition duration-300 flex flex-col justify-between">
+      <div>
+        <h3 class="text-lg font-semibold text-secondary mb-2">{{ cat.nombre }}</h3>
+      </div>
+      <div class="flex justify-end gap-2 mt-4">
+        <button (click)="editar(cat)"
+                class="flex items-center gap-1 px-3 py-1 text-sm bg-secondary text-white rounded hover:bg-secondary-light transition">
+          <i class="bi bi-pencil-square"></i> Editar
+        </button>
+        <button (click)="eliminar(cat.id!)"
+                class="flex items-center gap-1 px-3 py-1 text-sm bg-red-600 text-white rounded hover:bg-red-700 transition">
+          <i class="bi bi-trash"></i> Eliminar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
