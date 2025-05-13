@@ -1,0 +1,16 @@
+<div class="fade-slide-in overflow-x-auto">
+  <table class="min-w-full border rounded-lg shadow-md bg-white">
+    <thead class="bg-secondary text-white">
+      <tr>
+        <th *ngFor="let header of headers" class="text-left px-4 py-2">{{ header }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of rows" class="hover:bg-gray-100 transition">
+        <td *ngFor="let key of headers" class="px-4 py-2">
+          {{ row[key] }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

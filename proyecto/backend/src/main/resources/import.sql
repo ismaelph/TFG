@@ -72,3 +72,15 @@ INSERT INTO proveedor (nombre, email, telefono, empresa_id, fecha_creacion) VALU
 INSERT INTO proveedor (nombre, email, telefono, empresa_id, fecha_creacion) VALUES ('Materiales Industriales 2-8', 'materialesindustriales2-8@example.com', '689012346', 2, NOW());
 INSERT INTO proveedor (nombre, email, telefono, empresa_id, fecha_creacion) VALUES ('Red de Proveedores 2-9', 'reddeproveedores2-9@example.com', '690123457', 2, NOW());
 INSERT INTO proveedor (nombre, email, telefono, empresa_id, fecha_creacion) VALUES ('Almacenes Técnicos 2-10', 'almacenestecnicos2-10@example.com', '601234568', 2, NOW());
+
+
+-- Productos para SBS Ingeniería (empresa_id = 1)
+INSERT INTO producto (nombre, precio, cantidad, uso_interno, fecha_ingreso, empresa_id, categoria_id, proveedor_id, usuario_id) VALUES ('Ratón inalámbrico', 19.99, 10, true, NOW(), 1, 1, 1, 2);
+INSERT INTO producto (nombre, precio, cantidad, uso_interno, fecha_ingreso, empresa_id, categoria_id, proveedor_id, usuario_id) VALUES ('Teclado mecánico', 45.00, 5, true, NOW(), 1, 2, 2, 2);
+INSERT INTO producto (nombre, precio, cantidad, uso_interno, fecha_ingreso, empresa_id, categoria_id, proveedor_id, usuario_id) VALUES ('Pantalla LED 24"', 110.00, 8, true, NOW(), 1, 3, 3, 2);
+INSERT INTO producto (nombre, precio, cantidad, uso_interno, fecha_ingreso, empresa_id, categoria_id, proveedor_id, usuario_id) VALUES ('Cables HDMI', 5.50, 25, true, NOW(), 1, 4, 4, 2);
+-- Productos para SBS Digital (empresa_id = 2)
+INSERT INTO producto (nombre, precio, cantidad, uso_interno, fecha_ingreso, empresa_id, categoria_id, proveedor_id, usuario_id) VALUES ('Escoba industrial', 12.00, 15, true, NOW(), 2, 5, 5, 3);
+INSERT INTO producto (nombre, precio, cantidad, uso_interno, fecha_ingreso, empresa_id, categoria_id, proveedor_id, usuario_id) VALUES ('Detergente multiuso', 8.75, 20, true, NOW(), 2, 6, 6, 3);
+INSERT INTO producto (nombre, precio, cantidad, uso_interno, fecha_ingreso, empresa_id, categoria_id, proveedor_id, usuario_id) VALUES ('Guantes de limpieza', 2.50, 50, true, NOW(), 2, 7, 7, 3);
+INSERT INTO producto (nombre, precio, cantidad, uso_interno, fecha_ingreso, empresa_id, categoria_id, proveedor_id, usuario_id) VALUES ('Trapeador absorbente', 7.00, 10, true, NOW(), 2, 8, 8, 3);

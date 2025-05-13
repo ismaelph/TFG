@@ -10,6 +10,7 @@ export const REGISTER_ENDPOINT = environment.apiUrl + '/api/auth/signup';
 export const EMPRESA_ENDPOINT = environment.apiUrl + '/api/empresas';
 export const CATEGORIA_ENDPOINT = environment.apiUrl + '/api/categorias';
 export const PROVEEDOR_ENDPOINT = environment.apiUrl + '/api/proveedores';
+export const PRODUCTO_ENDPOINT = environment.apiUrl + '/api/productos';
 
 // Roles
 export const ROLE_ADMIN = 'ROLE_ADMIN';

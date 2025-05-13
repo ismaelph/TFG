@@ -1,0 +1,59 @@
+<div class="fade-slide-in p-8 max-w-6xl mx-auto">
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+        <h2 class="text-2xl font-bold text-primary">Productos</h2>
+
+        <div class="flex flex-wrap gap-2 items-center">
+            <input type="text" [(ngModel)]="searchTerm" (ngModelChange)="actualizarFiltro()"
+                placeholder="Buscar producto..." class="p-2 border rounded-md w-60">
+
+            <button (click)="cambiarOrden()"
+                class="px-3 py-2 bg-secondary text-white rounded hover:bg-secondary-light transition text-sm">
+                <i class="bi" [ngClass]="ordenAscendente ? 'bi-sort-alpha-down' : 'bi-sort-alpha-up'"></i>
+                Ordenar
+            </button>
+
+            <select [(ngModel)]="categoriaSeleccionada" (ngModelChange)="actualizarFiltro()"
+                class="p-2 border rounded-md text-sm">
+                <option [ngValue]="null">Todas las categorías</option>
+                <option *ngFor="let cat of categorias" [ngValue]="cat.id">{{ cat.nombre }}</option>
+            </select>
+
+            <button routerLink="/empresa/producto-create"
+                class="flex items-center gap-2 bg-accent hover:bg-accent-dark text-white px-4 py-2 rounded transition text-sm">
+                <i class="bi bi-plus-circle"></i> Nuevo
+            </button>
+        </div>
+    </div>
+
+    <div class="overflow-x-auto rounded-md shadow bg-white fade-slide-in">
+        <table class="min-w-full text-sm text-left">
+            <thead class="bg-secondary text-white">
+                <tr>
+                    <th class="px-4 py-2">Nombre</th>
+                    <th class="px-4 py-2">Categoría</th>
+                    <th class="px-4 py-2">Proveedor</th>
+                    <th class="px-4 py-2">Cantidad</th>
+                    <th class="px-4 py-2">Precio</th>
+                    <th class="px-4 py-2">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let p of productosPaginados" class="hover:bg-gray-50 transition">
+                    <td class="px-4 py-2">{{ p.nombre }}</td>
+                    <td class="px-4 py-2">{{ getNombreCategoriaById(p.categoriaId) }}</td>
+                    <td class="px-4 py-2">{{ getNombreProveedorById(p.proveedorId) }}</td>
+
+
+                    <td class="px-4 py-2">{{ p.cantidad }}</td>
+                    <td class="px-4 py-2">{{ p.precio?.toFixed(2) }} €</td>
+                    <td class="px-4 py-2 flex gap-2">
+                        <i class="bi bi-pencil-square icon-action text-blue-600" title="Editar"
+                            (click)="editarProducto(p.id!)"></i>
+                        <i class="bi bi-trash icon-action text-red-600" title="Eliminar"
+                            (click)="confirmarEliminacion(p.id!)"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

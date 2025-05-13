@@ -53,7 +53,21 @@
         </a>
       </div>
     </div>
+
+    <!-- Productos -->
+    <div *ngIf="empresa" class="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 p-6">
+      <h2 class="text-xl font-semibold text-secondary mb-2">Productos</h2>
+      <p class="text-secondary-light mb-4">Gestiona tus Productos registrados</p>
+      <div class="flex justify-center">
+        <a routerLink="/empresa/producto-list"
+           class="bg-accent hover:bg-accent-dark text-white px-4 py-2 rounded transition">
+          Gestionar Productos
+        </a>
+      </div>
+    </div>
   </div>
+
+  
 
   <!-- Modal Crear Empresa -->
   <app-empresa-create *ngIf="mostrarModalEmpresa" (cerrar)="cerrarModal()"></app-empresa-create>

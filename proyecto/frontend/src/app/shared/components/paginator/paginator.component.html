@@ -1,0 +1,21 @@
+<div class="fade-slide-in flex justify-center items-center gap-2 mt-4 flex-wrap text-sm">
+  <button (click)="cambiarPagina(currentPage - 1)" 
+          [disabled]="currentPage === 1"
+          class="px-3 py-1 bg-secondary text-white rounded hover:bg-secondary-light transition disabled:opacity-50">
+    Anterior
+  </button>
+
+  <button *ngFor="let page of paginas()" 
+          (click)="cambiarPagina(page)"
+          [class.bg-accent]="page === currentPage"
+          class="px-3 py-1 rounded hover:bg-gray-200 transition"
+          [ngClass]="page === currentPage ? 'text-white' : 'text-gray-700'">
+    {{ page }}
+  </button>
+
+  <button (click)="cambiarPagina(currentPage + 1)" 
+          [disabled]="currentPage === totalPages"
+          class="px-3 py-1 bg-secondary text-white rounded hover:bg-secondary-light transition disabled:opacity-50">
+    Siguiente
+  </button>
+</div>

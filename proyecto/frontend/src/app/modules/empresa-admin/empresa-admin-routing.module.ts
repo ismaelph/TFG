@@ -8,6 +8,9 @@ import { CategoriaListComponent } from './pages/categoria-list/categoria-list.co
 import { CategoriaCreateComponent } from './pages/categoria-create/categoria-create.component';
 import { ProveedorListComponent } from './pages/proveedor-list/proveedor-list.component';
 import { ProveedorCreateComponent } from './pages/proveedor-create/proveedor-create.component';
+import { ProductoListComponent } from './pages/producto-list/producto-list.component';
+import { ProductoCreateComponent } from './pages/producto-create/producto-create.component';
+import { MovimientoListComponent } from './pages/movimiento-list/movimiento-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -30,6 +33,14 @@ const routes: Routes = [
   { path: 'proveedor-list', component: ProveedorListComponent },
   { path: 'proveedor-create', component: ProveedorCreateComponent },
   { path: 'proveedor-edit/:id', component: ProveedorCreateComponent },
+
+  // PRODUCTOS
+  { path: 'producto-list', component: ProductoListComponent },
+  { path: 'producto-create', component: ProductoCreateComponent },
+
+  // MOVIMIENTOS
+  { path: 'movimiento-list', component: MovimientoListComponent },
+
 
   // Fallback
   { path: '**', redirectTo: 'dashboard' }
