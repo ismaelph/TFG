@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { EmpresaAdminRoutingModule } from './empresa-admin-routing.module';
 import { EmpresaListComponent } from './pages/empresa-list/empresa-list.component';
@@ -29,7 +30,8 @@ import { ProveedorCreateComponent } from './pages/proveedor-create/proveedor-cre
     CommonModule,
     EmpresaAdminRoutingModule,
     RouterModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class EmpresaAdminModule { }

@@ -32,13 +32,13 @@ public class CategoriaController {
     @Autowired
     private EmpresaService empresaService;
 
-    // ✅ ADMIN GLOBAL: ver todas las categorías
+    // GLOBAL: ver todas las categorías
     @GetMapping("/admin")
     public List<CategoriaDto> listAll() {
         return CategoriaDto.from(categoriaService.findAll());
     }
 
-    // ✅ ADMIN GLOBAL: obtener cualquier categoría por ID
+    // ADMIN GLOBAL: obtener cualquier categoría por ID
     @GetMapping("/admin/{id}")
     public ResponseEntity<?> getByIdAdmin(@PathVariable Long id) {
         Categoria categoria = categoriaService.findById(id);
@@ -48,7 +48,7 @@ public class CategoriaController {
         return ResponseEntity.status(404).body(ErrorDto.from("Categoría no encontrada"));
     }
 
-    // ✅ EMPRESA: listar categorías de mi empresa
+    // EMPRESA: listar categorías de mi empresa
     @GetMapping("")
     public ResponseEntity<?> listByEmpresa(@AuthenticationPrincipal UserDetailsImpl userDetails) {
         User user = userService.findById(userDetails.getId());
@@ -62,7 +62,7 @@ public class CategoriaController {
         return ResponseEntity.ok(CategoriaDto.from(categorias));
     }
 
-    // ✅ EMPRESA: ver una categoría si es mía
+    // EMPRESA: ver una categoría si es mía
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         User user = userService.findById(userDetails.getId());
@@ -75,7 +75,7 @@ public class CategoriaController {
         return ResponseEntity.ok(CategoriaDto.from(categoria));
     }
 
-    // ✅ EMPRESA: crear nueva categoría (solo si tienes empresa)
+    // EMPRESA: crear nueva categoría (solo si tienes empresa)
     @PostMapping("")
     public ResponseEntity<?> create(@RequestBody CategoriaDto dto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         User user = userService.findById(userDetails.getId());
@@ -96,7 +96,7 @@ public class CategoriaController {
         return ResponseEntity.ok(dtoResponse);
     }
 
-    // ✅ EMPRESA: editar categoría si es tuya
+    // EMPRESA: editar categoría si es tuya
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable Long id, @RequestBody CategoriaDto dto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         Categoria existente = categoriaService.findById(id);
@@ -110,7 +110,7 @@ public class CategoriaController {
         return ResponseEntity.ok(CategoriaDto.from(actualizada));
     }
 
-    // ✅ EMPRESA: eliminar categoría si es tuya
+    // EMPRESA: eliminar categoría si es tuya
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         Categoria categoria = categoriaService.findById(id);

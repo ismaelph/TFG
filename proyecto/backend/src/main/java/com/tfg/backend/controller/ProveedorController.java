@@ -32,13 +32,13 @@ public class ProveedorController {
     @Autowired
     private EmpresaService empresaService;
 
-    // ✅ ADMIN GLOBAL – ver todos los proveedores
+    // ADMIN GLOBAL – ver todos los proveedores
     @GetMapping("/admin")
     public List<ProveedorDto> getAllProveedores() {
         return ProveedorDto.from(proveedorService.findAll());
     }
 
-    // ✅ ADMIN GLOBAL – ver proveedor por ID
+    // ADMIN GLOBAL – ver proveedor por ID
     @GetMapping("/admin/{id}")
     public ResponseEntity<?> getByIdAdmin(@PathVariable Long id) {
         Proveedor proveedor = proveedorService.findById(id);
@@ -48,7 +48,7 @@ public class ProveedorController {
         return ResponseEntity.status(404).body(ErrorDto.from("Proveedor no encontrado"));
     }
 
-    // ✅ EMPRESA – listar proveedores propios
+    // EMPRESA – listar proveedores propios
     @GetMapping("")
     public ResponseEntity<?> getProveedoresDeEmpresa(@AuthenticationPrincipal UserDetailsImpl userDetails) {
         User user = userService.findById(userDetails.getId());
@@ -62,7 +62,7 @@ public class ProveedorController {
         return ResponseEntity.ok(ProveedorDto.from(lista));
     }
 
-    // ✅ EMPRESA – ver proveedor propio
+    // EMPRESA – ver proveedor propio
     @GetMapping("/{id}")
     public ResponseEntity<?> getById(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         User user = userService.findById(userDetails.getId());
@@ -75,7 +75,7 @@ public class ProveedorController {
         return ResponseEntity.ok(ProveedorDto.from(proveedor));
     }
 
-    // ✅ EMPRESA – crear proveedor
+    // EMPRESA – crear proveedor
     @PostMapping("")
     public ResponseEntity<?> create(@RequestBody ProveedorDto dto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         User user = userService.findById(userDetails.getId());
@@ -98,7 +98,7 @@ public class ProveedorController {
         return ResponseEntity.ok(dtoResponse);
     }
 
-    // ✅ EMPRESA – editar proveedor propio
+    // EMPRESA – editar proveedor propio
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable Long id, @RequestBody ProveedorDto dto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         Proveedor existente = proveedorService.findById(id);
@@ -112,7 +112,7 @@ public class ProveedorController {
         return ResponseEntity.ok(ProveedorDto.from(actualizado));
     }
 
-    // ✅ EMPRESA – eliminar proveedor propio
+    // EMPRESA – eliminar proveedor propio
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         Proveedor proveedor = proveedorService.findById(id);

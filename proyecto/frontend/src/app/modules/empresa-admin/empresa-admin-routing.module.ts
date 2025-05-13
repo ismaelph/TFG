@@ -16,10 +16,10 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
 
   // EMPRESA
-  { path: 'empresa/list', component: EmpresaListComponent },
-  { path: 'empresa/form', component: EmpresaFormComponent },
-  { path: 'empresa/form/:id', component: EmpresaFormComponent },
-  { path: 'empresa/crear', component: EmpresaCreateComponent },
+  { path: 'list', component: EmpresaListComponent },
+  { path: 'form', component: EmpresaFormComponent },
+  { path: 'form/:id', component: EmpresaFormComponent },
+  { path: 'crear', component: EmpresaCreateComponent },
 
   // CATEGORÍA
   { path: 'categoria-list', component: CategoriaListComponent },

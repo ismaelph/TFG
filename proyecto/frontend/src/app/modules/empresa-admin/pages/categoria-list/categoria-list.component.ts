@@ -11,8 +11,12 @@ import { Router } from '@angular/router';
 })
 export class CategoriaListComponent implements OnInit {
   categorias: Categoria[] = [];
+  filtradas: Categoria[] = [];
   cargando = true;
   error: string | null = null;
+
+  searchTerm: string = '';
+  ordenAscendente: boolean = true;
 
   constructor(
     private categoriaService: CategoriaService,
@@ -28,6 +32,7 @@ export class CategoriaListComponent implements OnInit {
     this.categoriaService.getCategorias().subscribe({
       next: (data) => {
         this.categorias = data;
+        this.filtrarYOrdenar();
         this.cargando = false;
       },
       error: () => {
@@ -37,8 +42,27 @@ export class CategoriaListComponent implements OnInit {
     });
   }
 
-  editar(categoria: Categoria): void {
-    this.router.navigate(['/empresa/categoria-edit', categoria.id]);
+  filtrarYOrdenar(): void {
+    const termino = this.searchTerm.toLowerCase();
+    this.filtradas = this.categorias
+      .filter(c => c.nombre.toLowerCase().includes(termino))
+      .sort((a, b) => {
+        const comp = a.nombre.localeCompare(b.nombre);
+        return this.ordenAscendente ? comp : -comp;
+      });
+  }
+
+  actualizarFiltro(): void {
+    this.filtrarYOrdenar();
+  }
+
+  cambiarOrden(): void {
+    this.ordenAscendente = !this.ordenAscendente;
+    this.filtrarYOrdenar();
+  }
+
+  editar(cat: Categoria): void {
+    this.router.navigate(['/empresa/categoria-edit', cat.id]);
   }
 
   eliminar(id: number): void {
@@ -56,6 +80,7 @@ export class CategoriaListComponent implements OnInit {
         this.categoriaService.eliminarCategoria(id).subscribe({
           next: () => {
             this.categorias = this.categorias.filter(c => c.id !== id);
+            this.filtrarYOrdenar();
             Swal.fire('Eliminada', 'Categoría eliminada correctamente.', 'success');
           },
           error: () => {

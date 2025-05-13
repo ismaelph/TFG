@@ -1,23 +1,29 @@
 <div class="fade-slide-in p-8 max-w-6xl mx-auto">
-  <div class="flex justify-between items-center mb-6">
+  <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
     <h2 class="text-2xl font-bold text-primary">Proveedores</h2>
-    <button routerLink="/empresa/proveedor-create"
-            class="flex items-center gap-2 bg-accent hover:bg-accent-dark text-white px-4 py-2 rounded transition">
-      <i class="bi bi-plus-circle"></i>
-      Nuevo Proveedor
-    </button>
+    <div class="flex gap-3 flex-wrap items-center">
+      <input type="text" [(ngModel)]="searchTerm" (input)="actualizarFiltro()"
+             placeholder="Buscar proveedor..." class="p-2 border rounded-md w-60">
+      <button (click)="cambiarOrden()"
+              class="px-3 py-2 bg-secondary text-white rounded hover:bg-secondary-light transition text-sm">
+        <i class="bi" [ngClass]="ordenAscendente ? 'bi-sort-alpha-down' : 'bi-sort-alpha-up'"></i>
+        Ordenar
+      </button>
+      <button routerLink="/empresa/proveedor-create"
+              class="flex items-center gap-2 bg-accent hover:bg-accent-dark text-white px-4 py-2 rounded transition text-sm">
+        <i class="bi bi-plus-circle"></i> Nuevo
+      </button>
+    </div>
   </div>
 
   <div *ngIf="cargando" class="text-center text-secondary-light py-8">Cargando proveedores...</div>
-
   <div *ngIf="error" class="text-center text-red-600 py-8">{{ error }}</div>
-
-  <div *ngIf="!cargando && proveedores.length === 0" class="text-center text-secondary-light py-8">
-    No hay proveedores registrados aún.
+  <div *ngIf="!cargando && filtrados.length === 0" class="text-center text-secondary-light py-8">
+    No hay resultados para tu búsqueda.
   </div>
 
-  <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3" *ngIf="proveedores.length > 0">
-    <div *ngFor="let prov of proveedores"
+  <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3" *ngIf="filtrados.length > 0">
+    <div *ngFor="let prov of filtrados"
          class="p-4 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition duration-300 flex flex-col justify-between">
       <h3 class="text-lg font-semibold text-secondary mb-2">{{ prov.nombre }}</h3>
       <div class="flex justify-between mt-4">
@@ -39,7 +45,7 @@
     </div>
   </div>
 
-  <!-- MODAL PROVEEDOR -->
+  <!-- Modal -->
   <div *ngIf="proveedorSeleccionado" class="modal-overlay" (click)="cerrarModal()">
     <div class="modal-content fade-slide-in" (click)="$event.stopPropagation()">
       <h3 class="text-xl font-semibold text-primary mb-4">Detalles del proveedor</h3>

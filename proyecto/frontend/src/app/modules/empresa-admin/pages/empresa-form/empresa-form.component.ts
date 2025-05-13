@@ -76,7 +76,7 @@ export class EmpresaFormComponent implements OnInit {
     this.empresaService.actualizarEmpresa(this.empresaId, empresa).subscribe({
       next: () => {
         console.log('[SUBMIT] Actualización exitosa');
-        this.router.navigate(['/empresa-admin/list']); // ✅ navegación absoluta
+        this.router.navigate(['/empresa/list']);
       },
       error: (err) => {
         console.error('[ERROR] No se pudo actualizar la empresa:', err);
