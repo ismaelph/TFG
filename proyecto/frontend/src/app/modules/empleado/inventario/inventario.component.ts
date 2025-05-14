@@ -52,28 +52,28 @@ export class InventarioComponent implements OnInit {
   }
 
   confirmarCoger(producto: Producto): void {
-  const cantidad = this.cantidadSeleccionada[producto.id!];
+    const cantidad = this.cantidadSeleccionada[producto.id!];
 
-  if (cantidad < 1 || cantidad > producto.cantidad) {
-    Swal.fire('Error', 'Cantidad inválida', 'error');
-    return;
-  }
-
-  this.movimientoService.transferirProducto({
-    productoId: producto.id!,
-    cantidad: cantidad
-  }).subscribe({
-    next: () => {
-      Swal.fire('Hecho', `Has cogido ${cantidad} unidad(es) de "${producto.nombre}"`, 'success');
-      this.sliderActivo[producto.id!] = false;
-      this.cantidadSeleccionada[producto.id!] = 1;
-      this.cargarProductos(); // recarga inventario de empresa
-    },
-    error: () => {
-      Swal.fire('Error', 'No se pudo realizar la transferencia', 'error');
+    if (cantidad < 1 || cantidad > producto.cantidad) {
+      Swal.fire('Error', 'Cantidad inválida', 'error');
+      return;
     }
-  });
-}
+
+    this.movimientoService.transferirProducto({
+      productoId: producto.id!,
+      cantidad: cantidad
+    }).subscribe({
+      next: () => {
+        Swal.fire('Hecho', `Has cogido ${cantidad} unidad(es) de "${producto.nombre}"`, 'success');
+        this.sliderActivo[producto.id!] = false;
+        this.cantidadSeleccionada[producto.id!] = 1;
+        this.cargarProductos(); // recarga inventario de empresa
+      },
+      error: () => {
+        Swal.fire('Error', 'No se pudo realizar la transferencia', 'error');
+      }
+    });
+  }
 
 
 

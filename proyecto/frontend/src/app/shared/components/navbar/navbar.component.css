@@ -1,15 +1,22 @@
 nav {
-    transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease;
 }
 
 nav:hover {
-    background-color: #1b1b1b;
+  background-color: #1b1b1b;
 }
 
 .dropdown-menu {
-    display: none;
+  display: none;
 }
 
 .relative:hover .dropdown-menu {
-    display: block;
+  display: block;
+}
+
+/* Responsive: centrado solo visible en md+ */
+@media (max-width: 768px) {
+  nav .text-xl {
+    font-size: 1rem;
+  }
 }

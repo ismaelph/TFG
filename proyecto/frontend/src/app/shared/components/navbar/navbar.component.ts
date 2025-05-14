@@ -13,6 +13,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
   dropdownVisible = false;
   timeoutRef: any;
   sesionIniciada = false;
+  menuAbierto: boolean = false;
+
 
   esAdmin = false;
   esAdminEmpresa = false;

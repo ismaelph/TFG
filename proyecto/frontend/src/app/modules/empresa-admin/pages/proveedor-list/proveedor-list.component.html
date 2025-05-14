@@ -3,12 +3,14 @@
     <h2 class="text-2xl font-bold text-primary">Proveedores</h2>
     <div class="flex gap-3 flex-wrap items-center">
       <input type="text" [(ngModel)]="searchTerm" (input)="actualizarFiltro()"
-             placeholder="Buscar proveedor..." class="p-2 border rounded-md w-60">
+             placeholder="Buscar proveedor..." class="p-2 border rounded-md w-60 focus:outline-none focus:ring-2 focus:ring-accent">
+
       <button (click)="cambiarOrden()"
               class="px-3 py-2 bg-secondary text-white rounded hover:bg-secondary-light transition text-sm">
         <i class="bi" [ngClass]="ordenAscendente ? 'bi-sort-alpha-down' : 'bi-sort-alpha-up'"></i>
         Ordenar
       </button>
+
       <button routerLink="/empresa/proveedor-create"
               class="flex items-center gap-2 bg-accent hover:bg-accent-dark text-white px-4 py-2 rounded transition text-sm">
         <i class="bi bi-plus-circle"></i> Nuevo
@@ -22,37 +24,41 @@
     No hay resultados para tu búsqueda.
   </div>
 
-  <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3" *ngIf="filtrados.length > 0">
+  <!-- Tarjetas -->
+  <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3" *ngIf="filtrados.length > 0">
     <div *ngFor="let prov of filtrados"
-         class="p-4 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition duration-300 flex flex-col justify-between">
-      <h3 class="text-lg font-semibold text-secondary mb-2">{{ prov.nombre }}</h3>
-      <div class="flex justify-between mt-4">
+         class="proveedor-burbuja relative bg-white p-4 pr-12 rounded-2xl shadow-md border-l-4 border-accent hover:shadow-lg transition">
+
+      <h3 class="text-primary font-semibold text-base mb-2">{{ prov.nombre }}</h3>
+
+      <div class="flex flex-wrap items-center justify-between">
         <button (click)="abrirModal(prov)"
-                class="text-sm bg-accent text-white px-3 py-1 rounded hover:bg-accent-dark transition">
+                class="flex items-center gap-1 px-3 py-1 text-sm text-white bg-accent hover:bg-accent-dark rounded">
           <i class="bi bi-info-circle"></i> Más información
         </button>
+
         <div class="flex gap-2">
-          <button (click)="editar(prov)"
-                  class="text-sm bg-secondary text-white px-3 py-1 rounded hover:bg-secondary-light transition">
+          <button (click)="editar(prov)" title="Editar"
+                  class="text-secondary hover:text-accent-dark text-lg">
             <i class="bi bi-pencil-square"></i>
           </button>
-          <button (click)="eliminar(prov.id!)"
-                  class="text-sm bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 transition">
-            <i class="bi bi-trash"></i>
+          <button (click)="eliminar(prov.id!)" title="Eliminar"
+                  class="text-red-500 hover:text-red-700 text-lg">
+            <i class="bi bi-trash3"></i>
           </button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Modal -->
-  <div *ngIf="proveedorSeleccionado" class="modal-overlay" (click)="cerrarModal()">
-    <div class="modal-content fade-slide-in" (click)="$event.stopPropagation()">
+  <!-- Modal de más información -->
+  <div *ngIf="proveedorSeleccionado" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50" (click)="cerrarModal()">
+    <div class="bg-white p-6 rounded-lg shadow-xl w-full max-w-md relative fade-slide-in" (click)="$event.stopPropagation()">
       <h3 class="text-xl font-semibold text-primary mb-4">Detalles del proveedor</h3>
       <p><strong class="text-secondary">Nombre:</strong> {{ proveedorSeleccionado.nombre }}</p>
       <p><strong class="text-secondary">Email:</strong> {{ proveedorSeleccionado.email }}</p>
       <p><strong class="text-secondary">Teléfono:</strong> {{ proveedorSeleccionado.telefono }}</p>
-      <div class="text-right mt-4">
+      <div class="text-right mt-6">
         <button (click)="cerrarModal()" class="px-4 py-2 bg-accent text-white rounded hover:bg-accent-dark transition">
           Cerrar
         </button>

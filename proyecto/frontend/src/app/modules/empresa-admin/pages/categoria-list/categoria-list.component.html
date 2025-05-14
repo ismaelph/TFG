@@ -1,16 +1,20 @@
 <div class="fade-slide-in p-8 max-w-6xl mx-auto">
   <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
     <h2 class="text-2xl font-bold text-primary">Categorías</h2>
+
     <div class="flex gap-3 flex-wrap items-center">
       <input type="text" [(ngModel)]="searchTerm" (ngModelChange)="actualizarFiltro()"
-             placeholder="Buscar categoría..." class="p-2 border rounded-md w-60">
+             placeholder="Buscar categoría..."
+             class="p-2 border border-gray-300 rounded-md w-60 focus:outline-none focus:ring-2 focus:ring-accent">
+
       <button (click)="cambiarOrden()"
-              class="px-3 py-2 bg-secondary text-white rounded hover:bg-secondary-light transition text-sm">
+              class="px-3 py-2 rounded text-white bg-secondary hover:bg-secondary-light transition text-sm flex items-center gap-2">
         <i class="bi" [ngClass]="ordenAscendente ? 'bi-sort-alpha-down' : 'bi-sort-alpha-up'"></i>
         Ordenar
       </button>
+
       <button routerLink="/empresa/categoria-create"
-              class="flex items-center gap-2 bg-accent hover:bg-accent-dark text-white px-4 py-2 rounded transition text-sm">
+              class="px-4 py-2 rounded text-white bg-accent hover:bg-accent-dark transition text-sm flex items-center gap-2">
         <i class="bi bi-plus-circle"></i> Nueva
       </button>
     </div>
@@ -22,18 +26,18 @@
     No hay resultados para tu búsqueda.
   </div>
 
-  <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3" *ngIf="filtradas.length > 0">
+  <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3" *ngIf="filtradas.length > 0">
     <div *ngFor="let cat of filtradas"
-         class="p-4 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition duration-300 flex flex-col justify-between">
-      <h3 class="text-lg font-semibold text-secondary mb-2">{{ cat.nombre }}</h3>
-      <div class="flex justify-end gap-2 mt-4">
-        <button (click)="editar(cat)"
-                class="flex items-center gap-1 px-3 py-1 text-sm bg-secondary text-white rounded hover:bg-secondary-light transition">
-          <i class="bi bi-pencil-square"></i> Editar
+         class="categoria-burbuja relative bg-white p-4 pr-12 rounded-2xl shadow-lg border-l-4 border-accent transition duration-300 hover:shadow-xl">
+
+      <h3 class="text-primary font-semibold text-base">{{ cat.nombre }}</h3>
+
+      <div class="acciones-iconos absolute top-3 right-3 flex gap-3">
+        <button (click)="editar(cat)" class="text-secondary hover:text-accent-dark text-lg" title="Editar">
+          <i class="bi bi-pencil-square"></i>
         </button>
-        <button (click)="eliminar(cat.id!)"
-                class="flex items-center gap-1 px-3 py-1 text-sm bg-red-600 text-white rounded hover:bg-red-700 transition">
-          <i class="bi bi-trash"></i> Eliminar
+        <button (click)="eliminar(cat.id!)" class="text-red-500 hover:text-red-700 text-lg" title="Eliminar">
+          <i class="bi bi-trash3"></i>
         </button>
       </div>
     </div>

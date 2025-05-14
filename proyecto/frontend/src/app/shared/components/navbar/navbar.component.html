@@ -1,59 +1,71 @@
 <nav class="bg-primary text-white shadow-md">
   <div class="container mx-auto px-4 flex items-center justify-between h-16">
-    <!-- Logo -->
-    <div class="flex items-center space-x-4">
-      <img src="assets/images/logo3.png" alt="Invecta" class="w-10 h-10">
-      <span class="text-xl font-bold">Invecta</span>
+
+    <!-- Logo e Invecta -->
+    <div class="flex items-center space-x-2">
+      <img src="assets/images/logo3.png" alt="Logo Invecta" class="w-8 h-8">
+      <span class="text-lg font-bold">Invecta</span>
     </div>
 
-    <!-- Menú derecho -->
-    <div class="flex items-center space-x-6">
-      <!-- Inicio -->
+    <!-- Botón hamburguesa móvil -->
+    <button (click)="menuAbierto = !menuAbierto"
+            class="md:hidden text-2xl focus:outline-none">
+      <i class="bi bi-list"></i>
+    </button>
+
+    <!-- Menú principal -->
+    <div class="hidden md:flex items-center space-x-6">
       <a routerLink="/" class="hover:text-accent transition">Inicio</a>
+      <a *ngIf="esAdmin" routerLink="/admin" class="hover:text-accent transition">Administración</a>
+      <a *ngIf="esAdminEmpresa || esUsuario" routerLink="/empresa" class="hover:text-accent transition">Mi Empresa</a>
+      <a *ngIf="esEmpleado || esAdminEmpresa" routerLink="/empleado/inventario" class="hover:text-accent transition">Inventario</a>
+      <a *ngIf="esEmpleado || esAdminEmpresa" routerLink="/empleado/mi-inventario" class="hover:text-accent transition">Mi Inventario</a>
 
-      <!-- Administración (solo ROLE_ADMIN) -->
-      <a *ngIf="esAdmin" routerLink="/admin" class="hover:text-accent transition">
-        Administración
-      </a>
-
-      <!-- Mi Empresa (solo ROLE_ADMIN_EMPRESA) -->
-      <a *ngIf="esAdminEmpresa || esUsuario " routerLink="/empresa" class="hover:text-accent transition">
-        Mi Empresa
-      </a>
-
-      <!-- Panel Empleado (solo ROLE_EMPLEADO) -->
-      <a *ngIf="esEmpleado || esAdminEmpresa" routerLink="/empleado/inventario" class="hover:text-accent transition">
-        Inventario
-      </a>
-
-       <!-- Panel Empleado (solo ROLE_EMPLEADO) -->
-      <a *ngIf="esEmpleado || esAdminEmpresa" routerLink="/empleado/mi-inventario" class="hover:text-accent transition">
-        Mi Inventario
-      </a>
-
-      <!-- Iniciar Sesión -->
       <a *ngIf="!sesionIniciada" routerLink="/auth/login"
-         class="hover:text-accent transition flex items-center space-x-2">
+         class="hover:text-accent transition flex items-center space-x-1">
         <i class="bi bi-box-arrow-in-right"></i>
         <span>Iniciar Sesión</span>
       </a>
 
-      <!-- Cuenta (hover completo) -->
       <div *ngIf="sesionIniciada" class="relative" (mouseenter)="mostrarMenu()" (mouseleave)="ocultarMenu()">
         <button class="flex items-center space-x-2 hover:text-accent focus:outline-none">
           <i class="bi bi-person-circle text-xl"></i>
           <span>Cuenta</span>
         </button>
-
         <div *ngIf="dropdownVisible"
-             class="absolute right-0 mt-2 w-40 bg-white text-primary rounded-lg shadow-lg z-50">
-          <a routerLink="/perfil" class="block px-4 py-2 hover:bg-gray-100">Perfil</a>
+             class="absolute right-0 mt-2 w-44 bg-white text-primary rounded-md shadow-lg z-50">
+          <a routerLink="/perfil" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100">
+            <i class="bi bi-person"></i> Perfil
+          </a>
           <hr class="border-gray-200">
-          <button (click)="cerrarSesion()" class="block w-full text-left px-4 py-2 hover:bg-gray-100">
-            Cerrar Sesión
+          <button (click)="cerrarSesion()" class="w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100">
+            <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
           </button>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- Menú desplegable móvil -->
+  <div *ngIf="menuAbierto" class="md:hidden bg-primary px-4 pb-4 flex flex-col space-y-2 text-sm">
+    <a routerLink="/" class="hover:text-accent">Inicio</a>
+    <a *ngIf="esAdmin" routerLink="/admin" class="hover:text-accent">Administración</a>
+    <a *ngIf="esAdminEmpresa || esUsuario" routerLink="/empresa" class="hover:text-accent">Mi Empresa</a>
+    <a *ngIf="esEmpleado || esAdminEmpresa" routerLink="/empleado/inventario" class="hover:text-accent">Inventario</a>
+    <a *ngIf="esEmpleado || esAdminEmpresa" routerLink="/empleado/mi-inventario" class="hover:text-accent">Mi Inventario</a>
+
+    <a *ngIf="!sesionIniciada" routerLink="/auth/login" class="hover:text-accent flex items-center space-x-1">
+      <i class="bi bi-box-arrow-in-right"></i>
+      <span>Iniciar Sesión</span>
+    </a>
+
+    <div *ngIf="sesionIniciada" class="space-y-2">
+      <a routerLink="/perfil" class="flex items-center gap-2 hover:text-accent">
+        <i class="bi bi-person"></i> Perfil
+      </a>
+      <button (click)="cerrarSesion()" class="flex items-center gap-2 hover:text-accent">
+        <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
+      </button>
     </div>
   </div>
 </nav>
