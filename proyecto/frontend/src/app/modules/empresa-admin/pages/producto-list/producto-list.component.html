@@ -40,12 +40,13 @@
             <tbody>
                 <tr *ngFor="let p of productosPaginados" class="hover:bg-gray-50 transition">
                     <td class="px-4 py-2">{{ p.nombre }}</td>
-                    <td class="px-4 py-2">{{ getNombreCategoriaById(p.categoriaId) }}</td>
-                    <td class="px-4 py-2">{{ getNombreProveedorById(p.proveedorId) }}</td>
+                    <td class="px-4 py-2">{{ p.categoriaNombre }}</td>
+<td class="px-4 py-2">{{ p.proveedorNombre }}</td>
+
 
 
                     <td class="px-4 py-2">{{ p.cantidad }}</td>
-                    <td class="px-4 py-2">{{ p.precio?.toFixed(2) }} €</td>
+                    <td class="px-4 py-2">{{ p.precio.toFixed(2) }} €</td>
                     <td class="px-4 py-2 flex gap-2">
                         <i class="bi bi-pencil-square icon-action text-blue-600" title="Editar"
                             (click)="editarProducto(p.id!)"></i>

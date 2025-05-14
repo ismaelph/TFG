@@ -5,6 +5,8 @@ import com.tfg.backend.model.entity.Empresa;
 import com.tfg.backend.model.entity.MovimientoProducto;
 import com.tfg.backend.model.entity.Producto;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -17,4 +19,8 @@ public interface MovimientoProductoRepository extends JpaRepository<MovimientoPr
     List<MovimientoProducto> findByProducto(Producto producto);
 
     List<MovimientoProducto> findByUsuario(User usuario);
+
+    @Query("SELECT m FROM MovimientoProducto m WHERE m.usuario.id = :userId")
+    List<MovimientoProducto> findByUsuarioId(@Param("userId") Long userId);
+
 }

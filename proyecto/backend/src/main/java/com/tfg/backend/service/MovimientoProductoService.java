@@ -14,4 +14,6 @@ public interface MovimientoProductoService {
     List<MovimientoProducto> findByProducto(Producto producto);
     List<MovimientoProducto> findByUsuario(User usuario);
     List<MovimientoProducto> findAll();
+    List<MovimientoProducto> findByUsuarioId(Long userId);
+
 }

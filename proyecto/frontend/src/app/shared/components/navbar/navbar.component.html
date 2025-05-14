@@ -17,13 +17,18 @@
       </a>
 
       <!-- Mi Empresa (solo ROLE_ADMIN_EMPRESA) -->
-      <a *ngIf="esAdminEmpresa" routerLink="/empresa" class="hover:text-accent transition">
+      <a *ngIf="esAdminEmpresa || esUsuario " routerLink="/empresa" class="hover:text-accent transition">
         Mi Empresa
       </a>
 
       <!-- Panel Empleado (solo ROLE_EMPLEADO) -->
-      <a *ngIf="esEmpleado" routerLink="/empleado" class="hover:text-accent transition">
-        Panel Empleado
+      <a *ngIf="esEmpleado || esAdminEmpresa" routerLink="/empleado/inventario" class="hover:text-accent transition">
+        Inventario
+      </a>
+
+       <!-- Panel Empleado (solo ROLE_EMPLEADO) -->
+      <a *ngIf="esEmpleado || esAdminEmpresa" routerLink="/empleado/mi-inventario" class="hover:text-accent transition">
+        Mi Inventario
       </a>
 
       <!-- Iniciar Sesión -->

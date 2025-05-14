@@ -18,7 +18,7 @@ export class ProductoListComponent implements OnInit {
   filtrados: Producto[] = [];
 
   categorias: Categoria[] = [];
-  proveedor: Proveedor[] = [];
+  proveedores: Proveedor[] = [];
 
   categoriaSeleccionada: number | null = null;
   searchTerm: string = '';
@@ -32,7 +32,7 @@ export class ProductoListComponent implements OnInit {
     private categoriaService: CategoriaService,
     private proveedorService: ProveedorService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.cargarCategorias();
@@ -40,57 +40,64 @@ export class ProductoListComponent implements OnInit {
     this.cargarProductos();
   }
 
-  cargarProductos(): void {
-    this.productoService.getProductos().subscribe({
-      next: (data) => {
-        this.productos = data;
-        this.filtrarYOrdenar();
-      }
-    });
-  }
-
   cargarCategorias(): void {
     this.categoriaService.getCategorias().subscribe({
-      next: (data) => this.categorias = data
+      next: (data) => {
+        this.categorias = data;
+        console.log('Categorías cargadas:', data);
+      },
+      error: (err) => {
+        console.error('Error cargando categorías:', err);
+      }
     });
   }
 
   cargarProveedores(): void {
     this.proveedorService.getProveedores().subscribe({
-      next: (data) => this.proveedor = data
+      next: (data) => {
+        this.proveedores = data;
+        console.log('Proveedores cargados:', data);
+      },
+      error: (err) => {
+        console.error('Error cargando proveedores:', err);
+      }
     });
   }
 
-  filtrarYOrdenar(): void {
-    const termino = this.searchTerm.toLowerCase();
-    this.filtrados = this.productos
-      .filter(p =>
-        p.nombre.toLowerCase().includes(termino) &&
-        (this.categoriaSeleccionada === null || p.categoriaId === this.categoriaSeleccionada)
-      )
-      .sort((a, b) => {
-        const comp = a.nombre.localeCompare(b.nombre);
-        return this.ordenAscendente ? comp : -comp;
-      });
+  cargarProductos(): void {
+    this.productoService.getProductos().subscribe({
+      next: (data) => {
+        this.productos = data;
+        console.log('Productos recibidos:', data);
+        this.actualizarFiltro();
+      },
+      error: (err) => {
+        console.error('Error al cargar productos:', err);
+      }
+    });
   }
 
   actualizarFiltro(): void {
-    this.currentPage = 1;
-    this.filtrarYOrdenar();
+    this.filtrados = this.productos.filter(p => {
+      const coincideTexto = p.nombre.toLowerCase().includes(this.searchTerm.toLowerCase());
+      const coincideCategoria = !this.categoriaSeleccionada || p.categoriaId === this.categoriaSeleccionada;
+      return coincideTexto && coincideCategoria;
+    });
+
+    this.ordenarProductos();
   }
 
   cambiarOrden(): void {
     this.ordenAscendente = !this.ordenAscendente;
-    this.filtrarYOrdenar();
+    this.ordenarProductos();
   }
 
-  cambiarPagina(pagina: number): void {
-    this.currentPage = pagina;
-  }
-
-  seleccionarCategoria(id: string): void {
-    this.categoriaSeleccionada = id === 'none' ? null : +id;
-    this.actualizarFiltro();
+  ordenarProductos(): void {
+    this.filtrados.sort((a, b) => {
+      const nombreA = a.nombre.toLowerCase();
+      const nombreB = b.nombre.toLowerCase();
+      return this.ordenAscendente ? nombreA.localeCompare(nombreB) : nombreB.localeCompare(nombreA);
+    });
   }
 
   get productosPaginados(): Producto[] {
@@ -98,31 +105,31 @@ export class ProductoListComponent implements OnInit {
     return this.filtrados.slice(start, start + this.itemsPerPage);
   }
 
-  getNombreCategoriaById(id: number | undefined): string {
-    const cat = this.categorias.find(c => c.id === id);
-    return cat ? cat.nombre : 'Sin categoría';
-  }
+  getNombreCategoriaById(id: number | null | undefined): string {
+  const cat = this.categorias.find(c => c.id === Number(id));
+  return cat ? cat.nombre : '—';
+}
 
-  getNombreProveedorById(id: number | undefined): string {
-    const prov = this.proveedor.find(p => p.id === id);
-    return prov ? prov.nombre : 'Sin proveedor';
-  }
+getNombreProveedorById(id: number | null | undefined): string {
+  const prov = this.proveedores.find(p => p.id === Number(id));
+  return prov ? prov.nombre : '—';
+}
+
 
   editarProducto(id: number): void {
-    this.router.navigate(['/empresa/producto/form', id]);
+    this.router.navigate(['/empresa/producto-create'], { queryParams: { id } });
   }
 
   confirmarEliminacion(id: number): void {
     Swal.fire({
       title: '¿Estás seguro?',
-      text: 'Esta acción eliminará el producto.',
+      text: 'Esta acción no se puede deshacer',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#d33',
-      cancelButtonColor: '#6b7280',
-      confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar'
-    }).then(result => {
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Sí, eliminar'
+    }).then((result) => {
       if (result.isConfirmed) {
         this.eliminarProducto(id);
       }
@@ -132,11 +139,13 @@ export class ProductoListComponent implements OnInit {
   eliminarProducto(id: number): void {
     this.productoService.eliminarProducto(id).subscribe({
       next: () => {
-        Swal.fire('Eliminado', 'El producto fue eliminado correctamente.', 'success');
-        this.cargarProductos();
+        this.productos = this.productos.filter(p => p.id !== id);
+        this.actualizarFiltro();
+        Swal.fire('Eliminado', 'El producto ha sido eliminado', 'success');
       },
-      error: () => {
-        Swal.fire('Error', 'No se pudo eliminar el producto.', 'error');
+      error: (err) => {
+        console.error('Error al eliminar producto:', err);
+        Swal.fire('Error', 'No se pudo eliminar el producto', 'error');
       }
     });
   }

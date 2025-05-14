@@ -27,9 +27,10 @@ public class MovimientoProducto {
     @JoinColumn(name = "empresa_id")
     private Empresa empresa;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "usuario_id")
     private User usuario;
+
 
     @Column(nullable = false)
     private Integer cantidad;

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EmpresaService } from '../../services/empresa.service';
 import { Empresa } from 'src/app/core/interfaces/empresa';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,7 +12,7 @@ export class DashboardComponent implements OnInit {
   mostrarModalEmpresa = false;
   tituloEmpresa: string = '';
 
-  constructor(private empresaService: EmpresaService) {}
+  constructor(private empresaService: EmpresaService) { }
 
   ngOnInit(): void {
     this.cargarEmpresa();
@@ -23,7 +22,12 @@ export class DashboardComponent implements OnInit {
     this.empresaService.getMiEmpresa().subscribe({
       next: (data) => {
         this.empresa = data;
-        this.tituloEmpresa = `Panel de Administración de ${data.nombre}`;
+        if(this.empresa) {
+          this.tituloEmpresa = `Panel de Administración - ${this.empresa.nombre}`;
+        }
+        else {
+          this.tituloEmpresa = 'Panel de Administración';
+        }
       },
       error: () => {
         this.empresa = null;

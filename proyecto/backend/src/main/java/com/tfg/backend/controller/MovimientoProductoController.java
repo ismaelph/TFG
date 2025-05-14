@@ -4,8 +4,13 @@ import com.tfg.backend.auth.models.User;
 import com.tfg.backend.auth.services.UserDetailsImpl;
 import com.tfg.backend.model.dto.ErrorDto;
 import com.tfg.backend.model.dto.MovimientoProductoDto;
-import com.tfg.backend.model.entity.*;
-import com.tfg.backend.service.*;
+import com.tfg.backend.model.entity.Empresa;
+import com.tfg.backend.model.entity.MovimientoProducto;
+import com.tfg.backend.model.entity.Producto;
+import com.tfg.backend.service.EmpresaService;
+import com.tfg.backend.service.MovimientoProductoService;
+import com.tfg.backend.service.ProductoService;
+import com.tfg.backend.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -52,10 +57,10 @@ public class MovimientoProductoController {
         }
         productoService.save(producto);
 
-        MovimientoProducto movimiento = dto.to();
-        movimiento.setEmpresa(empresa);
-        movimiento.setUsuario(user);
-        movimiento.setProducto(producto);
+        MovimientoProducto movimiento = dto.to(); // ← se crean los datos base
+        movimiento.setEmpresa(empresa);           // ← se asocia la empresa
+        movimiento.setProducto(producto);         // ← se asocia el producto
+        movimiento.setUsuario(user);              // ✅ ¡esto es lo más importante!
 
         return ResponseEntity.ok(MovimientoProductoDto.from(movimientoService.save(movimiento)));
     }
@@ -100,4 +105,6 @@ public class MovimientoProductoController {
     public ResponseEntity<?> todoPorId(@PathVariable Long id) {
         return ResponseEntity.ok(MovimientoProductoDto.from(movimientoService.findById(id)));
     }
+
+
 }

@@ -11,16 +11,25 @@ export class RoleGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
     const token = this.tokenService.getToken();
+
     if (!token) {
       this.router.navigate(['/auth/login']);
       return false;
     }
 
+    // Decodificar el token y obtener los roles
     const payload = JSON.parse(atob(token.split('.')[1]));
     const userRoles: string[] = payload.roles || [];
-    const requiredRole = route.data['role'];
 
-    if (userRoles.includes(requiredRole)) {
+    // Obtener los roles requeridos desde data['role']
+    const requiredRoles = route.data['role'];
+
+    // Normalizar: si es string lo pasamos a array
+    const expectedRoles: string[] = Array.isArray(requiredRoles) ? requiredRoles : [requiredRoles];
+
+    const autorizado = userRoles.some(role => expectedRoles.includes(role));
+
+    if (autorizado) {
       return true;
     }
 

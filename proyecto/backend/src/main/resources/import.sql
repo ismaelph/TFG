@@ -84,3 +84,7 @@ INSERT INTO producto (nombre, precio, cantidad, uso_interno, fecha_ingreso, empr
 INSERT INTO producto (nombre, precio, cantidad, uso_interno, fecha_ingreso, empresa_id, categoria_id, proveedor_id, usuario_id) VALUES ('Detergente multiuso', 8.75, 20, true, NOW(), 2, 6, 6, 3);
 INSERT INTO producto (nombre, precio, cantidad, uso_interno, fecha_ingreso, empresa_id, categoria_id, proveedor_id, usuario_id) VALUES ('Guantes de limpieza', 2.50, 50, true, NOW(), 2, 7, 7, 3);
 INSERT INTO producto (nombre, precio, cantidad, uso_interno, fecha_ingreso, empresa_id, categoria_id, proveedor_id, usuario_id) VALUES ('Trapeador absorbente', 7.00, 10, true, NOW(), 2, 8, 8, 3);
+
+
+-- Movimientos
+INSERT INTO movimiento_producto (producto_id, usuario_id, cantidad, tipo, fecha, empresa_id) VALUES (1, 2, 1, 'ENTRADA', NOW(), 1);

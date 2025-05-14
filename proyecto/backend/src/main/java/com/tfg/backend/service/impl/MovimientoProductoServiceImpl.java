@@ -49,4 +49,10 @@ public class MovimientoProductoServiceImpl implements MovimientoProductoService 
     public List<MovimientoProducto> findAll() {
         return movimientoRepository.findAll();
     }
+
+    @Override
+    public List<MovimientoProducto> findByUsuarioId(Long userId) {
+        return movimientoRepository.findByUsuarioId(userId);
+    }
+
 }

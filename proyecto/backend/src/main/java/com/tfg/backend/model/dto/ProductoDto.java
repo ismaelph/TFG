@@ -25,6 +25,9 @@ public class ProductoDto {
     private Long proveedorId;
     private Long usuarioId;
 
+    private String categoriaNombre;
+    private String proveedorNombre;
+
     public static ProductoDto from(Producto entity) {
         ProductoDto dto = new ProductoDto();
         dto.setId(entity.getId());
@@ -35,8 +38,14 @@ public class ProductoDto {
         dto.setFechaIngreso(entity.getFechaIngreso());
 
         if (entity.getEmpresa() != null) dto.setEmpresaId(entity.getEmpresa().getId());
-        if (entity.getCategoria() != null) dto.setCategoriaId(entity.getCategoria().getId());
-        if (entity.getProveedor() != null) dto.setProveedorId(entity.getProveedor().getId());
+        if (entity.getCategoria() != null) {
+            dto.setCategoriaId(entity.getCategoria().getId());
+            dto.setCategoriaNombre(entity.getCategoria().getNombre());
+        }
+        if (entity.getProveedor() != null) {
+            dto.setProveedorId(entity.getProveedor().getId());
+            dto.setProveedorNombre(entity.getProveedor().getNombre());
+        }
         if (entity.getUsuario() != null) dto.setUsuarioId(entity.getUsuario().getId());
 
         return dto;
@@ -49,7 +58,6 @@ public class ProductoDto {
         producto.setPrecio(this.getPrecio());
         producto.setCantidad(this.getCantidad());
         producto.setUsoInterno(this.isUsoInterno());
-        // fechaIngreso no se establece manualmente, se autogenera
         return producto;
     }
 
@@ -62,6 +70,4 @@ public class ProductoDto {
         }
         return dtos;
     }
-
-
 }

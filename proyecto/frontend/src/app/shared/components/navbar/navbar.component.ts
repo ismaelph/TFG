@@ -17,6 +17,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   esAdmin = false;
   esAdminEmpresa = false;
   esEmpleado = false;
+  esUsuario = false;
 
   private sessionSub!: Subscription;
 
@@ -34,12 +35,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
       if (activa) {
         this.esAdmin = this.tokenService.hasRole('ROLE_ADMIN');
-        this.esAdminEmpresa = this.tokenService.hasRole('ROLE_ADMIN_EMPRESA') && !this.tokenService.hasRole('ROLE_USER');
+        this.esAdminEmpresa = this.tokenService.hasRole('ROLE_ADMIN_EMPRESA');
         this.esEmpleado = this.tokenService.hasRole('ROLE_EMPLEADO');
+        this.esUsuario = this.tokenService.hasRole('ROLE_USER');
       } else {
         this.esAdmin = false;
         this.esAdminEmpresa = false;
         this.esEmpleado = false;
+        this.esUsuario = false;
       }
     });
   }
