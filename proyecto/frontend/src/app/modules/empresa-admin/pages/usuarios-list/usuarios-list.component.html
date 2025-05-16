@@ -1,0 +1,30 @@
+<app-alert-success *ngIf="mostrarAlerta" [mensaje]="mensajeAlerta"></app-alert-success>
+
+<div class="bg-white rounded-xl shadow p-4 w-full overflow-x-auto">
+  <h3 class="text-lg font-bold text-primary mb-4">Usuarios de la empresa</h3>
+
+  <table class="min-w-full text-sm text-left">
+    <thead class="bg-background text-secondary-light">
+      <tr>
+        <th class="p-2">Nombre</th>
+        <th class="p-2">Email</th>
+        <th class="p-2">Rol</th>
+        <th class="p-2">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of usuarios" class="border-b hover:bg-gray-50">
+        <td class="p-2">{{ user.username }}</td>
+        <td class="p-2">{{ user.email }}</td>
+        <td class="p-2">{{ user.rol }}</td>
+        <td class="p-2">
+          <button (click)="expulsarUsuario(user.id)"
+                  class="text-red-600 hover:text-red-800 transition"
+                  title="Expulsar usuario">
+            <i class="bi bi-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

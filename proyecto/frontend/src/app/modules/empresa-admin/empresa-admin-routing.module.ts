@@ -11,6 +11,7 @@ import { ProveedorCreateComponent } from './pages/proveedor-create/proveedor-cre
 import { ProductoListComponent } from './pages/producto-list/producto-list.component';
 import { ProductoCreateComponent } from './pages/producto-create/producto-create.component';
 import { MovimientoListComponent } from './pages/movimiento-list/movimiento-list.component';
+import { UsuariosListComponent } from './pages/usuarios-list/usuarios-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -41,6 +42,9 @@ const routes: Routes = [
   // MOVIMIENTOS
   { path: 'movimiento-list', component: MovimientoListComponent },
 
+
+  // USUARIOS
+  { path: 'usuarios-list', component: UsuariosListComponent },
 
   // Fallback
   { path: '**', redirectTo: 'dashboard' }

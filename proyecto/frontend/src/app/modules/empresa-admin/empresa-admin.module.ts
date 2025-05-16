@@ -5,7 +5,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { EmpresaAdminRoutingModule } from './empresa-admin-routing.module';
 
-import { SharedModule } from 'src/app/shared/shared.module'; // ✅ Módulo con tabla, paginator, navbar, footer
+import { SharedModule } from 'src/app/shared/shared.module';
 
 import { EmpresaListComponent } from './pages/empresa-list/empresa-list.component';
 import { EmpresaFormComponent } from './pages/empresa-form/empresa-form.component';
@@ -22,6 +22,7 @@ import { MovimientoListComponent } from './pages/movimiento-list/movimiento-list
 
 import { ProductoListComponent } from './pages/producto-list/producto-list.component';
 import { ProductoCreateComponent } from './pages/producto-create/producto-create.component';
+import { UsuariosListComponent } from './pages/usuarios-list/usuarios-list.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { ProductoCreateComponent } from './pages/producto-create/producto-create
     ProveedorCreateComponent,
     MovimientoListComponent,
     ProductoListComponent,
-    ProductoCreateComponent
+    ProductoCreateComponent,
+    UsuariosListComponent
   ],
   imports: [
     CommonModule,
@@ -43,7 +45,7 @@ import { ProductoCreateComponent } from './pages/producto-create/producto-create
     RouterModule,
     ReactiveFormsModule,
     FormsModule,
-    SharedModule // ✅ Aquí llegan app-table y app-paginator
+    SharedModule
   ]
 })
-export class EmpresaAdminModule {}
+export class EmpresaAdminModule { }

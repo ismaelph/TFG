@@ -1,6 +1,9 @@
 package com.tfg.backend.controller;
 
+import com.tfg.backend.auth.models.Role;
+import com.tfg.backend.auth.models.RoleEnum;
 import com.tfg.backend.auth.models.User;
+import com.tfg.backend.auth.repository.RoleRepository;
 import com.tfg.backend.model.dto.CambiarPasswordDto;
 import com.tfg.backend.model.dto.ErrorDto;
 import com.tfg.backend.model.dto.UserDto;
@@ -11,11 +14,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 import java.util.List;
+import java.util.Set;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -31,6 +36,10 @@ public class UserController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private RoleRepository roleRepository;
+
 
 
     // GET – listar todos
@@ -122,6 +131,31 @@ public class UserController {
 
         return ResponseEntity.ok("Contraseña actualizada correctamente.");
     }
+
+    // PUT para expulsar usuarios de la empresa
+    @PreAuthorize("hasRole('ROLE_ADMIN_EMPRESA')")
+    @PutMapping("/{id}/expulsar")
+    public ResponseEntity<?> expulsarUsuario(@PathVariable Long id) {
+        User user = userService.findById(id);
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorDto.from("Usuario no encontrado"));
+        }
+
+        if (user.getEmpresa() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorDto.from("Este usuario no pertenece a ninguna empresa"));
+        }
+
+        // Quitar empresa y dejar solo rol ROLE_USER
+        user.setEmpresa(null);
+        Role roleUser = roleRepository.findByName(RoleEnum.ROLE_USER)
+                .orElseThrow(() -> new RuntimeException("Rol ROLE_USER no encontrado"));
+
+        user.setRoles(Set.of(roleUser));
+        userService.save(user);
+
+        return ResponseEntity.ok().body("Usuario expulsado correctamente.");
+    }
+
 
 
 }
