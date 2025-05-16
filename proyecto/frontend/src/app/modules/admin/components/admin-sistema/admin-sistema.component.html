@@ -1,0 +1,22 @@
+<div class="bg-white rounded-xl shadow p-4 w-full h-full">
+  <h3 class="text-lg font-bold text-primary mb-4">Estado del Sistema</h3>
+
+  <div *ngIf="estado; else cargando">
+    <div class="flex justify-between mb-2">
+      <span class="text-sm text-secondary-light">Backend:</span>
+      <span class="font-semibold text-green-600">{{ estado.backend }}</span>
+    </div>
+    <div class="flex justify-between mb-2">
+      <span class="text-sm text-secondary-light">Base de datos:</span>
+      <span class="font-semibold text-green-600">{{ estado.database }}</span>
+    </div>
+    <div class="flex justify-between mb-2">
+      <span class="text-sm text-secondary-light">Versión:</span>
+      <span class="font-semibold text-primary">{{ estado.version }}</span>
+    </div>
+  </div>
+
+  <ng-template #cargando>
+    <p class="text-sm italic text-gray-400">Cargando estado del sistema...</p>
+  </ng-template>
+</div>

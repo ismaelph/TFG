@@ -12,6 +12,7 @@ import com.tfg.backend.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,22 +32,6 @@ public class ProveedorController {
 
     @Autowired
     private EmpresaService empresaService;
-
-    // ADMIN GLOBAL – ver todos los proveedores
-    @GetMapping("/admin")
-    public List<ProveedorDto> getAllProveedores() {
-        return ProveedorDto.from(proveedorService.findAll());
-    }
-
-    // ADMIN GLOBAL – ver proveedor por ID
-    @GetMapping("/admin/{id}")
-    public ResponseEntity<?> getByIdAdmin(@PathVariable Long id) {
-        Proveedor proveedor = proveedorService.findById(id);
-        if (proveedor != null) {
-            return ResponseEntity.ok(ProveedorDto.from(proveedor));
-        }
-        return ResponseEntity.status(404).body(ErrorDto.from("Proveedor no encontrado"));
-    }
 
     // EMPRESA – listar proveedores propios
     @GetMapping("")
@@ -76,6 +61,7 @@ public class ProveedorController {
     }
 
     // EMPRESA – crear proveedor
+    @PreAuthorize("hasRole('ROLE_ADMIN_EMPRESA')")
     @PostMapping("")
     public ResponseEntity<?> create(@RequestBody ProveedorDto dto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         User user = userService.findById(userDetails.getId());
@@ -99,6 +85,7 @@ public class ProveedorController {
     }
 
     // EMPRESA – editar proveedor propio
+    @PreAuthorize("hasRole('ROLE_ADMIN_EMPRESA')")
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable Long id, @RequestBody ProveedorDto dto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         Proveedor existente = proveedorService.findById(id);
@@ -113,6 +100,7 @@ public class ProveedorController {
     }
 
     // EMPRESA – eliminar proveedor propio
+    @PreAuthorize("hasRole('ROLE_ADMIN_EMPRESA')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         Proveedor proveedor = proveedorService.findById(id);

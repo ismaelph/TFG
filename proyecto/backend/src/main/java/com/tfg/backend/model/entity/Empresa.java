@@ -29,5 +29,5 @@ public class Empresa {
     private Instant fechaCreacion;
 
     @OneToMany(mappedBy = "empresa")
-    private List<User> usuarios; // Asegúrate de que User tenga el campo empresa también
+    private List<User> usuarios;
 }

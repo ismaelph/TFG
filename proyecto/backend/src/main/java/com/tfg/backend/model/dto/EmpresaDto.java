@@ -14,12 +14,14 @@ public class EmpresaDto {
     private Long id;
     private String nombre;
     private String claveAcceso;
+    private int cantidadUsuarios;
 
     public static EmpresaDto from(Empresa entity) {
         EmpresaDto dto = new EmpresaDto();
         dto.setId(entity.getId());
         dto.setNombre(entity.getNombre());
         dto.setClaveAcceso(entity.getClaveAcceso());
+        dto.setCantidadUsuarios(entity.getUsuarios().size());
         return dto;
     }
 

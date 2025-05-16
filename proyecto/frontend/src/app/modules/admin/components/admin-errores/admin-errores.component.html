@@ -1,0 +1,33 @@
+<div class="bg-white rounded-xl shadow p-4 w-full h-full overflow-x-auto">
+  <h3 class="text-lg font-bold text-primary mb-4">Errores recientes</h3>
+
+  <div *ngIf="errores.length > 0; else sinErrores">
+    <table class="min-w-full text-sm text-left">
+      <thead class="bg-background text-secondary-light">
+        <tr>
+          <th class="p-2">Fecha</th>
+          <th class="p-2">Mensaje</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let err of errores.slice(0, mostrar)" class="border-b hover:bg-gray-50">
+          <td class="p-2 text-xs text-secondary-light">{{ err.fecha }}</td>
+          <td class="p-2 text-red-600 font-mono text-xs whitespace-pre-wrap">{{ err.detalle || err.linea }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="text-center mt-4 space-x-4">
+      <button *ngIf="errores.length > mostrar"
+              (click)="verMas()"
+              class="text-sm text-accent hover:underline">Ver más</button>
+      <button *ngIf="mostrar > paso"
+              (click)="verMenos()"
+              class="text-sm text-secondary hover:underline">Ver menos</button>
+    </div>
+  </div>
+
+  <ng-template #sinErrores>
+    <p class="text-sm text-gray-400 italic">No se han registrado errores recientes.</p>
+  </ng-template>
+</div>

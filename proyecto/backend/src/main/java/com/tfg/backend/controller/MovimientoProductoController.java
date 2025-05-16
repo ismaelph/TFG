@@ -96,15 +96,4 @@ public class MovimientoProductoController {
         return ResponseEntity.ok(MovimientoProductoDto.from(movimientoService.findByProducto(producto)));
     }
 
-    @GetMapping("/admin")
-    public ResponseEntity<?> todos() {
-        return ResponseEntity.ok(MovimientoProductoDto.from(movimientoService.findAll()));
-    }
-
-    @GetMapping("/admin/{id}")
-    public ResponseEntity<?> todoPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(MovimientoProductoDto.from(movimientoService.findById(id)));
-    }
-
-
 }

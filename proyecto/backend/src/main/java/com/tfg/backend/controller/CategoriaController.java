@@ -12,6 +12,7 @@ import com.tfg.backend.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,22 +32,6 @@ public class CategoriaController {
 
     @Autowired
     private EmpresaService empresaService;
-
-    // GLOBAL: ver todas las categorías
-    @GetMapping("/admin")
-    public List<CategoriaDto> listAll() {
-        return CategoriaDto.from(categoriaService.findAll());
-    }
-
-    // ADMIN GLOBAL: obtener cualquier categoría por ID
-    @GetMapping("/admin/{id}")
-    public ResponseEntity<?> getByIdAdmin(@PathVariable Long id) {
-        Categoria categoria = categoriaService.findById(id);
-        if (categoria != null) {
-            return ResponseEntity.ok(CategoriaDto.from(categoria));
-        }
-        return ResponseEntity.status(404).body(ErrorDto.from("Categoría no encontrada"));
-    }
 
     // EMPRESA: listar categorías de mi empresa
     @GetMapping("")
@@ -76,6 +61,7 @@ public class CategoriaController {
     }
 
     // EMPRESA: crear nueva categoría (solo si tienes empresa)
+    @PreAuthorize("hasRole('ROLE_ADMIN_EMPRESA')")
     @PostMapping("")
     public ResponseEntity<?> create(@RequestBody CategoriaDto dto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         User user = userService.findById(userDetails.getId());
@@ -97,6 +83,7 @@ public class CategoriaController {
     }
 
     // EMPRESA: editar categoría si es tuya
+    @PreAuthorize("hasRole('ROLE_ADMIN_EMPRESA')")
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable Long id, @RequestBody CategoriaDto dto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         Categoria existente = categoriaService.findById(id);
@@ -111,6 +98,7 @@ public class CategoriaController {
     }
 
     // EMPRESA: eliminar categoría si es tuya
+    @PreAuthorize("hasRole('ROLE_ADMIN_EMPRESA')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         Categoria categoria = categoriaService.findById(id);

@@ -55,23 +55,6 @@ public class ProductoController {
         return ResponseEntity.ok(ProductoDto.from(producto));
     }
 
-    // Obtener todos los productos (ADMIN)
-    @GetMapping("/admin")
-    public ResponseEntity<?> listAll() {
-        List<Producto> productos = productoService.findAll();
-        return ResponseEntity.ok(ProductoDto.from(productos));
-    }
-
-    // Obtener producto por ID (ADMIN)
-    @GetMapping("/admin/{id}")
-    public ResponseEntity<?> getByIdAdmin(@PathVariable Long id) {
-        Producto producto = productoService.findById(id);
-        if (producto == null) {
-            return ResponseEntity.status(404).body(ErrorDto.from("Producto no encontrado"));
-        }
-        return ResponseEntity.ok(ProductoDto.from(producto));
-    }
-
     // CREAR producto
     @PostMapping("")
     public ResponseEntity<?> create(@RequestBody ProductoDto dto, @AuthenticationPrincipal UserDetailsImpl userDetails) {

@@ -1,0 +1,25 @@
+<div class="bg-white rounded-xl shadow p-4 w-full h-full">
+  <h3 class="text-lg font-bold text-primary mb-4">Estadísticas de Usuarios</h3>
+
+  <!-- Total usuarios -->
+  <div class="flex justify-between items-center mb-6">
+    <span class="text-sm text-secondary-light">Usuarios totales:</span>
+    <span class="text-xl font-semibold text-accent">{{ totalUsuarios }}</span>
+  </div>
+
+  <!-- Usuarios por mes -->
+  <div *ngIf="registros.length > 0; else sinDatos">
+    <p class="text-sm font-medium text-secondary mb-2">Usuarios por mes:</p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+      <div *ngFor="let reg of registros" class="bg-background rounded-md p-4 text-center shadow-sm">
+        <p class="text-xs text-secondary-light uppercase tracking-wide">{{ reg.mes }}</p>
+        <p class="text-xl font-bold text-primary">{{ reg.total }}</p>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #sinDatos>
+    <p class="text-sm text-gray-400 italic">No hay datos suficientes.</p>
+  </ng-template>
+</div>

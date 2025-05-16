@@ -1,0 +1,35 @@
+<div class="bg-white rounded-xl shadow p-4 w-full h-full overflow-x-auto">
+  <h3 class="text-lg font-bold text-primary mb-4">Lista de Usuarios</h3>
+
+  <table class="min-w-full text-sm text-left">
+    <thead class="bg-background text-secondary-light">
+      <tr>
+        <th class="p-2">Nombre</th>
+        <th class="p-2">Email</th>
+        <th class="p-2">Rol</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of usuariosPaginados" class="border-b hover:bg-gray-50">
+        <td class="p-2">{{ user.username }}</td>
+        <td class="p-2">{{ user.email }}</td>
+        <td class="p-2">{{ user.rol }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Ver más (solo en dashboard) -->
+  <div class="text-right mt-2" *ngIf="desdeDashboard">
+    <a routerLink="/admin/usuarios" class="text-sm text-accent hover:underline">
+      Ver todos los usuarios
+    </a>
+  </div>
+
+  <!-- Paginador (solo fuera del dashboard) -->
+  <div *ngIf="!desdeDashboard" class="mt-4 flex justify-center">
+    <app-paginator [total]="usuarios.length" [pageSize]="elementosPorPagina" [currentPage]="paginaActual"
+      (currentPageChange)="onPaginaCambiada($event)" (pageChange)="paginar()">
+    </app-paginator>
+
+  </div>
+</div>

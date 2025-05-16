@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -33,12 +34,14 @@ public class EmpresaController {
     private PasswordEncoder passwordEncoder;
 
     // GET – Listar todas
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @GetMapping("")
     public List<EmpresaDto> listAll() {
         return EmpresaDto.from(empresaService.findAll());
     }
 
     // GET – Buscar por ID
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @GetMapping("/{id}")
     public ResponseEntity<?> getById(@PathVariable long id) {
         Empresa empresa = empresaService.findById(id);
@@ -61,6 +64,7 @@ public class EmpresaController {
     }
 
     // POST – Crear empresa
+    @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping("")
     public ResponseEntity<?> save(@RequestBody EmpresaDto empresaDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         try {
@@ -83,10 +87,8 @@ public class EmpresaController {
         }
     }
 
-
-
-
     // PUT – Editar empresa
+    @PreAuthorize("hasRole('ROLE_ADMIN_EMPRESA')")
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable long id, @RequestBody EmpresaDto empresaDto) {
         Empresa empresaExistente = empresaService.findById(id);
@@ -102,6 +104,7 @@ public class EmpresaController {
     }
 
     // DELETE – Eliminar empresa
+    @PreAuthorize("hasRole('ROLE_ADMIN_EMPRESA')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable long id) {
         Empresa empresa = empresaService.findById(id);
@@ -117,6 +120,7 @@ public class EmpresaController {
     }
 
     // POST – Unirse a empresa (por clave)
+    @PreAuthorize("hasAnyRole('ROLE_EMPLEADO', 'ROLE_USER', 'ROLE_ADMIN_EMPRESA')")
     @PostMapping("/{empresaId}/unirse")
     public ResponseEntity<?> unirseAEmpresa(
             @PathVariable Long empresaId,

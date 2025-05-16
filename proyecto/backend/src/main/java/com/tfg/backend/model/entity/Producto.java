@@ -45,7 +45,9 @@ public class Producto {
     @JoinColumn(name = "proveedor_id")
     private Proveedor proveedor;
 
+
+    // quien registró el producto
     @ManyToOne
     @JoinColumn(name = "usuario_id")
-    private User usuario; // quien registró el producto
+    private User usuario;
 }
