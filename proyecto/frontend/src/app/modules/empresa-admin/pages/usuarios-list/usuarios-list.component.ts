@@ -11,38 +11,48 @@ import { TokenService } from 'src/app/core/services/token.service';
 })
 export class UsuariosListComponent implements OnInit {
   usuarios: User[] = [];
+  usuariosPaginados: User[] = [];
+  itemsPerPage: number = 6;
+  currentPage: number = 1;
+
   mostrarAlerta = false;
   mensajeAlerta = '';
 
   constructor(
     private userService: UserService,
     private tokenService: TokenService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    // ✅ Espera segura por si hay una desincronización mínima con el token
     setTimeout(() => {
       this.cargarUsuarios();
     }, 100);
   }
 
   cargarUsuarios(): void {
-  const usuarioActual = this.tokenService.getUser();
+    const usuarioActual = this.tokenService.getUser();
 
-  this.userService.getUsuariosDeMiEmpresa().subscribe({
-    next: (data) => {
-      // ❌ Evita que se muestre el propio admin logueado
-      this.usuarios = data.filter(u => u.id !== usuarioActual?.id);
-    },
-    error: (err) => {
-      console.error('Error al cargar usuarios:', err);
-      this.mensajeAlerta = 'No se pudo obtener la lista de usuarios.';
-      this.mostrarAlerta = true;
-      setTimeout(() => this.mostrarAlerta = false, 4000);
-    }
-  });
-}
+    this.userService.getUsuariosDeMiEmpresa().subscribe({
+      next: (data) => {
+        // Filtrar al usuario actual
+        this.usuarios = data.filter(u => u.id !== usuarioActual?.id);
+        this.cambiarPagina(1); // Mostrar primera página al cargar
+      },
+      error: (err) => {
+        console.error('Error al cargar usuarios:', err);
+        this.mensajeAlerta = 'No se pudo obtener la lista de usuarios.';
+        this.mostrarAlerta = true;
+        setTimeout(() => this.mostrarAlerta = false, 4000);
+      }
+    });
+  }
 
+  cambiarPagina(pagina: number): void {
+    this.currentPage = pagina;
+    const start = (pagina - 1) * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    this.usuariosPaginados = this.usuarios.slice(start, end);
+  }
 
   expulsarUsuario(id: number): void {
     Swal.fire({
@@ -58,6 +68,7 @@ export class UsuariosListComponent implements OnInit {
       if (result.isConfirmed) {
         this.userService.expulsarDeEmpresa(id).subscribe(() => {
           this.usuarios = this.usuarios.filter(u => u.id !== id);
+          this.cambiarPagina(this.currentPage); // Actualizar vista paginada
           this.mensajeAlerta = 'Usuario expulsado correctamente.';
           this.mostrarAlerta = true;
           setTimeout(() => this.mostrarAlerta = false, 4000);
@@ -65,5 +76,4 @@ export class UsuariosListComponent implements OnInit {
       }
     });
   }
-
 }
