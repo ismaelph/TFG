@@ -32,23 +32,32 @@ export class LoginComponent {
   onSubmit(): void {
     if (this.loginForm.invalid) return;
 
-    this.tokenService.clearToken(); 
+    // Limpiar token previo por seguridad
+    this.tokenService.clearToken();
 
     this.authService.login(this.loginForm.value).subscribe({
       next: (res: JwtResponse) => {
         this.tokenService.saveToken(res.token);
-        this.tokenService.saveUser(res); // 🔐 Añadido para guardar el usuario completo
+        this.tokenService.saveUser(res); // Guardar usuario actual
         this.sessionService.notificarInicio();
-        console.log('Roles guardado:', res.roles);
-        this.redirigirPorRol(res.roles);
-        console.log('roles:', res.roles);
+
+        console.log('🆔 Usuario logueado:', res.username);
+        console.log('🎭 Roles recibidos:', res.roles);
+
+        // ✅ Refrescar vista para que el navbar se actualice con el nuevo usuario
+        setTimeout(() => {
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+            this.redirigirPorRol(res.roles);
+          });
+        }, 50);
       },
       error: err => {
         this.errorMsg = 'Credenciales incorrectas';
-        console.error(err);
+        console.error('❌ Error al iniciar sesión:', err);
       }
     });
   }
+
 
   redirigirPorRol(roles: string[]) {
     console.log('Roles recibidos:', roles); // 👈 Asegúrate de ver esto

@@ -1,9 +1,8 @@
 <nav class="bg-primary text-white shadow-md">
   <div class="container mx-auto px-4 flex items-center justify-between h-16">
-
     <!-- Logo e Invecta -->
     <div class="flex items-center space-x-2">
-      <img src="assets/images/logo3.png" alt="Logo Invecta" class="w-8 h-8">
+      <img src="assets/images/logo3.png" alt="Logo Invecta" class="w-8 h-8" />
       <span class="text-lg font-bold">Invecta</span>
     </div>
 
@@ -21,24 +20,29 @@
       <a *ngIf="esEmpleado || esAdminEmpresa" routerLink="/empleado/inventario" class="hover:text-accent transition">Inventario</a>
       <a *ngIf="esEmpleado || esAdminEmpresa" routerLink="/empleado/mi-inventario" class="hover:text-accent transition">Mi Inventario</a>
 
+      <!-- Botón Login -->
       <a *ngIf="!sesionIniciada" routerLink="/auth/login"
          class="hover:text-accent transition flex items-center space-x-1">
         <i class="bi bi-box-arrow-in-right"></i>
         <span>Iniciar Sesión</span>
       </a>
 
+      <!-- Menú de usuario -->
       <div *ngIf="sesionIniciada" class="relative" (mouseenter)="mostrarMenu()" (mouseleave)="ocultarMenu()">
         <button class="flex items-center space-x-2 hover:text-accent focus:outline-none">
           <i class="bi bi-person-circle text-xl"></i>
-          <span>Cuenta</span>
+          <span>{{ nombreUsuario }}</span>
         </button>
+
+        <!-- Dropdown -->
         <div *ngIf="dropdownVisible"
              class="absolute right-0 mt-2 w-44 bg-white text-primary rounded-md shadow-lg z-50">
           <a routerLink="/perfil" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100">
             <i class="bi bi-person"></i> Perfil
           </a>
-          <hr class="border-gray-200">
-          <button (click)="cerrarSesion()" class="w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100">
+          <hr class="border-gray-200" />
+          <button (click)="cerrarSesion()"
+                  class="w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100">
             <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
           </button>
         </div>

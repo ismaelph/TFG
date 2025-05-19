@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -153,25 +155,46 @@ public class UserController {
     @PreAuthorize("hasRole('ROLE_ADMIN_EMPRESA')")
     @PutMapping("/{id}/expulsar")
     public ResponseEntity<?> expulsarUsuario(@PathVariable Long id) {
+        System.out.println("📌 Solicitud de expulsión para usuario ID: " + id);
+
         User user = userService.findById(id);
+
         if (user == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorDto.from("Usuario no encontrado"));
+            System.out.println("❌ Usuario no encontrado.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(ErrorDto.from("Usuario no encontrado"));
         }
 
         if (user.getEmpresa() == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorDto.from("Este usuario no pertenece a ninguna empresa"));
+            System.out.println("⚠️ Usuario ya no pertenece a ninguna empresa.");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(ErrorDto.from("Este usuario no pertenece a ninguna empresa"));
         }
 
-        // Quitar empresa y dejar solo rol ROLE_USER
+        System.out.println("✅ Usuario encontrado: " + user.getUsername());
+        System.out.println("🏢 Empresa actual: " + user.getEmpresa().getNombre());
+        System.out.println("🔐 Roles actuales: " + user.getRoles());
+
+        // Quitar empresa
         user.setEmpresa(null);
+
+        // Asignar rol ROLE_USER de forma segura
         Role roleUser = roleRepository.findByName(RoleEnum.ROLE_USER)
                 .orElseThrow(() -> new RuntimeException("Rol ROLE_USER no encontrado"));
 
-        user.setRoles(Set.of(roleUser));
+        Set<Role> roles = new HashSet<>();
+        roles.add(roleUser);
+        user.setRoles(roles);
+
+        System.out.println("🔄 Roles asignados tras expulsión: " + user.getRoles());
+
+        // Guardar cambios
         userService.save(user);
 
-        return ResponseEntity.ok().body("Usuario expulsado correctamente.");
+        System.out.println("✅ Usuario expulsado y actualizado correctamente.");
+        return ResponseEntity.ok(Map.of("msg", "Usuario expulsado correctamente."));
     }
+
 
 
 

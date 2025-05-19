@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/core/interfaces/user.interface';
 import { UserService } from '../../services/user.service';
 import Swal from 'sweetalert2';
+import { TokenService } from 'src/app/core/services/token.service';
 
 @Component({
   selector: 'app-usuarios-list',
@@ -13,7 +14,10 @@ export class UsuariosListComponent implements OnInit {
   mostrarAlerta = false;
   mensajeAlerta = '';
 
-  constructor(private userService: UserService) { }
+  constructor(
+    private userService: UserService,
+    private tokenService: TokenService
+  ) { }
 
   ngOnInit(): void {
     // ✅ Espera segura por si hay una desincronización mínima con el token
@@ -23,18 +27,22 @@ export class UsuariosListComponent implements OnInit {
   }
 
   cargarUsuarios(): void {
-    this.userService.getUsuariosDeMiEmpresa().subscribe({
-      next: (data) => {
-        this.usuarios = data;
-      },
-      error: (err) => {
-        console.error('Error al cargar usuarios:', err);
-        this.mensajeAlerta = 'No se pudo obtener la lista de usuarios.';
-        this.mostrarAlerta = true;
-        setTimeout(() => this.mostrarAlerta = false, 4000);
-      }
-    });
-  }
+  const usuarioActual = this.tokenService.getUser();
+
+  this.userService.getUsuariosDeMiEmpresa().subscribe({
+    next: (data) => {
+      // ❌ Evita que se muestre el propio admin logueado
+      this.usuarios = data.filter(u => u.id !== usuarioActual?.id);
+    },
+    error: (err) => {
+      console.error('Error al cargar usuarios:', err);
+      this.mensajeAlerta = 'No se pudo obtener la lista de usuarios.';
+      this.mostrarAlerta = true;
+      setTimeout(() => this.mostrarAlerta = false, 4000);
+    }
+  });
+}
+
 
   expulsarUsuario(id: number): void {
     Swal.fire({
