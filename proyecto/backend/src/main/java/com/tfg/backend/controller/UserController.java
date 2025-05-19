@@ -4,6 +4,7 @@ import com.tfg.backend.auth.models.Role;
 import com.tfg.backend.auth.models.RoleEnum;
 import com.tfg.backend.auth.models.User;
 import com.tfg.backend.auth.repository.RoleRepository;
+import com.tfg.backend.auth.services.UserDetailsImpl;
 import com.tfg.backend.model.dto.CambiarPasswordDto;
 import com.tfg.backend.model.dto.ErrorDto;
 import com.tfg.backend.model.dto.UserDto;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -58,6 +60,21 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(ErrorDto.from("Usuario no encontrado"));
         }
+    }
+
+    // GET Usuarios por empresa
+    @PreAuthorize("hasRole('ROLE_ADMIN_EMPRESA')")
+    @GetMapping("/mi-empresa")
+    public ResponseEntity<?> getUsuariosDeMiEmpresa(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+        User usuarioActual = userService.findById(userDetails.getId());
+
+        if (usuarioActual == null || usuarioActual.getEmpresa() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(ErrorDto.from("No perteneces a ninguna empresa"));
+        }
+
+        List<User> usuarios = userService.findByEmpresa(usuarioActual.getEmpresa());
+        return ResponseEntity.ok(UserDto.from(usuarios));
     }
 
     // PUT – editar usuario

@@ -16,7 +16,9 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -70,12 +72,15 @@ public class EmpresaController {
         try {
             // Recuperar entidad User desde el ID del token
             User usuarioActual = userService.findById(userDetails.getId());
-
             System.out.println("Usuario autenticado: " + usuarioActual.getUsername());
 
             Empresa empresa = empresaDto.to();
-            empresaService.save(empresa);
 
+            // Asegurar que la lista de usuarios no sea null
+            empresa.setUsuarios(new ArrayList<>());
+            empresa.getUsuarios().add(usuarioActual); // ya lo asociamos antes de guardar
+
+            empresaService.save(empresa);
             System.out.println("Empresa guardada con ID: " + empresa.getId());
 
             userService.actualizarRolYEmpresa(usuarioActual, empresa);
@@ -86,6 +91,7 @@ public class EmpresaController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorDto.from("Empresa no guardada"));
         }
     }
+
 
     // PUT – Editar empresa
     @PreAuthorize("hasRole('ROLE_ADMIN_EMPRESA')")
@@ -110,14 +116,21 @@ public class EmpresaController {
         Empresa empresa = empresaService.findById(id);
         if (empresa != null) {
             try {
+                // 1. Expulsar y degradar a todos los usuarios
+                userService.expulsarYDegradarUsuariosDeEmpresa(empresa);
+
+                // 2. Eliminar la empresa
                 empresaService.delete(id);
-                return ResponseEntity.ok(EmpresaDto.from(empresa));
+
+                return ResponseEntity.ok(Map.of("msg", "Empresa eliminada correctamente."));
             } catch (Exception e) {
+                e.printStackTrace();
                 return ResponseEntity.badRequest().body(ErrorDto.from("Empresa no eliminada"));
             }
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorDto.from("Empresa no encontrada"));
     }
+
 
     // POST – Unirse a empresa (por clave)
     @PreAuthorize("hasAnyRole('ROLE_EMPLEADO', 'ROLE_USER', 'ROLE_ADMIN_EMPRESA')")

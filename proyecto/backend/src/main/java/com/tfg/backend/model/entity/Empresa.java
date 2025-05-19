@@ -6,6 +6,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -28,6 +29,7 @@ public class Empresa {
     @CreationTimestamp
     private Instant fechaCreacion;
 
-    @OneToMany(mappedBy = "empresa")
-    private List<User> usuarios;
+    @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL)
+    private List<User> usuarios = new ArrayList<>();
+
 }

@@ -21,9 +21,17 @@ public class EmpresaDto {
         dto.setId(entity.getId());
         dto.setNombre(entity.getNombre());
         dto.setClaveAcceso(entity.getClaveAcceso());
-        dto.setCantidadUsuarios(entity.getUsuarios().size());
+
+        // Manejo seguro de usuarios
+        if (entity.getUsuarios() != null) {
+            dto.setCantidadUsuarios(entity.getUsuarios().size());
+        } else {
+            dto.setCantidadUsuarios(0);
+        }
+
         return dto;
     }
+
 
     public Empresa to() {
         Empresa entity = new Empresa();

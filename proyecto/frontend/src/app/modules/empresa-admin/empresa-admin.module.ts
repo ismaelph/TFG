@@ -37,7 +37,7 @@ import { UsuariosListComponent } from './pages/usuarios-list/usuarios-list.compo
     MovimientoListComponent,
     ProductoListComponent,
     ProductoCreateComponent,
-    UsuariosListComponent
+    UsuariosListComponent,
   ],
   imports: [
     CommonModule,

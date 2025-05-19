@@ -3,6 +3,7 @@ import { EmpresaService } from '../../services/empresa.service';
 import { Empresa } from '../../../../core/interfaces/empresa';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { SessionService } from 'src/app/core/services/session.service';
 
 @Component({
   selector: 'app-empresa-list',
@@ -17,7 +18,8 @@ export class EmpresaListComponent implements OnInit {
   constructor(
     private empresaService: EmpresaService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private sessionService: SessionService // Cambia esto por el servicio correcto
   ) { }
 
   ngOnInit(): void {
@@ -49,32 +51,36 @@ export class EmpresaListComponent implements OnInit {
   }
 
   borrar(): void {
-    Swal.fire({
-      title: '¿Estás seguro?',
-      text: 'Esta acción eliminará permanentemente la empresa.',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar',
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#3085d6'
-    }).then(result => {
-      if (result.isConfirmed) {
-        const id = this.empresa?.id;
-        if (id && typeof id === 'number') {
-          this.empresaService.eliminarEmpresa(id).subscribe({
-            next: () => {
-              this.empresa = undefined as any; // limpiar del DOM
-              Swal.fire('Eliminada', 'La empresa ha sido eliminada.', 'success');
-              this.router.navigate(['/']); // redirige si quieres
-            },
-            error: (err) => {
-              console.error('Error al borrar la empresa:', err);
-              Swal.fire('Error', 'No se pudo eliminar la empresa.', 'error');
-            }
-          });
-        }
+  Swal.fire({
+    title: '¿Estás seguro?',
+    text: 'Esta acción eliminará permanentemente la empresa.',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Sí, eliminar',
+    cancelButtonText: 'Cancelar',
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6'
+  }).then(result => {
+    if (result.isConfirmed) {
+      const id = this.empresa?.id;
+      if (id && typeof id === 'number') {
+        this.empresaService.eliminarEmpresa(id).subscribe({
+          next: () => {
+            // ✅ Cerramos sesión SOLO después del delete exitoso
+            this.sessionService.cerrarSesion();
+
+            // ✅ Redirigimos al login
+            this.router.navigate(['/auth/login']);
+          },
+          error: (err) => {
+            console.error('Error al eliminar empresa:', err);
+            Swal.fire('Error', 'No se pudo eliminar la empresa.', 'error');
+          }
+        });
       }
-    });
-  }
+    }
+  });
+}
+
+
 }

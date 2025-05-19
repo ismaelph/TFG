@@ -12,12 +12,10 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  // ✅ Obtener los usuarios solo de la empresa del usuario autenticado
   getUsuariosDeMiEmpresa(): Observable<User[]> {
     return this.http.get<User[]>(`${this.apiUrl}/mi-empresa`);
   }
 
-  // ✅ Expulsar (no eliminar) a un usuario de la empresa
   expulsarDeEmpresa(id: number): Observable<any> {
     return this.http.put(`${this.apiUrl}/${id}/expulsar`, {});
   }

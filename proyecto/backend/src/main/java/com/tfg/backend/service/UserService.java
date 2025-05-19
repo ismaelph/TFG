@@ -22,5 +22,11 @@ public interface UserService {
 
     void procesarUsuariosAntesDeEliminarEmpresa(Empresa empresa);
 
+    void expulsarYDegradarUsuariosDeEmpresa(Empresa empresa);
+
+    List<User> findByEmpresa(Empresa empresa);
+
+
+
 
 }

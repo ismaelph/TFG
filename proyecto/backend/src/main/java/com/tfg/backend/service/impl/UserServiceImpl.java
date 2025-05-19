@@ -12,6 +12,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -78,11 +80,17 @@ public class UserServiceImpl implements UserService {
                 .findByName(RoleEnum.ROLE_ADMIN_EMPRESA)
                 .orElseThrow(() -> new RuntimeException("Error: Rol no encontrado."));
 
-        user.getRoles().clear();
+        if (user.getRoles() == null) {
+            user.setRoles(new HashSet<>());
+        } else {
+            user.getRoles().clear();
+        }
+
         user.getRoles().add(adminEmpresaRole);
 
         usuarioRepository.save(user);
     }
+
 
     @Override
     public void procesarUsuariosAntesDeEliminarEmpresa(Empresa empresa) {
@@ -98,6 +106,31 @@ public class UserServiceImpl implements UserService {
         }
 
         usuarioRepository.saveAll(usuarios);
+    }
+
+    @Override
+    public void expulsarYDegradarUsuariosDeEmpresa(Empresa empresa) {
+        List<User> usuarios = usuarioRepository.findByEmpresa(empresa);
+
+        if (usuarios == null || usuarios.isEmpty()) return;
+
+        Role rolUser = roleRepository.findByName(RoleEnum.ROLE_USER)
+                .orElseThrow(() -> new RuntimeException("Error: Rol USER no encontrado"));
+
+        for (User user : usuarios) {
+            user.setEmpresa(null);
+            user.getRoles().clear();
+            user.getRoles().add(rolUser);
+        }
+
+        usuarioRepository.saveAll(usuarios);
+
+        empresa.setUsuarios(new ArrayList<>()); // evitar conflictos
+    }
+
+    @Override
+    public List<User> findByEmpresa(Empresa empresa) {
+        return usuarioRepository.findByEmpresa(empresa);
     }
 
 
