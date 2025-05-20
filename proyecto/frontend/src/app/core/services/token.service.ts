@@ -54,4 +54,10 @@ export class TokenService {
     this.clearToken();
     this.clearUser();
   }
+
+  getUserId(): number | null {
+  const user = this.getUser();
+  return user && user.id ? user.id : null;
+}
+
 }
