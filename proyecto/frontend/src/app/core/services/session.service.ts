@@ -8,6 +8,8 @@ import { TokenService } from './token.service';
 export class SessionService {
   private sesionIniciadaSubject = new BehaviorSubject<boolean>(this.tokenService.isLogged());
 
+    public cambios$ = this.sesionIniciadaSubject.asObservable();
+
   constructor(private tokenService: TokenService) {}
 
   cerrarSesion(): void {
@@ -26,4 +28,5 @@ export class SessionService {
   isSesionIniciada(): Observable<boolean> {
     return this.sesionIniciadaSubject.asObservable();
   }
+
 }

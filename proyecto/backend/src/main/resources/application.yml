@@ -9,7 +9,7 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
   sql:
     init:
       mode: always
@@ -19,5 +19,5 @@ logging:
     name: logs/app.log
 
 jwt:
-  jwtSecret: 123456789012345678901234567890%$
+  jwtSecret: N1o7FZxYt6bR8wL3qECvKJhDsUG9Xz5pWmTyVqLoHaBsIdCfJeK4MvTnRzSaPgQX
   jwtExpirationMs: 86400000

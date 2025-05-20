@@ -17,6 +17,7 @@ public class UserDto {
     private String username;
     private String email;
     private String rol;
+    private String empresaNombre;
 
     public static UserDto from(User entity) {
         UserDto dto = new UserDto();
@@ -26,6 +27,10 @@ public class UserDto {
 
         if (entity.getRoles() != null && !entity.getRoles().isEmpty()) {
             dto.setRol(entity.getRoles().iterator().next().getName().name());
+        }
+
+        if (entity.getEmpresa() != null) {
+            dto.setEmpresaNombre(entity.getEmpresa().getNombre());
         }
 
         return dto;

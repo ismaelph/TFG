@@ -9,8 +9,6 @@ import { AppComponent } from './app.component';
 
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
-import { TableComponent } from './shared/components/table/table.component';
-import { PaginatorComponent } from './shared/components/paginator/paginator.component';
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({
