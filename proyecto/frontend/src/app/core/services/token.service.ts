@@ -13,30 +13,28 @@ export class TokenService {
   }
 
   getToken(): string | null {
-    const rawUser = localStorage.getItem(USER_KEY);
-
-    if (!rawUser) {
-      console.warn('[TokenService] No se encontró ningún usuario en localStorage');
-      return null;
-    }
-
-    try {
-      const parsedUser = JSON.parse(rawUser);
-
-      const token = parsedUser.token || parsedUser.accessToken || null;
-
-      if (!token) {
-        console.warn('[TokenService] No se encontró token en el usuario guardado');
-      } else {
-        console.log('[TokenService] Token encontrado:', token);
-      }
-
-      return token;
-    } catch (e) {
-      console.error('[TokenService] Error al parsear el usuario desde localStorage', e);
-      return null;
-    }
+  const rawUser = localStorage.getItem(USER_KEY);
+  if (!rawUser) {
+    return null;
   }
+
+  try {
+    const parsedUser = JSON.parse(rawUser);
+    const token = parsedUser.token || parsedUser.accessToken || null;
+
+    // if (!token) {
+    //   console.warn('[TokenService] No se encontró token en el usuario guardado');
+    // } else {
+    //   console.log('[TokenService] Token encontrado:', token);
+    // }
+
+    return token;
+  } catch (e) {
+    // console.error('[TokenService] Error al parsear el usuario desde localStorage', e);
+    return null;
+  }
+}
+
 
 
 
