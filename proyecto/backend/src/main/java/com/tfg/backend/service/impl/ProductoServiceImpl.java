@@ -43,8 +43,12 @@ public class ProductoServiceImpl implements ProductoService {
         if (productoEditado.getProveedor() != null)
             productoBD.setProveedor(productoEditado.getProveedor());
 
+        if (productoEditado.getEstanteria() != null)
+            productoBD.setEstanteria(productoEditado.getEstanteria());
+
         return productoRepository.save(productoBD);
     }
+
 
     @Override
     public void delete(Long id) {

@@ -1,6 +1,7 @@
 package com.tfg.backend.model.dto;
 
-import com.tfg.backend.model.entity.Producto;
+import com.tfg.backend.auth.models.User;
+import com.tfg.backend.model.entity.*;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -11,8 +12,8 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class ProductoDto {
+
     private Long id;
     private String nombre;
     private BigDecimal precio;
@@ -24,9 +25,11 @@ public class ProductoDto {
     private Long categoriaId;
     private Long proveedorId;
     private Long usuarioId;
+    private Long estanteriaId;
 
     private String categoriaNombre;
     private String proveedorNombre;
+    private String ubicacion;
 
     public static ProductoDto from(Producto entity) {
         ProductoDto dto = new ProductoDto();
@@ -37,16 +40,37 @@ public class ProductoDto {
         dto.setUsoInterno(entity.isUsoInterno());
         dto.setFechaIngreso(entity.getFechaIngreso());
 
-        if (entity.getEmpresa() != null) dto.setEmpresaId(entity.getEmpresa().getId());
+        if (entity.getEmpresa() != null)
+            dto.setEmpresaId(entity.getEmpresa().getId());
+
         if (entity.getCategoria() != null) {
             dto.setCategoriaId(entity.getCategoria().getId());
             dto.setCategoriaNombre(entity.getCategoria().getNombre());
         }
+
         if (entity.getProveedor() != null) {
             dto.setProveedorId(entity.getProveedor().getId());
             dto.setProveedorNombre(entity.getProveedor().getNombre());
         }
-        if (entity.getUsuario() != null) dto.setUsuarioId(entity.getUsuario().getId());
+
+        if (entity.getUsuario() != null)
+            dto.setUsuarioId(entity.getUsuario().getId());
+
+        if (entity.getEstanteria() != null) {
+            dto.setEstanteriaId(entity.getEstanteria().getId());
+
+            // Extraer la ubicación completa en texto legible
+            Estanteria est = entity.getEstanteria();
+            Planta pla = est.getPlanta();
+            Almacen alm = (pla != null) ? pla.getAlmacen() : null;
+
+            String ubicacion = "";
+            if (alm != null) ubicacion += alm.getNombre() + " → ";
+            if (pla != null && pla.getNombre() != null) ubicacion += pla.getNombre() + " → ";
+            ubicacion += est.getCodigo();
+
+            dto.setUbicacion(ubicacion);
+        }
 
         return dto;
     }
@@ -58,6 +82,38 @@ public class ProductoDto {
         producto.setPrecio(this.getPrecio());
         producto.setCantidad(this.getCantidad());
         producto.setUsoInterno(this.isUsoInterno());
+        producto.setFechaIngreso(this.getFechaIngreso());
+
+        if (this.empresaId != null) {
+            Empresa empresa = new Empresa();
+            empresa.setId(this.empresaId);
+            producto.setEmpresa(empresa);
+        }
+
+        if (this.categoriaId != null) {
+            Categoria categoria = new Categoria();
+            categoria.setId(this.categoriaId);
+            producto.setCategoria(categoria);
+        }
+
+        if (this.proveedorId != null) {
+            Proveedor proveedor = new Proveedor();
+            proveedor.setId(this.proveedorId);
+            producto.setProveedor(proveedor);
+        }
+
+        if (this.usuarioId != null) {
+            User usuario = new User();
+            usuario.setId(this.usuarioId);
+            producto.setUsuario(usuario);
+        }
+
+        if (this.estanteriaId != null) {
+            Estanteria estanteria = new Estanteria();
+            estanteria.setId(this.estanteriaId);
+            producto.setEstanteria(estanteria);
+        }
+
         return producto;
     }
 
