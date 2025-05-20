@@ -28,33 +28,37 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private tokenService: TokenService,
     private sessionService: SessionService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit() {
+    this.actualizarEstado();
+
+    // 🔄 Escucha cualquier cambio de sesión (incluye actualizar perfil)
+    this.sessionSub = this.sessionService.cambios$.subscribe(() => {
+      this.actualizarEstado();
+    });
+  }
+
+  private actualizarEstado() {
     this.sesionIniciada = this.tokenService.isLogged();
 
-    this.sessionSub = this.sessionService.isSesionIniciada().subscribe((activa) => {
-      this.sesionIniciada = activa;
+    if (this.sesionIniciada) {
+      const usuario = this.tokenService.getUser();
+      this.nombreUsuario = usuario?.username || 'Cuenta';
 
-      if (activa) {
-        const usuario = this.tokenService.getUser();
-        this.nombreUsuario = usuario?.username || 'Cuenta'; // ✅ Se actualiza al iniciar sesión
+      this.esAdmin = this.tokenService.hasRole('ROLE_ADMIN');
+      this.esAdminEmpresa = this.tokenService.hasRole('ROLE_ADMIN_EMPRESA');
+      this.esEmpleado = this.tokenService.hasRole('ROLE_EMPLEADO');
+      this.esUsuario = this.tokenService.hasRole('ROLE_USER');
+    } else {
+      this.nombreUsuario = 'Cuenta';
+      this.esAdmin = false;
+      this.esAdminEmpresa = false;
+      this.esEmpleado = false;
+      this.esUsuario = false;
+    }
 
-        this.esAdmin = this.tokenService.hasRole('ROLE_ADMIN');
-        this.esAdminEmpresa = this.tokenService.hasRole('ROLE_ADMIN_EMPRESA');
-        this.esEmpleado = this.tokenService.hasRole('ROLE_EMPLEADO');
-        this.esUsuario = this.tokenService.hasRole('ROLE_USER');
-
-        this.dropdownVisible = false;
-      } else {
-        this.nombreUsuario = 'Cuenta';
-        this.dropdownVisible = false;
-        this.esAdmin = false;
-        this.esAdminEmpresa = false;
-        this.esEmpleado = false;
-        this.esUsuario = false;
-      }
-    });
+    this.dropdownVisible = false;
   }
 
   ngOnDestroy() {

@@ -1,8 +1,10 @@
 package com.tfg.backend.controller;
 
+import com.tfg.backend.auth.jwt.JwtUtils;
 import com.tfg.backend.auth.models.Role;
 import com.tfg.backend.auth.models.RoleEnum;
 import com.tfg.backend.auth.models.User;
+import com.tfg.backend.auth.payload.response.JwtResponse;
 import com.tfg.backend.auth.repository.RoleRepository;
 import com.tfg.backend.auth.services.UserDetailsImpl;
 import com.tfg.backend.model.dto.CambiarPasswordDto;
@@ -16,7 +18,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -44,6 +50,11 @@ public class UserController {
     @Autowired
     private RoleRepository roleRepository;
 
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private JwtUtils jwtUtils;
 
 
     // GET – listar todos
@@ -79,22 +90,46 @@ public class UserController {
         return ResponseEntity.ok(UserDto.from(usuarios));
     }
 
-    // PUT – editar usuario
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable long id, @RequestBody UserDto userDto) {
         User userBD = userService.findById(id);
-        if (userBD != null) {
-            try {
-                User updated = userService.update(userDto.to(), id);
-                return ResponseEntity.ok(UserDto.from(updated));
-            } catch (Exception e) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                        .body(ErrorDto.from("Usuario no modificado"));
-            }
+        if (userBD == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(ErrorDto.from("Usuario no encontrado"));
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(ErrorDto.from("Usuario no encontrado"));
+
+        // Actualiza los datos
+        User updated = userService.update(userDto.to(), id);
+
+        // Autentica de nuevo con contraseña fija para regenerar token válido
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(updated.getUsername(), "castelar")
+            );
+
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            String jwt = jwtUtils.generateJwtToken(authentication);
+
+            System.out.println("✅ Nuevo token generado tras update: " + jwt);
+
+            UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+            List<String> roles = userDetails.getAuthorities().stream()
+                    .map(item -> item.getAuthority())
+                    .toList();
+
+            return ResponseEntity.ok(new JwtResponse(jwt,
+                    userDetails.getId(),
+                    userDetails.getUsername(),
+                    userDetails.getEmail(),
+                    roles));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(ErrorDto.from("Error al regenerar token. Verifica la contraseña."));
+        }
     }
+
+
+
 
     // DELETE – eliminar usuario
     @DeleteMapping("/{id}")

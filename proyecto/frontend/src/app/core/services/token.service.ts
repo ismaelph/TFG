@@ -13,16 +13,32 @@ export class TokenService {
   }
 
   getToken(): string | null {
-    const user = localStorage.getItem(USER_KEY);
-    if (user) {
-      try {
-        return JSON.parse(user).accessToken || null;
-      } catch (e) {
-        return null;
-      }
+    const rawUser = localStorage.getItem(USER_KEY);
+
+    if (!rawUser) {
+      console.warn('[TokenService] No se encontró ningún usuario en localStorage');
+      return null;
     }
-    return null;
+
+    try {
+      const parsedUser = JSON.parse(rawUser);
+
+      const token = parsedUser.token || parsedUser.accessToken || null;
+
+      if (!token) {
+        console.warn('[TokenService] No se encontró token en el usuario guardado');
+      } else {
+        console.log('[TokenService] Token encontrado:', token);
+      }
+
+      return token;
+    } catch (e) {
+      console.error('[TokenService] Error al parsear el usuario desde localStorage', e);
+      return null;
+    }
   }
+
+
 
   clearToken(): void {
     localStorage.removeItem(TOKEN_KEY);
@@ -56,8 +72,8 @@ export class TokenService {
   }
 
   getUserId(): number | null {
-  const user = this.getUser();
-  return user && user.id ? user.id : null;
-}
+    const user = this.getUser();
+    return user && user.id ? user.id : null;
+  }
 
 }
