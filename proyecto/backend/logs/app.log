@@ -10360,3 +10360,1210 @@ Caused by: java.sql.SQLSyntaxErrorException: Can't DROP 'FKlepi4aumrbt68q2vybj81
 2025-05-21T19:35:25.936+02:00  INFO 12668 --- [backend] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
 2025-05-21T19:35:25.940+02:00  INFO 12668 --- [backend] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2025-05-21T19:35:25.942+02:00  INFO 12668 --- [backend] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-05-21T20:41:25.047+02:00  INFO 6192 --- [backend] [restartedMain] com.tfg.backend.BackendApplication       : Starting BackendApplication using Java 23.0.2 with PID 6192 (C:\Users\pavon\Documents\GitHub\TFG\proyecto\backend\build\classes\java\main started by pavon in C:\Users\pavon\Documents\GitHub\TFG\proyecto\backend)
+2025-05-21T20:41:25.049+02:00  INFO 6192 --- [backend] [restartedMain] com.tfg.backend.BackendApplication       : No active profile set, falling back to 1 default profile: "default"
+2025-05-21T20:41:25.084+02:00  INFO 6192 --- [backend] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-05-21T20:41:25.084+02:00  INFO 6192 --- [backend] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-05-21T20:41:25.594+02:00  INFO 6192 --- [backend] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-05-21T20:41:25.660+02:00  INFO 6192 --- [backend] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 61 ms. Found 13 JPA repository interfaces.
+2025-05-21T20:41:26.075+02:00  INFO 6192 --- [backend] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-05-21T20:41:26.087+02:00  INFO 6192 --- [backend] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-05-21T20:41:26.087+02:00  INFO 6192 --- [backend] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-05-21T20:41:26.120+02:00  INFO 6192 --- [backend] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-05-21T20:41:26.120+02:00  INFO 6192 --- [backend] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1035 ms
+2025-05-21T20:41:26.244+02:00  INFO 6192 --- [backend] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-05-21T20:41:26.279+02:00  INFO 6192 --- [backend] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.11.Final
+2025-05-21T20:41:26.307+02:00  INFO 6192 --- [backend] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-05-21T20:41:26.487+02:00  INFO 6192 --- [backend] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-05-21T20:41:26.505+02:00  INFO 6192 --- [backend] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-05-21T20:41:27.101+02:00  INFO 6192 --- [backend] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@37cfae7a
+2025-05-21T20:41:27.102+02:00  INFO 6192 --- [backend] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-05-21T20:41:27.209+02:00  WARN 6192 --- [backend] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-05-21T20:41:27.219+02:00  INFO 6192 --- [backend] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 9.2
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-05-21T20:41:27.983+02:00  INFO 6192 --- [backend] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-05-21T20:41:41.777+02:00  INFO 6192 --- [backend] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-05-21T20:41:42.015+02:00  INFO 6192 --- [backend] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-05-21T20:41:42.017+02:00  WARN 6192 --- [backend] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-05-21T20:41:42.130+02:00  INFO 6192 --- [backend] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-05-21T20:41:42.478+02:00  WARN 6192 --- [backend] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-05-21T20:41:42.830+02:00  INFO 6192 --- [backend] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-05-21T20:41:42.852+02:00  INFO 6192 --- [backend] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-05-21T20:41:42.857+02:00  INFO 6192 --- [backend] [restartedMain] com.tfg.backend.BackendApplication       : Started BackendApplication in 18.103 seconds (process running for 18.579)
+2025-05-21T20:41:50.435+02:00  INFO 6192 --- [backend] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-05-21T20:41:50.435+02:00  INFO 6192 --- [backend] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-05-21T20:41:50.437+02:00  INFO 6192 --- [backend] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2025-05-21T20:45:34.558+02:00 ERROR 6192 --- [backend] [http-nio-8080-exec-5] com.tfg.backend.auth.jwt.JwtUtils        : El token JWT ha expirado: JWT expired at 2025-05-21T18:44:48Z. Current time: 2025-05-21T18:45:34Z, a difference of 46557 milliseconds.  Allowed clock skew: 0 milliseconds.
+2025-05-21T20:45:34.558+02:00 ERROR 6192 --- [backend] [http-nio-8080-exec-5] c.t.backend.auth.jwt.AuthEntryPointJwt   : Unauthorized error: Full authentication is required to access this resource
+2025-05-21T20:45:36.771+02:00 ERROR 6192 --- [backend] [http-nio-8080-exec-6] com.tfg.backend.auth.jwt.JwtUtils        : El token JWT ha expirado: JWT expired at 2025-05-21T18:44:48Z. Current time: 2025-05-21T18:45:36Z, a difference of 48771 milliseconds.  Allowed clock skew: 0 milliseconds.
+2025-05-21T20:45:36.771+02:00 ERROR 6192 --- [backend] [http-nio-8080-exec-6] c.t.backend.auth.jwt.AuthEntryPointJwt   : Unauthorized error: Full authentication is required to access this resource
+2025-05-21T20:46:38.910+02:00  INFO 6192 --- [backend] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-05-21T20:46:38.912+02:00  INFO 6192 --- [backend] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-05-21T20:46:38.917+02:00  INFO 6192 --- [backend] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-05-21T20:46:38.919+02:00  INFO 6192 --- [backend] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-05-21T20:46:48.929+02:00  WARN 6192 --- [backend] [SpringApplicationShutdownHook] com.zaxxer.hikari.pool.HikariPool        : Timed-out waiting for close connection executor to shutdown
+2025-05-21T20:46:48.929+02:00  INFO 6192 --- [backend] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-05-21T20:59:03.400+02:00  INFO 4680 --- [backend] [restartedMain] com.tfg.backend.BackendApplication       : Starting BackendApplication using Java 23.0.2 with PID 4680 (C:\Users\pavon\Documents\GitHub\TFG\proyecto\backend\build\classes\java\main started by pavon in C:\Users\pavon\Documents\GitHub\TFG\proyecto\backend)
+2025-05-21T20:59:03.401+02:00  INFO 4680 --- [backend] [restartedMain] com.tfg.backend.BackendApplication       : No active profile set, falling back to 1 default profile: "default"
+2025-05-21T20:59:03.433+02:00  INFO 4680 --- [backend] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-05-21T20:59:03.434+02:00  INFO 4680 --- [backend] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-05-21T20:59:03.910+02:00  INFO 4680 --- [backend] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-05-21T20:59:03.986+02:00  INFO 4680 --- [backend] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 69 ms. Found 13 JPA repository interfaces.
+2025-05-21T20:59:04.357+02:00  INFO 4680 --- [backend] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-05-21T20:59:04.366+02:00  INFO 4680 --- [backend] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-05-21T20:59:04.366+02:00  INFO 4680 --- [backend] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-05-21T20:59:04.392+02:00  INFO 4680 --- [backend] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-05-21T20:59:04.393+02:00  INFO 4680 --- [backend] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 959 ms
+2025-05-21T20:59:04.478+02:00  INFO 4680 --- [backend] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-05-21T20:59:04.510+02:00  INFO 4680 --- [backend] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.11.Final
+2025-05-21T20:59:04.529+02:00  INFO 4680 --- [backend] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-05-21T20:59:04.710+02:00  INFO 4680 --- [backend] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-05-21T20:59:04.728+02:00  INFO 4680 --- [backend] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-05-21T20:59:05.305+02:00  INFO 4680 --- [backend] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@204a68e5
+2025-05-21T20:59:05.306+02:00  INFO 4680 --- [backend] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-05-21T20:59:05.418+02:00  WARN 4680 --- [backend] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-05-21T20:59:05.431+02:00  INFO 4680 --- [backend] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 9.2
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-05-21T20:59:06.242+02:00  INFO 4680 --- [backend] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-05-21T20:59:19.127+02:00  INFO 4680 --- [backend] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-05-21T20:59:19.364+02:00  INFO 4680 --- [backend] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-05-21T20:59:19.364+02:00  WARN 4680 --- [backend] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-05-21T20:59:19.478+02:00  INFO 4680 --- [backend] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-05-21T20:59:19.826+02:00  WARN 4680 --- [backend] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-05-21T20:59:20.192+02:00  INFO 4680 --- [backend] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-05-21T20:59:20.214+02:00  INFO 4680 --- [backend] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-05-21T20:59:20.218+02:00  INFO 4680 --- [backend] [restartedMain] com.tfg.backend.BackendApplication       : Started BackendApplication in 17.082 seconds (process running for 17.471)
+2025-05-21T20:59:31.636+02:00  INFO 4680 --- [backend] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-05-21T20:59:31.636+02:00  INFO 4680 --- [backend] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-05-21T20:59:31.637+02:00  INFO 4680 --- [backend] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2025-05-21T21:09:13.479+02:00  WARN 4680 --- [backend] [http-nio-8080-exec-3] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@204a68e5 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2025-05-21T21:09:23.484+02:00  WARN 4680 --- [backend] [http-nio-8080-exec-3] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@3d8ded48 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2025-05-21T21:09:33.497+02:00  WARN 4680 --- [backend] [http-nio-8080-exec-3] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@26029bc2 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2025-05-21T21:09:33.501+02:00  WARN 4680 --- [backend] [http-nio-8080-exec-3] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 0, SQLState: 08003
+2025-05-21T21:09:33.501+02:00 ERROR 4680 --- [backend] [http-nio-8080-exec-3] o.h.engine.jdbc.spi.SqlExceptionHelper   : HikariPool-1 - Connection is not available, request timed out after 30031ms (total=9, active=0, idle=9, waiting=0)
+2025-05-21T21:09:33.502+02:00 ERROR 4680 --- [backend] [http-nio-8080-exec-3] o.h.engine.jdbc.spi.SqlExceptionHelper   : No operations allowed after connection closed.
+2025-05-21T21:09:33.502+02:00 ERROR 4680 --- [backend] [http-nio-8080-exec-3] c.tfg.backend.auth.jwt.AuthTokenFilter   : No se puede establecer la autenticación del usuario: {}
+
+org.springframework.transaction.CannotCreateTransactionException: Could not open JPA EntityManager for transaction
+	at org.springframework.orm.jpa.JpaTransactionManager.doBegin(JpaTransactionManager.java:466) ~[spring-orm-6.2.5.jar:6.2.5]
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.startTransaction(AbstractPlatformTransactionManager.java:532) ~[spring-tx-6.2.5.jar:6.2.5]
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.getTransaction(AbstractPlatformTransactionManager.java:405) ~[spring-tx-6.2.5.jar:6.2.5]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.createTransactionIfNecessary(TransactionAspectSupport.java:639) ~[spring-tx-6.2.5.jar:6.2.5]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:374) ~[spring-tx-6.2.5.jar:6.2.5]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119) ~[spring-tx-6.2.5.jar:6.2.5]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.2.5.jar:6.2.5]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:727) ~[spring-aop-6.2.5.jar:6.2.5]
+	at com.tfg.backend.auth.services.impl.UserDetailsServiceImpl$$SpringCGLIB$$0.loadUserByUsername(<generated>) ~[main/:na]
+	at com.tfg.backend.auth.jwt.AuthTokenFilter.doFilterInternal(AuthTokenFilter.java:37) ~[main/:na]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:243) ~[spring-webmvc-6.2.5.jar:6.2.5]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:238) ~[spring-security-config-6.4.4.jar:6.4.4]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at java.base/java.lang.Thread.run(Thread.java:1575) ~[na:na]
+Caused by: org.hibernate.exception.JDBCConnectionException: Unable to acquire JDBC Connection [HikariPool-1 - Connection is not available, request timed out after 30031ms (total=9, active=0, idle=9, waiting=0)] [n/a]
+	at org.hibernate.exception.internal.SQLExceptionTypeDelegate.convert(SQLExceptionTypeDelegate.java:51) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:58) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:108) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:94) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.acquireConnectionIfNeeded(LogicalConnectionManagedImpl.java:129) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.getPhysicalConnection(LogicalConnectionManagedImpl.java:156) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.getConnectionForTransactionManagement(LogicalConnectionManagedImpl.java:286) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.begin(LogicalConnectionManagedImpl.java:294) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl$TransactionDriverControlImpl.begin(JdbcResourceLocalTransactionCoordinatorImpl.java:232) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.engine.transaction.internal.TransactionImpl.begin(TransactionImpl.java:83) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.beginTransaction(HibernateJpaDialect.java:176) ~[spring-orm-6.2.5.jar:6.2.5]
+	at org.springframework.orm.jpa.JpaTransactionManager.doBegin(JpaTransactionManager.java:420) ~[spring-orm-6.2.5.jar:6.2.5]
+	... 66 common frames omitted
+Caused by: java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30031ms (total=9, active=0, idle=9, waiting=0)
+	at com.zaxxer.hikari.pool.HikariPool.createTimeoutException(HikariPool.java:686) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:179) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:144) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:127) ~[HikariCP-5.1.0.jar:na]
+	at org.hibernate.engine.jdbc.connections.internal.DatasourceConnectionProviderImpl.getConnection(DatasourceConnectionProviderImpl.java:126) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.internal.NonContextualJdbcConnectionAccess.obtainConnection(NonContextualJdbcConnectionAccess.java:46) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.acquireConnectionIfNeeded(LogicalConnectionManagedImpl.java:126) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	... 73 common frames omitted
+Caused by: java.sql.SQLNonTransientConnectionException: No operations allowed after connection closed.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:111) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:98) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:90) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:64) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:74) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:73) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.ConnectionImpl.setNetworkTimeout(ConnectionImpl.java:2435) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.zaxxer.hikari.pool.PoolBase.setNetworkTimeout(PoolBase.java:562) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.PoolBase.isConnectionDead(PoolBase.java:169) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:168) ~[HikariCP-5.1.0.jar:na]
+	... 78 common frames omitted
+Caused by: com.mysql.cj.exceptions.ConnectionIsClosedException: No operations allowed after connection closed.
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62) ~[na:na]
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:501) ~[na:na]
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:485) ~[na:na]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:104) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:149) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.NativeSession.checkClosed(NativeSession.java:756) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.ConnectionImpl.checkClosed(ConnectionImpl.java:556) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.ConnectionImpl.setNetworkTimeout(ConnectionImpl.java:2431) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	... 81 common frames omitted
+
+2025-05-21T21:09:33.516+02:00 ERROR 4680 --- [backend] [http-nio-8080-exec-3] c.t.backend.auth.jwt.AuthEntryPointJwt   : Unauthorized error: Full authentication is required to access this resource
+2025-05-21T21:09:53.314+02:00  INFO 4680 --- [backend] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-05-21T21:09:53.986+02:00  WARN 4680 --- [backend] [http-nio-8080-exec-2] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@19af935 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2025-05-21T21:10:03.997+02:00  WARN 4680 --- [backend] [http-nio-8080-exec-2] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@4ca29f17 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2025-05-21T21:10:14.003+02:00  WARN 4680 --- [backend] [http-nio-8080-exec-2] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@60522d21 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2025-05-21T21:10:14.003+02:00  WARN 4680 --- [backend] [http-nio-8080-exec-2] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 0, SQLState: 08003
+2025-05-21T21:10:14.003+02:00 ERROR 4680 --- [backend] [http-nio-8080-exec-2] o.h.engine.jdbc.spi.SqlExceptionHelper   : HikariPool-1 - Connection is not available, request timed out after 30035ms (total=9, active=0, idle=9, waiting=0)
+2025-05-21T21:10:14.004+02:00 ERROR 4680 --- [backend] [http-nio-8080-exec-2] o.h.engine.jdbc.spi.SqlExceptionHelper   : No operations allowed after connection closed.
+2025-05-21T21:10:14.004+02:00 ERROR 4680 --- [backend] [http-nio-8080-exec-2] c.tfg.backend.auth.jwt.AuthTokenFilter   : No se puede establecer la autenticación del usuario: {}
+
+org.springframework.transaction.CannotCreateTransactionException: Could not open JPA EntityManager for transaction
+	at org.springframework.orm.jpa.JpaTransactionManager.doBegin(JpaTransactionManager.java:466) ~[spring-orm-6.2.5.jar:6.2.5]
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.startTransaction(AbstractPlatformTransactionManager.java:532) ~[spring-tx-6.2.5.jar:6.2.5]
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.getTransaction(AbstractPlatformTransactionManager.java:405) ~[spring-tx-6.2.5.jar:6.2.5]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.createTransactionIfNecessary(TransactionAspectSupport.java:639) ~[spring-tx-6.2.5.jar:6.2.5]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:374) ~[spring-tx-6.2.5.jar:6.2.5]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119) ~[spring-tx-6.2.5.jar:6.2.5]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.2.5.jar:6.2.5]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:727) ~[spring-aop-6.2.5.jar:6.2.5]
+	at com.tfg.backend.auth.services.impl.UserDetailsServiceImpl$$SpringCGLIB$$0.loadUserByUsername(<generated>) ~[main/:na]
+	at com.tfg.backend.auth.jwt.AuthTokenFilter.doFilterInternal(AuthTokenFilter.java:37) ~[main/:na]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:243) ~[spring-webmvc-6.2.5.jar:6.2.5]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:238) ~[spring-security-config-6.4.4.jar:6.4.4]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at java.base/java.lang.Thread.run(Thread.java:1575) ~[na:na]
+Caused by: org.hibernate.exception.JDBCConnectionException: Unable to acquire JDBC Connection [HikariPool-1 - Connection is not available, request timed out after 30035ms (total=9, active=0, idle=9, waiting=0)] [n/a]
+	at org.hibernate.exception.internal.SQLExceptionTypeDelegate.convert(SQLExceptionTypeDelegate.java:51) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:58) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:108) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:94) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.acquireConnectionIfNeeded(LogicalConnectionManagedImpl.java:129) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.getPhysicalConnection(LogicalConnectionManagedImpl.java:156) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.getConnectionForTransactionManagement(LogicalConnectionManagedImpl.java:286) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.begin(LogicalConnectionManagedImpl.java:294) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl$TransactionDriverControlImpl.begin(JdbcResourceLocalTransactionCoordinatorImpl.java:232) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.engine.transaction.internal.TransactionImpl.begin(TransactionImpl.java:83) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.beginTransaction(HibernateJpaDialect.java:176) ~[spring-orm-6.2.5.jar:6.2.5]
+	at org.springframework.orm.jpa.JpaTransactionManager.doBegin(JpaTransactionManager.java:420) ~[spring-orm-6.2.5.jar:6.2.5]
+	... 66 common frames omitted
+Caused by: java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30035ms (total=9, active=0, idle=9, waiting=0)
+	at com.zaxxer.hikari.pool.HikariPool.createTimeoutException(HikariPool.java:686) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:179) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:144) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:127) ~[HikariCP-5.1.0.jar:na]
+	at org.hibernate.engine.jdbc.connections.internal.DatasourceConnectionProviderImpl.getConnection(DatasourceConnectionProviderImpl.java:126) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.internal.NonContextualJdbcConnectionAccess.obtainConnection(NonContextualJdbcConnectionAccess.java:46) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.acquireConnectionIfNeeded(LogicalConnectionManagedImpl.java:126) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	... 73 common frames omitted
+Caused by: java.sql.SQLNonTransientConnectionException: No operations allowed after connection closed.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:111) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:98) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:90) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:64) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:74) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:73) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.ConnectionImpl.setNetworkTimeout(ConnectionImpl.java:2435) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.zaxxer.hikari.pool.PoolBase.setNetworkTimeout(PoolBase.java:562) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.PoolBase.isConnectionDead(PoolBase.java:169) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:168) ~[HikariCP-5.1.0.jar:na]
+	... 78 common frames omitted
+Caused by: com.mysql.cj.exceptions.ConnectionIsClosedException: No operations allowed after connection closed.
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62) ~[na:na]
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:501) ~[na:na]
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:485) ~[na:na]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:104) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:149) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.NativeSession.checkClosed(NativeSession.java:756) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.ConnectionImpl.checkClosed(ConnectionImpl.java:556) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.ConnectionImpl.setNetworkTimeout(ConnectionImpl.java:2431) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	... 81 common frames omitted
+
+2025-05-21T21:10:14.005+02:00 ERROR 4680 --- [backend] [http-nio-8080-exec-2] c.t.backend.auth.jwt.AuthEntryPointJwt   : Unauthorized error: Full authentication is required to access this resource
+2025-05-21T21:10:14.035+02:00  INFO 4680 --- [backend] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-05-21T21:10:14.038+02:00  INFO 4680 --- [backend] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-05-21T21:10:14.040+02:00  INFO 4680 --- [backend] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-05-21T21:10:24.360+02:00  WARN 4680 --- [backend] [SpringApplicationShutdownHook] com.zaxxer.hikari.pool.HikariPool        : Timed-out waiting for close connection executor to shutdown
+2025-05-21T21:10:24.360+02:00  INFO 4680 --- [backend] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-05-21T21:10:26.101+02:00  INFO 11008 --- [backend] [restartedMain] com.tfg.backend.BackendApplication       : Starting BackendApplication using Java 23.0.2 with PID 11008 (C:\Users\pavon\Documents\GitHub\TFG\proyecto\backend\build\classes\java\main started by pavon in C:\Users\pavon\Documents\GitHub\TFG\proyecto\backend)
+2025-05-21T21:10:26.102+02:00  INFO 11008 --- [backend] [restartedMain] com.tfg.backend.BackendApplication       : No active profile set, falling back to 1 default profile: "default"
+2025-05-21T21:10:26.134+02:00  INFO 11008 --- [backend] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-05-21T21:10:26.134+02:00  INFO 11008 --- [backend] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-05-21T21:10:26.576+02:00  INFO 11008 --- [backend] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-05-21T21:10:26.644+02:00  INFO 11008 --- [backend] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 63 ms. Found 13 JPA repository interfaces.
+2025-05-21T21:10:26.990+02:00  INFO 11008 --- [backend] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-05-21T21:10:26.999+02:00  INFO 11008 --- [backend] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-05-21T21:10:26.999+02:00  INFO 11008 --- [backend] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-05-21T21:10:27.026+02:00  INFO 11008 --- [backend] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-05-21T21:10:27.026+02:00  INFO 11008 --- [backend] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 892 ms
+2025-05-21T21:10:27.110+02:00  INFO 11008 --- [backend] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-05-21T21:10:27.140+02:00  INFO 11008 --- [backend] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.11.Final
+2025-05-21T21:10:27.160+02:00  INFO 11008 --- [backend] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-05-21T21:10:27.321+02:00  INFO 11008 --- [backend] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-05-21T21:10:27.339+02:00  INFO 11008 --- [backend] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-05-21T21:10:27.880+02:00  INFO 11008 --- [backend] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@162c5f62
+2025-05-21T21:10:27.881+02:00  INFO 11008 --- [backend] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-05-21T21:10:27.992+02:00  WARN 11008 --- [backend] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-05-21T21:10:28.003+02:00  INFO 11008 --- [backend] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 9.2
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-05-21T21:10:28.705+02:00  INFO 11008 --- [backend] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-05-21T21:10:42.230+02:00  INFO 11008 --- [backend] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-05-21T21:10:42.460+02:00  INFO 11008 --- [backend] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-05-21T21:10:42.461+02:00  WARN 11008 --- [backend] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-05-21T21:10:42.579+02:00  INFO 11008 --- [backend] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-05-21T21:10:42.924+02:00  WARN 11008 --- [backend] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-05-21T21:10:43.278+02:00  INFO 11008 --- [backend] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-05-21T21:10:43.304+02:00  INFO 11008 --- [backend] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-05-21T21:10:43.309+02:00  INFO 11008 --- [backend] [restartedMain] com.tfg.backend.BackendApplication       : Started BackendApplication in 17.466 seconds (process running for 17.883)
+2025-05-21T21:10:47.815+02:00  INFO 11008 --- [backend] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-05-21T21:10:47.815+02:00  INFO 11008 --- [backend] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-05-21T21:10:47.816+02:00  INFO 11008 --- [backend] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-05-21T21:17:59.911+02:00  WARN 11008 --- [backend] [http-nio-8080-exec-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@162c5f62 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2025-05-21T21:18:02.689+02:00  INFO 11008 --- [backend] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-05-21T21:18:09.930+02:00  WARN 11008 --- [backend] [http-nio-8080-exec-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@37aa02a6 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2025-05-21T21:18:11.024+02:00  WARN 11008 --- [backend] [http-nio-8080-exec-2] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@2eb5d989 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2025-05-21T21:18:19.946+02:00  WARN 11008 --- [backend] [http-nio-8080-exec-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@127f75d (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2025-05-21T21:18:19.949+02:00  WARN 11008 --- [backend] [http-nio-8080-exec-1] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 0, SQLState: 08003
+2025-05-21T21:18:19.949+02:00 ERROR 11008 --- [backend] [http-nio-8080-exec-1] o.h.engine.jdbc.spi.SqlExceptionHelper   : HikariPool-1 - Connection is not available, request timed out after 30052ms (total=9, active=1, idle=8, waiting=0)
+2025-05-21T21:18:19.949+02:00 ERROR 11008 --- [backend] [http-nio-8080-exec-1] o.h.engine.jdbc.spi.SqlExceptionHelper   : No operations allowed after connection closed.
+2025-05-21T21:18:19.950+02:00 ERROR 11008 --- [backend] [http-nio-8080-exec-1] c.tfg.backend.auth.jwt.AuthTokenFilter   : No se puede establecer la autenticación del usuario: {}
+
+org.springframework.transaction.CannotCreateTransactionException: Could not open JPA EntityManager for transaction
+	at org.springframework.orm.jpa.JpaTransactionManager.doBegin(JpaTransactionManager.java:466) ~[spring-orm-6.2.5.jar:6.2.5]
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.startTransaction(AbstractPlatformTransactionManager.java:532) ~[spring-tx-6.2.5.jar:6.2.5]
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.getTransaction(AbstractPlatformTransactionManager.java:405) ~[spring-tx-6.2.5.jar:6.2.5]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.createTransactionIfNecessary(TransactionAspectSupport.java:639) ~[spring-tx-6.2.5.jar:6.2.5]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:374) ~[spring-tx-6.2.5.jar:6.2.5]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119) ~[spring-tx-6.2.5.jar:6.2.5]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.2.5.jar:6.2.5]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:727) ~[spring-aop-6.2.5.jar:6.2.5]
+	at com.tfg.backend.auth.services.impl.UserDetailsServiceImpl$$SpringCGLIB$$0.loadUserByUsername(<generated>) ~[main/:na]
+	at com.tfg.backend.auth.jwt.AuthTokenFilter.doFilterInternal(AuthTokenFilter.java:37) ~[main/:na]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:243) ~[spring-webmvc-6.2.5.jar:6.2.5]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:238) ~[spring-security-config-6.4.4.jar:6.4.4]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at java.base/java.lang.Thread.run(Thread.java:1575) ~[na:na]
+Caused by: org.hibernate.exception.JDBCConnectionException: Unable to acquire JDBC Connection [HikariPool-1 - Connection is not available, request timed out after 30052ms (total=9, active=1, idle=8, waiting=0)] [n/a]
+	at org.hibernate.exception.internal.SQLExceptionTypeDelegate.convert(SQLExceptionTypeDelegate.java:51) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:58) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:108) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:94) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.acquireConnectionIfNeeded(LogicalConnectionManagedImpl.java:129) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.getPhysicalConnection(LogicalConnectionManagedImpl.java:156) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.getConnectionForTransactionManagement(LogicalConnectionManagedImpl.java:286) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.begin(LogicalConnectionManagedImpl.java:294) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl$TransactionDriverControlImpl.begin(JdbcResourceLocalTransactionCoordinatorImpl.java:232) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.engine.transaction.internal.TransactionImpl.begin(TransactionImpl.java:83) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.beginTransaction(HibernateJpaDialect.java:176) ~[spring-orm-6.2.5.jar:6.2.5]
+	at org.springframework.orm.jpa.JpaTransactionManager.doBegin(JpaTransactionManager.java:420) ~[spring-orm-6.2.5.jar:6.2.5]
+	... 66 common frames omitted
+Caused by: java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30052ms (total=9, active=1, idle=8, waiting=0)
+	at com.zaxxer.hikari.pool.HikariPool.createTimeoutException(HikariPool.java:686) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:179) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:144) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:127) ~[HikariCP-5.1.0.jar:na]
+	at org.hibernate.engine.jdbc.connections.internal.DatasourceConnectionProviderImpl.getConnection(DatasourceConnectionProviderImpl.java:126) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.internal.NonContextualJdbcConnectionAccess.obtainConnection(NonContextualJdbcConnectionAccess.java:46) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.acquireConnectionIfNeeded(LogicalConnectionManagedImpl.java:126) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	... 73 common frames omitted
+Caused by: java.sql.SQLNonTransientConnectionException: No operations allowed after connection closed.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:111) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:98) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:90) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:64) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:74) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:73) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.ConnectionImpl.setNetworkTimeout(ConnectionImpl.java:2435) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.zaxxer.hikari.pool.PoolBase.setNetworkTimeout(PoolBase.java:562) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.PoolBase.isConnectionDead(PoolBase.java:169) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:168) ~[HikariCP-5.1.0.jar:na]
+	... 78 common frames omitted
+Caused by: com.mysql.cj.exceptions.ConnectionIsClosedException: No operations allowed after connection closed.
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62) ~[na:na]
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:501) ~[na:na]
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:485) ~[na:na]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:104) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:149) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.NativeSession.checkClosed(NativeSession.java:756) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.ConnectionImpl.checkClosed(ConnectionImpl.java:556) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.ConnectionImpl.setNetworkTimeout(ConnectionImpl.java:2431) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	... 81 common frames omitted
+
+2025-05-21T21:18:19.955+02:00 ERROR 11008 --- [backend] [http-nio-8080-exec-1] c.t.backend.auth.jwt.AuthEntryPointJwt   : Unauthorized error: Full authentication is required to access this resource
+2025-05-21T21:18:21.047+02:00  WARN 11008 --- [backend] [http-nio-8080-exec-2] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@966faca (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2025-05-21T21:18:31.060+02:00  WARN 11008 --- [backend] [http-nio-8080-exec-2] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@28c986a5 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2025-05-21T21:18:31.060+02:00  WARN 11008 --- [backend] [http-nio-8080-exec-2] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 0, SQLState: 08003
+2025-05-21T21:18:31.060+02:00 ERROR 11008 --- [backend] [http-nio-8080-exec-2] o.h.engine.jdbc.spi.SqlExceptionHelper   : HikariPool-1 - Connection is not available, request timed out after 30056ms (total=9, active=0, idle=9, waiting=0)
+2025-05-21T21:18:31.060+02:00 ERROR 11008 --- [backend] [http-nio-8080-exec-2] o.h.engine.jdbc.spi.SqlExceptionHelper   : No operations allowed after connection closed.
+2025-05-21T21:18:31.063+02:00 ERROR 11008 --- [backend] [http-nio-8080-exec-2] c.t.backend.auth.jwt.AuthEntryPointJwt   : Unauthorized error: Could not open JPA EntityManager for transaction
+2025-05-21T21:18:31.121+02:00  INFO 11008 --- [backend] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-05-21T21:18:31.125+02:00  INFO 11008 --- [backend] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-05-21T21:18:31.127+02:00  INFO 11008 --- [backend] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-05-21T21:18:41.405+02:00  WARN 11008 --- [backend] [SpringApplicationShutdownHook] com.zaxxer.hikari.pool.HikariPool        : Timed-out waiting for close connection executor to shutdown
+2025-05-21T21:18:41.405+02:00  INFO 11008 --- [backend] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-05-21T21:18:42.882+02:00  INFO 19500 --- [backend] [restartedMain] com.tfg.backend.BackendApplication       : Starting BackendApplication using Java 23.0.2 with PID 19500 (C:\Users\pavon\Documents\GitHub\TFG\proyecto\backend\build\classes\java\main started by pavon in C:\Users\pavon\Documents\GitHub\TFG\proyecto\backend)
+2025-05-21T21:18:42.883+02:00  INFO 19500 --- [backend] [restartedMain] com.tfg.backend.BackendApplication       : No active profile set, falling back to 1 default profile: "default"
+2025-05-21T21:18:42.913+02:00  INFO 19500 --- [backend] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-05-21T21:18:42.914+02:00  INFO 19500 --- [backend] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-05-21T21:18:43.368+02:00  INFO 19500 --- [backend] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-05-21T21:18:43.436+02:00  INFO 19500 --- [backend] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 62 ms. Found 13 JPA repository interfaces.
+2025-05-21T21:18:43.788+02:00  INFO 19500 --- [backend] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-05-21T21:18:43.796+02:00  INFO 19500 --- [backend] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-05-21T21:18:43.796+02:00  INFO 19500 --- [backend] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-05-21T21:18:43.823+02:00  INFO 19500 --- [backend] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-05-21T21:18:43.823+02:00  INFO 19500 --- [backend] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 909 ms
+2025-05-21T21:18:43.907+02:00  INFO 19500 --- [backend] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-05-21T21:18:43.939+02:00  INFO 19500 --- [backend] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.11.Final
+2025-05-21T21:18:43.959+02:00  INFO 19500 --- [backend] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-05-21T21:18:44.126+02:00  INFO 19500 --- [backend] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-05-21T21:18:44.144+02:00  INFO 19500 --- [backend] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-05-21T21:18:44.662+02:00  INFO 19500 --- [backend] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4caf96a
+2025-05-21T21:18:44.663+02:00  INFO 19500 --- [backend] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-05-21T21:18:44.773+02:00  WARN 19500 --- [backend] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-05-21T21:18:44.783+02:00  INFO 19500 --- [backend] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 9.2
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-05-21T21:18:45.481+02:00  INFO 19500 --- [backend] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-05-21T21:18:59.106+02:00  INFO 19500 --- [backend] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-05-21T21:18:59.342+02:00  INFO 19500 --- [backend] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-05-21T21:18:59.342+02:00  WARN 19500 --- [backend] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-05-21T21:18:59.467+02:00  INFO 19500 --- [backend] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-05-21T21:18:59.814+02:00  WARN 19500 --- [backend] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-05-21T21:19:00.164+02:00  INFO 19500 --- [backend] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-05-21T21:19:00.185+02:00  INFO 19500 --- [backend] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-05-21T21:19:00.191+02:00  INFO 19500 --- [backend] [restartedMain] com.tfg.backend.BackendApplication       : Started BackendApplication in 17.569 seconds (process running for 17.986)
+2025-05-21T21:19:04.529+02:00  INFO 19500 --- [backend] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-05-21T21:19:04.530+02:00  INFO 19500 --- [backend] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-05-21T21:19:04.530+02:00  INFO 19500 --- [backend] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2025-05-21T21:29:20.228+02:00  WARN 19500 --- [backend] [http-nio-8080-exec-6] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@5eecca75 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2025-05-21T21:30:34.556+02:00  WARN 19500 --- [backend] [http-nio-8080-exec-5] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@6c643639 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2025-05-21T21:32:23.047+02:00  WARN 19500 --- [backend] [http-nio-8080-exec-8] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@30b4e981 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2025-05-21T21:32:45.331+02:00  WARN 19500 --- [backend] [http-nio-8080-exec-9] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@2d2fdcf6 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2025-05-21T21:32:45.331+02:00  WARN 19500 --- [backend] [http-nio-8080-exec-6] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@2f76e802 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2025-05-21T21:32:45.331+02:00  WARN 19500 --- [backend] [http-nio-8080-exec-7] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@120d1e97 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2025-05-21T21:32:51.154+02:00 ERROR 19500 --- [backend] [http-nio-8080-exec-5] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.orm.ObjectOptimisticLockingFailureException: Row was updated or deleted by another transaction (or unsaved-value mapping was incorrect): [com.tfg.backend.model.entity.Planta#6]] with root cause
+
+org.hibernate.StaleObjectStateException: Row was updated or deleted by another transaction (or unsaved-value mapping was incorrect): [com.tfg.backend.model.entity.Planta#6]
+	at org.hibernate.engine.jdbc.mutation.internal.ModelMutationHelper.identifiedResultsCheck(ModelMutationHelper.java:75) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.persister.entity.mutation.AbstractDeleteCoordinator.lambda$doStaticDelete$2(AbstractDeleteCoordinator.java:283) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.engine.jdbc.mutation.internal.ModelMutationHelper.checkResults(ModelMutationHelper.java:50) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.performNonBatchedMutation(AbstractMutationExecutor.java:141) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.engine.jdbc.mutation.internal.MutationExecutorSingleNonBatched.performNonBatchedOperations(MutationExecutorSingleNonBatched.java:55) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.execute(AbstractMutationExecutor.java:55) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.persister.entity.mutation.AbstractDeleteCoordinator.doStaticDelete(AbstractDeleteCoordinator.java:279) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.persister.entity.mutation.AbstractDeleteCoordinator.delete(AbstractDeleteCoordinator.java:87) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.action.internal.EntityDeleteAction.execute(EntityDeleteAction.java:131) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.engine.spi.ActionQueue.executeActions(ActionQueue.java:644) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.engine.spi.ActionQueue.executeActions(ActionQueue.java:511) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.event.internal.AbstractFlushingEventListener.performExecutions(AbstractFlushingEventListener.java:414) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.event.internal.DefaultFlushEventListener.onFlush(DefaultFlushEventListener.java:41) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:127) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.internal.SessionImpl.doFlush(SessionImpl.java:1429) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.internal.SessionImpl.managedFlush(SessionImpl.java:491) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.internal.SessionImpl.flushBeforeTransactionCompletion(SessionImpl.java:2354) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.internal.SessionImpl.beforeTransactionCompletion(SessionImpl.java:1978) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.engine.jdbc.internal.JdbcCoordinatorImpl.beforeTransactionCompletion(JdbcCoordinatorImpl.java:439) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl.beforeCompletionCallback(JdbcResourceLocalTransactionCoordinatorImpl.java:169) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl$TransactionDriverControlImpl.commit(JdbcResourceLocalTransactionCoordinatorImpl.java:267) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.engine.transaction.internal.TransactionImpl.commit(TransactionImpl.java:101) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.springframework.orm.jpa.JpaTransactionManager.doCommit(JpaTransactionManager.java:562) ~[spring-orm-6.2.5.jar:6.2.5]
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.processCommit(AbstractPlatformTransactionManager.java:795) ~[spring-tx-6.2.5.jar:6.2.5]
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.commit(AbstractPlatformTransactionManager.java:758) ~[spring-tx-6.2.5.jar:6.2.5]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.commitTransactionAfterReturning(TransactionAspectSupport.java:698) ~[spring-tx-6.2.5.jar:6.2.5]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:416) ~[spring-tx-6.2.5.jar:6.2.5]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119) ~[spring-tx-6.2.5.jar:6.2.5]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.2.5.jar:6.2.5]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:727) ~[spring-aop-6.2.5.jar:6.2.5]
+	at com.tfg.backend.service.impl.AlmacenServiceImpl$$SpringCGLIB$$0.delete(<generated>) ~[main/:na]
+	at com.tfg.backend.controller.AlmacenController.delete(AlmacenController.java:66) ~[main/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:191) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[spring-webmvc-6.2.5.jar:6.2.5]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:986) ~[spring-webmvc-6.2.5.jar:6.2.5]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:891) ~[spring-webmvc-6.2.5.jar:6.2.5]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.2.5.jar:6.2.5]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.2.5.jar:6.2.5]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.2.5.jar:6.2.5]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.2.5.jar:6.2.5]
+	at org.springframework.web.servlet.FrameworkServlet.doDelete(FrameworkServlet.java:936) ~[spring-webmvc-6.2.5.jar:6.2.5]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:596) ~[tomcat-embed-core-10.1.39.jar:6.0]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.2.5.jar:6.2.5]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.39.jar:6.0]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:110) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:101) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at com.tfg.backend.auth.jwt.AuthTokenFilter.doFilterInternal(AuthTokenFilter.java:51) ~[main/:na]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:243) ~[spring-webmvc-6.2.5.jar:6.2.5]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:238) ~[spring-security-config-6.4.4.jar:6.4.4]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at java.base/java.lang.Thread.run(Thread.java:1575) ~[na:na]
+
+2025-05-21T21:32:51.166+02:00 ERROR 19500 --- [backend] [http-nio-8080-exec-5] c.t.backend.auth.jwt.AuthEntryPointJwt   : Unauthorized error: Full authentication is required to access this resource
+2025-05-21T21:32:55.339+02:00  WARN 19500 --- [backend] [http-nio-8080-exec-7] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@17796235 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2025-05-21T21:32:55.339+02:00  WARN 19500 --- [backend] [http-nio-8080-exec-9] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@4d18a763 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2025-05-21T21:32:55.466+02:00  WARN 19500 --- [backend] [http-nio-8080-exec-8] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@495c33d5 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2025-05-21T21:32:55.682+02:00  WARN 19500 --- [backend] [http-nio-8080-exec-9] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 1452, SQLState: 23000
+2025-05-21T21:32:55.683+02:00 ERROR 19500 --- [backend] [http-nio-8080-exec-9] o.h.engine.jdbc.spi.SqlExceptionHelper   : Cannot add or update a child row: a foreign key constraint fails (`gestoria`.`planta`, CONSTRAINT `FKaqt6ed0f5sbx0qf4k7jjuhmy5` FOREIGN KEY (`almacen_id`) REFERENCES `almacen` (`id`))
+2025-05-21T21:32:55.682+02:00  WARN 19500 --- [backend] [http-nio-8080-exec-7] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 1452, SQLState: 23000
+2025-05-21T21:32:55.683+02:00 ERROR 19500 --- [backend] [http-nio-8080-exec-7] o.h.engine.jdbc.spi.SqlExceptionHelper   : Cannot add or update a child row: a foreign key constraint fails (`gestoria`.`planta`, CONSTRAINT `FKaqt6ed0f5sbx0qf4k7jjuhmy5` FOREIGN KEY (`almacen_id`) REFERENCES `almacen` (`id`))
+2025-05-21T21:39:20.761+02:00  WARN 19500 --- [backend] [http-nio-8080-exec-8] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@51cb3c71 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2025-05-21T21:39:24.160+02:00  WARN 19500 --- [backend] [http-nio-8080-exec-6] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@4caf96a (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2025-05-21T21:39:30.769+02:00  WARN 19500 --- [backend] [http-nio-8080-exec-8] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@41528e1b (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2025-05-21T21:39:34.170+02:00  WARN 19500 --- [backend] [http-nio-8080-exec-6] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@38b29b37 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2025-05-21T21:39:40.796+02:00  WARN 19500 --- [backend] [http-nio-8080-exec-8] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@641645e1 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2025-05-21T21:39:40.798+02:00  WARN 19500 --- [backend] [http-nio-8080-exec-8] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 0, SQLState: 08003
+2025-05-21T21:39:40.798+02:00 ERROR 19500 --- [backend] [http-nio-8080-exec-8] o.h.engine.jdbc.spi.SqlExceptionHelper   : HikariPool-1 - Connection is not available, request timed out after 30050ms (total=9, active=2, idle=7, waiting=0)
+2025-05-21T21:39:40.798+02:00 ERROR 19500 --- [backend] [http-nio-8080-exec-8] o.h.engine.jdbc.spi.SqlExceptionHelper   : No operations allowed after connection closed.
+2025-05-21T21:39:40.798+02:00 ERROR 19500 --- [backend] [http-nio-8080-exec-8] c.tfg.backend.auth.jwt.AuthTokenFilter   : No se puede establecer la autenticación del usuario: {}
+
+org.springframework.transaction.CannotCreateTransactionException: Could not open JPA EntityManager for transaction
+	at org.springframework.orm.jpa.JpaTransactionManager.doBegin(JpaTransactionManager.java:466) ~[spring-orm-6.2.5.jar:6.2.5]
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.startTransaction(AbstractPlatformTransactionManager.java:532) ~[spring-tx-6.2.5.jar:6.2.5]
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.getTransaction(AbstractPlatformTransactionManager.java:405) ~[spring-tx-6.2.5.jar:6.2.5]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.createTransactionIfNecessary(TransactionAspectSupport.java:639) ~[spring-tx-6.2.5.jar:6.2.5]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:374) ~[spring-tx-6.2.5.jar:6.2.5]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119) ~[spring-tx-6.2.5.jar:6.2.5]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.2.5.jar:6.2.5]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:727) ~[spring-aop-6.2.5.jar:6.2.5]
+	at com.tfg.backend.auth.services.impl.UserDetailsServiceImpl$$SpringCGLIB$$0.loadUserByUsername(<generated>) ~[main/:na]
+	at com.tfg.backend.auth.jwt.AuthTokenFilter.doFilterInternal(AuthTokenFilter.java:37) ~[main/:na]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:243) ~[spring-webmvc-6.2.5.jar:6.2.5]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:238) ~[spring-security-config-6.4.4.jar:6.4.4]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at java.base/java.lang.Thread.run(Thread.java:1575) ~[na:na]
+Caused by: org.hibernate.exception.JDBCConnectionException: Unable to acquire JDBC Connection [HikariPool-1 - Connection is not available, request timed out after 30050ms (total=9, active=2, idle=7, waiting=0)] [n/a]
+	at org.hibernate.exception.internal.SQLExceptionTypeDelegate.convert(SQLExceptionTypeDelegate.java:51) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:58) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:108) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:94) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.acquireConnectionIfNeeded(LogicalConnectionManagedImpl.java:129) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.getPhysicalConnection(LogicalConnectionManagedImpl.java:156) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.getConnectionForTransactionManagement(LogicalConnectionManagedImpl.java:286) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.begin(LogicalConnectionManagedImpl.java:294) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl$TransactionDriverControlImpl.begin(JdbcResourceLocalTransactionCoordinatorImpl.java:232) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.engine.transaction.internal.TransactionImpl.begin(TransactionImpl.java:83) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.beginTransaction(HibernateJpaDialect.java:176) ~[spring-orm-6.2.5.jar:6.2.5]
+	at org.springframework.orm.jpa.JpaTransactionManager.doBegin(JpaTransactionManager.java:420) ~[spring-orm-6.2.5.jar:6.2.5]
+	... 66 common frames omitted
+Caused by: java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30050ms (total=9, active=2, idle=7, waiting=0)
+	at com.zaxxer.hikari.pool.HikariPool.createTimeoutException(HikariPool.java:686) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:179) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:144) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:127) ~[HikariCP-5.1.0.jar:na]
+	at org.hibernate.engine.jdbc.connections.internal.DatasourceConnectionProviderImpl.getConnection(DatasourceConnectionProviderImpl.java:126) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.internal.NonContextualJdbcConnectionAccess.obtainConnection(NonContextualJdbcConnectionAccess.java:46) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.acquireConnectionIfNeeded(LogicalConnectionManagedImpl.java:126) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	... 73 common frames omitted
+Caused by: java.sql.SQLNonTransientConnectionException: No operations allowed after connection closed.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:111) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:98) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:90) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:64) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:74) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:73) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.ConnectionImpl.setNetworkTimeout(ConnectionImpl.java:2435) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.zaxxer.hikari.pool.PoolBase.setNetworkTimeout(PoolBase.java:562) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.PoolBase.isConnectionDead(PoolBase.java:169) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:168) ~[HikariCP-5.1.0.jar:na]
+	... 78 common frames omitted
+Caused by: com.mysql.cj.exceptions.ConnectionIsClosedException: No operations allowed after connection closed.
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62) ~[na:na]
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:501) ~[na:na]
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:485) ~[na:na]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:104) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:149) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.NativeSession.checkClosed(NativeSession.java:756) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.ConnectionImpl.checkClosed(ConnectionImpl.java:556) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.ConnectionImpl.setNetworkTimeout(ConnectionImpl.java:2431) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	... 81 common frames omitted
+
+2025-05-21T21:39:40.801+02:00 ERROR 19500 --- [backend] [http-nio-8080-exec-8] c.t.backend.auth.jwt.AuthEntryPointJwt   : Unauthorized error: Full authentication is required to access this resource
+2025-05-21T21:39:44.185+02:00  WARN 19500 --- [backend] [http-nio-8080-exec-6] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@2d50f55 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2025-05-21T21:39:44.185+02:00  WARN 19500 --- [backend] [http-nio-8080-exec-6] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 0, SQLState: 08003
+2025-05-21T21:39:44.185+02:00 ERROR 19500 --- [backend] [http-nio-8080-exec-6] o.h.engine.jdbc.spi.SqlExceptionHelper   : HikariPool-1 - Connection is not available, request timed out after 30042ms (total=9, active=1, idle=8, waiting=0)
+2025-05-21T21:39:44.185+02:00 ERROR 19500 --- [backend] [http-nio-8080-exec-6] o.h.engine.jdbc.spi.SqlExceptionHelper   : No operations allowed after connection closed.
+2025-05-21T21:39:44.186+02:00 ERROR 19500 --- [backend] [http-nio-8080-exec-6] c.tfg.backend.auth.jwt.AuthTokenFilter   : No se puede establecer la autenticación del usuario: {}
+
+org.springframework.transaction.CannotCreateTransactionException: Could not open JPA EntityManager for transaction
+	at org.springframework.orm.jpa.JpaTransactionManager.doBegin(JpaTransactionManager.java:466) ~[spring-orm-6.2.5.jar:6.2.5]
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.startTransaction(AbstractPlatformTransactionManager.java:532) ~[spring-tx-6.2.5.jar:6.2.5]
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.getTransaction(AbstractPlatformTransactionManager.java:405) ~[spring-tx-6.2.5.jar:6.2.5]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.createTransactionIfNecessary(TransactionAspectSupport.java:639) ~[spring-tx-6.2.5.jar:6.2.5]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:374) ~[spring-tx-6.2.5.jar:6.2.5]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119) ~[spring-tx-6.2.5.jar:6.2.5]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.2.5.jar:6.2.5]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:727) ~[spring-aop-6.2.5.jar:6.2.5]
+	at com.tfg.backend.auth.services.impl.UserDetailsServiceImpl$$SpringCGLIB$$0.loadUserByUsername(<generated>) ~[main/:na]
+	at com.tfg.backend.auth.jwt.AuthTokenFilter.doFilterInternal(AuthTokenFilter.java:37) ~[main/:na]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:243) ~[spring-webmvc-6.2.5.jar:6.2.5]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:238) ~[spring-security-config-6.4.4.jar:6.4.4]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at java.base/java.lang.Thread.run(Thread.java:1575) ~[na:na]
+Caused by: org.hibernate.exception.JDBCConnectionException: Unable to acquire JDBC Connection [HikariPool-1 - Connection is not available, request timed out after 30042ms (total=9, active=1, idle=8, waiting=0)] [n/a]
+	at org.hibernate.exception.internal.SQLExceptionTypeDelegate.convert(SQLExceptionTypeDelegate.java:51) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:58) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:108) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:94) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.acquireConnectionIfNeeded(LogicalConnectionManagedImpl.java:129) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.getPhysicalConnection(LogicalConnectionManagedImpl.java:156) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.getConnectionForTransactionManagement(LogicalConnectionManagedImpl.java:286) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.begin(LogicalConnectionManagedImpl.java:294) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl$TransactionDriverControlImpl.begin(JdbcResourceLocalTransactionCoordinatorImpl.java:232) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.engine.transaction.internal.TransactionImpl.begin(TransactionImpl.java:83) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.beginTransaction(HibernateJpaDialect.java:176) ~[spring-orm-6.2.5.jar:6.2.5]
+	at org.springframework.orm.jpa.JpaTransactionManager.doBegin(JpaTransactionManager.java:420) ~[spring-orm-6.2.5.jar:6.2.5]
+	... 66 common frames omitted
+Caused by: java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30042ms (total=9, active=1, idle=8, waiting=0)
+	at com.zaxxer.hikari.pool.HikariPool.createTimeoutException(HikariPool.java:686) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:179) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:144) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:127) ~[HikariCP-5.1.0.jar:na]
+	at org.hibernate.engine.jdbc.connections.internal.DatasourceConnectionProviderImpl.getConnection(DatasourceConnectionProviderImpl.java:126) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.internal.NonContextualJdbcConnectionAccess.obtainConnection(NonContextualJdbcConnectionAccess.java:46) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.acquireConnectionIfNeeded(LogicalConnectionManagedImpl.java:126) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	... 73 common frames omitted
+Caused by: java.sql.SQLNonTransientConnectionException: No operations allowed after connection closed.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:111) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:98) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:90) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:64) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:74) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:73) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.ConnectionImpl.setNetworkTimeout(ConnectionImpl.java:2435) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.zaxxer.hikari.pool.PoolBase.setNetworkTimeout(PoolBase.java:562) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.PoolBase.isConnectionDead(PoolBase.java:169) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:168) ~[HikariCP-5.1.0.jar:na]
+	... 78 common frames omitted
+Caused by: com.mysql.cj.exceptions.ConnectionIsClosedException: No operations allowed after connection closed.
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62) ~[na:na]
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:501) ~[na:na]
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:485) ~[na:na]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:104) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:149) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.NativeSession.checkClosed(NativeSession.java:756) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.ConnectionImpl.checkClosed(ConnectionImpl.java:556) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.ConnectionImpl.setNetworkTimeout(ConnectionImpl.java:2431) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	... 81 common frames omitted
+
+2025-05-21T21:39:44.187+02:00 ERROR 19500 --- [backend] [http-nio-8080-exec-6] c.t.backend.auth.jwt.AuthEntryPointJwt   : Unauthorized error: Full authentication is required to access this resource
+2025-05-21T21:39:46.583+02:00  WARN 19500 --- [backend] [http-nio-8080-exec-4] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@180dd109 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2025-05-21T21:39:56.591+02:00  WARN 19500 --- [backend] [http-nio-8080-exec-4] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@62a69010 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2025-05-21T21:40:06.606+02:00  WARN 19500 --- [backend] [http-nio-8080-exec-4] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@38424d83 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2025-05-21T21:40:06.606+02:00  WARN 19500 --- [backend] [http-nio-8080-exec-4] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 0, SQLState: 08003
+2025-05-21T21:40:06.606+02:00 ERROR 19500 --- [backend] [http-nio-8080-exec-4] o.h.engine.jdbc.spi.SqlExceptionHelper   : HikariPool-1 - Connection is not available, request timed out after 30032ms (total=9, active=0, idle=9, waiting=0)
+2025-05-21T21:40:06.606+02:00 ERROR 19500 --- [backend] [http-nio-8080-exec-4] o.h.engine.jdbc.spi.SqlExceptionHelper   : No operations allowed after connection closed.
+2025-05-21T21:40:06.606+02:00 ERROR 19500 --- [backend] [http-nio-8080-exec-4] c.tfg.backend.auth.jwt.AuthTokenFilter   : No se puede establecer la autenticación del usuario: {}
+
+org.springframework.transaction.CannotCreateTransactionException: Could not open JPA EntityManager for transaction
+	at org.springframework.orm.jpa.JpaTransactionManager.doBegin(JpaTransactionManager.java:466) ~[spring-orm-6.2.5.jar:6.2.5]
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.startTransaction(AbstractPlatformTransactionManager.java:532) ~[spring-tx-6.2.5.jar:6.2.5]
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.getTransaction(AbstractPlatformTransactionManager.java:405) ~[spring-tx-6.2.5.jar:6.2.5]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.createTransactionIfNecessary(TransactionAspectSupport.java:639) ~[spring-tx-6.2.5.jar:6.2.5]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:374) ~[spring-tx-6.2.5.jar:6.2.5]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119) ~[spring-tx-6.2.5.jar:6.2.5]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.2.5.jar:6.2.5]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:727) ~[spring-aop-6.2.5.jar:6.2.5]
+	at com.tfg.backend.auth.services.impl.UserDetailsServiceImpl$$SpringCGLIB$$0.loadUserByUsername(<generated>) ~[main/:na]
+	at com.tfg.backend.auth.jwt.AuthTokenFilter.doFilterInternal(AuthTokenFilter.java:37) ~[main/:na]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191) ~[spring-security-web-6.4.4.jar:6.4.4]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:243) ~[spring-webmvc-6.2.5.jar:6.2.5]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:238) ~[spring-security-config-6.4.4.jar:6.4.4]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.5.jar:6.2.5]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.39.jar:10.1.39]
+	at java.base/java.lang.Thread.run(Thread.java:1575) ~[na:na]
+Caused by: org.hibernate.exception.JDBCConnectionException: Unable to acquire JDBC Connection [HikariPool-1 - Connection is not available, request timed out after 30032ms (total=9, active=0, idle=9, waiting=0)] [n/a]
+	at org.hibernate.exception.internal.SQLExceptionTypeDelegate.convert(SQLExceptionTypeDelegate.java:51) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:58) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:108) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:94) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.acquireConnectionIfNeeded(LogicalConnectionManagedImpl.java:129) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.getPhysicalConnection(LogicalConnectionManagedImpl.java:156) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.getConnectionForTransactionManagement(LogicalConnectionManagedImpl.java:286) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.begin(LogicalConnectionManagedImpl.java:294) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl$TransactionDriverControlImpl.begin(JdbcResourceLocalTransactionCoordinatorImpl.java:232) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.engine.transaction.internal.TransactionImpl.begin(TransactionImpl.java:83) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.beginTransaction(HibernateJpaDialect.java:176) ~[spring-orm-6.2.5.jar:6.2.5]
+	at org.springframework.orm.jpa.JpaTransactionManager.doBegin(JpaTransactionManager.java:420) ~[spring-orm-6.2.5.jar:6.2.5]
+	... 66 common frames omitted
+Caused by: java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30032ms (total=9, active=0, idle=9, waiting=0)
+	at com.zaxxer.hikari.pool.HikariPool.createTimeoutException(HikariPool.java:686) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:179) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:144) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:127) ~[HikariCP-5.1.0.jar:na]
+	at org.hibernate.engine.jdbc.connections.internal.DatasourceConnectionProviderImpl.getConnection(DatasourceConnectionProviderImpl.java:126) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.internal.NonContextualJdbcConnectionAccess.obtainConnection(NonContextualJdbcConnectionAccess.java:46) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.acquireConnectionIfNeeded(LogicalConnectionManagedImpl.java:126) ~[hibernate-core-6.6.11.Final.jar:6.6.11.Final]
+	... 73 common frames omitted
+Caused by: java.sql.SQLNonTransientConnectionException: No operations allowed after connection closed.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:111) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:98) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:90) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:64) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:74) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:73) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.ConnectionImpl.setNetworkTimeout(ConnectionImpl.java:2435) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.zaxxer.hikari.pool.PoolBase.setNetworkTimeout(PoolBase.java:562) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.PoolBase.isConnectionDead(PoolBase.java:169) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:168) ~[HikariCP-5.1.0.jar:na]
+	... 78 common frames omitted
+Caused by: com.mysql.cj.exceptions.ConnectionIsClosedException: No operations allowed after connection closed.
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62) ~[na:na]
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:501) ~[na:na]
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:485) ~[na:na]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:104) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:149) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.NativeSession.checkClosed(NativeSession.java:756) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.ConnectionImpl.checkClosed(ConnectionImpl.java:556) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	at com.mysql.cj.jdbc.ConnectionImpl.setNetworkTimeout(ConnectionImpl.java:2431) ~[mysql-connector-j-8.3.0.jar:8.3.0]
+	... 81 common frames omitted
+
+2025-05-21T21:40:06.607+02:00 ERROR 19500 --- [backend] [http-nio-8080-exec-4] c.t.backend.auth.jwt.AuthEntryPointJwt   : Unauthorized error: Full authentication is required to access this resource
+2025-05-21T21:43:19.749+02:00  INFO 19500 --- [backend] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-05-21T21:43:23.122+02:00  INFO 21996 --- [backend] [restartedMain] com.tfg.backend.BackendApplication       : Starting BackendApplication using Java 23.0.2 with PID 21996 (C:\Users\pavon\Documents\GitHub\TFG\proyecto\backend\build\classes\java\main started by pavon in C:\Users\pavon\Documents\GitHub\TFG\proyecto\backend)
+2025-05-21T21:43:23.124+02:00  INFO 21996 --- [backend] [restartedMain] com.tfg.backend.BackendApplication       : No active profile set, falling back to 1 default profile: "default"
+2025-05-21T21:43:23.155+02:00  INFO 21996 --- [backend] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-05-21T21:43:23.155+02:00  INFO 21996 --- [backend] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-05-21T21:43:23.600+02:00  INFO 21996 --- [backend] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-05-21T21:43:23.664+02:00  INFO 21996 --- [backend] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 60 ms. Found 13 JPA repository interfaces.
+2025-05-21T21:43:24.003+02:00  INFO 21996 --- [backend] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-05-21T21:43:24.012+02:00  INFO 21996 --- [backend] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-05-21T21:43:24.012+02:00  INFO 21996 --- [backend] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-05-21T21:43:24.036+02:00  INFO 21996 --- [backend] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-05-21T21:43:24.036+02:00  INFO 21996 --- [backend] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 881 ms
+2025-05-21T21:43:24.119+02:00  INFO 21996 --- [backend] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-05-21T21:43:24.148+02:00  INFO 21996 --- [backend] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.11.Final
+2025-05-21T21:43:24.168+02:00  INFO 21996 --- [backend] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-05-21T21:43:24.332+02:00  INFO 21996 --- [backend] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-05-21T21:43:24.350+02:00  INFO 21996 --- [backend] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-05-21T21:43:24.864+02:00  INFO 21996 --- [backend] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1cde6e63
+2025-05-21T21:43:24.866+02:00  INFO 21996 --- [backend] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-05-21T21:43:24.969+02:00  WARN 21996 --- [backend] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-05-21T21:43:24.980+02:00  INFO 21996 --- [backend] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 9.2
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-05-21T21:43:25.659+02:00  INFO 21996 --- [backend] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-05-21T21:43:38.069+02:00  INFO 21996 --- [backend] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-05-21T21:43:38.303+02:00  INFO 21996 --- [backend] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-05-21T21:43:38.303+02:00  WARN 21996 --- [backend] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-05-21T21:43:38.430+02:00  INFO 21996 --- [backend] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-05-21T21:43:38.771+02:00  WARN 21996 --- [backend] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-05-21T21:43:39.129+02:00  INFO 21996 --- [backend] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-05-21T21:43:39.150+02:00  INFO 21996 --- [backend] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-05-21T21:43:39.154+02:00  INFO 21996 --- [backend] [restartedMain] com.tfg.backend.BackendApplication       : Started BackendApplication in 16.289 seconds (process running for 16.665)
+2025-05-21T21:43:50.525+02:00  INFO 21996 --- [backend] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-05-21T21:43:50.525+02:00  INFO 21996 --- [backend] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-05-21T21:43:50.526+02:00  INFO 21996 --- [backend] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-05-21T21:48:31.965+02:00  INFO 21996 --- [backend] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-05-21T21:48:34.762+02:00  WARN 21996 --- [backend] [http-nio-8080-exec-6] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@1cde6e63 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2025-05-21T21:48:38.452+02:00  WARN 21996 --- [backend] [http-nio-8080-exec-7] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@4516d99b (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2025-05-21T21:48:44.795+02:00  WARN 21996 --- [backend] [http-nio-8080-exec-6] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@47973814 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2025-05-21T21:48:48.465+02:00  WARN 21996 --- [backend] [http-nio-8080-exec-7] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@2df29102 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2025-05-21T21:48:55.706+02:00  INFO 22804 --- [backend] [restartedMain] com.tfg.backend.BackendApplication       : Starting BackendApplication using Java 23.0.2 with PID 22804 (C:\Users\pavon\Documents\GitHub\TFG\proyecto\backend\build\classes\java\main started by pavon in C:\Users\pavon\Documents\GitHub\TFG\proyecto\backend)
+2025-05-21T21:48:55.708+02:00  INFO 22804 --- [backend] [restartedMain] com.tfg.backend.BackendApplication       : No active profile set, falling back to 1 default profile: "default"
+2025-05-21T21:48:55.751+02:00  INFO 22804 --- [backend] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-05-21T21:48:55.751+02:00  INFO 22804 --- [backend] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-05-21T21:48:56.360+02:00  INFO 22804 --- [backend] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-05-21T21:48:56.434+02:00  INFO 22804 --- [backend] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 67 ms. Found 13 JPA repository interfaces.
+2025-05-21T21:48:56.829+02:00  INFO 22804 --- [backend] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-05-21T21:48:56.837+02:00  INFO 22804 --- [backend] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-05-21T21:48:56.838+02:00  INFO 22804 --- [backend] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-05-21T21:48:56.864+02:00  INFO 22804 --- [backend] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-05-21T21:48:56.864+02:00  INFO 22804 --- [backend] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1113 ms
+2025-05-21T21:48:56.950+02:00  INFO 22804 --- [backend] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-05-21T21:48:56.983+02:00  INFO 22804 --- [backend] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.11.Final
+2025-05-21T21:48:57.004+02:00  INFO 22804 --- [backend] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-05-21T21:48:57.178+02:00  INFO 22804 --- [backend] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-05-21T21:48:57.197+02:00  INFO 22804 --- [backend] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-05-21T21:48:57.718+02:00  INFO 22804 --- [backend] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@431c9227
+2025-05-21T21:48:57.720+02:00  INFO 22804 --- [backend] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-05-21T21:48:57.833+02:00  WARN 22804 --- [backend] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-05-21T21:48:57.847+02:00  INFO 22804 --- [backend] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 9.2
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-05-21T21:48:58.580+02:00  INFO 22804 --- [backend] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-05-21T21:50:35.444+02:00  INFO 22804 --- [backend] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-05-21T21:50:35.685+02:00  INFO 22804 --- [backend] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-05-21T21:50:35.685+02:00  WARN 22804 --- [backend] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-05-21T21:50:35.820+02:00  INFO 22804 --- [backend] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-05-21T21:50:36.183+02:00  WARN 22804 --- [backend] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-05-21T21:50:36.537+02:00  INFO 22804 --- [backend] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-05-21T21:50:36.559+02:00  INFO 22804 --- [backend] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-05-21T21:50:36.563+02:00  INFO 22804 --- [backend] [restartedMain] com.tfg.backend.BackendApplication       : Started BackendApplication in 101.18 seconds (process running for 101.623)
+2025-05-21T21:50:39.348+02:00  INFO 22804 --- [backend] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-05-21T21:50:39.349+02:00  INFO 22804 --- [backend] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-05-21T21:50:39.349+02:00  INFO 22804 --- [backend] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2025-05-21T21:57:20.269+02:00  INFO 22804 --- [backend] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-05-21T21:57:21.928+02:00  WARN 22804 --- [backend] [http-nio-8080-exec-6] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@1562557b (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2025-05-21T21:57:27.962+02:00  INFO 22804 --- [backend] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-05-21T21:57:27.966+02:00  INFO 22804 --- [backend] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-05-21T21:57:27.968+02:00  INFO 22804 --- [backend] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-05-21T21:57:37.974+02:00  WARN 22804 --- [backend] [SpringApplicationShutdownHook] com.zaxxer.hikari.pool.HikariPool        : Timed-out waiting for close connection executor to shutdown
+2025-05-21T21:57:37.974+02:00  INFO 22804 --- [backend] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-05-21T21:57:39.477+02:00  INFO 23564 --- [backend] [restartedMain] com.tfg.backend.BackendApplication       : Starting BackendApplication using Java 23.0.2 with PID 23564 (C:\Users\pavon\Documents\GitHub\TFG\proyecto\backend\build\classes\java\main started by pavon in C:\Users\pavon\Documents\GitHub\TFG\proyecto\backend)
+2025-05-21T21:57:39.479+02:00  INFO 23564 --- [backend] [restartedMain] com.tfg.backend.BackendApplication       : No active profile set, falling back to 1 default profile: "default"
+2025-05-21T21:57:39.510+02:00  INFO 23564 --- [backend] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-05-21T21:57:39.510+02:00  INFO 23564 --- [backend] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-05-21T21:57:39.954+02:00  INFO 23564 --- [backend] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-05-21T21:57:40.020+02:00  INFO 23564 --- [backend] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 60 ms. Found 13 JPA repository interfaces.
+2025-05-21T21:57:40.362+02:00  INFO 23564 --- [backend] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-05-21T21:57:40.370+02:00  INFO 23564 --- [backend] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-05-21T21:57:40.370+02:00  INFO 23564 --- [backend] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-05-21T21:57:40.394+02:00  INFO 23564 --- [backend] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-05-21T21:57:40.394+02:00  INFO 23564 --- [backend] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 883 ms
+2025-05-21T21:57:40.476+02:00  INFO 23564 --- [backend] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-05-21T21:57:40.507+02:00  INFO 23564 --- [backend] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.11.Final
+2025-05-21T21:57:40.526+02:00  INFO 23564 --- [backend] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-05-21T21:57:40.683+02:00  INFO 23564 --- [backend] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-05-21T21:57:40.701+02:00  INFO 23564 --- [backend] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-05-21T21:57:41.464+02:00  INFO 23564 --- [backend] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@432a82d2
+2025-05-21T21:57:41.465+02:00  INFO 23564 --- [backend] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-05-21T21:57:41.563+02:00  WARN 23564 --- [backend] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-05-21T21:57:41.574+02:00  INFO 23564 --- [backend] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 9.2
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-05-21T21:57:42.252+02:00  INFO 23564 --- [backend] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-05-21T22:00:30.111+02:00  INFO 23564 --- [backend] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-05-21T22:00:30.336+02:00  INFO 23564 --- [backend] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-05-21T22:00:30.337+02:00  WARN 23564 --- [backend] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-05-21T22:00:30.457+02:00  INFO 23564 --- [backend] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-05-21T22:00:30.791+02:00  WARN 23564 --- [backend] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-05-21T22:00:31.137+02:00  INFO 23564 --- [backend] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-05-21T22:00:31.158+02:00  INFO 23564 --- [backend] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-05-21T22:00:31.163+02:00  INFO 23564 --- [backend] [restartedMain] com.tfg.backend.BackendApplication       : Started BackendApplication in 171.938 seconds (process running for 172.31)
+2025-05-21T22:00:34.501+02:00  INFO 23564 --- [backend] [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-05-21T22:00:34.501+02:00  INFO 23564 --- [backend] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-05-21T22:00:34.502+02:00  INFO 23564 --- [backend] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms

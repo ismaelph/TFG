@@ -23,6 +23,8 @@ import { MovimientoListComponent } from './pages/movimiento-list/movimiento-list
 import { ProductoListComponent } from './pages/producto-list/producto-list.component';
 import { ProductoCreateComponent } from './pages/producto-create/producto-create.component';
 import { UsuariosListComponent } from './pages/usuarios-list/usuarios-list.component';
+import { AlmacenListComponent } from './pages/almacen-list/almacen-list.component';
+import { AlmacenCreateComponent } from './pages/almacen-create/almacen-create.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,8 @@ import { UsuariosListComponent } from './pages/usuarios-list/usuarios-list.compo
     ProductoListComponent,
     ProductoCreateComponent,
     UsuariosListComponent,
+    AlmacenListComponent,
+    AlmacenCreateComponent,
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,40 @@
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-slide-in {
+  animation: fadeSlideIn 0.4s ease-out;
+}
+
+.proveedor-burbuja {
+  position: relative;
+  overflow: visible;
+  background-color: white;
+  border-radius: 1rem;
+  padding: 1rem 2.5rem 1rem 1rem;
+}
+
+.proveedor-burbuja::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  right: 16px;
+  width: 12px;
+  height: 12px;
+  background-color: white;
+  border-right: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
+  transform: rotate(45deg);
+  z-index: 1;
+}
+
+input.ng-invalid.ng-touched {
+  border-color: red;
+}

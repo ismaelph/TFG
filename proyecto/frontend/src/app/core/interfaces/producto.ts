@@ -9,6 +9,7 @@ export interface Producto {
   cantidad: number;
   usoInterno: boolean;
   fechaIngreso: string;
+  stockMinimo: number;
 
   empresaId: number;
   categoriaId: number | null;

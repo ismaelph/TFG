@@ -1,0 +1,74 @@
+<div class="fade-slide-in max-w-2xl mx-auto p-8 bg-white rounded-2xl shadow-xl">
+  <h2 class="text-2xl font-bold text-primary mb-6">
+    {{ modoEdicion ? 'Editar Almacén' : 'Nuevo Almacén' }}
+  </h2>
+
+  <form [formGroup]="almacenForm" (ngSubmit)="onSubmit()">
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-secondary-light">Nombre</label>
+      <input type="text" formControlName="nombre"
+             class="mt-1 p-2 w-full border rounded-md focus:ring-accent focus:border-accent" />
+    </div>
+
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-secondary-light">Dirección</label>
+      <input type="text" formControlName="direccion"
+             class="mt-1 p-2 w-full border rounded-md focus:ring-accent focus:border-accent" />
+    </div>
+
+    <div class="mb-6">
+      <label class="block text-sm font-medium text-secondary-light">Número de plantas</label>
+      <input type="number" formControlName="numeroPlantas" min="1"
+             class="mt-1 p-2 w-full border rounded-md focus:ring-accent focus:border-accent" />
+    </div>
+
+    <!-- Mostrar plantas existentes -->
+    <div *ngIf="modoEdicion && plantas.length > 0" class="mt-4">
+      <h4 class="text-sm font-medium text-secondary mb-2">Plantas existentes:</h4>
+      <ul class="list-disc list-inside text-sm text-primary">
+        <li *ngFor="let planta of plantas">
+          {{ planta.nombre }} (nº {{ planta.numero }})
+        </li>
+      </ul>
+    </div>
+
+    <div class="flex justify-end gap-4 mt-6">
+      <button type="submit"
+              class="px-4 py-2 bg-accent text-white rounded hover:bg-accent-dark transition"
+              [disabled]="almacenForm.invalid">
+        {{ modoEdicion ? 'Guardar Cambios' : 'Crear Almacén y Plantas' }}
+      </button>
+    </div>
+  </form>
+
+  <!-- Añadir estanterías -->
+  <div *ngIf="modoEdicion && plantas.length > 0" class="mt-10 border-t pt-6">
+    <h3 class="text-lg font-semibold text-secondary mb-4">Añadir Estantería</h3>
+
+    <form [formGroup]="estanteriaForm" (ngSubmit)="anadirEstanteria()" class="grid gap-4">
+      <div>
+        <label class="block text-sm font-medium text-secondary-light">Código</label>
+        <input type="text" formControlName="codigo"
+               class="mt-1 p-2 w-full border rounded-md focus:ring-accent focus:border-accent" />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-secondary-light">Planta destino</label>
+        <select formControlName="plantaId"
+                class="mt-1 p-2 w-full border rounded-md focus:ring-accent focus:border-accent">
+          <option *ngFor="let planta of plantas" [value]="planta.id">
+            {{ planta.nombre }}
+          </option>
+        </select>
+      </div>
+
+      <div class="flex justify-end">
+        <button type="submit"
+                class="px-4 py-2 bg-accent text-white rounded hover:bg-accent-dark transition"
+                [disabled]="estanteriaForm.invalid">
+          Añadir Estantería
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
