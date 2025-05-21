@@ -1,12 +1,15 @@
 package com.tfg.backend.controller;
 
+import com.tfg.backend.auth.services.UserDetailsImpl;
 import com.tfg.backend.model.dto.SolicitudMovimientoDto;
 import com.tfg.backend.model.dto.ErrorDto;
 import com.tfg.backend.model.entity.SolicitudMovimiento;
+import com.tfg.backend.model.enums.EstadoSolicitud;
 import com.tfg.backend.service.SolicitudMovimientoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
@@ -44,18 +47,24 @@ public class SolicitudMovimientoController {
         return SolicitudMovimientoDto.from(solicitudService.findByUsuarioId(usuarioId));
     }
 
-    // POST – Crear solicitud
     @PostMapping("")
-    public ResponseEntity<?> save(@RequestBody SolicitudMovimientoDto dto) {
+    public ResponseEntity<?> save(@RequestBody SolicitudMovimientoDto dto,
+                                  @AuthenticationPrincipal UserDetailsImpl userDetails) {
         try {
+            // 🔐 Asignar automáticamente el usuario autenticado
+            Long userId = userDetails.getId();
+            dto.setUsuarioId(userId);
+
             SolicitudMovimiento nueva = dto.to();
-            nueva.setEstado(dto.getEstado() != null ? dto.getEstado() : com.tfg.backend.model.enums.EstadoSolicitud.PENDIENTE);
+            nueva.setEstado(dto.getEstado() != null ? dto.getEstado() : EstadoSolicitud.PENDIENTE);
+
             SolicitudMovimiento guardada = solicitudService.save(nueva);
             return ResponseEntity.status(HttpStatus.CREATED).body(SolicitudMovimientoDto.from(guardada));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorDto.from("Solicitud no guardada"));
         }
     }
+
 
     // PUT – Cambiar estado (aprobar/rechazar)
     @PutMapping("/{id}/estado")

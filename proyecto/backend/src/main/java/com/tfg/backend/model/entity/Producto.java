@@ -33,6 +33,9 @@ public class Producto {
     @CreationTimestamp
     private LocalDateTime fechaIngreso;
 
+    @Column(nullable = true)
+    private Integer stockMinimo;
+
     @ManyToOne
     @JoinColumn(name = "empresa_id", nullable = false)
     private Empresa empresa;

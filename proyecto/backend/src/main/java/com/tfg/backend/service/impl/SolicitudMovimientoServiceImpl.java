@@ -26,21 +26,31 @@ public class SolicitudMovimientoServiceImpl implements SolicitudMovimientoServic
     @Autowired
     private UserRepository userRepository;
 
+
+
     @Override
     public SolicitudMovimiento save(SolicitudMovimiento solicitud) {
-        // Asociar producto y usuario si se proporcionan los ID
+        System.out.println("🟢 SERVICE.save(): Recibido -> Producto = " +
+                (solicitud.getProducto() != null ? solicitud.getProducto().getId() : "null") +
+                ", Usuario = " +
+                (solicitud.getUsuario() != null ? solicitud.getUsuario().getId() : "null"));
+
+        // Recuperar entidades reales
         if (solicitud.getProducto() != null && solicitud.getProducto().getId() != null) {
             Producto producto = productoRepository.findById(solicitud.getProducto().getId()).orElse(null);
             solicitud.setProducto(producto);
         }
 
         if (solicitud.getUsuario() != null && solicitud.getUsuario().getId() != null) {
-            User usuario = userRepository.findById(solicitud.getUsuario().getId()).orElse(null);
-            solicitud.setUsuario(usuario);
+            User user = userRepository.findById(solicitud.getUsuario().getId()).orElse(null);
+            solicitud.setUsuario(user);
         }
 
         return solicitudRepository.save(solicitud);
     }
+
+
+
 
     @Override
     public SolicitudMovimiento findById(Long id) {

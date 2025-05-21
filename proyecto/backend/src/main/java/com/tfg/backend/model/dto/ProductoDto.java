@@ -3,6 +3,7 @@ package com.tfg.backend.model.dto;
 import com.tfg.backend.auth.models.User;
 import com.tfg.backend.model.entity.*;
 import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -12,6 +13,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Slf4j
 public class ProductoDto {
 
     private Long id;
@@ -20,6 +22,7 @@ public class ProductoDto {
     private Integer cantidad;
     private boolean usoInterno;
     private LocalDateTime fechaIngreso;
+    private Integer stockMinimo;
 
     private Long empresaId;
     private Long categoriaId;
@@ -39,6 +42,7 @@ public class ProductoDto {
         dto.setCantidad(entity.getCantidad());
         dto.setUsoInterno(entity.isUsoInterno());
         dto.setFechaIngreso(entity.getFechaIngreso());
+        dto.setStockMinimo(entity.getStockMinimo());
 
         if (entity.getEmpresa() != null)
             dto.setEmpresaId(entity.getEmpresa().getId());
@@ -57,20 +61,40 @@ public class ProductoDto {
             dto.setUsuarioId(entity.getUsuario().getId());
 
         if (entity.getEstanteria() != null) {
-            dto.setEstanteriaId(entity.getEstanteria().getId());
-
-            // Extraer la ubicación completa en texto legible
             Estanteria est = entity.getEstanteria();
+            dto.setEstanteriaId(est.getId()); // ✅ Esto va lo primero, antes de nada
+
             Planta pla = est.getPlanta();
             Almacen alm = (pla != null) ? pla.getAlmacen() : null;
 
-            String ubicacion = "";
-            if (alm != null) ubicacion += alm.getNombre() + " → ";
-            if (pla != null && pla.getNombre() != null) ubicacion += pla.getNombre() + " → ";
-            ubicacion += est.getCodigo();
+            StringBuilder ubicacion = new StringBuilder();
 
-            dto.setUbicacion(ubicacion);
+            if (alm != null && alm.getNombre() != null) {
+                ubicacion.append(alm.getNombre()).append(" → ");
+            }
+
+            if (pla != null && pla.getNombre() != null) {
+                ubicacion.append(pla.getNombre()).append(" → ");
+            }
+
+            if (est.getCodigo() != null) {
+                ubicacion.append(est.getCodigo());
+            }
+
+            String ubicacionFinal = ubicacion.isEmpty() ? null : ubicacion.toString();
+            dto.setUbicacion(ubicacionFinal);
+
+            // ✅ Consola y logs para debug
+            System.out.println("✅ Estantería encontrada: ID=" + est.getId());
+            System.out.println("✅ Ubicación generada: " + ubicacionFinal);
+
+            if (log != null) {
+                log.info("✅ Estantería ID: {}", est.getId());
+                log.info("✅ Ubicación final construida: {}", ubicacionFinal);
+            }
         }
+
+
 
         return dto;
     }
@@ -83,6 +107,7 @@ public class ProductoDto {
         producto.setCantidad(this.getCantidad());
         producto.setUsoInterno(this.isUsoInterno());
         producto.setFechaIngreso(this.getFechaIngreso());
+        producto.setStockMinimo(this.getStockMinimo());
 
         if (this.empresaId != null) {
             Empresa empresa = new Empresa();

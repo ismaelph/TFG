@@ -88,3 +88,25 @@ INSERT INTO producto (nombre, precio, cantidad, uso_interno, fecha_ingreso, empr
 
 -- Movimientos
 INSERT INTO movimiento_producto (producto_id, usuario_id, cantidad, tipo, fecha, empresa_id) VALUES (1, 2, 1, 'ENTRADA', NOW(), 1);
+
+-- Almacenes para SBS Ingeniería
+INSERT INTO almacen (nombre, direccion, empresa_id) VALUES ('Almacén Central 1', 'Calle Inventada 123', 1);
+INSERT INTO almacen (nombre, direccion, empresa_id) VALUES ('Almacén Norte 1', 'Av. Técnica 45', 1);
+
+-- Almacenes para SBS Digital
+INSERT INTO almacen (nombre, direccion, empresa_id) VALUES ('Almacén Central 2', 'Calle Digital 88', 2);
+
+-- Plantas
+INSERT INTO planta (nombre, numero, almacen_id) VALUES ('Planta Baja', 0, 1);
+INSERT INTO planta (nombre, numero, almacen_id) VALUES ('Planta 1', 1, 1);
+INSERT INTO planta (nombre, numero, almacen_id) VALUES ('Planta Baja', 0, 2);
+INSERT INTO planta (nombre, numero, almacen_id) VALUES ('Planta 1', 1, 2);
+INSERT INTO planta (nombre, numero, almacen_id) VALUES ('Planta Baja', 0, 3);
+
+-- Estanterías
+INSERT INTO estanteria (codigo, planta_id) VALUES ('F1-E1', 1);
+INSERT INTO estanteria (codigo, planta_id) VALUES ('F2-E2', 2);
+INSERT INTO estanteria (codigo, planta_id) VALUES ('F1-E1', 3);
+INSERT INTO estanteria (codigo, planta_id) VALUES ('F2-E2', 4);
+INSERT INTO estanteria (codigo, planta_id) VALUES ('F1-E1', 5);
+

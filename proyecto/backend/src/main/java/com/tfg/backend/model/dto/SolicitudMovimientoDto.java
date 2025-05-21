@@ -1,5 +1,7 @@
 package com.tfg.backend.model.dto;
 
+import com.tfg.backend.auth.models.User;
+import com.tfg.backend.model.entity.Producto;
 import com.tfg.backend.model.entity.SolicitudMovimiento;
 import com.tfg.backend.model.enums.EstadoSolicitud;
 import lombok.*;
@@ -24,6 +26,10 @@ public class SolicitudMovimientoDto {
     private String respuestaAdmin;
 
     public static SolicitudMovimientoDto from(SolicitudMovimiento entity) {
+        System.out.println("➡ CONVERT -> SolicitudMovimiento ID: " + entity.getId());
+        System.out.println("   - Producto ID: " + (entity.getProducto() != null ? entity.getProducto().getId() : "null"));
+        System.out.println("   - Usuario ID: " + (entity.getUsuario() != null ? entity.getUsuario().getId() : "null"));
+
         SolicitudMovimientoDto dto = new SolicitudMovimientoDto();
         dto.setId(entity.getId());
         dto.setProductoId(entity.getProducto() != null ? entity.getProducto().getId() : null);
@@ -34,20 +40,38 @@ public class SolicitudMovimientoDto {
         dto.setFechaSolicitud(entity.getFechaSolicitud());
         dto.setFechaResolucion(entity.getFechaResolucion());
         dto.setRespuestaAdmin(entity.getRespuestaAdmin());
+
         return dto;
     }
 
+
     public SolicitudMovimiento to() {
-        SolicitudMovimiento entity = new SolicitudMovimiento();
-        entity.setId(this.getId());
-        entity.setCantidadSolicitada(this.getCantidadSolicitada());
-        entity.setEstado(this.getEstado());
-        entity.setMotivo(this.getMotivo());
-        entity.setFechaSolicitud(this.getFechaSolicitud());
-        entity.setFechaResolucion(this.getFechaResolucion());
-        entity.setRespuestaAdmin(this.getRespuestaAdmin());
-        return entity;
+        System.out.println("🟡 DTO.to(): productoId = " + this.productoId + ", usuarioId = " + this.usuarioId);
+
+        SolicitudMovimiento solicitud = new SolicitudMovimiento();
+        solicitud.setId(this.getId());
+        solicitud.setCantidadSolicitada(this.getCantidadSolicitada());
+        solicitud.setMotivo(this.getMotivo());
+        solicitud.setEstado(this.getEstado());
+        solicitud.setFechaSolicitud(this.getFechaSolicitud());
+        solicitud.setFechaResolucion(this.getFechaResolucion());
+        solicitud.setRespuestaAdmin(this.getRespuestaAdmin());
+
+        if (this.productoId != null) {
+            Producto producto = new Producto();
+            producto.setId(this.productoId);
+            solicitud.setProducto(producto);
+        }
+
+        if (this.usuarioId != null) {
+            User user = new User();
+            user.setId(this.usuarioId);
+            solicitud.setUsuario(user);
+        }
+
+        return solicitud;
     }
+
 
     public static List<SolicitudMovimientoDto> from(List<SolicitudMovimiento> list) {
         List<SolicitudMovimientoDto> dtos = new ArrayList<>();
