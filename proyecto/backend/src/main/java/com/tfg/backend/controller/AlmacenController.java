@@ -64,7 +64,7 @@ public class AlmacenController {
         Almacen almacen = almacenService.findById(id);
         if (almacen != null) {
             almacenService.delete(id);
-            return ResponseEntity.ok("Almacén eliminado correctamente.");
+            return ResponseEntity.noContent().build();
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorDto.from("Almacén no encontrado"));
     }

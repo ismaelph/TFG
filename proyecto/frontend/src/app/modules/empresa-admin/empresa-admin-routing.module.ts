@@ -13,7 +13,6 @@ import { ProductoCreateComponent } from './pages/producto-create/producto-create
 import { MovimientoListComponent } from './pages/movimiento-list/movimiento-list.component';
 import { UsuariosListComponent } from './pages/usuarios-list/usuarios-list.component';
 import { AlmacenListComponent } from './pages/almacen-list/almacen-list.component';
-import { AlmacenCreateComponent } from './pages/almacen-create/almacen-create.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -49,8 +48,7 @@ const routes: Routes = [
   { path: 'usuarios-list', component: UsuariosListComponent },
 
   // ALMACEN
-  { path: 'almacenes', component: AlmacenListComponent},
-  
+  { path: 'almacen-list', component: AlmacenListComponent },
 
   // Fallback
   { path: '**', redirectTo: 'dashboard' }

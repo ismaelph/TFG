@@ -1,119 +1,116 @@
 <div class="fade-slide-in p-8 max-w-6xl mx-auto">
-  <!-- Header -->
-  <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
-    <h2 class="text-2xl font-bold text-primary">Almacenes</h2>
-    <div class="flex gap-3 flex-wrap items-center">
-      <input type="text" [(ngModel)]="searchTerm" (input)="actualizarFiltro()"
-             placeholder="Buscar almacén..."
-             class="p-2 border rounded-md w-60 focus:outline-none focus:ring-2 focus:ring-accent" />
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+        <h2 class="text-2xl font-bold text-primary">Almacenes</h2>
+        <div class="flex gap-3 flex-wrap items-center">
+            <input type="text" [(ngModel)]="searchTerm" (input)="actualizarFiltro()" placeholder="Buscar almacén..."
+                class="p-2 border rounded-md w-60 focus:outline-none focus:ring-2 focus:ring-accent" />
 
-      <button (click)="cambiarOrden()"
-              class="px-3 py-2 bg-secondary text-white rounded hover:bg-secondary-light transition text-sm">
-        <i class="bi" [ngClass]="ordenAscendente ? 'bi-sort-alpha-down' : 'bi-sort-alpha-up'"></i>
-        Ordenar
-      </button>
+            <button (click)="cambiarOrden()"
+                class="px-3 py-2 bg-secondary text-white rounded hover:bg-secondary-light transition text-sm">
+                <i class="bi" [ngClass]="ordenAscendente ? 'bi-sort-alpha-down' : 'bi-sort-alpha-up'"></i>
+                Ordenar
+            </button>
 
-      <button (click)="abrirModalCrear()"
-              class="flex items-center gap-2 bg-accent hover:bg-accent-dark text-white px-4 py-2 rounded transition text-sm">
-        <i class="bi bi-plus-circle"></i> Nuevo
-      </button>
-    </div>
-  </div>
-
-  <!-- Estado -->
-  <div *ngIf="cargando" class="text-center text-secondary-light py-8">Cargando almacenes...</div>
-  <div *ngIf="error" class="text-center text-red-600 py-8">{{ error }}</div>
-  <div *ngIf="!cargando && filtrados.length === 0" class="text-center text-secondary-light py-8">
-    No hay resultados para tu búsqueda.
-  </div>
-
-  <!-- Tarjetas -->
-  <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3" *ngIf="filtrados.length > 0">
-    <div *ngFor="let alm of filtrados"
-         class="proveedor-burbuja relative bg-white p-4 pr-12 rounded-2xl shadow-md border-l-4 border-accent hover:shadow-lg transition">
-      <h3 class="text-primary font-semibold text-base mb-1">{{ alm.nombre }}</h3>
-      <p class="text-sm text-secondary-light">{{ alm.direccion }}</p>
-
-      <div class="flex flex-wrap items-center justify-between mt-2">
-        <button (click)="abrirDetalles(alm)"
-                class="flex items-center gap-1 px-3 py-1 text-sm text-white bg-accent hover:bg-accent-dark rounded">
-          <i class="bi bi-info-circle"></i> Más información
-        </button>
-
-        <div class="flex gap-2">
-          <button (click)="abrirModalEditar(alm)" title="Editar"
-                  class="text-secondary hover:text-accent-dark text-lg">
-            <i class="bi bi-pencil-square"></i>
-          </button>
-          <button (click)="confirmarEliminar(alm.id!)" title="Eliminar"
-                  class="text-red-500 hover:text-red-700 text-lg">
-            <i class="bi bi-trash3"></i>
-          </button>
+            <button (click)="abrirModalCrear()"
+                class="flex items-center gap-2 bg-accent hover:bg-accent-dark text-white px-4 py-2 rounded transition text-sm">
+                <i class="bi bi-plus-circle"></i> Nuevo
+            </button>
         </div>
-      </div>
     </div>
-  </div>
 
-  <!-- Modal Crear/Editar -->
-  <div *ngIf="modalAbierto" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50" (click)="cerrarModal()">
-    <div class="bg-white p-6 rounded-lg shadow-xl w-full max-w-md relative fade-slide-in" (click)="$event.stopPropagation()">
-      <h3 class="text-xl font-semibold text-primary mb-4">
-        {{ editando ? 'Editar Almacén' : 'Nuevo Almacén' }}
-      </h3>
-
-      <form [formGroup]="almacenForm" (ngSubmit)="guardar()">
-        <div class="mb-4">
-          <label class="block text-sm font-medium text-secondary-light">Nombre</label>
-          <input type="text" formControlName="nombre"
-                 class="mt-1 p-2 w-full border rounded-md focus:ring-accent focus:border-accent" />
-        </div>
-
-        <div class="mb-4">
-          <label class="block text-sm font-medium text-secondary-light">Dirección</label>
-          <input type="text" formControlName="direccion"
-                 class="mt-1 p-2 w-full border rounded-md focus:ring-accent focus:border-accent" />
-        </div>
-
-        <div class="flex justify-end gap-4">
-          <button type="button" (click)="cerrarModal()"
-                  class="px-4 py-2 bg-secondary-light text-white rounded hover:bg-secondary transition">
-            Cancelar
-          </button>
-          <button type="submit"
-                  class="px-4 py-2 bg-accent text-white rounded hover:bg-accent-dark transition"
-                  [disabled]="almacenForm.invalid">
-            {{ editando ? 'Guardar Cambios' : 'Crear Almacén' }}
-          </button>
-        </div>
-      </form>
+    <!-- Estado de carga / error / vacío -->
+    <div *ngIf="cargando" class="text-center text-secondary-light py-8">Cargando almacenes...</div>
+    <div *ngIf="error" class="text-center text-red-600 py-8">{{ error }}</div>
+    <div *ngIf="!cargando && filtrados.length === 0" class="text-center text-secondary-light py-8">
+        No hay resultados para tu búsqueda.
     </div>
-  </div>
 
-  <!-- Modal Detalles -->
-  <div *ngIf="almacenSeleccionado" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50" (click)="cerrarDetalles()">
-    <div class="bg-white p-6 rounded-lg shadow-xl w-full max-w-md relative fade-slide-in" (click)="$event.stopPropagation()">
-      <h3 class="text-xl font-semibold text-primary mb-4">Detalles del almacén</h3>
-      <p><strong class="text-secondary">Nombre:</strong> {{ almacenSeleccionado.nombre }}</p>
-      <p><strong class="text-secondary">Dirección:</strong> {{ almacenSeleccionado.direccion }}</p>
-      <p><strong class="text-secondary">Plantas:</strong> {{ plantas.length }}</p>
+    <!-- Tarjetas de almacenes -->
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3" *ngIf="filtrados.length > 0">
+        <div *ngFor="let alm of filtrados"
+            class="relative bg-white p-4 rounded-2xl shadow-md border-l-4 border-accent hover:shadow-lg transition">
+            <h3 class="text-primary font-semibold text-base mb-1">{{ alm.nombre }}</h3>
+            <p class="text-sm text-secondary-light">{{ alm.direccion }}</p>
 
-      <div *ngIf="plantas.length > 0" class="mt-4">
-        <p class="font-semibold text-secondary mb-2">Estanterías:</p>
-        <ul class="list-disc list-inside text-sm text-primary">
-          <li *ngFor="let planta of plantas">
-            {{ planta.nombre }}:
-            <span *ngFor="let est of getEstanteriasPorPlanta(planta.id!); let last = last">
-              {{ est.codigo }}<span *ngIf="!last">, </span>
-            </span>
-          </li>
-        </ul>
-      </div>
+            <div class="flex justify-between items-center mt-3">
+                <!-- Info -->
+                <button (click)="abrirInfo(alm)"
+                    class="text-sm text-white bg-accent px-3 py-1 rounded hover:bg-accent-dark flex items-center gap-2">
+                    <i class="bi bi-info-circle-fill"></i> Más información
+                </button>
 
-      <div class="text-right mt-6">
-        <button (click)="cerrarDetalles()" class="px-4 py-2 bg-accent text-white rounded hover:bg-accent-dark transition">
-          Cerrar
-        </button>
-      </div>
+                <div class="flex items-center gap-3">
+                    <button (click)="abrirModalEditar(alm)" class="text-secondary hover:text-accent-dark text-lg"
+                        title="Editar">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <button (click)="confirmarEliminar(alm.id!)" class="text-red-500 hover:text-red-700 text-lg"
+                        title="Eliminar">
+                        <i class="bi bi-trash3"></i>
+                    </button>
+                    <button (click)="abrirEstructura(alm.id!)" class="text-accent hover:text-accent-dark text-lg"
+                        title="Añadir Estantería">
+                        <i class="bi bi-plus-circle"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
+
+    <!-- Modal Crear/Editar -->
+    <div *ngIf="modalAbierto" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50"
+        (click)="cerrarModal()">
+        <div class="bg-white p-6 rounded-lg shadow-xl w-full max-w-md relative fade-slide-in"
+            (click)="$event.stopPropagation()">
+            <h3 class="text-xl font-semibold text-primary mb-4">
+                {{ editando ? 'Editar Almacén' : 'Nuevo Almacén' }}
+            </h3>
+            <app-almacen-create *ngIf="!editando" (cerrar)="cerrarModal()"
+                (guardado)="cargarAlmacenes()"></app-almacen-create>
+            <app-almacen-edit *ngIf="editando" [almacen]="almacenEditando" (cerrar)="cerrarModal()"
+                (guardado)="cargarAlmacenes()"></app-almacen-edit>
+        </div>
+    </div>
+
+    <!-- Modal Más información -->
+    <div *ngIf="infoAbierta" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50"
+        (click)="cerrarInfo()">
+        <div class="bg-white p-6 rounded-lg shadow-xl w-full max-w-xl relative fade-slide-in"
+            (click)="$event.stopPropagation()">
+            <h3 class="text-xl font-semibold text-primary mb-4">Detalles del Almacén</h3>
+            <p><strong>Nombre:</strong> {{ almacenInfo?.nombre }}</p>
+            <p><strong>Dirección:</strong> {{ almacenInfo?.direccion }}</p>
+            <div class="mt-4">
+                <p class="font-semibold">Plantas:</p>
+                <ul class="list-disc list-inside text-sm text-primary">
+                    <li *ngFor="let planta of almacenInfo?.plantas">
+                        {{ planta.nombre }} (nº {{ planta.numero }})
+                        <ul class="ml-4 text-xs list-square text-secondary-light">
+                            <li *ngFor="let e of planta.estanterias">
+                                Estantería: {{ e.codigo }}
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="text-right mt-6">
+                <button (click)="cerrarInfo()"
+                    class="px-4 py-2 bg-secondary-light text-white rounded hover:bg-secondary transition">
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Estructura -->
+    <div *ngIf="estructuraAbierta" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50"
+        (click)="cerrarEstructura()">
+        <div class="bg-white p-6 rounded-lg shadow-xl w-full max-w-md relative fade-slide-in"
+            (click)="$event.stopPropagation()">
+            <h3 class="text-xl font-semibold text-primary mb-4">Añadir Estantería</h3>
+            <app-estructura-edit [almacenId]="almacenEstructuraId!"></app-estructura-edit>
+        </div>
+    </div>
+
 </div>

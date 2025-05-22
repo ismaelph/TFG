@@ -1,0 +1,13 @@
+input.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched {
+  border-color: red;
+  box-shadow: 0 0 0 1px red;
+}
+
+button {
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}

@@ -1,0 +1,29 @@
+<div class="max-w-xl mx-auto p-6 bg-white rounded-xl shadow">
+  <h2 class="text-xl font-bold text-primary mb-4">Añadir Estantería</h2>
+
+  <form [formGroup]="estanteriaForm" (ngSubmit)="crear()">
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-secondary-light">Código</label>
+      <input type="text" formControlName="codigo"
+             class="mt-1 p-2 w-full border rounded-md focus:ring-accent focus:border-accent" />
+    </div>
+
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-secondary-light">Planta</label>
+      <select formControlName="plantaId"
+              class="mt-1 p-2 w-full border rounded-md focus:ring-accent focus:border-accent">
+        <option *ngFor="let planta of plantas" [value]="planta.id">
+          {{ planta.nombre }}
+        </option>
+      </select>
+    </div>
+
+    <div class="flex justify-end">
+      <button type="submit"
+              class="px-4 py-2 bg-accent text-white rounded hover:bg-accent-dark transition"
+              [disabled]="estanteriaForm.invalid">
+        Añadir Estantería
+      </button>
+    </div>
+  </form>
+</div>

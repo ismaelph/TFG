@@ -1,0 +1,32 @@
+<form [formGroup]="almacenForm" (ngSubmit)="crear()">
+  <div class="mb-4">
+    <label class="block text-sm font-medium text-secondary-light">Nombre</label>
+    <input type="text" formControlName="nombre"
+           class="mt-1 p-2 w-full border rounded-md focus:ring-accent focus:border-accent" />
+  </div>
+
+  <div class="mb-4">
+    <label class="block text-sm font-medium text-secondary-light">Dirección</label>
+    <input type="text" formControlName="direccion"
+           class="mt-1 p-2 w-full border rounded-md focus:ring-accent focus:border-accent" />
+  </div>
+
+  <div class="mb-4">
+    <label class="block text-sm font-medium text-secondary-light">Número de plantas</label>
+    <input type="number" formControlName="numeroPlantas" min="1"
+           class="mt-1 p-2 w-full border rounded-md focus:ring-accent focus:border-accent" />
+  </div>
+
+  <div class="flex justify-end gap-4 mt-4">
+    <button type="button"
+            class="px-4 py-2 bg-secondary-light text-white rounded hover:bg-secondary transition"
+            (click)="cerrar.emit()">
+      Cancelar
+    </button>
+    <button type="submit"
+            class="px-4 py-2 bg-accent text-white rounded hover:bg-accent-dark transition"
+            [disabled]="almacenForm.invalid">
+      Crear Almacén
+    </button>
+  </div>
+</form>

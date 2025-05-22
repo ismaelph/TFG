@@ -10,7 +10,7 @@ import { Almacen } from 'src/app/core/interfaces/almacen';
 export class AlmacenService {
   private apiUrl = `${environment.apiUrl}/api/almacenes`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   // POST – Crear nuevo almacén
   crear(almacen: Almacen): Observable<Almacen> {
@@ -33,9 +33,10 @@ export class AlmacenService {
   }
 
   // DELETE – Eliminar almacén
-  eliminar(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`);
+  eliminar(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+
 
   // GET – Obtener almacenes por empresa
   obtenerPorEmpresa(empresaId: number): Observable<Almacen[]> {

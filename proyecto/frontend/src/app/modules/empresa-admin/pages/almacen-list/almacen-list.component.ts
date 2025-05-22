@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlmacenService } from '../../services/almacen.service';
+import { Almacen } from 'src/app/core/interfaces/almacen';
 import { PlantaService } from '../../services/planta.service';
 import { EstanteriaService } from '../../services/estanteria.service';
-import { Almacen } from 'src/app/core/interfaces/almacen';
-import { Planta } from 'src/app/core/interfaces/planta';
-import { Estanteria } from 'src/app/core/interfaces/estanteria';
-import { lastValueFrom } from 'rxjs';
 import Swal from 'sweetalert2';
+import { forkJoin, map } from 'rxjs';
 
 @Component({
   selector: 'app-almacen-list',
@@ -19,47 +16,40 @@ export class AlmacenListComponent implements OnInit {
   filtrados: Almacen[] = [];
   searchTerm: string = '';
   ordenAscendente: boolean = true;
-  cargando = true;
-  error = '';
 
-  almacenSeleccionado: Almacen | null = null;
-  plantas: Planta[] = [];
-  estanterias: Estanteria[] = [];
+  cargando = false;
+  error: string = '';
 
   modalAbierto = false;
-  editando: boolean = false;
-  almacenForm!: FormGroup;
-  almacenEditadoId: number | null = null;
-  empresaId: number = 0;
+  editando = false;
+  almacenEditando: Almacen | null = null;
+
+  infoAbierta = false;
+  almacenInfo: any = null;
+
+  estructuraAbierta = false;
+  almacenEstructuraId: number | null = null;
 
   constructor(
     private almacenService: AlmacenService,
     private plantaService: PlantaService,
-    private estanteriaService: EstanteriaService,
-    private fb: FormBuilder
-  ) {}
+    private estanteriaService: EstanteriaService
+  ) { }
 
   ngOnInit(): void {
-    this.initForm();
     this.cargarAlmacenes();
   }
 
-  initForm(): void {
-    this.almacenForm = this.fb.group({
-      nombre: ['', Validators.required],
-      direccion: ['', Validators.required]
-    });
-  }
-
   cargarAlmacenes(): void {
+    this.cargando = true;
     this.almacenService.obtenerTodos().subscribe({
-      next: (data) => {
-        this.almacenes = data;
+      next: (res) => {
+        this.almacenes = res;
         this.actualizarFiltro();
         this.cargando = false;
       },
       error: () => {
-        this.error = 'Error al cargar almacenes';
+        this.error = 'Error al cargar los almacenes.';
         this.cargando = false;
       }
     });
@@ -82,116 +72,96 @@ export class AlmacenListComponent implements OnInit {
   }
 
   abrirModalCrear(): void {
-    this.modalAbierto = true;
     this.editando = false;
-    this.almacenEditadoId = null;
-    this.almacenForm.reset();
+    this.almacenEditando = null;
+    this.modalAbierto = true;
   }
 
   abrirModalEditar(almacen: Almacen): void {
-    this.modalAbierto = true;
     this.editando = true;
-    this.almacenEditadoId = almacen.id!;
-    this.almacenForm.setValue({
-      nombre: almacen.nombre,
-      direccion: almacen.direccion
-    });
+    this.almacenEditando = { ...almacen };
+    this.modalAbierto = true;
   }
 
   cerrarModal(): void {
     this.modalAbierto = false;
-    this.almacenForm.reset();
-  }
-
-  guardar(): void {
-    if (this.almacenForm.invalid) return;
-
-    const formValue = this.almacenForm.value;
-
-    if (this.editando && this.almacenEditadoId !== null) {
-      const actualizado: Almacen = {
-        id: this.almacenEditadoId,
-        nombre: formValue.nombre,
-        direccion: formValue.direccion,
-        empresaId: 0
-      };
-
-      this.almacenService.actualizar(this.almacenEditadoId, actualizado).subscribe({
-        next: (res) => {
-          const index = this.almacenes.findIndex(a => a.id === res.id);
-          if (index !== -1) this.almacenes[index] = res;
-          this.actualizarFiltro();
-          this.cerrarModal();
-          Swal.fire('Actualizado', 'Almacén actualizado correctamente', 'success');
-        },
-        error: () => Swal.fire('Error', 'No se pudo actualizar el almacén', 'error')
-      });
-
-    } else {
-      const nuevo: Almacen = {
-        nombre: formValue.nombre,
-        direccion: formValue.direccion,
-        empresaId: this.empresaId // si lo necesitas, deberías obtenerlo al iniciar
-      };
-
-      this.almacenService.crear(nuevo).subscribe({
-        next: (res) => {
-          this.almacenes.push(res);
-          this.actualizarFiltro();
-          this.cerrarModal();
-          Swal.fire('Creado', 'Almacén creado correctamente', 'success');
-        },
-        error: () => Swal.fire('Error', 'No se pudo crear el almacén', 'error')
-      });
-    }
   }
 
   confirmarEliminar(id: number): void {
     Swal.fire({
       title: '¿Eliminar almacén?',
-      text: 'Esta acción no se puede deshacer',
+      text: 'Esta acción no se puede deshacer.',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar'
-    }).then(result => {
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#e53e3e',
+      cancelButtonColor: '#6b7280'
+    }).then((result) => {
       if (result.isConfirmed) {
+        console.log('Intentando eliminar almacén ID:', id);
+
         this.almacenService.eliminar(id).subscribe({
-          next: () => {
+          next: (res) => {
+            console.log('Respuesta de eliminación:', res);
             this.almacenes = this.almacenes.filter(a => a.id !== id);
             this.actualizarFiltro();
-            Swal.fire('Eliminado', 'Almacén eliminado correctamente', 'success');
+
+            Swal.fire({
+              icon: 'success',
+              title: 'Eliminado',
+              text: 'El almacén fue eliminado correctamente.',
+              timer: 2000,
+              showConfirmButton: false
+            });
           },
-          error: () => Swal.fire('Error', 'No se pudo eliminar el almacén', 'error')
+          error: (err) => {
+            console.error('Error al eliminar el almacén:', err);
+            Swal.fire('Error', 'No se pudo eliminar el almacén.', 'error');
+          }
         });
       }
     });
   }
 
-  abrirDetalles(almacen: Almacen): void {
-    this.almacenSeleccionado = almacen;
-    this.plantas = [];
-    this.estanterias = [];
 
+  abrirInfo(almacen: Almacen): void {
     this.plantaService.obtenerPorAlmacen(almacen.id!).subscribe({
-      next: async (plantas) => {
-        this.plantas = plantas;
-
-        const allEstanterias = await Promise.all(
-          plantas.map(p => lastValueFrom(this.estanteriaService.obtenerPorPlanta(p.id!)))
+      next: (plantas) => {
+        const peticiones = plantas.map(p =>
+          this.estanteriaService.obtenerPorPlanta(p.id!).pipe(
+            map(estanterias => ({ ...p, estanterias }))
+          )
         );
-        this.estanterias = allEstanterias.flat();
+
+        forkJoin(peticiones).subscribe({
+          next: (plantasConEstanterias) => {
+            this.almacenInfo = { ...almacen, plantas: plantasConEstanterias };
+            this.infoAbierta = true;
+          },
+          error: () => {
+            Swal.fire('Error', 'No se pudieron cargar las plantas/estanterías.', 'error');
+          }
+        });
+      },
+      error: () => {
+        Swal.fire('Error', 'No se pudieron cargar las plantas.', 'error');
       }
     });
   }
 
-  cerrarDetalles(): void {
-    this.almacenSeleccionado = null;
-    this.plantas = [];
-    this.estanterias = [];
+  cerrarInfo(): void {
+    this.almacenInfo = null;
+    this.infoAbierta = false;
   }
 
-  getEstanteriasPorPlanta(plantaId: number): Estanteria[] {
-    return this.estanterias.filter(e => e.plantaId === plantaId);
+  abrirEstructura(id: number): void {
+    this.almacenEstructuraId = id;
+    this.estructuraAbierta = true;
+  }
+
+  cerrarEstructura(): void {
+    this.almacenEstructuraId = null;
+    this.estructuraAbierta = false;
   }
 }
