@@ -2,7 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { TokenService } from 'src/app/core/services/token.service';
 import { SessionService } from 'src/app/core/services/session.service';
+import { UserService } from 'src/app/core/services/user.service';
 import { Subscription } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-navbar',
@@ -27,6 +29,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   constructor(
     private tokenService: TokenService,
     private sessionService: SessionService,
+    private userService: UserService,
     private router: Router
   ) {}
 
@@ -81,5 +84,38 @@ export class NavbarComponent implements OnInit, OnDestroy {
   cerrarSesion() {
     this.sessionService.cerrarSesion();
     this.router.navigate(['/auth/login']);
+  }
+
+  confirmarAbandono(): void {
+    Swal.fire({
+      icon: 'warning',
+      title: '¿Estás seguro?',
+      text: 'Perderás el acceso a esta empresa y sus datos.',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, abandonar',
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#e53e3e',
+      cancelButtonColor: '#6b7280'
+    }).then(result => {
+      if (result.isConfirmed) {
+        const userId = this.tokenService.getUserId();
+        if (!userId) {
+          Swal.fire('Error', 'No se pudo obtener tu sesión.', 'error');
+          return;
+        }
+
+        this.userService.abandonarEmpresa(userId).subscribe({
+          next: () => {
+            Swal.fire('Listo', 'Has abandonado la empresa.', 'success').then(() => {
+              this.tokenService.clearAll();
+              window.location.href = '/login';
+            });
+          },
+          error: () => {
+            Swal.fire('Error', 'No se pudo abandonar la empresa.', 'error');
+          }
+        });
+      }
+    });
   }
 }

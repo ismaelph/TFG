@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -67,8 +68,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public void agregarUsuarioAEmpresa(User user, Empresa empresa) {
         user.setEmpresa(empresa);
-        usuarioRepository.save(user);
+
+        Role empleadoRol = roleRepository.findByName(RoleEnum.ROLE_EMPLEADO)
+                .orElseThrow(() -> new RuntimeException("Rol ROLE_EMPLEADO no encontrado"));
+
+        Set<Role> nuevosRoles = new HashSet<>();
+        nuevosRoles.add(empleadoRol);
+        user.setRoles(nuevosRoles);
+
+        userRepository.save(user);
     }
+
 
     @Override
     public void actualizarRolYEmpresa(User user, Empresa empresa) {

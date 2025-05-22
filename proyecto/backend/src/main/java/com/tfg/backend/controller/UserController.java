@@ -158,11 +158,28 @@ public class UserController {
 
         if (user != null && empresa != null) {
             userService.agregarUsuarioAEmpresa(user, empresa);
-            return ResponseEntity.ok("Usuario unido a la empresa correctamente.");
+            return ResponseEntity.noContent().build();
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(ErrorDto.from("Usuario o empresa no encontrados"));
     }
+
+    @DeleteMapping("/{userId}/empresa")
+    public ResponseEntity<?> abandonarEmpresa(@PathVariable long userId) {
+        User user = userService.findById(userId);
+        if (user == null || user.getEmpresa() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(ErrorDto.from("El usuario no está asociado a ninguna empresa."));
+        }
+
+        user.setEmpresa(null);
+        user.setRoles(Set.of(roleRepository.findByName(RoleEnum.ROLE_USER)
+                .orElseThrow(() -> new RuntimeException("Rol ROLE_USER no encontrado"))));
+
+        userService.save(user);
+        return ResponseEntity.noContent().build();
+    }
+
 
     @PutMapping("/{id}/cambiar-password")
     public ResponseEntity<?> cambiarPassword(@PathVariable long id, @RequestBody CambiarPasswordDto dto) {
