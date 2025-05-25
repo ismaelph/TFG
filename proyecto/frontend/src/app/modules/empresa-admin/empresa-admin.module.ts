@@ -24,6 +24,8 @@ import { AlmacenListComponent } from './pages/almacen-list/almacen-list.componen
 import { AlmacenCreateComponent } from './components/almacen-create/almacen-create.component';
 import { AlmacenEditComponent } from './components/almacen-edit/almacen-edit.component';
 import { EstructuraEditComponent } from './components/estructura-edit/estructura-edit.component';
+import { ProductoEditComponent } from './components/producto-edit/producto-edit.component';
+import { EmpresaCorreoComponent } from './components/empresa-correo/empresa-correo.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +45,8 @@ import { EstructuraEditComponent } from './components/estructura-edit/estructura
     AlmacenCreateComponent,
     AlmacenEditComponent,
     EstructuraEditComponent,
+    ProductoEditComponent,
+    EmpresaCorreoComponent,
   ],
   imports: [
     CommonModule,

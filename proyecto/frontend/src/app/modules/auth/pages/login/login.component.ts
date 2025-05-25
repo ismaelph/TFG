@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { TokenService } from 'src/app/core/services/token.service';
 import { SessionService } from 'src/app/core/services/session.service';
 import { Router } from '@angular/router';
-import { JwtResponse } from '../interfaces/auth';
+import { JwtResponse } from '../../interfaces/auth';
 import { ROLE_ADMIN, ROLE_ADMIN_EMPRESA, ROLE_EMPLEADO } from 'src/app/core/constants/constants';
 
 @Component({

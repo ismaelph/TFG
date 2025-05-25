@@ -2,6 +2,8 @@ package com.tfg.backend.controller;
 
 import com.tfg.backend.auth.models.User;
 import com.tfg.backend.auth.services.UserDetailsImpl;
+import com.tfg.backend.model.repository.UsuarioRepository;
+import com.tfg.backend.service.CorreoService;
 import com.tfg.backend.service.UserService;
 import com.tfg.backend.model.dto.EmpresaDto;
 import com.tfg.backend.model.dto.ErrorDto;
@@ -12,7 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +35,12 @@ public class EmpresaController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private CorreoService correoService;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -147,4 +157,35 @@ public class EmpresaController {
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ErrorDto.from("Clave incorrecta o empresa no encontrada."));
     }
+
+    @PostMapping("/empresa/enviar-correo")
+    @PreAuthorize("hasRole('ROLE_ADMIN_EMPRESA')")
+    public ResponseEntity<?> enviarCorreoEmpleados(@RequestBody Map<String, String> cuerpo) {
+        String asunto = cuerpo.get("asunto");
+        String mensaje = cuerpo.get("mensaje");
+
+        // Obtener el usuario autenticado desde el contexto
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        User admin = usuarioRepository.findByUsername(username);
+
+        if (admin == null || admin.getEmpresa() == null) {
+            return ResponseEntity.badRequest().body(Map.of("mensaje", "No perteneces a ninguna empresa."));
+        }
+
+        Empresa empresa = admin.getEmpresa();
+        List<User> empleados = userService.findByEmpresa(empresa);
+        int enviados = 0;
+
+        for (User e : empleados) {
+            if (e.getEmail() != null && !e.getEmail().isBlank()) {
+                correoService.enviarCorreo(e.getEmail(), asunto, mensaje);
+                enviados++;
+            }
+        }
+
+        return ResponseEntity.ok(Map.of("mensaje", "Correo enviado a " + enviados + " usuarios."));
+    }
+
+
 }

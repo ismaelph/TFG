@@ -13,6 +13,7 @@
       Edita tu nombre de usuario y correo electrónico.
     </p>
 
+    <!-- FORMULARIO DE PERFIL -->
     <form (ngSubmit)="guardarCambios()" class="space-y-6">
 
       <!-- Username -->
@@ -60,9 +61,14 @@
       <p *ngIf="successMsg" class="text-sm text-green-600 text-center">{{ successMsg }}</p>
 
       <!-- Botón -->
-      <button type="submit" class="w-full bg-accent text-white py-3 rounded-lg shadow-lg hover:bg-accent-dark transition">
+      <button type="submit"
+        class="w-full bg-accent text-white py-3 rounded-lg shadow-lg hover:bg-accent-dark transition">
         Guardar cambios
       </button>
     </form>
+    ¿Quieres cambiar tu contraseña?
+    <a routerLink="/auth/change-password" class="text-accent font-semibold hover:underline">Haz clic aquí</a>
+
+
   </div>
 </div>

@@ -11,9 +11,9 @@ INSERT INTO empresa (id, nombre, clave_acceso, fecha_creacion) VALUES (2, 'SBS D
 -- Usuarios
 INSERT INTO users (id, username, email, password, empresa_id, created_at, updated_at) VALUES (1, 'admin', 'admin@example.com', '$2a$10$bbxuAS5vRkmaEPkG5DHiw.9.ttIT6Ejzs10GGkseWmlzzX5D/9LuG', null, NOW(), NOW()); -- 12345678
 INSERT INTO users (id, username, email, password, empresa_id, created_at, updated_at) VALUES (2, 'empresa1admin', 'empresa1@sbs.com', '$2a$10$bbxuAS5vRkmaEPkG5DHiw.9.ttIT6Ejzs10GGkseWmlzzX5D/9LuG', 1, NOW(), NOW());
-INSERT INTO users (id, username, email, password, empresa_id, created_at, updated_at) VALUES (3, 'empresa2admin', 'empresa2@sbsd.com', '$2a$10$bbxuAS5vRkmaEPkG5DHiw.9.ttIT6Ejzs10GGkseWmlzzX5D/9LuG', 2, NOW(), NOW());
-INSERT INTO users (id, username, email, password, empresa_id, created_at, updated_at) VALUES (4, 'empleado1', 'empleado1@sbs.com', '$2a$10$bbxuAS5vRkmaEPkG5DHiw.9.ttIT6Ejzs10GGkseWmlzzX5D/9LuG', 1, NOW(), NOW());
-INSERT INTO users (id, username, email, password, empresa_id, created_at, updated_at) VALUES (5, 'empleado2', 'empleado2@sbsd.com', '$2a$10$bbxuAS5vRkmaEPkG5DHiw.9.ttIT6Ejzs10GGkseWmlzzX5D/9LuG', 2, NOW(), NOW());
+INSERT INTO users (id, username, email, password, empresa_id, created_at, updated_at) VALUES (3, 'empresa2admin', 'pavonhueteismael@gmail.com', '$2a$10$bbxuAS5vRkmaEPkG5DHiw.9.ttIT6Ejzs10GGkseWmlzzX5D/9LuG', 2, NOW(), NOW());
+INSERT INTO users (id, username, email, password, empresa_id, created_at, updated_at) VALUES (4, 'empleado1', 'pavonhueteismael@proton.me', '$2a$10$bbxuAS5vRkmaEPkG5DHiw.9.ttIT6Ejzs10GGkseWmlzzX5D/9LuG', 1, NOW(), NOW());
+INSERT INTO users (id, username, email, password, empresa_id, created_at, updated_at) VALUES (5, 'empleado2', 'rajanteflorencio@gmail.com', '$2a$10$bbxuAS5vRkmaEPkG5DHiw.9.ttIT6Ejzs10GGkseWmlzzX5D/9LuG', 2, NOW(), NOW());
 INSERT INTO users (id, username, email, password, empresa_id, created_at, updated_at) VALUES (6, 'userlibre', 'libre@example.com', '$2a$10$bbxuAS5vRkmaEPkG5DHiw.9.ttIT6Ejzs10GGkseWmlzzX5D/9LuG', null, NOW(), NOW());
 
 -- Roles de los usuarios

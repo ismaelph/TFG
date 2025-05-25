@@ -67,4 +67,9 @@ public class User {
   @JoinColumn(name = "empresa_id")
   private Empresa empresa;
 
+  private String resetToken;
+
+  private Instant resetTokenExpiration;
+
+
 }

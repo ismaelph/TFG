@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductoService } from '../../services/producto.service';
 import { CategoriaService } from '../../services/categoria.service';
 import { ProveedorService } from '../../services/proveedor.service';
 import { Categoria } from 'src/app/core/interfaces/categoria';
 import { Proveedor } from 'src/app/core/interfaces/proveedor';
-import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -14,6 +13,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./producto-create.component.css']
 })
 export class ProductoCreateComponent implements OnInit {
+  @Output() cerrar = new EventEmitter<void>();
+
   productoForm!: FormGroup;
   categorias: Categoria[] = [];
   proveedores: Proveedor[] = [];
@@ -23,8 +24,7 @@ export class ProductoCreateComponent implements OnInit {
     private fb: FormBuilder,
     private productoService: ProductoService,
     private categoriaService: CategoriaService,
-    private proveedorService: ProveedorService,
-    private router: Router
+    private proveedorService: ProveedorService
   ) {}
 
   ngOnInit(): void {
@@ -34,7 +34,8 @@ export class ProductoCreateComponent implements OnInit {
       cantidad: [0, [Validators.required, Validators.min(0)]],
       usoInterno: [true],
       categoriaId: [null, Validators.required],
-      proveedorId: [null]
+      proveedorId: [null],
+      stockMinimo: [0, [Validators.required, Validators.min(0)]],
     });
 
     this.categoriaService.getCategorias().subscribe({
@@ -54,7 +55,7 @@ export class ProductoCreateComponent implements OnInit {
     this.productoService.crearProducto(producto).subscribe({
       next: () => {
         Swal.fire('¡Producto creado!', 'Se ha añadido correctamente al inventario.', 'success');
-        this.router.navigate(['/empresa/producto-list']);
+        this.cerrar.emit();
       },
       error: () => {
         this.error = 'No se pudo crear el producto.';
@@ -63,6 +64,6 @@ export class ProductoCreateComponent implements OnInit {
   }
 
   cancelar(): void {
-    this.router.navigate(['/empresa/producto-list']);
+    this.cerrar.emit();
   }
 }

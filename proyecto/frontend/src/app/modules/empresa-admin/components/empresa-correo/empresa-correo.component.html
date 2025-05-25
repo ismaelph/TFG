@@ -1,0 +1,33 @@
+<div class="correo-popup-container">
+  <div class="correo-popup">
+    <h3 class="text-lg font-bold text-primary mb-4">Enviar correo a empleados</h3>
+
+    <form class="space-y-4" (ngSubmit)="enviar()">
+      <div>
+        <label class="block text-sm text-secondary-light mb-1">Asunto</label>
+        <input [(ngModel)]="asunto" name="asunto" type="text"
+          class="w-full border rounded-md p-2 text-sm focus:outline-none focus:ring-1 focus:ring-accent" />
+      </div>
+
+      <div>
+        <label class="block text-sm text-secondary-light mb-1">Mensaje</label>
+        <textarea [(ngModel)]="mensaje" name="mensaje" rows="4"
+          class="w-full border rounded-md p-2 text-sm focus:outline-none focus:ring-1 focus:ring-accent"></textarea>
+      </div>
+
+      <div class="flex justify-end gap-28 mt-7">
+        <button type="button" (click)="cancelar()"
+          class="bg-secondary-light text-white px-4 py-2 rounded-md hover:bg-secondary transition">
+          Cancelar
+        </button>
+        <button type="submit" [disabled]="cargando"
+          class="bg-accent text-white px-4 py-2 rounded-md hover:bg-accent-dark transition disabled:opacity-50">
+          {{ cargando ? 'Enviando...' : 'Enviar' }}
+        </button>
+      </div>
+
+
+
+    </form>
+  </div>
+</div>

@@ -12,6 +12,19 @@ export class DashboardComponent implements OnInit {
   mostrarModalEmpresa = false;
   tituloEmpresa: string = '';
 
+
+
+  mostrarModalCorreo: boolean = false;
+
+  abrirModalCorreo(): void {
+    this.mostrarModalCorreo = true;
+  }
+
+  cerrarModalCorreo(): void {
+    this.mostrarModalCorreo = false;
+  }
+
+
   constructor(private empresaService: EmpresaService) { }
 
   ngOnInit(): void {
@@ -22,7 +35,7 @@ export class DashboardComponent implements OnInit {
     this.empresaService.getMiEmpresa().subscribe({
       next: (data) => {
         this.empresa = data;
-        if(this.empresa) {
+        if (this.empresa) {
           this.tituloEmpresa = `Panel de Administración - ${this.empresa.nombre}`;
         }
         else {

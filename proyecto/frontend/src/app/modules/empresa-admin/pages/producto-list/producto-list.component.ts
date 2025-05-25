@@ -5,7 +5,6 @@ import { Proveedor } from 'src/app/core/interfaces/proveedor';
 import { ProductoService } from '../../services/producto.service';
 import { CategoriaService } from '../../services/categoria.service';
 import { ProveedorService } from '../../services/proveedor.service';
-import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -27,11 +26,14 @@ export class ProductoListComponent implements OnInit {
   currentPage: number = 1;
   itemsPerPage: number = 10;
 
+  mostrarModalCrear = false;
+  mostrarModalEditar = false;
+  productoIdEditar: number | null = null;
+
   constructor(
     private productoService: ProductoService,
     private categoriaService: CategoriaService,
-    private proveedorService: ProveedorService,
-    private router: Router
+    private proveedorService: ProveedorService
   ) { }
 
   ngOnInit(): void {
@@ -42,25 +44,15 @@ export class ProductoListComponent implements OnInit {
 
   cargarCategorias(): void {
     this.categoriaService.getCategorias().subscribe({
-      next: (data) => {
-        this.categorias = data;
-        console.log('Categorías cargadas:', data);
-      },
-      error: (err) => {
-        console.error('Error cargando categorías:', err);
-      }
+      next: (data) => this.categorias = data,
+      error: (err) => console.error('Error cargando categorías:', err)
     });
   }
 
   cargarProveedores(): void {
     this.proveedorService.getProveedores().subscribe({
-      next: (data) => {
-        this.proveedores = data;
-        console.log('Proveedores cargados:', data);
-      },
-      error: (err) => {
-        console.error('Error cargando proveedores:', err);
-      }
+      next: (data) => this.proveedores = data,
+      error: (err) => console.error('Error cargando proveedores:', err)
     });
   }
 
@@ -68,12 +60,9 @@ export class ProductoListComponent implements OnInit {
     this.productoService.getProductos().subscribe({
       next: (data) => {
         this.productos = data;
-        console.log('Productos recibidos:', data);
         this.actualizarFiltro();
       },
-      error: (err) => {
-        console.error('Error al cargar productos:', err);
-      }
+      error: (err) => console.error('Error al cargar productos:', err)
     });
   }
 
@@ -106,18 +95,29 @@ export class ProductoListComponent implements OnInit {
   }
 
   getNombreCategoriaById(id: number | null | undefined): string {
-  const cat = this.categorias.find(c => c.id === Number(id));
-  return cat ? cat.nombre : '—';
-}
+    const cat = this.categorias.find(c => c.id === Number(id));
+    return cat ? cat.nombre : '—';
+  }
 
-getNombreProveedorById(id: number | null | undefined): string {
-  const prov = this.proveedores.find(p => p.id === Number(id));
-  return prov ? prov.nombre : '—';
-}
+  getNombreProveedorById(id: number | null | undefined): string {
+    const prov = this.proveedores.find(p => p.id === Number(id));
+    return prov ? prov.nombre : '—';
+  }
 
+  abrirModalCrear(): void {
+    this.mostrarModalCrear = true;
+  }
 
-  editarProducto(id: number): void {
-    this.router.navigate(['/empresa/producto-create'], { queryParams: { id } });
+  abrirModalEditar(id: number): void {
+    this.productoIdEditar = id;
+    this.mostrarModalEditar = true;
+  }
+
+  cerrarModales(): void {
+    this.mostrarModalCrear = false;
+    this.mostrarModalEditar = false;
+    this.productoIdEditar = null;
+    this.cargarProductos();
   }
 
   confirmarEliminacion(id: number): void {

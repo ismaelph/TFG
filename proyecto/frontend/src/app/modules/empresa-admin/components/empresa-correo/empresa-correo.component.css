@@ -1,0 +1,21 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.correo-popup-container {
+  position: fixed;
+  bottom: 90px;
+  right: 24px;
+  z-index: 50;
+}
+
+.correo-popup {
+  background: white;
+  width: 320px;
+  max-height: 400px;
+  border-radius: 1rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  padding: 1.5rem;
+  animation: fade-in 0.3s ease-out;
+}

@@ -11,8 +11,10 @@ import com.tfg.backend.auth.payload.response.MessageResponse;
 import com.tfg.backend.auth.repository.RoleRepository;
 import com.tfg.backend.auth.repository.UserRepository;
 import com.tfg.backend.auth.services.UserDetailsImpl;
+import com.tfg.backend.service.CorreoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,9 +23,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -45,6 +47,9 @@ public class AuthController {
 
   @Autowired
   JwtUtils jwtUtils;
+
+  @Autowired
+  private CorreoService correoService;
 
 
   /*
@@ -129,4 +134,70 @@ public class AuthController {
 
     return ResponseEntity.ok(new MessageResponse("¡El usuario ha sido registrado!"));
   }
+
+  @PostMapping("/forgot-password")
+  public ResponseEntity<?> forgotPassword(@RequestBody Map<String, String> body) {
+    String email = body.get("email");
+    System.out.println("📩 Solicitud de recuperación para: " + email);
+
+    User user = userRepository.findByEmail(email).orElse(null);
+    if (user == null) {
+      System.out.println("❌ No existe usuario con ese email.");
+      return ResponseEntity.status(HttpStatus.NOT_FOUND)
+              .body(new MessageResponse("No existe un usuario con ese email."));
+    }
+
+    String token = UUID.randomUUID().toString();
+    user.setResetToken(token);
+    user.setResetTokenExpiration(Instant.now().plus(Duration.ofHours(1)));
+    userRepository.save(user);
+
+    String enlace = "http://localhost:4200/auth/reset-password?token=" + token;
+    System.out.println("✅ Token generado: " + token);
+    System.out.println("🔗 Enlace de recuperación: " + enlace);
+
+    correoService.enviarCorreo(
+            user.getEmail(),
+            "Recuperación de contraseña",
+            "Haz clic en el siguiente enlace para restablecer tu contraseña: " + enlace
+    );
+    System.out.println("📬 Correo enviado a " + user.getEmail());
+
+    return ResponseEntity.ok(new MessageResponse("Correo enviado con instrucciones para restablecer tu contraseña."));
+  }
+
+
+  @PostMapping("/reset-password")
+  public ResponseEntity<?> resetPassword(@RequestBody Map<String, String> body) {
+    String token = body.get("token");
+    String nuevaPassword = body.get("nuevaPassword");
+
+    System.out.println("🔐 Intentando restablecer contraseña con token: " + token);
+
+    User user = userRepository.findByResetToken(token).orElse(null);
+
+    if (user == null) {
+      System.out.println("❌ Token no encontrado.");
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+              .body(new MessageResponse("Token inválido o expirado."));
+    }
+
+    if (user.getResetTokenExpiration() == null || user.getResetTokenExpiration().isBefore(Instant.now())) {
+      System.out.println("❌ Token expirado.");
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+              .body(new MessageResponse("Token inválido o expirado."));
+    }
+
+    user.setPassword(encoder.encode(nuevaPassword));
+    user.setResetToken(null);
+    user.setResetTokenExpiration(null);
+    userRepository.save(user);
+
+    System.out.println("✅ Contraseña restablecida correctamente para: " + user.getEmail());
+
+    return ResponseEntity.ok(new MessageResponse("Contraseña restablecida correctamente."));
+  }
+
+
+
 }

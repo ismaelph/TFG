@@ -4,6 +4,7 @@ import com.tfg.backend.auth.models.User;
 import com.tfg.backend.model.dto.EmpresaDto;
 import com.tfg.backend.model.dto.UserDto;
 import com.tfg.backend.model.entity.Empresa;
+import com.tfg.backend.service.CorreoService;
 import com.tfg.backend.service.EmpresaService;
 import com.tfg.backend.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +35,9 @@ public class AdminController {
 
     @Autowired
     private EmpresaService empresaService;
+
+    @Autowired
+    private CorreoService correoService;
 
     // GET – Todos los usuarios
     @GetMapping("/usuarios")
@@ -112,18 +116,23 @@ public class AdminController {
         return ResponseEntity.ok(estado);
     }
 
-    // POST – Enviar correo a todos (a implementar más adelante)
+    // POST – Enviar correo a todos
     @PostMapping("/enviar-correo")
     public ResponseEntity<?> enviarCorreoGlobal(@RequestBody Map<String, String> cuerpo) {
         String asunto = cuerpo.get("asunto");
         String mensaje = cuerpo.get("mensaje");
 
-        log.info("Simulación de envío de correo a todos los usuarios: [{}] {}", asunto, mensaje);
-        // TODO: Integrar con servicio de envío real
+        List<User> usuarios = userService.findAll(); // correcto
+        int enviados = 0;
 
-        return ResponseEntity.ok("Correo enviado (simulado)");
+        for (User u : usuarios) {
+            if (u.getEmail() != null && !u.getEmail().isBlank()) {
+                correoService.enviarCorreo(u.getEmail(), asunto, mensaje);
+                enviados++;
+            }
+        }
+
+        return ResponseEntity.ok(Map.of("mensaje", "Correo enviado a " + enviados + " usuarios."));
     }
-
-    // DELETE - borrar usuarios
 
 }

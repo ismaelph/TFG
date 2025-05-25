@@ -37,4 +37,12 @@ export class EmpresaService {
   eliminarEmpresa(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}`);
   }
+
+  enviarCorreoEmpleados(asunto: string, mensaje: string) {
+  return this.http.post(`${this.baseUrl}/empresa/enviar-correo`, {
+    asunto,
+    mensaje
+  });
+}
+
 }

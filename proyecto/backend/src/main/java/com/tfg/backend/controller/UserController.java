@@ -200,7 +200,7 @@ public class UserController {
         user.setPassword(passwordEncoder.encode(dto.getNuevaPassword()));
         userService.save(user);
 
-        return ResponseEntity.ok("Contraseña actualizada correctamente.");
+        return ResponseEntity.ok(Map.of("message", "Contraseña actualizada correctamente."));
     }
 
     // PUT para expulsar usuarios de la empresa
