@@ -4,6 +4,7 @@ import com.tfg.backend.auth.models.User;
 import com.tfg.backend.model.entity.Empresa;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
     User save(User user);
@@ -25,6 +26,9 @@ public interface UserService {
     void expulsarYDegradarUsuariosDeEmpresa(Empresa empresa);
 
     List<User> findByEmpresa(Empresa empresa);
+
+    Optional<User> findByEmail(String email);
+
 
 
 

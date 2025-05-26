@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EmpresaService } from '../../services/empresa.service';
 import { Empresa } from '../../../../core/interfaces/empresa';
+import { TokenService } from 'src/app/core/services/token.service';
 
 @Component({
   selector: 'app-empresa-form',
@@ -14,39 +15,39 @@ export class EmpresaFormComponent implements OnInit {
   empresaId!: number;
   cargando = true;
   error: string | null = null;
+  esAdminEmpresa = false;
 
   constructor(
     private fb: FormBuilder,
     private empresaService: EmpresaService,
     private route: ActivatedRoute,
-    private router: Router
-  ) { }
+    private router: Router,
+    private tokenService: TokenService
+  ) {}
 
   ngOnInit(): void {
+    this.esAdminEmpresa = this.tokenService.hasRole('ROLE_ADMIN_EMPRESA');
+
     this.empresaForm = this.fb.group({
-      nombre: ['', Validators.required],
-      claveAcceso: ['', Validators.required]
+      nombre: ['', Validators.required]
     });
 
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
       if (id) {
         this.empresaId = +id;
-        console.log('[INIT] ID obtenido de ruta:', this.empresaId);
         this.cargarEmpresa(this.empresaId);
       } else {
-        console.warn('[INIT] No se encontró parámetro ID');
         this.cargando = false;
+        this.error = 'ID inválido';
       }
     });
   }
 
   cargarEmpresa(id: number): void {
-    console.log('[CARGA] Cargando empresa con ID:', id);
     this.empresaService.getEmpresaById(id).subscribe({
       next: (empresa) => {
-        console.log('[CARGA] Empresa recibida:', empresa);
-        this.empresaForm.patchValue(empresa);
+        this.empresaForm.patchValue({ nombre: empresa.nombre });
         this.cargando = false;
       },
       error: (err) => {
@@ -59,30 +60,24 @@ export class EmpresaFormComponent implements OnInit {
 
   onSubmit(): void {
     if (this.empresaForm.invalid) {
-      console.warn('[SUBMIT] Formulario inválido');
+      this.error = 'Formulario inválido.';
       return;
     }
 
-    if (!this.empresaId || isNaN(this.empresaId)) {
-      console.error('[SUBMIT] ID inválido antes de actualizar:', this.empresaId);
-      this.error = 'Error interno: ID de empresa no válido';
-      return;
-    }
-
-    const empresa: Empresa = this.empresaForm.value;
-    console.log('[SUBMIT] Actualizando empresa con ID:', this.empresaId);
-    console.log('[SUBMIT] Datos enviados:', empresa);
+    const empresa: Empresa = {
+      id: this.empresaId,
+      nombre: this.empresaForm.get('nombre')?.value,
+      claveAcceso: '' // no se actualiza aquí
+    };
 
     this.empresaService.actualizarEmpresa(this.empresaId, empresa).subscribe({
       next: () => {
-        console.log('[SUBMIT] Actualización exitosa');
         this.router.navigate(['/empresa/list']);
       },
       error: (err) => {
         console.error('[ERROR] No se pudo actualizar la empresa:', err);
-        this.error = 'No se pudo actualizar la empresa';
+        this.error = 'No se pudo actualizar la empresa.';
       }
     });
   }
-
 }

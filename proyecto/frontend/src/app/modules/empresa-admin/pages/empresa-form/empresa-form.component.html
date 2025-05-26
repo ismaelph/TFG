@@ -8,12 +8,6 @@
              class="mt-1 p-2 block w-full border rounded-md focus:ring-accent focus:border-accent">
     </div>
 
-    <div class="mb-4">
-      <label class="block text-sm font-medium text-gray-700">Clave de acceso</label>
-      <input type="text" formControlName="claveAcceso"
-             class="mt-1 p-2 block w-full border rounded-md focus:ring-accent focus:border-accent">
-    </div>
-
     <div *ngIf="error" class="text-red-600 text-sm mb-2">
       {{ error }}
     </div>
@@ -27,5 +21,10 @@
   <div *ngIf="cargando" class="text-center py-6">
     <div class="loader mx-auto mb-2"></div>
     <p class="text-gray-500">Cargando empresa...</p>
+  </div>
+
+  <!-- Sección de cambio de clave -->
+  <div *ngIf="!cargando && esAdminEmpresa && empresaId" class="mt-10 pt-6 border-t border-gray-200">
+    <app-empresa-cambiar-clave [empresaId]="empresaId"></app-empresa-cambiar-clave>
   </div>
 </div>

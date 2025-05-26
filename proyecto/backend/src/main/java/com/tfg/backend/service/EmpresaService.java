@@ -14,4 +14,7 @@ public interface EmpresaService {
     List<Empresa> findAll();
 
     void delete(long id);
+
+    void eliminarEmpresaYDependencias(long id);
+
 }

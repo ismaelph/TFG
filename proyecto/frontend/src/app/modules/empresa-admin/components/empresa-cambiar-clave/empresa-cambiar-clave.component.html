@@ -1,0 +1,20 @@
+<div class="max-w-md bg-white p-6 rounded-xl shadow-lg space-y-4 mx-auto">
+  <h2 class="text-xl font-semibold text-primary text-center">Cambiar Clave de Empresa</h2>
+
+  <form [formGroup]="form" (ngSubmit)="cambiarClave()" class="space-y-4">
+    <div>
+      <label class="block text-sm text-gray-700">Nueva Clave</label>
+      <input type="password" formControlName="claveNueva" autocomplete="new-password" class="w-full p-2 border rounded-md">
+    </div>
+
+    <div>
+      <label class="block text-sm text-gray-700">Confirmar Clave</label>
+      <input type="password" formControlName="confirmarClave" class="w-full p-2 border rounded-md" autocomplete="new-password">
+    </div>
+
+    <button type="submit" [disabled]="cargando"
+      class="w-full bg-accent text-white py-2 rounded hover:bg-accent-dark transition">
+      Cambiar Clave
+    </button>
+  </form>
+</div>

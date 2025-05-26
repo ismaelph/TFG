@@ -6,7 +6,7 @@
   <div *ngIf="empresa; else errorContent" class="space-y-6">
     <div class="text-lg">
       <p><strong class="text-secondary">Nombre:</strong> {{ empresa.nombre }}</p>
-      <p><strong class="text-secondary">Clave de acceso:</strong> {{ empresa.claveAcceso }}</p>
+      <p><strong class="text-secondary">Clave de acceso:</strong> <span class="text-gray-400 italic">••••••••</span></p>
     </div>
 
     <div class="flex justify-center gap-4">
@@ -22,6 +22,7 @@
         Eliminar Empresa
       </button>
     </div>
+
   </div>
 
   <ng-template #errorContent>

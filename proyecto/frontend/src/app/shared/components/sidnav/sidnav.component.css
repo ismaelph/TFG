@@ -1,0 +1,64 @@
+/* Fondo del sidebar */
+:host ::ng-deep .bg-primary {
+  background-color: #1E1E1E;
+}
+
+/* Transición suave para el ancho */
+:host ::ng-deep .w-64, 
+:host ::ng-deep .w-20 {
+  transition: width 0.3s ease;
+}
+
+/* Links */
+:host ::ng-deep a,
+:host ::ng-deep button {
+  transition: all 0.2s ease-in-out;
+  border-radius: 0.375rem; /* rounded-md */
+  padding: 0.5rem 0.75rem;
+}
+
+/* Hover para ítems de navegación */
+:host ::ng-deep a:hover,
+:host ::ng-deep button:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #6BB2A7; /* color accent */
+}
+
+/* Íconos */
+:host ::ng-deep i {
+  font-size: 1.25rem;
+}
+
+/* Dropdown de usuario */
+:host ::ng-deep .dropdown-visible {
+  animation: fadeIn 0.2s ease-in-out;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Botón colapsar sidebar */
+:host ::ng-deep button:hover i {
+  transform: scale(1.1);
+  transition: transform 0.2s ease;
+}
+
+/* Scroll si el contenido crece */
+:host ::ng-deep nav {
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #6B7280 transparent;
+}
+
+/* Scroll personalizado para navegadores WebKit */
+:host ::ng-deep nav::-webkit-scrollbar {
+  width: 6px;
+}
+:host ::ng-deep nav::-webkit-scrollbar-thumb {
+  background-color: #6B7280;
+  border-radius: 3px;
+}

@@ -12,4 +12,7 @@ public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
     Optional<Categoria> findById(Long id);
 
     List<Categoria> findByEmpresa(Empresa empresa);
+
+    void deleteAllByEmpresa(Empresa empresa);
+
 }

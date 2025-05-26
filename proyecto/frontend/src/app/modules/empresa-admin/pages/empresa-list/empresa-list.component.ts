@@ -4,6 +4,7 @@ import { Empresa } from '../../../../core/interfaces/empresa';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { SessionService } from 'src/app/core/services/session.service';
+import { TokenService } from 'src/app/core/services/token.service';
 
 @Component({
   selector: 'app-empresa-list',
@@ -14,73 +15,81 @@ export class EmpresaListComponent implements OnInit {
   empresa!: Empresa;
   cargando = true;
   error: string | null = null;
+  esAdminEmpresa = false;
 
   constructor(
     private empresaService: EmpresaService,
     private router: Router,
     private route: ActivatedRoute,
-    private sessionService: SessionService // Cambia esto por el servicio correcto
+    private sessionService: SessionService,
+    private tokenService: TokenService
   ) { }
 
   ngOnInit(): void {
+    this.esAdminEmpresa = this.tokenService.hasRole('ROLE_ADMIN_EMPRESA');
+    console.log('🔑 Rol admin empresa:', this.esAdminEmpresa);
+
     this.empresaService.getMiEmpresa().subscribe({
       next: (res) => {
         this.empresa = res;
         this.cargando = false;
+        console.log('✅ Empresa cargada:', this.empresa);
       },
       error: (err) => {
+        this.cargando = false;
+        console.error('❌ Error al obtener empresa:', err);
+
         if (err.status === 204 || err.status === 404) {
-          // El usuario no tiene empresa, es válido
           this.empresa = undefined as any;
+          console.warn('⚠️ El usuario no está vinculado a ninguna empresa.');
         } else {
           this.error = 'No se pudo cargar tu empresa.';
         }
-        this.cargando = false;
       }
-
     });
   }
 
   editar(): void {
     const id = this.empresa?.id;
     if (id && typeof id === 'number') {
+      console.log('✏️ Editando empresa con ID:', id);
       this.router.navigate(['../form', id], { relativeTo: this.route });
     } else {
-      console.error('ID de empresa inválido:', id);
+      console.error('❌ ID de empresa inválido para editar:', id);
     }
   }
 
   borrar(): void {
-  Swal.fire({
-    title: '¿Estás seguro?',
-    text: 'Esta acción eliminará permanentemente la empresa.',
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonText: 'Sí, eliminar',
-    cancelButtonText: 'Cancelar',
-    confirmButtonColor: '#d33',
-    cancelButtonColor: '#3085d6'
-  }).then(result => {
-    if (result.isConfirmed) {
-      const id = this.empresa?.id;
-      if (id && typeof id === 'number') {
-        this.empresaService.eliminarEmpresa(id).subscribe({
-          next: () => {
-            // ✅ Cerramos sesión SOLO después del delete exitoso
-            this.sessionService.cerrarSesion();
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Esta acción eliminará permanentemente la empresa.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6'
+    }).then(result => {
+      if (result.isConfirmed) {
+        const id = this.empresa?.id;
+        if (id && typeof id === 'number') {
+          console.log('🗑️ Eliminando empresa con ID:', id);
 
-            // ✅ Redirigimos al login
-            this.router.navigate(['/auth/login']);
-          },
-          error: (err) => {
-            console.error('Error al eliminar empresa:', err);
-            Swal.fire('Error', 'No se pudo eliminar la empresa.', 'error');
-          }
-        });
+          this.empresaService.eliminarEmpresa(id).subscribe({
+            next: () => {
+              console.log('✅ Empresa eliminada con éxito.');
+              this.sessionService.cerrarSesion();
+              this.router.navigate(['/auth/login']);
+            },
+            error: (err) => {
+              console.error('❌ Error al eliminar empresa:', err);
+              Swal.fire('Error', 'No se pudo eliminar la empresa.', 'error');
+            }
+          });
+        } else {
+          console.error('❌ ID de empresa inválido para eliminación:', id);
+        }
       }
-    }
-  });
-}
-
-
+    });
+  }
 }

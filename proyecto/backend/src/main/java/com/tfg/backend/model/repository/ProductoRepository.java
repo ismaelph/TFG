@@ -10,4 +10,7 @@ import java.util.List;
 @Repository
 public interface ProductoRepository extends JpaRepository<Producto, Long> {
     List<Producto> findByEmpresa(Empresa empresa);
+
+    void deleteAllByEmpresa(Empresa empresa);
+
 }

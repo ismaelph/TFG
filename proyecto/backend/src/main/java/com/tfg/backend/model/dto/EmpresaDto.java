@@ -20,7 +20,6 @@ public class EmpresaDto {
         EmpresaDto dto = new EmpresaDto();
         dto.setId(entity.getId());
         dto.setNombre(entity.getNombre());
-        dto.setClaveAcceso(entity.getClaveAcceso());
 
         // Manejo seguro de usuarios
         if (entity.getUsuarios() != null) {

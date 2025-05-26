@@ -8,41 +8,45 @@ import { EMPRESA_ENDPOINT } from 'src/app/core/constants/constants';
   providedIn: 'root'
 })
 export class EmpresaService {
-
   private baseUrl = EMPRESA_ENDPOINT;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  
+  // Obtener empresa del usuario autenticado
   getMiEmpresa(): Observable<Empresa> {
     return this.http.get<Empresa>(`${this.baseUrl}/mi-empresa`);
   }
 
-  // ➕ Crear nueva empresa
-  crearEmpresa(empresa: Empresa): Observable<Empresa> {
-    return this.http.post<Empresa>(this.baseUrl, empresa);
-  }
-
-  // 🔍 Obtener empresa por ID (solo si tienes acceso)
+  // Obtener empresa por ID
   getEmpresaById(id: number): Observable<Empresa> {
     return this.http.get<Empresa>(`${this.baseUrl}/${id}`);
   }
 
-  // ✏️ Actualizar empresa
+  // Crear empresa
+  crearEmpresa(empresa: Empresa): Observable<Empresa> {
+    return this.http.post<Empresa>(this.baseUrl, empresa);
+  }
+
+  // Actualizar empresa
   actualizarEmpresa(id: number, empresa: Empresa): Observable<Empresa> {
     return this.http.put<Empresa>(`${this.baseUrl}/${id}`, empresa);
   }
 
-  // ❌ Eliminar empresa
+  // Eliminar empresa
   eliminarEmpresa(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}`);
   }
 
-  enviarCorreoEmpleados(asunto: string, mensaje: string) {
-  return this.http.post(`${this.baseUrl}/empresa/enviar-correo`, {
-    asunto,
-    mensaje
-  });
-}
+  // Cambiar clave de empresa
+  cambiarClave(id: number, nuevaClave: string): Observable<any> {
+    return this.http.put(`${this.baseUrl}/${id}/cambiar-clave`, { nuevaClave });
+  }
 
+  // Enviar correo a empleados (restaurado)
+  enviarCorreoEmpleados(asunto: string, mensaje: string): Observable<any> {
+    return this.http.post(`${this.baseUrl}/empresa/enviar-correo`, {
+      asunto,
+      mensaje
+    });
+  }
 }

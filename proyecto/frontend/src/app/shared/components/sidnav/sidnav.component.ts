@@ -7,11 +7,12 @@ import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  selector: 'app-sidnav',
+  templateUrl: './sidnav.component.html',
+  styleUrls: ['./sidnav.component.css']
 })
-export class NavbarComponent implements OnInit, OnDestroy {
+export class SidnavComponent implements OnInit, OnDestroy {
+
   dropdownVisible = false;
   timeoutRef: any;
   sesionIniciada = false;
@@ -30,7 +31,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private tokenService: TokenService,
     private sessionService: SessionService,
     private userService: UserService,
-    private router: Router
+    public router: Router // <- CAMBIO AQUÍ
   ) { }
 
   ngOnInit() {

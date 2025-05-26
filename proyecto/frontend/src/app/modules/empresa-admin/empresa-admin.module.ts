@@ -26,6 +26,7 @@ import { AlmacenEditComponent } from './components/almacen-edit/almacen-edit.com
 import { EstructuraEditComponent } from './components/estructura-edit/estructura-edit.component';
 import { ProductoEditComponent } from './components/producto-edit/producto-edit.component';
 import { EmpresaCorreoComponent } from './components/empresa-correo/empresa-correo.component';
+import { EmpresaCambiarClaveComponent } from './components/empresa-cambiar-clave/empresa-cambiar-clave.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { EmpresaCorreoComponent } from './components/empresa-correo/empresa-corr
     EstructuraEditComponent,
     ProductoEditComponent,
     EmpresaCorreoComponent,
+    EmpresaCambiarClaveComponent,
   ],
   imports: [
     CommonModule,

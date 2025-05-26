@@ -2,6 +2,9 @@ package com.tfg.backend.controller;
 
 import com.tfg.backend.auth.models.User;
 import com.tfg.backend.auth.services.UserDetailsImpl;
+import com.tfg.backend.model.dto.CambiarClaveEmpresaDto;
+import com.tfg.backend.model.repository.CategoriaRepository;
+import com.tfg.backend.model.repository.ProveedorRepository;
 import com.tfg.backend.model.repository.UsuarioRepository;
 import com.tfg.backend.service.CorreoService;
 import com.tfg.backend.service.UserService;
@@ -17,6 +20,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,15 +49,21 @@ public class EmpresaController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private ProveedorRepository proveedorRepository;
+
+    @Autowired
+    private CategoriaRepository categoriaRepository;
+
     // GET – Listar todas
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER' , 'ROLE_ADMIN_EMPRESA')")
     @GetMapping("")
     public List<EmpresaDto> listAll() {
         return EmpresaDto.from(empresaService.findAll());
     }
 
     // GET – Buscar por ID
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER' , 'ROLE_ADMIN_EMPRESA')")
     @GetMapping("/{id}")
     public ResponseEntity<?> getById(@PathVariable long id) {
         Empresa empresa = empresaService.findById(id);
@@ -119,26 +129,16 @@ public class EmpresaController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorDto.from("Empresa no encontrada"));
     }
 
-    // DELETE – Eliminar empresa
-    @PreAuthorize("hasRole('ROLE_ADMIN_EMPRESA')")
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN_EMPRESA')")
     public ResponseEntity<?> delete(@PathVariable long id) {
-        Empresa empresa = empresaService.findById(id);
-        if (empresa != null) {
-            try {
-                // 1. Expulsar y degradar a todos los usuarios
-                userService.expulsarYDegradarUsuariosDeEmpresa(empresa);
-
-                // 2. Eliminar la empresa
-                empresaService.delete(id);
-
-                return ResponseEntity.ok(Map.of("msg", "Empresa eliminada correctamente."));
-            } catch (Exception e) {
-                e.printStackTrace();
-                return ResponseEntity.badRequest().body(ErrorDto.from("Empresa no eliminada"));
-            }
+        try {
+            empresaService.eliminarEmpresaYDependencias(id);
+            return ResponseEntity.ok(Map.of("msg", "Empresa eliminada correctamente."));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorDto.from("Empresa no eliminada"));
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorDto.from("Empresa no encontrada"));
     }
 
 
@@ -186,6 +186,73 @@ public class EmpresaController {
 
         return ResponseEntity.ok(Map.of("mensaje", "Correo enviado a " + enviados + " usuarios."));
     }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN_EMPRESA')")
+    @PutMapping("/{id}/cambiar-clave")
+    public ResponseEntity<?> cambiarClaveEmpresa(
+            @PathVariable Long id,
+            @RequestBody CambiarClaveEmpresaDto dto,
+            @AuthenticationPrincipal UserDetails userDetails) {
+
+        System.out.println("==== [CAMBIO CLAVE EMPRESA] ====");
+        System.out.println("Solicitado por: " + userDetails.getUsername());
+        System.out.println("Empresa ID en ruta: " + id);
+        System.out.println("DTO recibido: " + dto);
+
+        try {
+            Empresa empresa = empresaService.findById(id);
+            if (empresa == null) {
+                System.out.println("❌ Empresa no encontrada con ID: " + id);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("Empresa no encontrada");
+            }
+
+            User usuario = usuarioRepository.findByUsername(userDetails.getUsername());
+
+            if (usuario == null) {
+                System.out.println("❌ Usuario no encontrado por email: " + userDetails.getUsername());
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                        .body("Usuario no autenticado");
+            }
+
+            if (usuario.getEmpresa() == null) {
+                System.out.println("⚠️ Usuario no tiene empresa asociada.");
+                return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                        .body("No tienes empresa asociada.");
+            }
+
+            Long empresaDelUsuarioId = usuario.getEmpresa().getId();
+            System.out.println("Empresa del usuario: " + empresaDelUsuarioId);
+
+            if (!empresaDelUsuarioId.equals(id)) {
+                System.out.println("❌ Usuario no pertenece a esta empresa. Intento de cambiar ID: " + id);
+                return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                        .body("No tienes permiso para modificar esta empresa.");
+            }
+
+            // Cambiar la clave
+            String claveCodificada = passwordEncoder.encode(dto.getNuevaClave());
+            empresa.setClaveAcceso(claveCodificada);
+            empresaService.save(empresa);
+            System.out.println("✅ Clave actualizada correctamente para la empresa: " + empresa.getNombre());
+
+            // Enviar correo
+            correoService.enviarCorreo(
+                    usuario.getEmail(),
+                    "🔐 Clave de acceso actualizada",
+                    "Hola " + usuario.getUsername() + ",\n\nHas actualizado correctamente la clave de acceso de tu empresa: " + empresa.getNombre() + ".\n\nSi no fuiste tú, contacta con soporte inmediatamente."
+            );
+            System.out.println("📩 Correo de confirmación enviado a: " + usuario.getEmail());
+
+            return ResponseEntity.ok(Map.of("mensaje", "Clave correctamente actualizada y correo enviado"));
+        } catch (Exception e) {
+            System.out.println("❌ Error al actualizar clave: " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error al actualizar la clave: " + e.getMessage());
+        }
+    }
+
 
 
 }

@@ -1,0 +1,76 @@
+<div class="flex min-h-screen">
+  <!-- Sidebar -->
+  <div [ngClass]="{ 'w-64': menuAbierto, 'w-20': !menuAbierto }"
+       class="bg-primary text-white transition-all duration-300 flex flex-col">
+    <!-- Logo -->
+    <div class="flex items-center justify-center h-16 border-b border-secondary-light">
+      <img *ngIf="menuAbierto" src="assets/images/logo3.png" alt="Logo" class="h-10">
+      <i *ngIf="!menuAbierto" class="bi bi-house text-2xl"></i>
+    </div>
+
+    <!-- Navegación -->
+    <nav class="flex-1 py-4 space-y-2 px-2">
+      <a routerLink="/" class="flex items-center space-x-2 hover:text-accent">
+        <i class="bi bi-house"></i>
+        <span *ngIf="menuAbierto">Inicio</span>
+      </a>
+      <a *ngIf="esAdmin" routerLink="/admin" class="flex items-center space-x-2 hover:text-accent">
+        <i class="bi bi-shield-lock"></i>
+        <span *ngIf="menuAbierto">Administración</span>
+      </a>
+      <a *ngIf="esAdminEmpresa || esUsuario" routerLink="/empresa" class="flex items-center space-x-2 hover:text-accent">
+        <i class="bi bi-building"></i>
+        <span *ngIf="menuAbierto">Mi Empresa</span>
+      </a>
+      <a *ngIf="esEmpleado" routerLink="/empleado/inventario" class="flex items-center space-x-2 hover:text-accent">
+        <i class="bi bi-box"></i>
+        <span *ngIf="menuAbierto">Inventario</span>
+      </a>
+      <a *ngIf="esEmpleado" routerLink="/empleado/mi-inventario" class="flex items-center space-x-2 hover:text-accent">
+        <i class="bi bi-person-badge"></i>
+        <span *ngIf="menuAbierto">Mi Inventario</span>
+      </a>
+      <a *ngIf="esUsuario" routerLink="/main/ver-empresa" class="flex items-center space-x-2 hover:text-accent">
+        <i class="bi bi-eye"></i>
+        <span *ngIf="menuAbierto">Ver Empresas</span>
+      </a>
+    </nav>
+
+    <!-- Usuario -->
+    <div class="p-2 border-t border-secondary-light">
+      <div *ngIf="!sesionIniciada" class="flex items-center space-x-2 hover:text-accent cursor-pointer" (click)="router.navigate(['/auth/login'])">
+        <i class="bi bi-box-arrow-in-right"></i>
+        <span *ngIf="menuAbierto">Iniciar Sesión</span>
+      </div>
+
+      <div *ngIf="sesionIniciada" class="space-y-2">
+        <div class="flex items-center gap-2 hover:text-accent cursor-pointer" (mouseenter)="mostrarMenu()" (mouseleave)="ocultarMenu()">
+          <i class="bi bi-person-circle"></i>
+          <span *ngIf="menuAbierto">{{ nombreUsuario }}</span>
+        </div>
+        <div *ngIf="dropdownVisible" class="bg-white text-primary rounded-md shadow-lg mt-1">
+          <a routerLink="/auth/profile" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100">
+            <i class="bi bi-person"></i> Perfil
+          </a>
+          <hr class="border-gray-200">
+          <button (click)="cerrarSesion()" class="w-full flex items-center gap-2 px-4 py-2 hover:bg-gray-100">
+            <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
+          </button>
+          <button *ngIf="esEmpleado" (click)="confirmarAbandono()" class="w-full flex items-center gap-2 px-4 py-2 text-red-600 hover:text-red-800">
+            <i class="bi bi-door-open-fill"></i> Abandonar Empresa
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Botón de colapsar -->
+    <button class="text-center py-2 border-t border-secondary-light hover:bg-secondary-light" (click)="menuAbierto = !menuAbierto">
+      <i class="bi" [ngClass]="menuAbierto ? 'bi-chevron-left' : 'bi-chevron-right'"></i>
+    </button>
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="flex-1 p-4">
+    <router-outlet></router-outlet>
+  </div>
+</div>

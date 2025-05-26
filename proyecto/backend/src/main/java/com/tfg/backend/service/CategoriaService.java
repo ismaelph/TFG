@@ -18,4 +18,6 @@ public interface CategoriaService {
     List<Categoria> findByEmpresa(Empresa empresa);
 
     void delete(Long id);
+
+
 }

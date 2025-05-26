@@ -12,4 +12,7 @@ public interface ProveedorRepository extends JpaRepository<Proveedor, Long> {
     Optional<Proveedor> findById(Long id);
 
     List<Proveedor> findByEmpresa(Empresa empresa);
+
+    void deleteAllByEmpresa(Empresa empresa);
+
 }

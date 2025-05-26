@@ -11,6 +11,7 @@ import { AlertSuccessComponent } from './components/alerts/alert-success/alert-s
 import { AlertWarningComponent } from './components/alerts/alert-warning/alert-warning.component';
 import { AlertErrorComponent } from './components/alerts/alert-error/alert-error.component';
 import { AlertInfoComponent } from './components/alerts/alert-info/alert-info.component';
+import { SidnavComponent } from './components/sidnav/sidnav.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { AlertInfoComponent } from './components/alerts/alert-info/alert-info.co
     AlertSuccessComponent,
     AlertWarningComponent,
     AlertErrorComponent,
-    AlertInfoComponent
+    AlertInfoComponent,
+    SidnavComponent
   ],
   imports: [
     CommonModule,
@@ -37,6 +39,7 @@ import { AlertInfoComponent } from './components/alerts/alert-info/alert-info.co
     FormsModule,
     RouterModule,
     AlertSuccessComponent,
+    SidnavComponent
   ]
 })
 export class SharedModule {}
