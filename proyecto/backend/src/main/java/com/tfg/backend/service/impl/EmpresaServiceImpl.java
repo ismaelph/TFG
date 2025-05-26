@@ -1,10 +1,7 @@
 package com.tfg.backend.service.impl;
 
 import com.tfg.backend.model.entity.Empresa;
-import com.tfg.backend.model.repository.CategoriaRepository;
-import com.tfg.backend.model.repository.EmpresaRepository;
-import com.tfg.backend.model.repository.ProductoRepository;
-import com.tfg.backend.model.repository.ProveedorRepository;
+import com.tfg.backend.model.repository.*;
 import com.tfg.backend.service.EmpresaService;
 import com.tfg.backend.service.UserService;
 import jakarta.transaction.Transactional;
@@ -35,6 +32,9 @@ public class EmpresaServiceImpl implements EmpresaService {
 
     @Autowired
     private ProductoRepository productoRepository;
+
+    @Autowired
+    private AlmacenRepository almacenRepository;
 
     @Override
     public Empresa save(Empresa empresa) {
@@ -132,7 +132,11 @@ public class EmpresaServiceImpl implements EmpresaService {
         System.out.println("[DELETE] Eliminando proveedores asociados...");
         productoRepository.deleteAllByEmpresa(empresa);
 
-        // 5. Eliminar empresa
+        // 5. Eliminar Almacenes
+        System.out.println("[DELETE] Eliminando proveedores asociados...");
+        almacenRepository.deleteAllByEmpresa(empresa);
+
+        // 6. Eliminar empresa
         System.out.println("[DELETE] Eliminando empresa...");
         empresaRepository.deleteById(id);
 

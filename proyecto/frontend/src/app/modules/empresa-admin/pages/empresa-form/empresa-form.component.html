@@ -1,30 +1,38 @@
-<div class="max-w-xl mx-auto p-6 bg-white rounded-xl shadow-md mt-10">
-  <h2 class="text-2xl font-semibold text-primary mb-4">Editar Empresa</h2>
+<div class="max-w-6xl mx-auto mt-10">
+  <div class="flex flex-col md:flex-row justify-center items-start gap-8">
 
-  <form [formGroup]="empresaForm" (ngSubmit)="onSubmit()" *ngIf="!cargando">
-    <div class="mb-4">
-      <label class="block text-sm font-medium text-gray-700">Nombre</label>
-      <input type="text" formControlName="nombre"
-             class="mt-1 p-2 block w-full border rounded-md focus:ring-accent focus:border-accent">
+    <!-- Bloque: Editar empresa -->
+    <div class="flex-1 bg-white p-6 rounded-xl shadow-md">
+      <h2 class="text-2xl font-semibold text-primary mb-4">Editar Empresa</h2>
+
+      <form [formGroup]="empresaForm" (ngSubmit)="onSubmit()" *ngIf="!cargando">
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700">Nombre</label>
+          <input type="text" formControlName="nombre"
+                 class="mt-1 p-2 block w-full border rounded-md focus:ring-accent focus:border-accent">
+        </div>
+
+        <div *ngIf="error" class="text-red-600 text-sm mb-2">
+          {{ error }}
+        </div>
+
+        <button type="submit"
+                class="w-full bg-accent text-white font-semibold py-2 px-4 rounded hover:bg-accent-dark transition">
+          Guardar Cambios
+        </button>
+      </form>
+
+      <div *ngIf="cargando" class="text-center py-6">
+        <div class="loader mx-auto mb-2"></div>
+        <p class="text-gray-500">Cargando empresa...</p>
+      </div>
     </div>
 
-    <div *ngIf="error" class="text-red-600 text-sm mb-2">
-      {{ error }}
+    <!-- Bloque: Cambiar clave -->
+    <div *ngIf="!cargando && esAdminEmpresa && empresaId"
+         class="flex-1 bg-white p-6 rounded-xl shadow-md self-center">
+      <app-empresa-cambiar-clave [empresaId]="empresaId"></app-empresa-cambiar-clave>
     </div>
 
-    <button type="submit"
-            class="w-full bg-accent text-white font-semibold py-2 px-4 rounded hover:bg-accent-dark transition">
-      Guardar Cambios
-    </button>
-  </form>
-
-  <div *ngIf="cargando" class="text-center py-6">
-    <div class="loader mx-auto mb-2"></div>
-    <p class="text-gray-500">Cargando empresa...</p>
-  </div>
-
-  <!-- Sección de cambio de clave -->
-  <div *ngIf="!cargando && esAdminEmpresa && empresaId" class="mt-10 pt-6 border-t border-gray-200">
-    <app-empresa-cambiar-clave [empresaId]="empresaId"></app-empresa-cambiar-clave>
   </div>
 </div>
