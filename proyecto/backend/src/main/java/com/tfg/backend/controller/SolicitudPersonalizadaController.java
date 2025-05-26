@@ -1,14 +1,17 @@
 package com.tfg.backend.controller;
 
+import com.tfg.backend.auth.models.User;
 import com.tfg.backend.auth.services.UserDetailsImpl;
 import com.tfg.backend.model.dto.SolicitudPersonalizadaDto;
 import com.tfg.backend.model.dto.ErrorDto;
 import com.tfg.backend.model.entity.SolicitudPersonalizada;
 import com.tfg.backend.model.enums.EstadoSolicitud;
 import com.tfg.backend.service.SolicitudPersonalizadaService;
+import com.tfg.backend.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +26,12 @@ public class SolicitudPersonalizadaController {
 
     @Autowired
     private SolicitudPersonalizadaService solicitudService;
+
+    @Autowired
+    private SolicitudPersonalizadaService solicitudPersonalizadaService;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping("")
     public List<SolicitudPersonalizadaDto> listAll() {
@@ -82,5 +91,32 @@ public class SolicitudPersonalizadaController {
             return ResponseEntity.ok("Solicitud eliminada correctamente.");
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorDto.from("Solicitud no encontrada"));
+    }
+
+    @PostMapping("/crear")
+    @PreAuthorize("hasRole('ROLE_EMPLEADO')")
+    public ResponseEntity<?> crearSolicitud(@RequestBody SolicitudPersonalizadaDto dto,
+                                            @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        try {
+            System.out.println("📨 Petición recibida para crear solicitud personalizada");
+            System.out.println("🔎 DTO recibido: nombre = " + dto.getNombreProductoSugerido() +
+                    ", cantidad = " + dto.getCantidadDeseada() +
+                    ", motivo = " + dto.getDescripcion());
+
+            Long userId = userDetails.getId();
+            User usuario = userService.findById(userId);
+
+            if (usuario == null) {
+                System.err.println("❌ Usuario autenticado no encontrado.");
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuario no válido.");
+            }
+
+            solicitudPersonalizadaService.crearSolicitud(dto, usuario);
+            return ResponseEntity.ok("✅ Solicitud personalizada enviada correctamente.");
+        } catch (Exception e) {
+            System.err.println("❌ Error al procesar solicitud personalizada:");
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno del servidor.");
+        }
     }
 }

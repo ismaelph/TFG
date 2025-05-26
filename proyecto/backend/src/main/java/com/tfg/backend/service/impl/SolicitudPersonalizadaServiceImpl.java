@@ -2,8 +2,11 @@ package com.tfg.backend.service.impl;
 
 import com.tfg.backend.auth.models.User;
 import com.tfg.backend.auth.repository.UserRepository;
+import com.tfg.backend.model.dto.SolicitudPersonalizadaDto;
 import com.tfg.backend.model.entity.SolicitudPersonalizada;
+import com.tfg.backend.model.enums.EstadoSolicitud;
 import com.tfg.backend.model.repository.SolicitudPersonalizadaRepository;
+import com.tfg.backend.service.CorreoService;
 import com.tfg.backend.service.SolicitudPersonalizadaService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +24,12 @@ public class SolicitudPersonalizadaServiceImpl implements SolicitudPersonalizada
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private SolicitudPersonalizadaRepository solicitudPersonalizadaRepository;
+
+    @Autowired
+    private CorreoService correoService;
 
     @Override
     public SolicitudPersonalizada save(SolicitudPersonalizada solicitud) {
@@ -66,4 +75,34 @@ public class SolicitudPersonalizadaServiceImpl implements SolicitudPersonalizada
     public void delete(Long id) {
         solicitudRepository.deleteById(id);
     }
+
+    @Override
+    public void crearSolicitud(SolicitudPersonalizadaDto dto, User usuario) {
+        try {
+            System.out.println("📥 Creando nueva solicitud personalizada...");
+
+            SolicitudPersonalizada solicitud = dto.to();
+            solicitud.setEstado(EstadoSolicitud.EN_ESPERA_STOCK);
+            solicitud.setFechaSolicitud(Instant.now());
+            solicitud.setUsuario(usuario);
+
+            System.out.println("📦 Nombre sugerido: " + solicitud.getNombreProductoSugerido());
+            System.out.println("🔢 Cantidad: " + solicitud.getCantidadDeseada());
+            System.out.println("📝 Motivo: " + solicitud.getDescripcion());
+            System.out.println("👤 Usuario: " + usuario.getUsername());
+
+            solicitudPersonalizadaRepository.save(solicitud);
+            System.out.println("✅ Solicitud personalizada guardada en base de datos.");
+
+            correoService.enviarCorreoNuevaSolicitudPersonalizada(solicitud);
+            System.out.println("📧 Correo de solicitud personalizada enviado al admin.");
+
+        } catch (Exception e) {
+            System.err.println("❌ Error al crear solicitud personalizada:");
+            e.printStackTrace();
+            throw new RuntimeException("Error al procesar la solicitud personalizada");
+        }
+    }
+
+
 }
