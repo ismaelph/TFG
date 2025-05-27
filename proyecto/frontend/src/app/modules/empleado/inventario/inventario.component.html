@@ -7,6 +7,8 @@
         <tr>
           <th class="px-4 py-2">Nombre</th>
           <th class="px-4 py-2">Cantidad</th>
+          <th class="px-4 py-2">Categoría</th>
+          <th class="px-4 py-2">Proveedor</th>
           <th class="px-4 py-2">Acciones</th>
         </tr>
       </thead>
@@ -14,23 +16,46 @@
         <tr *ngFor="let p of productos" class="hover:bg-gray-50 transition">
           <td class="px-4 py-2">{{ p.nombre }}</td>
           <td class="px-4 py-2">{{ p.cantidad }}</td>
+          <td class="px-4 py-2">{{ p.categoriaNombre }}</td>
+          <td class="px-4 py-2">{{ p.proveedorNombre }}</td>
           <td class="px-4 py-2">
-            <button (click)="toggleSlider(p)" class="text-accent hover:underline text-sm">
-              <i class="bi bi-box-arrow-in-down"></i> Coger
+            <button (click)="abrirModal(p)" class="text-accent hover:underline text-sm">
+              <i class="bi bi-send"></i> Solicitar
             </button>
-            <div *ngIf="sliderActivo[p.id!]" class="mt-2 flex items-center gap-2 fade-slide-in">
-              <button (click)="restarCantidad(p.id!)" class="text-lg px-2">−</button>
-              <input [(ngModel)]="cantidadSeleccionada[p.id!]" type="number"
-                     class="w-16 border px-2 py-1 text-center text-sm" min="1">
-              <button (click)="sumarCantidad(p.id!)" class="text-lg px-2">+</button>
-              <button (click)="confirmarCoger(p)"
-                      class="ml-2 bg-accent text-white px-3 py-1 rounded hover:bg-accent-dark text-sm">
-                Confirmar
-              </button>
-            </div>
           </td>
         </tr>
       </tbody>
     </table>
+  </div>
+
+  <app-paginator
+    [total]="productos.length"
+    [pageSize]="itemsPorPagina"
+    [(currentPage)]="paginaActual"
+    (pageChange)="paginar()">
+  </app-paginator>
+
+  <!-- Modal solicitud -->
+  <div *ngIf="modalAbierto" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md fade-slide-in">
+      <h3 class="text-lg font-semibold mb-4 text-secondary">Solicitar: {{ productoSeleccionado?.nombre }}</h3>
+
+      <label class="block text-sm mb-2">Cantidad</label>
+      <input type="number" [(ngModel)]="cantidad" min="1"
+             class="w-full border px-3 py-2 rounded mb-4">
+
+      <label class="block text-sm mb-2">Motivo</label>
+      <textarea [(ngModel)]="motivo" rows="3"
+                class="w-full border px-3 py-2 rounded mb-4"></textarea>
+
+      <div class="flex justify-end gap-2">
+        <button (click)="cancelar()" class="px-4 py-2 text-sm rounded bg-gray-200 hover:bg-gray-300">
+          Cancelar
+        </button>
+        <button (click)="enviarSolicitud()" class="px-4 py-2 text-sm rounded bg-accent text-white hover:bg-accent-dark">
+          Enviar
+        </button>
+      </div>
+    </div>
   </div>
 </div>

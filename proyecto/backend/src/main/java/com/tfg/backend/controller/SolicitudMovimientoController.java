@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -29,29 +30,25 @@ public class SolicitudMovimientoController {
     private SolicitudMovimientoService solicitudService;
 
     @Autowired
-    private SolicitudMovimientoService solicitudMovimientoService;
+    private SolicitudMovimientoRepository solicitudMovimientoRepository;
 
     @Autowired
     private UserService userService;
 
-    // GET – Listar todas
     @GetMapping("")
     public List<SolicitudMovimientoDto> listAll() {
         return SolicitudMovimientoDto.from(solicitudService.findAll());
     }
 
-    // GET – Buscar por ID
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id) {
         SolicitudMovimiento solicitud = solicitudService.findById(id);
         if (solicitud != null) {
             return ResponseEntity.ok(SolicitudMovimientoDto.from(solicitud));
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(ErrorDto.from("Solicitud no encontrada"));
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorDto.from("Solicitud no encontrada"));
     }
 
-    // GET – Buscar por usuario
     @GetMapping("/usuario/{usuarioId}")
     public List<SolicitudMovimientoDto> findByUsuario(@PathVariable Long usuarioId) {
         return SolicitudMovimientoDto.from(solicitudService.findByUsuarioId(usuarioId));
@@ -61,43 +58,54 @@ public class SolicitudMovimientoController {
     public ResponseEntity<?> save(@RequestBody SolicitudMovimientoDto dto,
                                   @AuthenticationPrincipal UserDetailsImpl userDetails) {
         try {
-            // 🔐 Asignar automáticamente el usuario autenticado
             Long userId = userDetails.getId();
             dto.setUsuarioId(userId);
-
             SolicitudMovimiento nueva = dto.to();
             nueva.setEstado(dto.getEstado() != null ? dto.getEstado() : EstadoSolicitud.PENDIENTE);
+
+            System.out.println("📝 Guardando solicitud desde endpoint /api/solicitudes/movimiento");
+            System.out.println("🔎 Usuario ID: " + userId + ", Producto ID: " + dto.getProductoId());
 
             SolicitudMovimiento guardada = solicitudService.save(nueva);
             return ResponseEntity.status(HttpStatus.CREATED).body(SolicitudMovimientoDto.from(guardada));
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorDto.from("Solicitud no guardada"));
         }
     }
 
-
-    // PUT – Cambiar estado (aprobar/rechazar)
     @PutMapping("/{id}/estado")
     public ResponseEntity<?> actualizarEstado(@PathVariable Long id, @RequestBody SolicitudMovimientoDto dto) {
-        SolicitudMovimiento solicitud = dto.to();
-        solicitud.setFechaResolucion(Instant.now());
+        try {
+            System.out.println("🔁 Cambiando estado de solicitud ID: " + id);
+            SolicitudMovimiento solicitud = dto.to();
+            solicitud.setFechaResolucion(Instant.now());
 
-        SolicitudMovimiento actualizada = solicitudService.updateEstado(solicitud, id);
-        if (actualizada != null) {
-            return ResponseEntity.ok(SolicitudMovimientoDto.from(actualizada));
+            SolicitudMovimiento actualizada = solicitudService.updateEstado(solicitud, id);
+            if (actualizada != null) {
+                return ResponseEntity.ok(SolicitudMovimientoDto.from(actualizada));
+            }
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorDto.from("Solicitud no encontrada"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al cambiar estado de solicitud.");
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorDto.from("Solicitud no encontrada"));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
-        SolicitudMovimiento solicitud = solicitudService.findById(id);
-        if (solicitud != null) {
-            solicitudService.delete(id);
-            return ResponseEntity.ok("Solicitud eliminada correctamente.");
+        try {
+            System.out.println("🗑 Eliminando solicitud ID: " + id);
+            SolicitudMovimiento solicitud = solicitudService.findById(id);
+            if (solicitud != null) {
+                solicitudService.delete(id);
+                return ResponseEntity.ok("Solicitud eliminada correctamente.");
+            }
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorDto.from("Solicitud no encontrada"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al eliminar solicitud.");
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(ErrorDto.from("Solicitud no encontrada"));
     }
 
     @PostMapping("/crear")
@@ -110,21 +118,16 @@ public class SolicitudMovimientoController {
                     ", cantidad = " + dto.getCantidadSolicitada() +
                     ", motivo = " + dto.getMotivo());
 
-            // Obtener usuario autenticado desde userDetails
             Long userId = userDetails.getId();
-            System.out.println("🔐 ID del usuario autenticado: " + userId);
-
             User usuario = userService.findById(userId);
+
             if (usuario == null) {
                 System.err.println("❌ No se encontró el usuario autenticado.");
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuario no válido.");
             }
 
-            // Llamar al servicio con el DTO y el usuario
-            solicitudMovimientoService.crearSolicitud(dto, usuario);
-            System.out.println("✅ Solicitud procesada correctamente.");
-
-            return ResponseEntity.ok("Solicitud enviada correctamente.");
+            solicitudService.crearSolicitud(dto, usuario);
+            return ResponseEntity.ok(Map.of("mensaje", "Solicitud enviada correctamente."));
         } catch (Exception e) {
             System.err.println("❌ Error al procesar la solicitud de movimiento:");
             e.printStackTrace();
@@ -132,5 +135,46 @@ public class SolicitudMovimientoController {
         }
     }
 
+    @GetMapping("/noleidas")
+    @PreAuthorize("hasRole('ROLE_ADMIN_EMPRESA')")
+    public ResponseEntity<?> getSolicitudesNoLeidas(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+        try {
+            User admin = userService.findById(userDetails.getId());
+            if (admin.getEmpresa() == null) {
+                System.err.println("⚠️ Admin sin empresa asignada.");
+                return ResponseEntity.badRequest().body(Map.of("error", "El administrador no está asociado a ninguna empresa"));
+            }
+
+            List<SolicitudMovimiento> solicitudes = solicitudMovimientoRepository
+                    .findByUsuario_EmpresaAndLeidaFalse(admin.getEmpresa());
+
+            System.out.println("📬 Solicitudes no leídas encontradas: " + solicitudes.size());
+            return ResponseEntity.ok(solicitudes.stream().map(SolicitudMovimientoDto::from).toList());
+        } catch (Exception e) {
+            System.err.println("❌ Error al obtener solicitudes no leídas:");
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al obtener notificaciones.");
+        }
+    }
+
+    @PutMapping("/{id}/marcar-leida")
+    @PreAuthorize("hasRole('ROLE_ADMIN_EMPRESA')")
+    public ResponseEntity<?> marcarComoLeida(@PathVariable Long id) {
+        try {
+            SolicitudMovimiento solicitud = solicitudMovimientoRepository.findById(id).orElse(null);
+            if (solicitud == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "Solicitud no encontrada"));
+            }
+
+            solicitud.setLeida(true);
+            solicitudMovimientoRepository.save(solicitud);
+
+            System.out.println("✅ Solicitud ID " + id + " marcada como leída.");
+            return ResponseEntity.ok(Map.of("mensaje", "Solicitud marcada como leída"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al marcar como leída.");
+        }
+    }
 
 }

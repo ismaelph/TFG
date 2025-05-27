@@ -31,9 +31,6 @@ public class SolicitudMovimientoServiceImpl implements SolicitudMovimientoServic
     private UserRepository userRepository;
 
     @Autowired
-    private SolicitudMovimientoRepository solicitudMovimientoRepository;
-
-    @Autowired
     private CorreoService correoService;
 
 
@@ -102,32 +99,37 @@ public class SolicitudMovimientoServiceImpl implements SolicitudMovimientoServic
     public void crearSolicitud(SolicitudMovimientoDto dto, User usuarioActual) {
         try {
             System.out.println("📥 Creando nueva solicitud de movimiento...");
+            System.out.println("🔎 DTO recibido: productoId = " + dto.getProductoId() + ", cantidad = " + dto.getCantidadSolicitada());
 
             // Convertimos el DTO en entidad
             SolicitudMovimiento solicitud = dto.to();
 
-            // Buscar producto REAL desde la base de datos
+            // Buscar el producto real desde la base de datos
             Producto producto = productoRepository.findById(dto.getProductoId())
                     .orElseThrow(() -> new RuntimeException("❌ Producto no encontrado con ID: " + dto.getProductoId()));
 
-            // Validar empresa (por si acaso)
-            if (!producto.getEmpresa().getId().equals(usuarioActual.getEmpresa().getId())) {
+            // Validación de empresa (por si acaso)
+            if (producto.getEmpresa() == null || usuarioActual.getEmpresa() == null ||
+                    !producto.getEmpresa().getId().equals(usuarioActual.getEmpresa().getId())) {
+                System.err.println("🚫 Empresa del producto y del usuario no coinciden.");
                 throw new RuntimeException("❌ No puedes solicitar productos de otra empresa.");
             }
 
-            // Asignar producto real
+            // Asignar el producto real a la solicitud
             solicitud.setProducto(producto);
             System.out.println("📦 Producto asignado: " + producto.getNombre() + " (ID: " + producto.getId() + ")");
 
-            // Seteo de estado y fecha
-            solicitud.setEstado(EstadoSolicitud.EN_ESPERA_STOCK);
+            // Estado inicial y fecha
+            solicitud.setEstado(EstadoSolicitud.PENDIENTE);
             solicitud.setFechaSolicitud(Instant.now());
+
+            // Asignar usuario autenticado
             solicitud.setUsuario(usuarioActual);
             System.out.println("👤 Usuario solicitante: " + usuarioActual.getUsername());
 
             // Guardar en base de datos
-            solicitudMovimientoRepository.save(solicitud);
-            System.out.println("✅ Solicitud guardada con éxito en la base de datos.");
+            solicitudRepository.save(solicitud);
+            System.out.println("✅ Solicitud guardada correctamente en la base de datos.");
 
             // Enviar correo
             correoService.enviarCorreoNuevaSolicitudMovimiento(solicitud);
@@ -139,6 +141,7 @@ public class SolicitudMovimientoServiceImpl implements SolicitudMovimientoServic
             throw new RuntimeException("Error interno al crear la solicitud");
         }
     }
+
 
 
 }

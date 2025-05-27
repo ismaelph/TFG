@@ -38,4 +38,7 @@ public class SolicitudPersonalizada {
     private Instant fechaSolicitud;
 
     private Instant fechaResolucion;
+
+    @Column(nullable = false)
+    private boolean leida = false;
 }

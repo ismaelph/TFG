@@ -39,5 +39,9 @@ public class SolicitudMovimiento {
 
     private Instant fechaResolucion;
 
-    private String respuestaAdmin; // motivo de rechazo o comentario
+    private String respuestaAdmin;
+
+    @Column(nullable = false)
+    private boolean leida = false;
+
 }

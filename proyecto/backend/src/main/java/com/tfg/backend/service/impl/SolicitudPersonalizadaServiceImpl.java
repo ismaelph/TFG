@@ -3,6 +3,7 @@ package com.tfg.backend.service.impl;
 import com.tfg.backend.auth.models.User;
 import com.tfg.backend.auth.repository.UserRepository;
 import com.tfg.backend.model.dto.SolicitudPersonalizadaDto;
+import com.tfg.backend.model.entity.Empresa;
 import com.tfg.backend.model.entity.SolicitudPersonalizada;
 import com.tfg.backend.model.enums.EstadoSolicitud;
 import com.tfg.backend.model.repository.SolicitudPersonalizadaRepository;
@@ -80,22 +81,38 @@ public class SolicitudPersonalizadaServiceImpl implements SolicitudPersonalizada
     public void crearSolicitud(SolicitudPersonalizadaDto dto, User usuario) {
         try {
             System.out.println("📥 Creando nueva solicitud personalizada...");
+            System.out.println("🔎 DTO recibido: nombre = " + dto.getNombreProductoSugerido()
+                    + ", cantidad = " + dto.getCantidadDeseada()
+                    + ", motivo = " + dto.getDescripcion());
 
+            // Convertir el DTO en entidad
             SolicitudPersonalizada solicitud = dto.to();
-            solicitud.setEstado(EstadoSolicitud.EN_ESPERA_STOCK);
+
+            // Validar empresa del usuario
+            if (usuario.getEmpresa() == null) {
+                System.err.println("🚫 El usuario no está asociado a ninguna empresa.");
+                throw new RuntimeException("El usuario debe estar vinculado a una empresa para solicitar.");
+            }
+
+            // Asignar campos
+            solicitud.setEstado(EstadoSolicitud.PENDIENTE);
             solicitud.setFechaSolicitud(Instant.now());
             solicitud.setUsuario(usuario);
 
+            // Log detallado
             System.out.println("📦 Nombre sugerido: " + solicitud.getNombreProductoSugerido());
             System.out.println("🔢 Cantidad: " + solicitud.getCantidadDeseada());
             System.out.println("📝 Motivo: " + solicitud.getDescripcion());
+            System.out.println("🏢 Empresa: " + usuario.getEmpresa().getNombre());
             System.out.println("👤 Usuario: " + usuario.getUsername());
 
+            // Guardar en base de datos
             solicitudPersonalizadaRepository.save(solicitud);
-            System.out.println("✅ Solicitud personalizada guardada en base de datos.");
+            System.out.println("✅ Solicitud personalizada guardada correctamente.");
 
+            // Enviar correo
             correoService.enviarCorreoNuevaSolicitudPersonalizada(solicitud);
-            System.out.println("📧 Correo de solicitud personalizada enviado al admin.");
+            System.out.println("📧 Correo enviado al administrador de empresa.");
 
         } catch (Exception e) {
             System.err.println("❌ Error al crear solicitud personalizada:");
@@ -103,6 +120,12 @@ public class SolicitudPersonalizadaServiceImpl implements SolicitudPersonalizada
             throw new RuntimeException("Error al procesar la solicitud personalizada");
         }
     }
+
+    @Override
+    public List<SolicitudPersonalizada> findByEmpresaAndLeidaFalse(Empresa empresa) {
+        return solicitudPersonalizadaRepository.findByUsuario_EmpresaAndLeidaFalse(empresa);
+    }
+
 
 
 }
