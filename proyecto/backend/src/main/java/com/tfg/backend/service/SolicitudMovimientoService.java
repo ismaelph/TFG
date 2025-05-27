@@ -15,5 +15,7 @@ public interface SolicitudMovimientoService {
     void delete(Long id);
 
     void crearSolicitud(SolicitudMovimientoDto dto, User usuario);
+    void aprobarSolicitud(Long id, String respuestaAdmin);
+    List<SolicitudMovimiento> findByEmpresa(com.tfg.backend.model.entity.Empresa empresa);
 
 }

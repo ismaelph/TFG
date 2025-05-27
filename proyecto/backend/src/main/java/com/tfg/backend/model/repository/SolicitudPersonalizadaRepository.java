@@ -12,6 +12,8 @@ import java.util.List;
 @Repository
 public interface SolicitudPersonalizadaRepository extends JpaRepository<SolicitudPersonalizada, Long> {
     List<SolicitudPersonalizada> findByUsuario(User usuario);
-    List<SolicitudPersonalizada> findByUsuario_EmpresaAndLeidaFalse(Empresa empresa); // ✅ CORRECTO
+    List<SolicitudPersonalizada> findByUsuario_EmpresaAndLeidaFalse(Empresa empresa);
+    List<SolicitudPersonalizada> findByUsuario_Empresa(Empresa empresa);
+
 
 }

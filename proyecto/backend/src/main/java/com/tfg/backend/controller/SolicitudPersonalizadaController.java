@@ -33,11 +33,13 @@ public class SolicitudPersonalizadaController {
 
     @GetMapping("")
     public List<SolicitudPersonalizadaDto> listAll() {
+        System.out.println("📂 Obteniendo todas las solicitudes personalizadas del sistema");
         return SolicitudPersonalizadaDto.from(solicitudService.findAll());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id) {
+        System.out.println("🔍 Buscando solicitud personalizada por ID: " + id);
         SolicitudPersonalizada solicitud = solicitudService.findById(id);
         if (solicitud != null) {
             return ResponseEntity.ok(SolicitudPersonalizadaDto.from(solicitud));
@@ -47,6 +49,7 @@ public class SolicitudPersonalizadaController {
 
     @GetMapping("/usuario/{usuarioId}")
     public List<SolicitudPersonalizadaDto> findByUsuario(@PathVariable Long usuarioId) {
+        System.out.println("🔍 Buscando solicitudes del usuario ID: " + usuarioId);
         return SolicitudPersonalizadaDto.from(solicitudService.findByUsuarioId(usuarioId));
     }
 
@@ -56,7 +59,6 @@ public class SolicitudPersonalizadaController {
         try {
             Long userId = userDetails.getId();
             dto.setUsuarioId(userId);
-
             SolicitudPersonalizada nueva = dto.to();
             nueva.setEstado(dto.getEstado() != null ? dto.getEstado() : EstadoSolicitud.PENDIENTE);
 
@@ -66,42 +68,9 @@ public class SolicitudPersonalizadaController {
             SolicitudPersonalizada guardada = solicitudService.save(nueva);
             return ResponseEntity.status(HttpStatus.CREATED).body(SolicitudPersonalizadaDto.from(guardada));
         } catch (Exception e) {
+            System.err.println("❌ Error al guardar solicitud personalizada:");
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorDto.from("Solicitud no guardada"));
-        }
-    }
-
-    @PutMapping("/{id}/estado")
-    public ResponseEntity<?> actualizarEstado(@PathVariable Long id, @RequestBody SolicitudPersonalizadaDto dto) {
-        try {
-            System.out.println("🔁 Cambiando estado de solicitud personalizada ID: " + id);
-            SolicitudPersonalizada solicitud = dto.to();
-            solicitud.setFechaResolucion(Instant.now());
-
-            SolicitudPersonalizada actualizada = solicitudService.updateEstado(solicitud, id);
-            if (actualizada != null) {
-                return ResponseEntity.ok(SolicitudPersonalizadaDto.from(actualizada));
-            }
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorDto.from("Solicitud no encontrada"));
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al cambiar estado de solicitud.");
-        }
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id) {
-        try {
-            System.out.println("🗑 Eliminando solicitud personalizada ID: " + id);
-            SolicitudPersonalizada solicitud = solicitudService.findById(id);
-            if (solicitud != null) {
-                solicitudService.delete(id);
-                return ResponseEntity.ok("Solicitud eliminada correctamente.");
-            }
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorDto.from("Solicitud no encontrada"));
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al eliminar solicitud.");
         }
     }
 
@@ -135,28 +104,24 @@ public class SolicitudPersonalizadaController {
         }
     }
 
-    @GetMapping("/noleidas")
-    @PreAuthorize("hasRole('ROLE_ADMIN_EMPRESA')")
-    public ResponseEntity<?> getSolicitudesNoLeidas(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+    @PutMapping("/{id}/estado")
+    public ResponseEntity<?> actualizarEstado(@PathVariable Long id, @RequestBody SolicitudPersonalizadaDto dto) {
         try {
-            System.out.println("🔔 Buscando solicitudes personalizadas no leídas...");
-            User admin = userService.findById(userDetails.getId());
+            System.out.println("🔁 Cambiando estado de solicitud personalizada ID: " + id);
+            SolicitudPersonalizada solicitud = dto.to();
+            solicitud.setFechaResolucion(Instant.now());
 
-            if (admin.getEmpresa() == null) {
-                System.err.println("❌ El administrador no tiene empresa asociada.");
-                return ResponseEntity.badRequest().body(Map.of("error", "El administrador no está asociado a ninguna empresa"));
+            SolicitudPersonalizada actualizada = solicitudService.updateEstado(solicitud, id);
+            if (actualizada != null) {
+                return ResponseEntity.ok(SolicitudPersonalizadaDto.from(actualizada));
             }
-
-            List<SolicitudPersonalizada> solicitudes = solicitudService.findByEmpresaAndLeidaFalse(admin.getEmpresa());
-            System.out.println("📬 Solicitudes no leídas encontradas: " + solicitudes.size());
-            return ResponseEntity.ok(solicitudes.stream().map(SolicitudPersonalizadaDto::from).toList());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorDto.from("Solicitud no encontrada"));
         } catch (Exception e) {
-            System.err.println("❌ Error al obtener solicitudes no leídas:");
+            System.err.println("❌ Error al actualizar estado de solicitud personalizada:");
             e.printStackTrace();
-            return ResponseEntity.status(500).body(Map.of("error", "Error interno al obtener notificaciones"));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al cambiar estado de solicitud.");
         }
     }
-
 
     @PutMapping("/{id}/marcar-leida")
     @PreAuthorize("hasRole('ROLE_ADMIN_EMPRESA')")
@@ -179,6 +144,50 @@ public class SolicitudPersonalizadaController {
             System.err.println("❌ Error al marcar como leída:");
             e.printStackTrace();
             return ResponseEntity.status(500).body(Map.of("error", "Error al actualizar estado de lectura"));
+        }
+    }
+
+    @GetMapping("/noleidas")
+    @PreAuthorize("hasRole('ROLE_ADMIN_EMPRESA')")
+    public ResponseEntity<?> getSolicitudesNoLeidas(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+        try {
+            System.out.println("🔔 Buscando solicitudes personalizadas no leídas...");
+            User admin = userService.findById(userDetails.getId());
+
+            if (admin.getEmpresa() == null) {
+                System.err.println("❌ El administrador no tiene empresa asociada.");
+                return ResponseEntity.badRequest().body(Map.of("error", "El administrador no está asociado a ninguna empresa"));
+            }
+
+            List<SolicitudPersonalizada> solicitudes = solicitudService.findByEmpresaAndLeidaFalse(admin.getEmpresa());
+            System.out.println("📬 Solicitudes no leídas encontradas: " + solicitudes.size());
+            return ResponseEntity.ok(solicitudes.stream().map(SolicitudPersonalizadaDto::from).toList());
+        } catch (Exception e) {
+            System.err.println("❌ Error al obtener solicitudes no leídas:");
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(Map.of("error", "Error interno al obtener notificaciones"));
+        }
+    }
+
+    @GetMapping("/empresa")
+    @PreAuthorize("hasRole('ROLE_ADMIN_EMPRESA')")
+    public ResponseEntity<?> getSolicitudesPorEmpresa(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+        try {
+            System.out.println("🏢 Obteniendo solicitudes personalizadas para empresa del admin...");
+            User admin = userService.findById(userDetails.getId());
+
+            if (admin.getEmpresa() == null) {
+                System.err.println("❌ El administrador no tiene empresa asignada");
+                return ResponseEntity.badRequest().body(Map.of("error", "El administrador no está asociado a ninguna empresa"));
+            }
+
+            List<SolicitudPersonalizada> solicitudes = solicitudService.findByEmpresa(admin.getEmpresa());
+            System.out.println("📊 Solicitudes encontradas: " + solicitudes.size());
+            return ResponseEntity.ok(solicitudes.stream().map(SolicitudPersonalizadaDto::from).toList());
+        } catch (Exception e) {
+            System.err.println("❌ Error al obtener solicitudes por empresa:");
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(Map.of("error", "Error interno al obtener solicitudes"));
         }
     }
 }

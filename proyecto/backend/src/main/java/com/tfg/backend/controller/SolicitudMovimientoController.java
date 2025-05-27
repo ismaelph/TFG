@@ -74,23 +74,6 @@ public class SolicitudMovimientoController {
         }
     }
 
-    @PutMapping("/{id}/estado")
-    public ResponseEntity<?> actualizarEstado(@PathVariable Long id, @RequestBody SolicitudMovimientoDto dto) {
-        try {
-            System.out.println("🔁 Cambiando estado de solicitud ID: " + id);
-            SolicitudMovimiento solicitud = dto.to();
-            solicitud.setFechaResolucion(Instant.now());
-
-            SolicitudMovimiento actualizada = solicitudService.updateEstado(solicitud, id);
-            if (actualizada != null) {
-                return ResponseEntity.ok(SolicitudMovimientoDto.from(actualizada));
-            }
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorDto.from("Solicitud no encontrada"));
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al cambiar estado de solicitud.");
-        }
-    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
@@ -176,5 +159,50 @@ public class SolicitudMovimientoController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al marcar como leída.");
         }
     }
+
+    @PutMapping("/{id}/aprobar")
+    @PreAuthorize("hasRole('ROLE_ADMIN_EMPRESA')")
+    public ResponseEntity<?> aprobarSolicitud(
+            @PathVariable Long id,
+            @RequestBody Map<String, String> body) {
+        try {
+            String respuestaAdmin = body.get("respuestaAdmin");
+            System.out.println("📥 Petición para aprobar solicitud de movimiento ID: " + id);
+            System.out.println("📝 Respuesta del admin: " + respuestaAdmin);
+
+            solicitudService.aprobarSolicitud(id, respuestaAdmin);
+
+            return ResponseEntity.ok(Map.of("mensaje", "Solicitud aprobada correctamente"));
+        } catch (Exception e) {
+            System.err.println("❌ Error en el controlador al aprobar la solicitud:");
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("error", "Error al aprobar la solicitud"));
+        }
+    }
+
+    @GetMapping("/empresa")
+    @PreAuthorize("hasRole('ROLE_ADMIN_EMPRESA')")
+    public ResponseEntity<?> getSolicitudesDeMiEmpresa(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+        try {
+            User admin = userService.findById(userDetails.getId());
+
+            if (admin.getEmpresa() == null) {
+                System.err.println("⚠️ Admin sin empresa asignada.");
+                return ResponseEntity.badRequest().body(Map.of("error", "El administrador no está asociado a ninguna empresa"));
+            }
+
+            List<SolicitudMovimiento> solicitudes = solicitudService.findByEmpresa(admin.getEmpresa());
+            System.out.println("📦 Solicitudes de empresa cargadas: " + solicitudes.size());
+
+            return ResponseEntity.ok(solicitudes.stream().map(SolicitudMovimientoDto::from).toList());
+        } catch (Exception e) {
+            System.err.println("❌ Error al obtener solicitudes de empresa:");
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al obtener solicitudes de empresa");
+        }
+    }
+
+
 
 }

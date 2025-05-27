@@ -31,9 +31,14 @@ public class MovimientoProductoServiceImpl implements MovimientoProductoService 
 
     @Override
     public List<MovimientoProducto> findByEmpresa(Empresa empresa) {
-        if (empresa == null) return movimientoRepository.findAll();
+        if (empresa == null) {
+            System.err.println("❌ Error: Empresa nula al intentar buscar movimientos.");
+            throw new IllegalArgumentException("Empresa no puede ser nula para esta operación.");
+        }
+        System.out.println("📦 Obteniendo movimientos para la empresa: " + empresa.getNombre());
         return movimientoRepository.findByEmpresa(empresa);
     }
+
 
     @Override
     public List<MovimientoProducto> findByProducto(Producto producto) {

@@ -27,41 +27,46 @@ public class SolicitudPersonalizadaServiceImpl implements SolicitudPersonalizada
     private UserRepository userRepository;
 
     @Autowired
-    private SolicitudPersonalizadaRepository solicitudPersonalizadaRepository;
-
-    @Autowired
     private CorreoService correoService;
 
     @Override
     public SolicitudPersonalizada save(SolicitudPersonalizada solicitud) {
+        System.out.println("💾 Guardando solicitud personalizada");
+
         if (solicitud.getUsuario() != null && solicitud.getUsuario().getId() != null) {
             User usuario = userRepository.findById(solicitud.getUsuario().getId()).orElse(null);
             solicitud.setUsuario(usuario);
         }
+
         return solicitudRepository.save(solicitud);
     }
 
     @Override
     public SolicitudPersonalizada findById(Long id) {
+        System.out.println("🔍 Buscando solicitud personalizada ID: " + id);
         return solicitudRepository.findById(id).orElse(null);
     }
 
     @Override
     public List<SolicitudPersonalizada> findAll() {
+        System.out.println("📂 Listando todas las solicitudes personalizadas");
         return solicitudRepository.findAll();
     }
 
     @Override
     public List<SolicitudPersonalizada> findByUsuarioId(Long usuarioId) {
+        System.out.println("🔍 Buscando solicitudes personalizadas del usuario ID: " + usuarioId);
         User usuario = userRepository.findById(usuarioId).orElse(null);
         if (usuario != null) {
             return solicitudRepository.findByUsuario(usuario);
         }
+        System.err.println("❌ Usuario no encontrado con ID: " + usuarioId);
         return List.of();
     }
 
     @Override
     public SolicitudPersonalizada updateEstado(SolicitudPersonalizada solicitud, Long id) {
+        System.out.println("🔄 Actualizando estado de solicitud personalizada ID: " + id);
         SolicitudPersonalizada actual = findById(id);
         if (actual != null) {
             actual.setEstado(solicitud.getEstado());
@@ -69,11 +74,13 @@ public class SolicitudPersonalizadaServiceImpl implements SolicitudPersonalizada
             actual.setFechaResolucion(Instant.now());
             return solicitudRepository.save(actual);
         }
+        System.err.println("❌ Solicitud personalizada no encontrada");
         return null;
     }
 
     @Override
     public void delete(Long id) {
+        System.out.println("🗑 Eliminando solicitud personalizada ID: " + id);
         solicitudRepository.deleteById(id);
     }
 
@@ -85,34 +92,28 @@ public class SolicitudPersonalizadaServiceImpl implements SolicitudPersonalizada
                     + ", cantidad = " + dto.getCantidadDeseada()
                     + ", motivo = " + dto.getDescripcion());
 
-            // Convertir el DTO en entidad
             SolicitudPersonalizada solicitud = dto.to();
 
-            // Validar empresa del usuario
             if (usuario.getEmpresa() == null) {
                 System.err.println("🚫 El usuario no está asociado a ninguna empresa.");
                 throw new RuntimeException("El usuario debe estar vinculado a una empresa para solicitar.");
             }
 
-            // Asignar campos
             solicitud.setEstado(EstadoSolicitud.PENDIENTE);
             solicitud.setFechaSolicitud(Instant.now());
             solicitud.setUsuario(usuario);
 
-            // Log detallado
             System.out.println("📦 Nombre sugerido: " + solicitud.getNombreProductoSugerido());
             System.out.println("🔢 Cantidad: " + solicitud.getCantidadDeseada());
             System.out.println("📝 Motivo: " + solicitud.getDescripcion());
             System.out.println("🏢 Empresa: " + usuario.getEmpresa().getNombre());
             System.out.println("👤 Usuario: " + usuario.getUsername());
 
-            // Guardar en base de datos
-            solicitudPersonalizadaRepository.save(solicitud);
-            System.out.println("✅ Solicitud personalizada guardada correctamente.");
+            solicitudRepository.save(solicitud);
+            System.out.println("✅ Solicitud personalizada guardada correctamente");
 
-            // Enviar correo
             correoService.enviarCorreoNuevaSolicitudPersonalizada(solicitud);
-            System.out.println("📧 Correo enviado al administrador de empresa.");
+            System.out.println("📧 Correo enviado al administrador");
 
         } catch (Exception e) {
             System.err.println("❌ Error al crear solicitud personalizada:");
@@ -123,9 +124,13 @@ public class SolicitudPersonalizadaServiceImpl implements SolicitudPersonalizada
 
     @Override
     public List<SolicitudPersonalizada> findByEmpresaAndLeidaFalse(Empresa empresa) {
-        return solicitudPersonalizadaRepository.findByUsuario_EmpresaAndLeidaFalse(empresa);
+        System.out.println("🔍 Buscando solicitudes NO leídas para empresa: " + empresa.getNombre());
+        return solicitudRepository.findByUsuario_EmpresaAndLeidaFalse(empresa);
     }
 
-
-
+    @Override
+    public List<SolicitudPersonalizada> findByEmpresa(Empresa empresa) {
+        System.out.println("🔍 Buscando todas las solicitudes personalizadas para empresa: " + empresa.getNombre());
+        return solicitudRepository.findByUsuario_Empresa(empresa);
+    }
 }

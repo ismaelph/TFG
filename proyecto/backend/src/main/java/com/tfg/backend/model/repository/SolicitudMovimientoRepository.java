@@ -14,4 +14,7 @@ public interface SolicitudMovimientoRepository extends JpaRepository<SolicitudMo
 
     List<SolicitudMovimiento> findByUsuario_EmpresaAndLeidaFalse(Empresa empresa);
 
+    List<SolicitudMovimiento> findByUsuario_Empresa(Empresa empresa);
+
+
 }
