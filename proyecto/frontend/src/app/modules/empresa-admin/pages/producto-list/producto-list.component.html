@@ -18,6 +18,12 @@
         <option *ngFor="let cat of categorias" [ngValue]="cat.id">{{ cat.nombre }}</option>
       </select>
 
+      <select [(ngModel)]="proveedorSeleccionado" (ngModelChange)="actualizarFiltro()"
+        class="p-2 border rounded-md text-sm">
+        <option [ngValue]="null">Todos los proveedores</option>
+        <option *ngFor="let prov of proveedores" [ngValue]="prov.id">{{ prov.nombre }}</option>
+      </select>
+
       <button (click)="abrirModalCrear()"
         class="flex items-center gap-2 bg-accent hover:bg-accent-dark text-white px-4 py-2 rounded transition text-sm">
         <i class="bi bi-plus-circle"></i> Nuevo
@@ -50,6 +56,9 @@
             <i class="bi bi-trash icon-action text-red-600" title="Eliminar"
               (click)="confirmarEliminacion(p.id!)"></i>
           </td>
+        </tr>
+        <tr *ngIf="productosPaginados.length === 0">
+          <td colspan="6" class="text-center py-4 text-gray-500">No hay productos que coincidan</td>
         </tr>
       </tbody>
     </table>

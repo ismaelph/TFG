@@ -20,6 +20,7 @@ export class ProductoListComponent implements OnInit {
   proveedores: Proveedor[] = [];
 
   categoriaSeleccionada: number | null = null;
+  proveedorSeleccionado: number | null = null;
   searchTerm: string = '';
   ordenAscendente: boolean = true;
 
@@ -45,14 +46,20 @@ export class ProductoListComponent implements OnInit {
   cargarCategorias(): void {
     this.categoriaService.getCategorias().subscribe({
       next: (data) => this.categorias = data,
-      error: (err) => console.error('Error cargando categorías:', err)
+      error: (err) => {
+        console.error('Error cargando categorías:', err);
+        Swal.fire('Error', 'No se pudieron cargar las categorías', 'error');
+      }
     });
   }
 
   cargarProveedores(): void {
     this.proveedorService.getProveedores().subscribe({
       next: (data) => this.proveedores = data,
-      error: (err) => console.error('Error cargando proveedores:', err)
+      error: (err) => {
+        console.error('Error cargando proveedores:', err);
+        Swal.fire('Error', 'No se pudieron cargar los proveedores', 'error');
+      }
     });
   }
 
@@ -62,15 +69,20 @@ export class ProductoListComponent implements OnInit {
         this.productos = data;
         this.actualizarFiltro();
       },
-      error: (err) => console.error('Error al cargar productos:', err)
+      error: (err) => {
+        console.error('Error al cargar productos:', err);
+        Swal.fire('Error', 'No se pudieron cargar los productos', 'error');
+      }
     });
   }
 
   actualizarFiltro(): void {
+    this.currentPage = 1;
     this.filtrados = this.productos.filter(p => {
       const coincideTexto = p.nombre.toLowerCase().includes(this.searchTerm.toLowerCase());
       const coincideCategoria = !this.categoriaSeleccionada || p.categoriaId === this.categoriaSeleccionada;
-      return coincideTexto && coincideCategoria;
+      const coincideProveedor = !this.proveedorSeleccionado || p.proveedorId === this.proveedorSeleccionado;
+      return coincideTexto && coincideCategoria && coincideProveedor;
     });
 
     this.ordenarProductos();
@@ -92,16 +104,6 @@ export class ProductoListComponent implements OnInit {
   get productosPaginados(): Producto[] {
     const start = (this.currentPage - 1) * this.itemsPerPage;
     return this.filtrados.slice(start, start + this.itemsPerPage);
-  }
-
-  getNombreCategoriaById(id: number | null | undefined): string {
-    const cat = this.categorias.find(c => c.id === Number(id));
-    return cat ? cat.nombre : '—';
-  }
-
-  getNombreProveedorById(id: number | null | undefined): string {
-    const prov = this.proveedores.find(p => p.id === Number(id));
-    return prov ? prov.nombre : '—';
   }
 
   abrirModalCrear(): void {

@@ -19,6 +19,7 @@
       <a *ngIf="esEmpleado" routerLink="/empleado/inventario" class="hover:text-accent transition">Inventario</a>
       <a *ngIf="esEmpleado" routerLink="/empleado/mi-inventario" class="hover:text-accent transition">Mi Inventario</a>
       <a *ngIf="esUsuario" routerLink="/main/ver-empresa" class="hover:text-accent transition">Ver Empresas</a>
+      <a *ngIf="esAdminEmpresa" routerLink="/empresa/movimiento-list" class="hover:text-accent transition">Movimientos </a>
 
       <!-- Botón Login -->
       <a *ngIf="!sesionIniciada" routerLink="/auth/login"

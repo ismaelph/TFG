@@ -1,20 +1,20 @@
 -- Roles
-INSERT INTO roles (name, created_at, updated_at) VALUES ('ROLE_ADMIN', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
-INSERT INTO roles (name, created_at, updated_at) VALUES ('ROLE_ADMIN_EMPRESA', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
-INSERT INTO roles (name, created_at, updated_at) VALUES ('ROLE_EMPLEADO', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
-INSERT INTO roles (name, created_at, updated_at) VALUES ('ROLE_USER', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO roles (name, created_at, updated_at) VALUES ('ROLE_ADMIN', '2025-05-28 11:13:40', '2025-05-28 11:13:40');
+INSERT INTO roles (name, created_at, updated_at) VALUES ('ROLE_ADMIN_EMPRESA', '2025-05-28 11:13:40', '2025-05-28 11:13:40');
+INSERT INTO roles (name, created_at, updated_at) VALUES ('ROLE_EMPLEADO', '2025-05-28 11:13:40', '2025-05-28 11:13:40');
+INSERT INTO roles (name, created_at, updated_at) VALUES ('ROLE_USER', '2025-05-28 11:13:40', '2025-05-28 11:13:40');
 
 -- Empresas
-INSERT INTO empresa (id, nombre, clave_acceso, fecha_creacion) VALUES (1, 'SBS Ingeniería', 'sbs123', NOW());
-INSERT INTO empresa (id, nombre, clave_acceso, fecha_creacion) VALUES (2, 'SBS Digital', 'sbsd456', NOW());
+INSERT INTO empresa (id, nombre, clave_acceso, fecha_creacion) VALUES (1, 'SBS Ingeniería', 'sbs123', '2025-05-28 11:13:40');
+INSERT INTO empresa (id, nombre, clave_acceso, fecha_creacion) VALUES (2, 'SBS Digital', 'sbsd456', '2025-05-28 11:13:40');
 
 -- Usuarios
-INSERT INTO users (id, username, email, password, empresa_id, created_at, updated_at) VALUES (1, 'admin', 'admin@example.com', '$2a$10$bbxuAS5vRkmaEPkG5DHiw.9.ttIT6Ejzs10GGkseWmlzzX5D/9LuG', null, NOW(), NOW()); -- 12345678
-INSERT INTO users (id, username, email, password, empresa_id, created_at, updated_at) VALUES (2, 'empresa1admin', 'dawipavonh@iescastelar.com', '$2a$10$bbxuAS5vRkmaEPkG5DHiw.9.ttIT6Ejzs10GGkseWmlzzX5D/9LuG', 1, NOW(), NOW());
-INSERT INTO users (id, username, email, password, empresa_id, created_at, updated_at) VALUES (3, 'empresa2admin', 'pavonhueteismael@gmail.com', '$2a$10$bbxuAS5vRkmaEPkG5DHiw.9.ttIT6Ejzs10GGkseWmlzzX5D/9LuG', 2, NOW(), NOW());
-INSERT INTO users (id, username, email, password, empresa_id, created_at, updated_at) VALUES (4, 'empleado1', 'pavonhueteismael@proton.me', '$2a$10$bbxuAS5vRkmaEPkG5DHiw.9.ttIT6Ejzs10GGkseWmlzzX5D/9LuG', 1, NOW(), NOW());
-INSERT INTO users (id, username, email, password, empresa_id, created_at, updated_at) VALUES (5, 'empleado2', 'rajanteflorencio@gmail.com', '$2a$10$bbxuAS5vRkmaEPkG5DHiw.9.ttIT6Ejzs10GGkseWmlzzX5D/9LuG', 2, NOW(), NOW());
-INSERT INTO users (id, username, email, password, empresa_id, created_at, updated_at) VALUES (6, 'userlibre', 'libre@example.com', '$2a$10$bbxuAS5vRkmaEPkG5DHiw.9.ttIT6Ejzs10GGkseWmlzzX5D/9LuG', null, NOW(), NOW());
+INSERT INTO users (id, username, email, password, empresa_id, created_at, updated_at) VALUES (1, 'admin', 'admin@example.com', '$2a$10$bbxuAS5vRkmaEPkG5DHiw.9.ttIT6Ejzs10GGkseWmlzzX5D/9LuG', NULL, '2025-05-28 11:13:40', '2025-05-28 11:13:40');
+INSERT INTO users (id, username, email, password, empresa_id, created_at, updated_at) VALUES (2, 'empresa1admin', 'empresa1@empresa.com', '$2a$10$bbxuAS5vRkmaEPkG5DHiw.9.ttIT6Ejzs10GGkseWmlzzX5D/9LuG', 1, '2025-05-28 11:13:40', '2025-05-28 11:13:40');
+INSERT INTO users (id, username, email, password, empresa_id, created_at, updated_at) VALUES (3, 'empresa2admin', 'empresa2@empresa.com', '$2a$10$bbxuAS5vRkmaEPkG5DHiw.9.ttIT6Ejzs10GGkseWmlzzX5D/9LuG', 2, '2025-05-28 11:13:40', '2025-05-28 11:13:40');
+INSERT INTO users (id, username, email, password, empresa_id, created_at, updated_at) VALUES (4, 'empleado1', 'empleado1@empresa.com', '$2a$10$bbxuAS5vRkmaEPkG5DHiw.9.ttIT6Ejzs10GGkseWmlzzX5D/9LuG', 1, '2025-05-28 11:13:40', '2025-05-28 11:13:40');
+INSERT INTO users (id, username, email, password, empresa_id, created_at, updated_at) VALUES (5, 'empleado2', 'empleado2@empresa.com', '$2a$10$bbxuAS5vRkmaEPkG5DHiw.9.ttIT6Ejzs10GGkseWmlzzX5D/9LuG', 2, '2025-05-28 11:13:40', '2025-05-28 11:13:40');
+INSERT INTO users (id, username, email, password, empresa_id, created_at, updated_at) VALUES (6, 'userlibre', 'libre@usuario.com', '$2a$10$bbxuAS5vRkmaEPkG5DHiw.9.ttIT6Ejzs10GGkseWmlzzX5D/9LuG', NULL, '2025-05-28 11:13:40', '2025-05-28 11:13:40');
 
 -- Roles de los usuarios
 INSERT INTO user_roles (user_id, role_id) VALUES (1, 1);
@@ -24,89 +24,122 @@ INSERT INTO user_roles (user_id, role_id) VALUES (4, 3);
 INSERT INTO user_roles (user_id, role_id) VALUES (5, 3);
 INSERT INTO user_roles (user_id, role_id) VALUES (6, 4);
 
--- Categorías para SBS Ingeniería
-INSERT INTO categoria (nombre, empresa_id, fecha_creacion) VALUES ('Electrónica 1-1', 1, NOW());
-INSERT INTO categoria (nombre, empresa_id, fecha_creacion) VALUES ('Herramientas 1-2', 1, NOW());
-INSERT INTO categoria (nombre, empresa_id, fecha_creacion) VALUES ('Material Eléctrico 1-3', 1, NOW());
-INSERT INTO categoria (nombre, empresa_id, fecha_creacion) VALUES ('Instrumentación 1-4', 1, NOW());
-INSERT INTO categoria (nombre, empresa_id, fecha_creacion) VALUES ('Automatización 1-5', 1, NOW());
-INSERT INTO categoria (nombre, empresa_id, fecha_creacion) VALUES ('Fontanería 1-6', 1, NOW());
-INSERT INTO categoria (nombre, empresa_id, fecha_creacion) VALUES ('Climatización 1-7', 1, NOW());
-INSERT INTO categoria (nombre, empresa_id, fecha_creacion) VALUES ('Construcción 1-8', 1, NOW());
-INSERT INTO categoria (nombre, empresa_id, fecha_creacion) VALUES ('Seguridad 1-9', 1, NOW());
-INSERT INTO categoria (nombre, empresa_id, fecha_creacion) VALUES ('Suministros Generales 1-10', 1, NOW());
+-- Categoría 1 para Empresa 1
+INSERT INTO categoria (id, nombre, empresa_id, fecha_creacion) VALUES (1, 'Categoría 1-1', 1, '2025-05-28 11:13:40');
+-- Categoría 2 para Empresa 1
+INSERT INTO categoria (id, nombre, empresa_id, fecha_creacion) VALUES (2, 'Categoría 1-2', 1, '2025-05-28 11:13:40');
+-- Categoría 3 para Empresa 1
+INSERT INTO categoria (id, nombre, empresa_id, fecha_creacion) VALUES (3, 'Categoría 1-3', 1, '2025-05-28 11:13:40');
+-- Categoría 4 para Empresa 1
+INSERT INTO categoria (id, nombre, empresa_id, fecha_creacion) VALUES (4, 'Categoría 1-4', 1, '2025-05-28 11:13:40');
+-- Categoría 5 para Empresa 1
+INSERT INTO categoria (id, nombre, empresa_id, fecha_creacion) VALUES (5, 'Categoría 1-5', 1, '2025-05-28 11:13:40');
+-- Categoría 6 para Empresa 1
+INSERT INTO categoria (id, nombre, empresa_id, fecha_creacion) VALUES (6, 'Categoría 1-6', 1, '2025-05-28 11:13:40');
+-- Categoría 7 para Empresa 1
+INSERT INTO categoria (id, nombre, empresa_id, fecha_creacion) VALUES (7, 'Categoría 1-7', 1, '2025-05-28 11:13:40');
+-- Categoría 8 para Empresa 1
+INSERT INTO categoria (id, nombre, empresa_id, fecha_creacion) VALUES (8, 'Categoría 1-8', 1, '2025-05-28 11:13:40');
+-- Categoría 9 para Empresa 1
+INSERT INTO categoria (id, nombre, empresa_id, fecha_creacion) VALUES (9, 'Categoría 1-9', 1, '2025-05-28 11:13:40');
+-- Categoría 10 para Empresa 1
+INSERT INTO categoria (id, nombre, empresa_id, fecha_creacion) VALUES (10, 'Categoría 1-10', 1, '2025-05-28 11:13:40');
+-- Categoría 1 para Empresa 2
+INSERT INTO categoria (id, nombre, empresa_id, fecha_creacion) VALUES (11, 'Categoría 2-1', 2, '2025-05-28 11:13:40');
+-- Categoría 2 para Empresa 2
+INSERT INTO categoria (id, nombre, empresa_id, fecha_creacion) VALUES (12, 'Categoría 2-2', 2, '2025-05-28 11:13:40');
+-- Categoría 3 para Empresa 2
+INSERT INTO categoria (id, nombre, empresa_id, fecha_creacion) VALUES (13, 'Categoría 2-3', 2, '2025-05-28 11:13:40');
+-- Categoría 4 para Empresa 2
+INSERT INTO categoria (id, nombre, empresa_id, fecha_creacion) VALUES (14, 'Categoría 2-4', 2, '2025-05-28 11:13:40');
+-- Categoría 5 para Empresa 2
+INSERT INTO categoria (id, nombre, empresa_id, fecha_creacion) VALUES (15, 'Categoría 2-5', 2, '2025-05-28 11:13:40');
+-- Categoría 6 para Empresa 2
+INSERT INTO categoria (id, nombre, empresa_id, fecha_creacion) VALUES (16, 'Categoría 2-6', 2, '2025-05-28 11:13:40');
+-- Categoría 7 para Empresa 2
+INSERT INTO categoria (id, nombre, empresa_id, fecha_creacion) VALUES (17, 'Categoría 2-7', 2, '2025-05-28 11:13:40');
+-- Categoría 8 para Empresa 2
+INSERT INTO categoria (id, nombre, empresa_id, fecha_creacion) VALUES (18, 'Categoría 2-8', 2, '2025-05-28 11:13:40');
+-- Categoría 9 para Empresa 2
+INSERT INTO categoria (id, nombre, empresa_id, fecha_creacion) VALUES (19, 'Categoría 2-9', 2, '2025-05-28 11:13:40');
+-- Categoría 10 para Empresa 2
+INSERT INTO categoria (id, nombre, empresa_id, fecha_creacion) VALUES (20, 'Categoría 2-10', 2, '2025-05-28 11:13:40');
+-- Proveedor 1 para Empresa 1
+INSERT INTO proveedor (id, nombre, email, telefono, empresa_id, fecha_creacion) VALUES (1, 'Proveedor 1-1', 'prov1_1@empresa.com', '600000001', 1, '2025-05-28 11:13:40');
+-- Proveedor 2 para Empresa 1
+INSERT INTO proveedor (id, nombre, email, telefono, empresa_id, fecha_creacion) VALUES (2, 'Proveedor 1-2', 'prov1_2@empresa.com', '600000002', 1, '2025-05-28 11:13:40');
+-- Proveedor 3 para Empresa 1
+INSERT INTO proveedor (id, nombre, email, telefono, empresa_id, fecha_creacion) VALUES (3, 'Proveedor 1-3', 'prov1_3@empresa.com', '600000003', 1, '2025-05-28 11:13:40');
+-- Proveedor 4 para Empresa 1
+INSERT INTO proveedor (id, nombre, email, telefono, empresa_id, fecha_creacion) VALUES (4, 'Proveedor 1-4', 'prov1_4@empresa.com', '600000004', 1, '2025-05-28 11:13:40');
+-- Proveedor 5 para Empresa 1
+INSERT INTO proveedor (id, nombre, email, telefono, empresa_id, fecha_creacion) VALUES (5, 'Proveedor 1-5', 'prov1_5@empresa.com', '600000005', 1, '2025-05-28 11:13:40');
+-- Proveedor 6 para Empresa 1
+INSERT INTO proveedor (id, nombre, email, telefono, empresa_id, fecha_creacion) VALUES (6, 'Proveedor 1-6', 'prov1_6@empresa.com', '600000006', 1, '2025-05-28 11:13:40');
+-- Proveedor 7 para Empresa 1
+INSERT INTO proveedor (id, nombre, email, telefono, empresa_id, fecha_creacion) VALUES (7, 'Proveedor 1-7', 'prov1_7@empresa.com', '600000007', 1, '2025-05-28 11:13:40');
+-- Proveedor 8 para Empresa 1
+INSERT INTO proveedor (id, nombre, email, telefono, empresa_id, fecha_creacion) VALUES (8, 'Proveedor 1-8', 'prov1_8@empresa.com', '600000008', 1, '2025-05-28 11:13:40');
+-- Proveedor 9 para Empresa 1
+INSERT INTO proveedor (id, nombre, email, telefono, empresa_id, fecha_creacion) VALUES (9, 'Proveedor 1-9', 'prov1_9@empresa.com', '600000009', 1, '2025-05-28 11:13:40');
+-- Proveedor 10 para Empresa 1
+INSERT INTO proveedor (id, nombre, email, telefono, empresa_id, fecha_creacion) VALUES (10, 'Proveedor 1-10', 'prov1_10@empresa.com', '6000000010', 1, '2025-05-28 11:13:40');
+-- Proveedor 1 para Empresa 2
+INSERT INTO proveedor (id, nombre, email, telefono, empresa_id, fecha_creacion) VALUES (11, 'Proveedor 2-1', 'prov2_11@empresa.com', '6000000111', 2, '2025-05-28 11:13:40');
+-- Proveedor 2 para Empresa 2
+INSERT INTO proveedor (id, nombre, email, telefono, empresa_id, fecha_creacion) VALUES (12, 'Proveedor 2-2', 'prov2_12@empresa.com', '6000000112', 2, '2025-05-28 11:13:40');
+-- Proveedor 3 para Empresa 2
+INSERT INTO proveedor (id, nombre, email, telefono, empresa_id, fecha_creacion) VALUES (13, 'Proveedor 2-3', 'prov2_13@empresa.com', '6000000113', 2, '2025-05-28 11:13:40');
+-- Proveedor 4 para Empresa 2
+INSERT INTO proveedor (id, nombre, email, telefono, empresa_id, fecha_creacion) VALUES (14, 'Proveedor 2-4', 'prov2_14@empresa.com', '6000000114', 2, '2025-05-28 11:13:40');
+-- Proveedor 5 para Empresa 2
+INSERT INTO proveedor (id, nombre, email, telefono, empresa_id, fecha_creacion) VALUES (15, 'Proveedor 2-5', 'prov2_15@empresa.com', '6000000115', 2, '2025-05-28 11:13:40');
+-- Proveedor 6 para Empresa 2
+INSERT INTO proveedor (id, nombre, email, telefono, empresa_id, fecha_creacion) VALUES (16, 'Proveedor 2-6', 'prov2_16@empresa.com', '6000000116', 2, '2025-05-28 11:13:40');
+-- Proveedor 7 para Empresa 2
+INSERT INTO proveedor (id, nombre, email, telefono, empresa_id, fecha_creacion) VALUES (17, 'Proveedor 2-7', 'prov2_17@empresa.com', '6000000117', 2, '2025-05-28 11:13:40');
+-- Proveedor 8 para Empresa 2
+INSERT INTO proveedor (id, nombre, email, telefono, empresa_id, fecha_creacion) VALUES (18, 'Proveedor 2-8', 'prov2_18@empresa.com', '6000000118', 2, '2025-05-28 11:13:40');
+-- Proveedor 9 para Empresa 2
+INSERT INTO proveedor (id, nombre, email, telefono, empresa_id, fecha_creacion) VALUES (19, 'Proveedor 2-9', 'prov2_19@empresa.com', '6000000119', 2, '2025-05-28 11:13:40');
+-- Proveedor 10 para Empresa 2
+INSERT INTO proveedor (id, nombre, email, telefono, empresa_id, fecha_creacion) VALUES (20, 'Proveedor 2-10', 'prov2_20@empresa.com', '6000000120', 2, '2025-05-28 11:13:40');
 
--- Categorías para SBS Digital
-INSERT INTO categoria (nombre, empresa_id, fecha_creacion) VALUES ('Electrónica 2-1', 2, NOW());
-INSERT INTO categoria (nombre, empresa_id, fecha_creacion) VALUES ('Herramientas 2-2', 2, NOW());
-INSERT INTO categoria (nombre, empresa_id, fecha_creacion) VALUES ('Material Eléctrico 2-3', 2, NOW());
-INSERT INTO categoria (nombre, empresa_id, fecha_creacion) VALUES ('Instrumentación 2-4', 2, NOW());
-INSERT INTO categoria (nombre, empresa_id, fecha_creacion) VALUES ('Automatización 2-5', 2, NOW());
-INSERT INTO categoria (nombre, empresa_id, fecha_creacion) VALUES ('Fontanería 2-6', 2, NOW());
-INSERT INTO categoria (nombre, empresa_id, fecha_creacion) VALUES ('Climatización 2-7', 2, NOW());
-INSERT INTO categoria (nombre, empresa_id, fecha_creacion) VALUES ('Construcción 2-8', 2, NOW());
-INSERT INTO categoria (nombre, empresa_id, fecha_creacion) VALUES ('Seguridad 2-9', 2, NOW());
-INSERT INTO categoria (nombre, empresa_id, fecha_creacion) VALUES ('Suministros Generales 2-10', 2, NOW());
+-- Productos para SBS Ingeniería
+INSERT INTO producto (nombre, precio, cantidad, uso_interno, fecha_ingreso, empresa_id, categoria_id, proveedor_id, usuario_id)VALUES ('Producto A1', 10.0, 100, true, '2025-05-28 11:13:40', 1, 1, 1, 2);
+
+INSERT INTO producto (nombre, precio, cantidad, uso_interno, fecha_ingreso, empresa_id, categoria_id, proveedor_id, usuario_id)VALUES ('Taladro Industrial', 85.00, 15, true, NOW(), 1, 2, 2, 2);
+
+INSERT INTO producto (nombre, precio, cantidad, uso_interno, fecha_ingreso, empresa_id, categoria_id, proveedor_id, usuario_id)VALUES ('Multímetro Digital', 45.50, 30, false, NOW(), 1, 3, 3, 2);
+
+INSERT INTO producto (nombre, precio, cantidad, uso_interno, fecha_ingreso, empresa_id, categoria_id, proveedor_id, usuario_id)VALUES ('Caja de Tornillos', 12.00, 200, true, NOW(), 1, 4, 4, 2);
+
+INSERT INTO producto (nombre, precio, cantidad, uso_interno, fecha_ingreso, empresa_id, categoria_id, proveedor_id, usuario_id)VALUES ('Cable Eléctrico 100m', 60.00, 40, false, NOW(), 1, 5, 5, 2);
 
 
--- Proveedores para SBS Ingeniería
-INSERT INTO proveedor (nombre, email, telefono, empresa_id, fecha_creacion) VALUES ('Proveedora Andina 1-1', 'proveedoraandina1-1@example.com', '612345678', 1, NOW());
-INSERT INTO proveedor (nombre, email, telefono, empresa_id, fecha_creacion) VALUES ('TecnoDistribuidora 1-2', 'tecnodistribuidora1-2@example.com', '623456789', 1, NOW());
-INSERT INTO proveedor (nombre, email, telefono, empresa_id, fecha_creacion) VALUES ('ElectroSuministros 1-3', 'electrosuministros1-3@example.com', '634567890', 1, NOW());
-INSERT INTO proveedor (nombre, email, telefono, empresa_id, fecha_creacion) VALUES ('Suministros del Sur 1-4', 'suministrosdelsur1-4@example.com', '645678901', 1, NOW());
-INSERT INTO proveedor (nombre, email, telefono, empresa_id, fecha_creacion) VALUES ('Equipamientos SBS 1-5', 'equipamientossbs1-5@example.com', '656789012', 1, NOW());
-INSERT INTO proveedor (nombre, email, telefono, empresa_id, fecha_creacion) VALUES ('Proveedores Integrales 1-6', 'proveedoresintegrales1-6@example.com', '667890123', 1, NOW());
-INSERT INTO proveedor (nombre, email, telefono, empresa_id, fecha_creacion) VALUES ('Logística Central 1-7', 'logisticacentral1-7@example.com', '678901234', 1, NOW());
-INSERT INTO proveedor (nombre, email, telefono, empresa_id, fecha_creacion) VALUES ('Materiales Industriales 1-8', 'materialesindustriales1-8@example.com', '689012345', 1, NOW());
-INSERT INTO proveedor (nombre, email, telefono, empresa_id, fecha_creacion) VALUES ('Red de Proveedores 1-9', 'reddeproveedores1-9@example.com', '690123456', 1, NOW());
-INSERT INTO proveedor (nombre, email, telefono, empresa_id, fecha_creacion) VALUES ('Almacenes Técnicos 1-10', 'almacenestecnicos1-10@example.com', '601234567', 1, NOW());
+-- Productos para SBS Digital
+INSERT INTO producto (nombre, precio, cantidad, uso_interno, fecha_ingreso, empresa_id, categoria_id, proveedor_id, usuario_id) VALUES ('Producto B1', 15.0, 90, true, '2025-05-28 11:13:40', 2, 11, 11, 3);
+INSERT INTO producto (nombre, precio, cantidad, uso_interno, fecha_ingreso, empresa_id, categoria_id, proveedor_id, usuario_id)VALUES ('Disco SSD 1TB', 95.99, 20, true, NOW(), 2, 12, 12, 3);
 
--- Proveedores para SBS Digital
-INSERT INTO proveedor (nombre, email, telefono, empresa_id, fecha_creacion) VALUES ('Proveedora Andina 2-1', 'proveedoraandina2-1@example.com', '612345679', 2, NOW());
-INSERT INTO proveedor (nombre, email, telefono, empresa_id, fecha_creacion) VALUES ('TecnoDistribuidora 2-2', 'tecnodistribuidora2-2@example.com', '623456780', 2, NOW());
-INSERT INTO proveedor (nombre, email, telefono, empresa_id, fecha_creacion) VALUES ('ElectroSuministros 2-3', 'electrosuministros2-3@example.com', '634567891', 2, NOW());
-INSERT INTO proveedor (nombre, email, telefono, empresa_id, fecha_creacion) VALUES ('Suministros del Sur 2-4', 'suministrosdelsur2-4@example.com', '645678902', 2, NOW());
-INSERT INTO proveedor (nombre, email, telefono, empresa_id, fecha_creacion) VALUES ('Equipamientos SBS 2-5', 'equipamientossbs2-5@example.com', '656789013', 2, NOW());
-INSERT INTO proveedor (nombre, email, telefono, empresa_id, fecha_creacion) VALUES ('Proveedores Integrales 2-6', 'proveedoresintegrales2-6@example.com', '667890124', 2, NOW());
-INSERT INTO proveedor (nombre, email, telefono, empresa_id, fecha_creacion) VALUES ('Logística Central 2-7', 'logisticacentral2-7@example.com', '678901235', 2, NOW());
-INSERT INTO proveedor (nombre, email, telefono, empresa_id, fecha_creacion) VALUES ('Materiales Industriales 2-8', 'materialesindustriales2-8@example.com', '689012346', 2, NOW());
-INSERT INTO proveedor (nombre, email, telefono, empresa_id, fecha_creacion) VALUES ('Red de Proveedores 2-9', 'reddeproveedores2-9@example.com', '690123457', 2, NOW());
-INSERT INTO proveedor (nombre, email, telefono, empresa_id, fecha_creacion) VALUES ('Almacenes Técnicos 2-10', 'almacenestecnicos2-10@example.com', '601234568', 2, NOW());
+INSERT INTO producto (nombre, precio, cantidad, uso_interno, fecha_ingreso, empresa_id, categoria_id, proveedor_id, usuario_id)VALUES ('Detergente Industrial', 7.50, 60, true, NOW(), 2, 13, 13, 3);
+
+INSERT INTO producto (nombre, precio, cantidad, uso_interno, fecha_ingreso, empresa_id, categoria_id, proveedor_id, usuario_id)VALUES ('Guantes Anticorte', 4.80, 100, false, NOW(), 2, 14, 14, 3);
+INSERT INTO producto (nombre, precio, cantidad, uso_interno, fecha_ingreso, empresa_id, categoria_id, proveedor_id, usuario_id)VALUES ('Monitor Curvo 27"', 179.99, 10, false, NOW(), 2, 15, 15, 3);
 
 
--- Productos para SBS Ingeniería (empresa_id = 1)
-INSERT INTO producto (nombre, precio, cantidad, uso_interno, fecha_ingreso, empresa_id, categoria_id, proveedor_id, usuario_id) VALUES ('Ratón inalámbrico', 19.99, 10, true, NOW(), 1, 1, 1, 2);
-INSERT INTO producto (nombre, precio, cantidad, uso_interno, fecha_ingreso, empresa_id, categoria_id, proveedor_id, usuario_id) VALUES ('Teclado mecánico', 45.00, 5, true, NOW(), 1, 2, 2, 2);
-INSERT INTO producto (nombre, precio, cantidad, uso_interno, fecha_ingreso, empresa_id, categoria_id, proveedor_id, usuario_id) VALUES ('Pantalla LED 24"', 110.00, 8, true, NOW(), 1, 3, 3, 2);
-INSERT INTO producto (nombre, precio, cantidad, uso_interno, fecha_ingreso, empresa_id, categoria_id, proveedor_id, usuario_id) VALUES ('Cables HDMI', 5.50, 25, true, NOW(), 1, 4, 4, 2);
--- Productos para SBS Digital (empresa_id = 2)
-INSERT INTO producto (nombre, precio, cantidad, uso_interno, fecha_ingreso, empresa_id, categoria_id, proveedor_id, usuario_id) VALUES ('Escoba industrial', 12.00, 15, true, NOW(), 2, 5, 5, 3);
-INSERT INTO producto (nombre, precio, cantidad, uso_interno, fecha_ingreso, empresa_id, categoria_id, proveedor_id, usuario_id) VALUES ('Detergente multiuso', 8.75, 20, true, NOW(), 2, 6, 6, 3);
-INSERT INTO producto (nombre, precio, cantidad, uso_interno, fecha_ingreso, empresa_id, categoria_id, proveedor_id, usuario_id) VALUES ('Guantes de limpieza', 2.50, 50, true, NOW(), 2, 7, 7, 3);
-INSERT INTO producto (nombre, precio, cantidad, uso_interno, fecha_ingreso, empresa_id, categoria_id, proveedor_id, usuario_id) VALUES ('Trapeador absorbente', 7.00, 10, true, NOW(), 2, 8, 8, 3);
+-- Movimiento
+INSERT INTO movimiento_producto (producto_id, usuario_id, cantidad, tipo, fecha, empresa_id) VALUES (1, 2, 1, 'ENTRADA', '2025-05-28 11:13:40', 1);
 
-
--- Movimientos
-INSERT INTO movimiento_producto (producto_id, usuario_id, cantidad, tipo, fecha, empresa_id) VALUES (1, 2, 1, 'ENTRADA', NOW(), 1);
-
--- Almacenes para SBS Ingeniería
-INSERT INTO almacen (nombre, direccion, empresa_id) VALUES ('Almacén Central 1', 'Calle Inventada 123', 1);
-INSERT INTO almacen (nombre, direccion, empresa_id) VALUES ('Almacén Norte 1', 'Av. Técnica 45', 1);
-
--- Almacenes para SBS Digital
-INSERT INTO almacen (nombre, direccion, empresa_id) VALUES ('Almacén Central 2', 'Calle Digital 88', 2);
+-- Almacenes
+INSERT INTO almacen (id, nombre, direccion, empresa_id) VALUES (1, 'Almacén Central 1', 'Calle 1', 1);
+INSERT INTO almacen (id, nombre, direccion, empresa_id) VALUES (2, 'Almacén Central 2', 'Calle 2', 2);
 
 -- Plantas
-INSERT INTO planta (nombre, numero, almacen_id) VALUES ('Planta Baja', 0, 1);
-INSERT INTO planta (nombre, numero, almacen_id) VALUES ('Planta 1', 1, 1);
-INSERT INTO planta (nombre, numero, almacen_id) VALUES ('Planta Baja', 0, 2);
-INSERT INTO planta (nombre, numero, almacen_id) VALUES ('Planta 1', 1, 2);
-INSERT INTO planta (nombre, numero, almacen_id) VALUES ('Planta Baja', 0, 3);
+INSERT INTO planta (id, nombre, numero, almacen_id) VALUES (1, 'Planta Baja', 0, 1);
+INSERT INTO planta (id, nombre, numero, almacen_id) VALUES (2, 'Planta Alta', 1, 1);
+INSERT INTO planta (id, nombre, numero, almacen_id) VALUES (3, 'Planta Baja', 0, 2);
 
 -- Estanterías
-INSERT INTO estanteria (codigo, planta_id) VALUES ('F1-E1', 1);
-INSERT INTO estanteria (codigo, planta_id) VALUES ('F2-E2', 2);
-INSERT INTO estanteria (codigo, planta_id) VALUES ('F1-E1', 3);
-INSERT INTO estanteria (codigo, planta_id) VALUES ('F2-E2', 4);
-INSERT INTO estanteria (codigo, planta_id) VALUES ('F1-E1', 5);
-
+INSERT INTO estanteria (id, codigo, planta_id) VALUES (1, 'E1-P1', 1);
+INSERT INTO estanteria (id, codigo, planta_id) VALUES (2, 'E2-P2', 2);
+INSERT INTO estanteria (id, codigo, planta_id) VALUES (3, 'E3-P3', 3);

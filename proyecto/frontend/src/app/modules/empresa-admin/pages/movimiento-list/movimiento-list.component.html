@@ -1,1 +1,30 @@
-<p>movimiento-list works!</p>
+<div class="fade-slide-in p-8 max-w-7xl mx-auto">
+  <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+    <h2 class="text-2xl font-bold text-primary">Movimientos</h2>
+
+    <div class="flex flex-wrap gap-2 items-center">
+      <input type="text" [(ngModel)]="searchTerm" (ngModelChange)="actualizarFiltro()"
+        placeholder="Buscar producto..." class="p-2 border rounded-md w-60">
+
+      <select [(ngModel)]="tipoSeleccionado" (ngModelChange)="actualizarFiltro()"
+        class="p-2 border rounded-md text-sm">
+        <option value="">Todos los tipos</option>
+        <option value="ENTRADA">ENTRADA</option>
+        <option value="SALIDA">SALIDA</option>
+      </select>
+
+      <input type="date" [(ngModel)]="fechaDesde" (change)="actualizarFiltro()"
+        class="p-2 border rounded-md text-sm">
+
+      <input type="date" [(ngModel)]="fechaHasta" (change)="actualizarFiltro()"
+        class="p-2 border rounded-md text-sm">
+
+      <button (click)="limpiarFiltros()"
+        class="bg-secondary-light hover:bg-secondary text-white px-4 py-2 rounded transition text-sm">
+        Limpiar
+      </button>
+    </div>
+  </div>
+
+  <app-table [headers]="headers" [rows]="tablaDatos"></app-table>
+</div>

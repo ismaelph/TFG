@@ -1,0 +1,54 @@
+/* Animación suave para la carga inicial */
+.fade-slide-in {
+  animation: fadeSlideIn 0.4s ease-out;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Estilo para inputs del filtro */
+.filtro-input {
+  @apply border border-gray-300 rounded-md px-3 py-2 text-sm w-full
+          focus:outline-none focus:ring-2 focus:ring-accent;
+}
+
+/* Botón de limpiar filtros */
+.btn-limpiar {
+  @apply bg-secondary-light text-white px-4 py-2 rounded text-sm
+          hover:bg-secondary transition font-medium;
+}
+
+/* Tabla */
+.tabla-movimientos th {
+  @apply px-4 py-2 text-left bg-secondary text-white text-sm;
+}
+
+.tabla-movimientos td {
+  @apply px-4 py-2 text-sm;
+}
+
+.tabla-movimientos tr {
+  @apply hover:bg-gray-50 transition;
+}
+
+/* Etiquetas de tipo de movimiento */
+.tipo-entrada {
+  @apply text-green-600 font-semibold;
+}
+
+.tipo-salida {
+  @apply text-red-600 font-semibold;
+}
+
+/* Fila vacía */
+.fila-vacia {
+  @apply text-center py-4 text-gray-500 text-sm;
+}
