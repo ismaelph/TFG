@@ -12,6 +12,8 @@ import { AlertWarningComponent } from './components/alerts/alert-warning/alert-w
 import { AlertErrorComponent } from './components/alerts/alert-error/alert-error.component';
 import { AlertInfoComponent } from './components/alerts/alert-info/alert-info.component';
 import { SidnavComponent } from './components/sidnav/sidnav.component';
+import { NotificacionModalComponent } from './components/notificacion-modal/notificacion-modal.component';
+import { NotificacionBadgeComponent } from './components/notificacion-badge/notificacion-badge.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { SidnavComponent } from './components/sidnav/sidnav.component';
     AlertWarningComponent,
     AlertErrorComponent,
     AlertInfoComponent,
-    SidnavComponent
+    SidnavComponent,
+    NotificacionModalComponent,
+    NotificacionBadgeComponent,
   ],
   imports: [
     CommonModule,
@@ -39,7 +43,9 @@ import { SidnavComponent } from './components/sidnav/sidnav.component';
     FormsModule,
     RouterModule,
     AlertSuccessComponent,
-    SidnavComponent
+    SidnavComponent,
+    NotificacionBadgeComponent,
+    NotificacionModalComponent,
   ]
 })
 export class SharedModule {}
