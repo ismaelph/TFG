@@ -2,10 +2,9 @@ package com.tfg.backend.controller;
 
 import com.tfg.backend.auth.models.User;
 import com.tfg.backend.auth.services.UserDetailsImpl;
-import com.tfg.backend.model.dto.SolicitudMovimientoDto;
 import com.tfg.backend.model.dto.ErrorDto;
+import com.tfg.backend.model.dto.SolicitudMovimientoDto;
 import com.tfg.backend.model.entity.SolicitudMovimiento;
-import com.tfg.backend.model.enums.EstadoSolicitud;
 import com.tfg.backend.model.repository.SolicitudMovimientoRepository;
 import com.tfg.backend.service.SolicitudMovimientoService;
 import com.tfg.backend.service.UserService;
@@ -16,7 +15,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 
@@ -26,14 +24,9 @@ import java.util.Map;
 @Slf4j
 public class SolicitudMovimientoController {
 
-    @Autowired
-    private SolicitudMovimientoService solicitudService;
-
-    @Autowired
-    private SolicitudMovimientoRepository solicitudMovimientoRepository;
-
-    @Autowired
-    private UserService userService;
+    @Autowired private SolicitudMovimientoService solicitudService;
+    @Autowired private SolicitudMovimientoRepository solicitudMovimientoRepository;
+    @Autowired private UserService userService;
 
     @GetMapping("")
     public List<SolicitudMovimientoDto> listAll() {
@@ -53,27 +46,6 @@ public class SolicitudMovimientoController {
     public List<SolicitudMovimientoDto> findByUsuario(@PathVariable Long usuarioId) {
         return SolicitudMovimientoDto.from(solicitudService.findByUsuarioId(usuarioId));
     }
-
-    @PostMapping("")
-    public ResponseEntity<?> save(@RequestBody SolicitudMovimientoDto dto,
-                                  @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        try {
-            Long userId = userDetails.getId();
-            dto.setUsuarioId(userId);
-            SolicitudMovimiento nueva = dto.to();
-            nueva.setEstado(dto.getEstado() != null ? dto.getEstado() : EstadoSolicitud.PENDIENTE);
-
-            System.out.println("📝 Guardando solicitud desde endpoint /api/solicitudes/movimiento");
-            System.out.println("🔎 Usuario ID: " + userId + ", Producto ID: " + dto.getProductoId());
-
-            SolicitudMovimiento guardada = solicitudService.save(nueva);
-            return ResponseEntity.status(HttpStatus.CREATED).body(SolicitudMovimientoDto.from(guardada));
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorDto.from("Solicitud no guardada"));
-        }
-    }
-
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
@@ -160,27 +132,6 @@ public class SolicitudMovimientoController {
         }
     }
 
-    @PutMapping("/{id}/aprobar")
-    @PreAuthorize("hasRole('ROLE_ADMIN_EMPRESA')")
-    public ResponseEntity<?> aprobarSolicitud(
-            @PathVariable Long id,
-            @RequestBody Map<String, String> body) {
-        try {
-            String respuestaAdmin = body.get("respuestaAdmin");
-            System.out.println("📥 Petición para aprobar solicitud de movimiento ID: " + id);
-            System.out.println("📝 Respuesta del admin: " + respuestaAdmin);
-
-            solicitudService.aprobarSolicitud(id, respuestaAdmin);
-
-            return ResponseEntity.ok(Map.of("mensaje", "Solicitud aprobada correctamente"));
-        } catch (Exception e) {
-            System.err.println("❌ Error en el controlador al aprobar la solicitud:");
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(Map.of("error", "Error al aprobar la solicitud"));
-        }
-    }
-
     @GetMapping("/empresa")
     @PreAuthorize("hasRole('ROLE_ADMIN_EMPRESA')")
     public ResponseEntity<?> getSolicitudesDeMiEmpresa(@AuthenticationPrincipal UserDetailsImpl userDetails) {
@@ -203,6 +154,47 @@ public class SolicitudMovimientoController {
         }
     }
 
+    @PutMapping("/{id}/aprobar")
+    public ResponseEntity<?> aprobarSolicitud(
+            @PathVariable Long id,
+            @RequestBody Map<String, Object> body,
+            @AuthenticationPrincipal UserDetailsImpl userDetails) {
 
+        System.out.println("📡 Endpoint: PUT /api/solicitudes/movimiento/" + id + "/aprobar");
+        System.out.println("🔐 Usuario autenticado: ID=" + userDetails.getId() + ", Username=" + userDetails.getUsername());
+
+        try {
+            // Lectura de datos de la petición
+            boolean aceptar = (boolean) body.getOrDefault("aceptar", true);
+            String respuestaAdmin = (String) body.getOrDefault("respuestaAdmin", "");
+
+            System.out.println("📥 Petición recibida para aprobar solicitud ID: " + id);
+            System.out.println("✅ Aceptar: " + aceptar);
+            System.out.println("📝 Respuesta del admin: " + respuestaAdmin);
+
+            // Llamada al servicio
+            SolicitudMovimiento solicitud = solicitudService.resolverSolicitud(id, aceptar, respuestaAdmin);
+
+            System.out.println("✅ Solicitud procesada correctamente. Estado final: " + solicitud.getEstado());
+            return ResponseEntity.ok(SolicitudMovimientoDto.from(solicitud));
+
+        } catch (Exception e) {
+            // LOGS detallados del error
+            System.err.println("❌ Error en el controlador al aprobar la solicitud:");
+            System.err.println("🧨 Mensaje de error: " + e.getMessage());
+            System.err.println("🧨 Localized: " + e.getLocalizedMessage());
+            System.err.println("🧨 Clase de error: " + e.getClass().getName());
+            System.err.println("🧨 Stack trace:");
+            e.printStackTrace();
+
+            // Devolución segura con detalles del error para frontend
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of(
+                            "error", "Error al aprobar la solicitud",
+                            "message", e.getMessage(),
+                            "exception", e.getClass().getSimpleName()
+                    ));
+        }
+    }
 
 }

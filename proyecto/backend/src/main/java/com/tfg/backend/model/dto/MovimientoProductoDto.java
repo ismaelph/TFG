@@ -16,8 +16,10 @@ public class MovimientoProductoDto {
 
     private Long id;
     private Long productoId;
+    private String productoNombre;
     private Long empresaId;
     private Long usuarioId;
+    private String usuarioNombre;
 
     private Integer cantidad;
     private TipoMovimiento tipo;
@@ -32,9 +34,19 @@ public class MovimientoProductoDto {
         dto.setObservaciones(entity.getObservaciones());
         dto.setFecha(entity.getFecha());
 
-        if (entity.getProducto() != null) dto.setProductoId(entity.getProducto().getId());
-        if (entity.getEmpresa() != null) dto.setEmpresaId(entity.getEmpresa().getId());
-        if (entity.getUsuario() != null) dto.setUsuarioId(entity.getUsuario().getId());
+        if (entity.getProducto() != null) {
+            dto.setProductoId(entity.getProducto().getId());
+            dto.setProductoNombre(entity.getProducto().getNombre());
+        }
+
+        if (entity.getEmpresa() != null) {
+            dto.setEmpresaId(entity.getEmpresa().getId());
+        }
+
+        if (entity.getUsuario() != null) {
+            dto.setUsuarioId(entity.getUsuario().getId());
+            dto.setUsuarioNombre(entity.getUsuario().getUsername());
+        }
 
         return dto;
     }
@@ -59,3 +71,4 @@ public class MovimientoProductoDto {
         return dtos;
     }
 }
+

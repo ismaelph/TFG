@@ -1,1 +1,55 @@
-<p>mi-inventario works!</p>
+<div class="fade-slide-in p-8 max-w-7xl mx-auto">
+  <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+    <h2 class="text-2xl font-bold text-primary">Mi Inventario</h2>
+
+    <div class="flex flex-wrap gap-2 items-center">
+      <input [(ngModel)]="searchTerm" (ngModelChange)="actualizarFiltro()"
+        type="text" placeholder="Buscar producto..." class="p-2 border rounded-md w-60">
+
+      <button (click)="limpiarBusqueda()"
+        class="bg-secondary-light hover:bg-secondary text-white px-4 py-2 rounded text-sm transition">
+        Limpiar
+      </button>
+    </div>
+  </div>
+
+  <!-- Tabla -->
+  <div class="overflow-x-auto rounded-md shadow bg-white fade-slide-in">
+    <table class="min-w-full text-sm text-left">
+      <thead class="bg-secondary text-white">
+        <tr>
+          <th class="px-4 py-2">Nombre</th>
+          <th class="px-4 py-2">Cantidad</th>
+          <th class="px-4 py-2">Precio</th>
+          <th class="px-4 py-2">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of productosPaginados" class="hover:bg-gray-50 transition">
+          <td class="px-4 py-2">{{ p.nombre }}</td>
+          <td class="px-4 py-2">{{ p.cantidad }}</td>
+          <td class="px-4 py-2">{{ p.precio.toFixed(2) }} €</td>
+          <td class="px-4 py-2">
+            <i class="bi bi-send-fill icon-solicitar" title="Solicitar" (click)="abrirModal(p)"></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mt-6 flex justify-center">
+    <app-paginator
+      [total]="filtrados.length"
+      [pageSize]="pageSize"
+      [currentPage]="currentPage"
+      (pageChange)="cambiarPagina($event)">
+    </app-paginator>
+  </div>
+
+  <!-- Modal de solicitud -->
+  <app-formulario-solicitud
+    *ngIf="mostrarModal"
+    [producto]="productoSeleccionado!"
+    (cerrarModal)="cerrarModal()">
+  </app-formulario-solicitud>
+</div>

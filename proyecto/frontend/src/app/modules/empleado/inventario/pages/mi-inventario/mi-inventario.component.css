@@ -1,0 +1,26 @@
+.fade-slide-in {
+  animation: fadeSlideIn 0.3s ease-out;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.icon-solicitar {
+  color: #6BB2A7;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.icon-solicitar:hover {
+  transform: scale(1.2);
+  filter: brightness(1.3);
+}

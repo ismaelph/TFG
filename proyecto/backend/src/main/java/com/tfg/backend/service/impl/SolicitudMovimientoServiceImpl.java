@@ -16,11 +16,14 @@ import com.tfg.backend.service.MovimientoProductoService;
 import com.tfg.backend.service.ProductoService;
 import com.tfg.backend.service.SolicitudMovimientoService;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.List;
+
+@Slf4j
 
 @Service
 @Transactional
@@ -207,4 +210,79 @@ public class SolicitudMovimientoServiceImpl implements SolicitudMovimientoServic
         System.out.println("🔍 Buscando solicitudes por empresa: " + empresa.getNombre());
         return solicitudRepository.findByUsuario_Empresa(empresa);
     }
+
+    @Override
+    public SolicitudMovimiento resolverSolicitud(Long solicitudId, boolean aceptar, String respuestaAdmin) {
+        System.out.println("🟢 Resolviendo solicitud ID: " + solicitudId + " | Aceptar: " + aceptar);
+        System.out.println("📩 Respuesta del admin: " + respuestaAdmin);
+
+        SolicitudMovimiento solicitud = solicitudRepository.findById(solicitudId)
+                .orElseThrow(() -> {
+                    System.out.println("❌ Solicitud con ID " + solicitudId + " no encontrada.");
+                    return new IllegalArgumentException("❌ Solicitud no encontrada");
+                });
+
+        Producto producto = solicitud.getProducto();
+        User usuario = solicitud.getUsuario();
+
+        System.out.println("🔗 Producto vinculado: " + (producto != null ? producto.getNombre() : "null"));
+        System.out.println("👤 Usuario solicitante: " + (usuario != null ? usuario.getUsername() : "null"));
+
+        if (solicitud.getEstado() != EstadoSolicitud.PENDIENTE) {
+            System.out.println("⚠️ Solicitud ya procesada con estado: " + solicitud.getEstado());
+            throw new IllegalStateException("La solicitud ya ha sido procesada.");
+        }
+
+        if (!aceptar) {
+            System.out.println("🔴 Rechazando solicitud...");
+            solicitud.setEstado(EstadoSolicitud.RECHAZADA);
+            solicitud.setRespuestaAdmin(respuestaAdmin);
+            solicitud.setFechaResolucion(Instant.now());
+            SolicitudMovimiento guardada = solicitudRepository.save(solicitud);
+            System.out.println("💾 Solicitud rechazada guardada con ID: " + guardada.getId());
+            return guardada;
+        }
+
+        int stockDisponible = producto.getCantidad();
+        if (solicitud.getCantidadSolicitada() == null) {
+            System.out.println("❌ cantidadSolicitada es null");
+            throw new IllegalArgumentException("La cantidad solicitada no puede ser null");
+        }
+        int cantidadSolicitada = solicitud.getCantidadSolicitada();
+        System.out.println("📦 Stock disponible: " + stockDisponible + " | Solicitado: " + cantidadSolicitada);
+
+        if (stockDisponible >= cantidadSolicitada) {
+            producto.setCantidad(stockDisponible - cantidadSolicitada);
+            productoService.save(producto);
+            System.out.println("✅ Stock suficiente. Producto actualizado. Nuevo stock: " + producto.getCantidad());
+
+            MovimientoProducto movimiento = MovimientoProducto.builder()
+                    .producto(producto)
+                    .usuario(usuario)
+                    .empresa(producto.getEmpresa())
+                    .cantidad(cantidadSolicitada)
+                    .tipo(TipoMovimiento.SALIDA)
+                    .observaciones("Solicitud aprobada automáticamente")
+                    .build();
+            movimientoProductoService.save(movimiento);
+            System.out.println("📄 Movimiento registrado con éxito para producto: " + producto.getNombre());
+
+            solicitud.setEstado(EstadoSolicitud.STOCK_RECIBIDO);
+            System.out.println("✅ Estado de solicitud actualizado a STOCK_RECIBIDO");
+        } else {
+            solicitud.setEstado(EstadoSolicitud.EN_ESPERA_STOCK);
+            System.out.println("⏳ No hay stock suficiente. Estado actualizado a EN_ESPERA_STOCK");
+        }
+
+        solicitud.setRespuestaAdmin(respuestaAdmin);
+        solicitud.setFechaResolucion(Instant.now());
+        SolicitudMovimiento actualizada = solicitudRepository.save(solicitud);
+        System.out.println("💾 Solicitud final guardada. Estado: " + actualizada.getEstado() + ", Fecha resolución: " + actualizada.getFechaResolucion());
+
+        return actualizada;
+    }
+
+
+
+
 }

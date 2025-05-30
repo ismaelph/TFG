@@ -1,1 +1,29 @@
-<p>formulario-solicitud works!</p>
+<div class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 fade-slide-in">
+    <div class="bg-white rounded-xl p-6 shadow-lg w-full max-w-lg relative">
+
+        <button (click)="cerrar()"
+            class="absolute top-2 right-3 text-gray-400 hover:text-black text-xl">&times;</button>
+
+        <h2 class="text-xl font-semibold mb-4 text-primary">Solicitar producto</h2>
+
+        <div class="mb-4">
+            <label class="block mb-1 text-sm font-medium">Producto</label>
+            <input type="text" class="..." [value]="producto ? producto.nombre : ''" disabled>
+        </div>
+
+        <div class="mb-4">
+            <label class="block mb-1 text-sm font-medium">Cantidad</label>
+            <input type="number" [(ngModel)]="cantidadSolicitada" class="w-full border rounded px-3 py-2" min="1">
+        </div>
+
+        <div class="mb-4">
+            <label class="block mb-1 text-sm font-medium">Motivo</label>
+            <textarea [(ngModel)]="motivo" rows="3" class="w-full border rounded px-3 py-2"></textarea>
+        </div>
+
+        <button (click)="enviar()"
+            class="bg-accent hover:bg-accent-dark text-white px-4 py-2 rounded w-full font-medium transition">
+            Enviar solicitud
+        </button>
+    </div>
+</div>

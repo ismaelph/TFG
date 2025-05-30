@@ -63,4 +63,9 @@ export class ProductoService {
       })
     );
   }
+
+  getProductos(): Observable<Producto[]> {
+  return this.http.get<Producto[]>(`${this.baseUrl}`);
+}
+
 }

@@ -51,6 +51,7 @@ public class SolicitudMovimientoDto {
         SolicitudMovimiento solicitud = new SolicitudMovimiento();
         solicitud.setId(this.getId());
         solicitud.setCantidadSolicitada(this.getCantidadSolicitada());
+        System.out.println(solicitud.getCantidadSolicitada());
         solicitud.setMotivo(this.getMotivo());
         solicitud.setEstado(this.getEstado());
         solicitud.setFechaSolicitud(this.getFechaSolicitud());
