@@ -56,4 +56,8 @@ public class Producto {
     @JoinColumn(name = "estanteria_id")
     private Estanteria estanteria;
 
+    @Column(name = "imagen_url")
+    private String imagenUrl;
+
+
 }

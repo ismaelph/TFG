@@ -23,6 +23,7 @@ public class ProductoDto {
     private boolean usoInterno;
     private LocalDateTime fechaIngreso;
     private Integer stockMinimo;
+    private String imagenUrl;
 
     private Long empresaId;
     private Long categoriaId;
@@ -43,6 +44,7 @@ public class ProductoDto {
         dto.setUsoInterno(entity.isUsoInterno());
         dto.setFechaIngreso(entity.getFechaIngreso());
         dto.setStockMinimo(entity.getStockMinimo());
+        dto.setImagenUrl(entity.getImagenUrl());
 
         if (entity.getEmpresa() != null)
             dto.setEmpresaId(entity.getEmpresa().getId());
@@ -108,6 +110,7 @@ public class ProductoDto {
         producto.setUsoInterno(this.isUsoInterno());
         producto.setFechaIngreso(this.getFechaIngreso());
         producto.setStockMinimo(this.getStockMinimo());
+        producto.setImagenUrl(this.imagenUrl);
 
         if (this.empresaId != null) {
             Empresa empresa = new Empresa();

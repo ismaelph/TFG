@@ -88,6 +88,9 @@ public class ProductoServiceImpl implements ProductoService {
         if (productoEditado.getStockMinimo() != null)
             productoBD.setStockMinimo(productoEditado.getStockMinimo());
 
+        if (productoEditado.getImagenUrl() != null)
+            productoBD.setImagenUrl(productoEditado.getImagenUrl());
+
         // ✅ Verificación correcta
         if (productoBD.getCantidad() != null && productoBD.getStockMinimo() != null &&
                 productoBD.getCantidad() <= productoBD.getStockMinimo()) {

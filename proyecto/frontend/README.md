@@ -1,27 +1,133 @@
-# Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.6.
+# 🧩 Invecta - Gestión de Inventario Empresarial
 
-## Development server
+**Invecta** es una plataforma web de gestión de inventario orientada a empresas, desarrollada como proyecto final. Permite a los administradores controlar productos, organizar almacenes, gestionar proveedores y categorías, y a los empleados realizar solicitudes de productos. Está construida con Angular + TailwindCSS en el frontend y Spring Boot + MySQL en el backend.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+---
 
-## Code scaffolding
+## 🧪 Usuarios de prueba
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+> Todos los usuarios usan la contraseña `castelar`.
 
-## Build
+| Usuario              | Rol               | Email                              |
+|---------------------|-------------------|------------------------------------|
+| Admin Global        | ROLE_ADMIN        | admin@example.com                  |
+| Admin Empresa 1     | ROLE_ADMIN_EMPRESA| empresa1@sbs.com                   |
+| Admin Empresa 2     | ROLE_ADMIN_EMPRESA| pavonhueteismael@gmail.com         |
+| Empleado Empresa 1  | ROLE_EMPLEADO     | pavonhueteismael@proton.me         |
+| Empleado Empresa 2  | ROLE_EMPLEADO     | rajanteflorencio@gmail.com         |
+| Usuario Libre       | ROLE_USER         | libre@example.com                  |
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+---
 
-## Running unit tests
+## 🧰 Tecnologías utilizadas
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Backend
+- Java 17 + Spring Boot 3
+- Spring Security con JWT
+- Spring Data JPA (Hibernate)
+- JavaMailSender para correos
+- MySQL (desarrollo con H2 opcional)
+- Gradle como sistema de construcción
 
-## Running end-to-end tests
+### Frontend
+- Angular 14.2.6
+- TailwindCSS (con paleta personalizada)
+- Bootstrap Icons + SweetAlert2
+- Angular Interceptors para JWT y errores
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+---
 
-## Further help
+## ⚙️ Paleta de colores (Tailwind)
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```js
+primary: '#1E1E1E',
+secondary: '#3A5A74',
+accent: '#6BB2A7',
+accent-dark: '#417B73',
+secondary-light: '#6B7280',
+background: '#F5F5F5',
+```
+
+---
+
+## 📦 Funcionalidades destacadas
+
+- Gestión de empresas, usuarios, productos, almacenes.
+- Estructura física real: almacenes → plantas → estanterías.
+- Solicitudes normales y personalizadas de productos.
+- Sistema de notificaciones por solicitudes.
+- Correos automáticos para avisos de stock.
+- Control de roles y permisos.
+- Exportación de inventario y movimientos (pendiente).
+- Historial de análisis de riesgo PCI por usuario.
+
+---
+
+## 🐳 Despliegue en producción
+
+La aplicación está desplegada en **Azure** mediante contenedores Docker:
+
+- Un contenedor para el backend (Spring Boot con Tomcat)
+- Un contenedor para el frontend Angular
+- Un contenedor con MySQL como base de datos
+- Proxy inverso con Caddy (puertos 80 y 443)
+- DNS pública: [invecta.ddns.net](http://invecta.ddns.net) (mediante No-IP)
+
+---
+
+## 🔐 Seguridad
+
+- Login con JWT (token seguro)
+- Guardas e interceptores en Angular
+- Protección de endpoints con `@PreAuthorize`
+- Cambios de contraseña y recuperación por correo
+- Roles definidos: ADMIN, ADMIN_EMPRESA, EMPLEADO, USER
+
+---
+
+## ⚡ Instalación local (dev)
+
+### Backend
+
+```bash
+./gradlew bootRun
+```
+
+Por defecto usa H2, puedes cambiar a MySQL en `application.yml`.
+
+### Frontend
+
+```bash
+npm install
+ng serve
+```
+
+---
+
+## 📂 Estructura del proyecto
+
+```
+backend/
+├── controller/
+├── model/
+├── service/
+├── config/
+└── repository/
+
+frontend/
+├── app/
+│   ├── core/
+│   ├── shared/
+│   ├── modules/
+│   └── auth/
+└── assets/
+```
+
+---
+
+## 🧑 Autor
+
+Desarrollado por **Ismael Pavón Huete** – Proyecto para [iescastelar](https://iescastelar.educarex.es/)
+
+Contacto: pavonhueteismael@gmail.com

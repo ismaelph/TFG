@@ -11,7 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -57,7 +63,11 @@ public class ProductoController {
 
     // CREAR producto
     @PostMapping("")
-    public ResponseEntity<?> create(@RequestBody ProductoDto dto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public ResponseEntity<?> create(
+            @RequestPart("producto") ProductoDto dto,
+            @RequestPart(value = "imagen", required = false) MultipartFile imagen,
+            @AuthenticationPrincipal UserDetailsImpl userDetails) {
+
         User user = userService.findById(userDetails.getId());
         Empresa empresa = user.getEmpresa();
 
@@ -65,7 +75,26 @@ public class ProductoController {
             return ResponseEntity.status(403).body(ErrorDto.from("No perteneces a ninguna empresa"));
         }
 
+        // Guardar imagen en carpeta de empresa
+        String imagenUrl = null;
+        if (imagen != null && !imagen.isEmpty()) {
+            try {
+                String rutaBase = "src/main/resources/productos/" + empresa.getNombre();
+                File carpeta = new File(rutaBase);
+                if (!carpeta.exists()) carpeta.mkdirs();
+
+                String nombreArchivo = UUID.randomUUID() + "_" + imagen.getOriginalFilename();
+                Path rutaImagen = Paths.get(rutaBase, nombreArchivo);
+                Files.write(rutaImagen, imagen.getBytes());
+
+                imagenUrl = "/productos/" + empresa.getNombre() + "/" + nombreArchivo;
+            } catch (IOException e) {
+                return ResponseEntity.status(500).body("Error al guardar la imagen.");
+            }
+        }
+
         Producto nuevo = dto.to();
+        nuevo.setImagenUrl(imagenUrl);
         nuevo.setEmpresa(empresa);
         nuevo.setCategoria(categoriaService.findById(dto.getCategoriaId()));
         nuevo.setProveedor(dto.getProveedorId() != null ? proveedorService.findById(dto.getProveedorId()) : null);
@@ -75,9 +104,15 @@ public class ProductoController {
         return ResponseEntity.ok(ProductoDto.from(guardado));
     }
 
+
     // EDITAR producto
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody ProductoDto dto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public ResponseEntity<?> update(
+            @PathVariable Long id,
+            @RequestPart("producto") ProductoDto dto,
+            @RequestPart(value = "imagen", required = false) MultipartFile imagen,
+            @AuthenticationPrincipal UserDetailsImpl userDetails) {
+
         Producto existente = productoService.findById(id);
         User user = userService.findById(userDetails.getId());
 
@@ -85,13 +120,32 @@ public class ProductoController {
             return ResponseEntity.status(403).body(ErrorDto.from("No puedes modificar este producto"));
         }
 
+        String imagenUrl = existente.getImagenUrl(); // mantener imagen actual si no se cambia
+        if (imagen != null && !imagen.isEmpty()) {
+            try {
+                String rutaBase = "src/main/resources/productos/" + existente.getEmpresa().getNombre();
+                File carpeta = new File(rutaBase);
+                if (!carpeta.exists()) carpeta.mkdirs();
+
+                String nombreArchivo = UUID.randomUUID() + "_" + imagen.getOriginalFilename();
+                Path rutaImagen = Paths.get(rutaBase, nombreArchivo);
+                Files.write(rutaImagen, imagen.getBytes());
+
+                imagenUrl = "/productos/" + existente.getEmpresa().getNombre() + "/" + nombreArchivo;
+            } catch (IOException e) {
+                return ResponseEntity.status(500).body("Error al guardar la imagen.");
+            }
+        }
+
         Producto actualizado = dto.to();
+        actualizado.setImagenUrl(imagenUrl);
         actualizado.setCategoria(categoriaService.findById(dto.getCategoriaId()));
         actualizado.setProveedor(dto.getProveedorId() != null ? proveedorService.findById(dto.getProveedorId()) : null);
 
         Producto finalizado = productoService.update(actualizado, id);
         return ResponseEntity.ok(ProductoDto.from(finalizado));
     }
+
 
     // ELIMINAR producto
     @DeleteMapping("/{id}")
