@@ -133,4 +133,32 @@ public class SolicitudPersonalizadaServiceImpl implements SolicitudPersonalizada
         System.out.println("🔍 Buscando todas las solicitudes personalizadas para empresa: " + empresa.getNombre());
         return solicitudRepository.findByUsuario_Empresa(empresa);
     }
+
+    @Override
+    public SolicitudPersonalizada resolverSolicitud(Long solicitudId, boolean aceptar, String respuestaAdmin) {
+        System.out.println("🟢 Resolviendo solicitud personalizada ID: " + solicitudId + " | Aceptar: " + aceptar);
+        System.out.println("📩 Respuesta del admin: " + respuestaAdmin);
+
+        SolicitudPersonalizada solicitud = solicitudRepository.findById(solicitudId)
+                .orElseThrow(() -> new IllegalArgumentException("❌ Solicitud no encontrada"));
+
+        if (solicitud.getEstado() != EstadoSolicitud.PENDIENTE) {
+            System.out.println("⚠️ Solicitud ya procesada con estado: " + solicitud.getEstado());
+            throw new IllegalStateException("La solicitud ya ha sido procesada.");
+        }
+
+        if (!aceptar) {
+            solicitud.setEstado(EstadoSolicitud.RECHAZADA);
+            System.out.println("🔴 Solicitud rechazada.");
+        } else {
+            solicitud.setEstado(EstadoSolicitud.EN_ESPERA_STOCK);
+            System.out.println("⏳ Solicitud aceptada. Esperando a que se cree el producto.");
+        }
+
+        solicitud.setRespuestaAdmin(respuestaAdmin);
+        solicitud.setFechaResolucion(Instant.now());
+
+        return solicitudRepository.save(solicitud);
+    }
+
 }

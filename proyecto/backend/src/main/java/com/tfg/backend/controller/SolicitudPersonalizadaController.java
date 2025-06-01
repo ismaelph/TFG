@@ -2,6 +2,7 @@ package com.tfg.backend.controller;
 
 import com.tfg.backend.auth.models.User;
 import com.tfg.backend.auth.services.UserDetailsImpl;
+import com.tfg.backend.model.dto.SolicitudMovimientoDto;
 import com.tfg.backend.model.dto.SolicitudPersonalizadaDto;
 import com.tfg.backend.model.dto.ErrorDto;
 import com.tfg.backend.model.entity.SolicitudPersonalizada;
@@ -190,4 +191,41 @@ public class SolicitudPersonalizadaController {
             return ResponseEntity.status(500).body(Map.of("error", "Error interno al obtener solicitudes"));
         }
     }
+
+    @PutMapping("/{id}/aprobar")
+    @PreAuthorize("hasRole('ROLE_ADMIN_EMPRESA')")
+    public ResponseEntity<?> aprobarSolicitud(
+            @PathVariable Long id,
+            @RequestBody Map<String, Object> body,
+            @AuthenticationPrincipal UserDetailsImpl userDetails) {
+
+        System.out.println("📡 Endpoint: PUT /api/solicitudes/personalizadas/" + id + "/aprobar");
+        System.out.println("🔐 Usuario autenticado: ID=" + userDetails.getId() + ", Username=" + userDetails.getUsername());
+
+        try {
+            boolean aceptar = (boolean) body.getOrDefault("aceptar", true);
+            String respuestaAdmin = (String) body.getOrDefault("respuestaAdmin", "");
+
+            System.out.println("📥 Petición recibida para solicitud personalizada ID: " + id);
+            System.out.println("✅ ¿Aceptar?: " + aceptar);
+            System.out.println("📝 Respuesta del admin: " + respuestaAdmin);
+
+            SolicitudPersonalizada solicitud = solicitudService.resolverSolicitud(id, aceptar, respuestaAdmin);
+
+            System.out.println("✅ Solicitud procesada. Estado final: " + solicitud.getEstado());
+            return ResponseEntity.ok(SolicitudPersonalizadaDto.from(solicitud));
+
+        } catch (Exception e) {
+            System.err.println("❌ Error al procesar la solicitud personalizada:");
+            e.printStackTrace();
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of(
+                            "error", "Error al aprobar la solicitud personalizada",
+                            "message", e.getMessage()
+                    ));
+        }
+    }
+
+
 }

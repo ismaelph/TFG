@@ -18,6 +18,7 @@ public interface SolicitudPersonalizadaService {
     void crearSolicitud(SolicitudPersonalizadaDto dto, User usuario);
     List<SolicitudPersonalizada> findByEmpresaAndLeidaFalse(Empresa empresa);
     List<SolicitudPersonalizada> findByEmpresa(com.tfg.backend.model.entity.Empresa empresa);
+    SolicitudPersonalizada resolverSolicitud(Long solicitudId, boolean aceptar, String respuestaAdmin);
 
 
 }

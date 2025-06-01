@@ -228,7 +228,8 @@ public class SolicitudMovimientoServiceImpl implements SolicitudMovimientoServic
         System.out.println("🔗 Producto vinculado: " + (producto != null ? producto.getNombre() : "null"));
         System.out.println("👤 Usuario solicitante: " + (usuario != null ? usuario.getUsername() : "null"));
 
-        if (solicitud.getEstado() != EstadoSolicitud.PENDIENTE) {
+        if (solicitud.getEstado() != EstadoSolicitud.PENDIENTE &&
+                solicitud.getEstado() != EstadoSolicitud.EN_ESPERA_STOCK) {
             System.out.println("⚠️ Solicitud ya procesada con estado: " + solicitud.getEstado());
             throw new IllegalStateException("La solicitud ya ha sido procesada.");
         }
@@ -238,17 +239,20 @@ public class SolicitudMovimientoServiceImpl implements SolicitudMovimientoServic
             solicitud.setEstado(EstadoSolicitud.RECHAZADA);
             solicitud.setRespuestaAdmin(respuestaAdmin);
             solicitud.setFechaResolucion(Instant.now());
+            solicitud.setLeida(true);
             SolicitudMovimiento guardada = solicitudRepository.save(solicitud);
             System.out.println("💾 Solicitud rechazada guardada con ID: " + guardada.getId());
             return guardada;
         }
 
         int stockDisponible = producto.getCantidad();
-        if (solicitud.getCantidadSolicitada() == null) {
+        Integer cantidadSolicitada = solicitud.getCantidadSolicitada();
+
+        if (cantidadSolicitada == null) {
             System.out.println("❌ cantidadSolicitada es null");
             throw new IllegalArgumentException("La cantidad solicitada no puede ser null");
         }
-        int cantidadSolicitada = solicitud.getCantidadSolicitada();
+
         System.out.println("📦 Stock disponible: " + stockDisponible + " | Solicitado: " + cantidadSolicitada);
 
         if (stockDisponible >= cantidadSolicitada) {
@@ -267,8 +271,8 @@ public class SolicitudMovimientoServiceImpl implements SolicitudMovimientoServic
             movimientoProductoService.save(movimiento);
             System.out.println("📄 Movimiento registrado con éxito para producto: " + producto.getNombre());
 
-            solicitud.setEstado(EstadoSolicitud.STOCK_RECIBIDO);
-            System.out.println("✅ Estado de solicitud actualizado a STOCK_RECIBIDO");
+            solicitud.setEstado(EstadoSolicitud.ENVIADA); // 🔄 Cambiado de STOCK_RECIBIDO a ENVIADA
+            System.out.println("✅ Estado de solicitud actualizado a ENVIADA");
         } else {
             solicitud.setEstado(EstadoSolicitud.EN_ESPERA_STOCK);
             System.out.println("⏳ No hay stock suficiente. Estado actualizado a EN_ESPERA_STOCK");
@@ -276,13 +280,12 @@ public class SolicitudMovimientoServiceImpl implements SolicitudMovimientoServic
 
         solicitud.setRespuestaAdmin(respuestaAdmin);
         solicitud.setFechaResolucion(Instant.now());
+        solicitud.setLeida(true);
+
         SolicitudMovimiento actualizada = solicitudRepository.save(solicitud);
         System.out.println("💾 Solicitud final guardada. Estado: " + actualizada.getEstado() + ", Fecha resolución: " + actualizada.getFechaResolucion());
 
         return actualizada;
     }
-
-
-
 
 }

@@ -6,5 +6,6 @@ public enum EstadoSolicitud {
     RECHAZADA,
     EN_ESPERA_STOCK,
     STOCK_ENVIADO,
-    STOCK_RECIBIDO
+    STOCK_RECIBIDO,
+    ENVIADA
 }
