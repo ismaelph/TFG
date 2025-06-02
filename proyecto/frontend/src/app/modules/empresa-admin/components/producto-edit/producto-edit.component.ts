@@ -3,8 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductoService } from '../../services/producto.service';
 import { CategoriaService } from '../../services/categoria.service';
 import { ProveedorService } from '../../services/proveedor.service';
+import { EstanteriaService } from '../../services/estanteria.service';
 import { Categoria } from 'src/app/core/interfaces/categoria';
 import { Proveedor } from 'src/app/core/interfaces/proveedor';
+import { Estanteria } from 'src/app/core/interfaces/estanteria';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -19,6 +21,8 @@ export class ProductoEditComponent implements OnInit {
   productoForm!: FormGroup;
   categorias: Categoria[] = [];
   proveedores: Proveedor[] = [];
+  estanterias: Estanteria[] = [];
+
   error: string | null = null;
   productoId!: number;
   cargando: boolean = true;
@@ -27,7 +31,8 @@ export class ProductoEditComponent implements OnInit {
     private fb: FormBuilder,
     private productoService: ProductoService,
     private categoriaService: CategoriaService,
-    private proveedorService: ProveedorService
+    private proveedorService: ProveedorService,
+    private estanteriaService: EstanteriaService
   ) {}
 
   ngOnInit(): void {
@@ -41,24 +46,31 @@ export class ProductoEditComponent implements OnInit {
       usoInterno: [true],
       categoriaId: [null, Validators.required],
       proveedorId: [null],
+      estanteriaId: [null, Validators.required],
       stockMinimo: [0, [Validators.required, Validators.min(0)]]
     });
 
     Promise.all([
       this.categoriaService.getCategorias().toPromise(),
-      this.proveedorService.getProveedores().toPromise()
-    ]).then(([cats, provs]) => {
+      this.proveedorService.getProveedores().toPromise(),
+      this.estanteriaService.getEstanterias().toPromise()
+    ])
+    .then(([cats, provs, ests]) => {
       this.categorias = cats ?? [];
       this.proveedores = provs ?? [];
+      this.estanterias = ests ?? [];
+
       console.log('✅ Categorías:', this.categorias);
       console.log('✅ Proveedores:', this.proveedores);
+      console.log('✅ Estanterías:', this.estanterias);
 
       this.productoService.getProductoById(this.productoId).subscribe({
         next: (producto) => {
           console.log('✅ Producto:', producto);
 
-          producto.categoriaId = producto.categoriaId !== null ? +producto.categoriaId : null;
-          producto.proveedorId = producto.proveedorId !== null ? +producto.proveedorId : null;
+          if (producto.categoriaId != null) producto.categoriaId = +producto.categoriaId;
+          if (producto.proveedorId != null) producto.proveedorId = +producto.proveedorId;
+          if (producto.estanteriaId != null) producto.estanteriaId = +producto.estanteriaId;
           producto.stockMinimo = producto.stockMinimo ?? 0;
 
           setTimeout(() => {
@@ -72,7 +84,8 @@ export class ProductoEditComponent implements OnInit {
           this.error = 'No se pudo cargar el producto.';
         }
       });
-    }).catch((err) => {
+    })
+    .catch((err) => {
       console.error('❌ Error inicial:', err);
       this.error = 'Error al cargar datos iniciales.';
     });
@@ -104,6 +117,6 @@ export class ProductoEditComponent implements OnInit {
   }
 
   compararIds(a: any, b: any): boolean {
-    return a == b; // importante: usar == y no ===
+    return a == b;
   }
 }

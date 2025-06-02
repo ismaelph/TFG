@@ -52,9 +52,16 @@
 
     <!-- Estantería -->
     <div class="mb-4">
-      <label class="block font-medium mb-1">ID Estantería</label>
-      <input formControlName="estanteriaId" type="number" class="input w-full">
+      <label class="block text-sm font-medium text-gray-700">Estantería</label>
+      <select formControlName="estanteriaId"
+        class="mt-1 p-2 block w-full border rounded-md focus:ring-accent focus:border-accent">
+        <option [ngValue]="null">Selecciona una estantería</option>
+        <option *ngFor="let e of estanterias" [ngValue]="e.id">
+          {{ e.codigo }} <span *ngIf="e.planta">({{ e.planta.nombre }})</span>
+        </option>
+      </select>
     </div>
+
 
     <!-- Imagen -->
     <div class="mb-6">
@@ -65,11 +72,11 @@
     <!-- Botones -->
     <div class="flex justify-end gap-2">
       <button type="button" (click)="cancelar()"
-              class="bg-secondary-light text-white px-4 py-2 rounded hover:bg-secondary transition">
+        class="bg-secondary-light text-white px-4 py-2 rounded hover:bg-secondary transition">
         Cancelar
       </button>
       <button type="submit" [disabled]="productoForm.invalid"
-              class="bg-accent text-white px-4 py-2 rounded hover:bg-accent-dark transition">
+        class="bg-accent text-white px-4 py-2 rounded hover:bg-accent-dark transition">
         Crear
       </button>
     </div>

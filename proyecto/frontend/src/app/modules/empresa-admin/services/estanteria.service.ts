@@ -10,7 +10,7 @@ import { Estanteria } from 'src/app/core/interfaces/estanteria';
 export class EstanteriaService {
   private apiUrl = `${environment.apiUrl}/api/estanterias`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   // POST – Crear estantería
   crear(estanteria: Estanteria): Observable<Estanteria> {
@@ -36,4 +36,10 @@ export class EstanteriaService {
   eliminar(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
+
+  // GET – Obtener todas las estanterías
+  getEstanterias(): Observable<Estanteria[]> {
+    return this.http.get<Estanteria[]>(this.apiUrl);
+  }
+
 }

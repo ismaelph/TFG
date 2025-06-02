@@ -48,18 +48,20 @@
         <tr *ngFor="let p of productosPaginados" class="hover:bg-gray-50 transition">
           <td class="px-4 py-2">{{ p.nombre }}</td>
           <td class="px-4 py-2">
-            <img *ngIf="p.imagenUrl" [src]="'http://localhost:8080' + encodeUrl(p.imagenUrl)" alt="Imagen"
-              class="h-12 w-12 object-cover rounded-md" />
-
+            <img *ngIf="p.imagenUrl" [src]="'http://localhost:8080' + p.imagenUrl" alt="Imagen"
+              class="h-12 w-12 object-contain rounded-md bg-white p-1" />
           </td>
           <td class="px-4 py-2">{{ p.categoriaNombre }}</td>
           <td class="px-4 py-2">{{ p.proveedorNombre }}</td>
           <td class="px-4 py-2">{{ p.cantidad }}</td>
           <td class="px-4 py-2">{{ p.precio.toFixed(2) }} €</td>
           <td class="px-4 py-2 flex gap-2">
+            <i class="bi bi-eye icon-action text-green-600" title="Ver"
+              (click)="abrirModalVer(p)"></i>
             <i class="bi bi-pencil-square icon-action text-blue-600" title="Editar"
               (click)="abrirModalEditar(p.id!)"></i>
-            <i class="bi bi-trash icon-action text-red-600" title="Eliminar" (click)="confirmarEliminacion(p.id!)"></i>
+            <i class="bi bi-trash icon-action text-red-600" title="Eliminar"
+              (click)="confirmarEliminacion(p.id!)"></i>
           </td>
         </tr>
         <tr *ngIf="productosPaginados.length === 0">
@@ -87,5 +89,30 @@
       &times;
     </button>
     <app-producto-edit [id]="productoIdEditar!" (cerrar)="cerrarModales()"></app-producto-edit>
+  </div>
+</div>
+
+<!-- Modal VER producto -->
+<div *ngIf="mostrarModalVer && productoSeleccionado as p" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+  <div class="bg-white p-6 rounded-xl shadow-lg w-full max-w-2xl relative fade-slide-in">
+    <button (click)="cerrarModalVer()" class="absolute top-2 right-2 text-gray-500 hover:text-black text-xl">
+      &times;
+    </button>
+
+    <div class="flex flex-col md:flex-row gap-6 items-center">
+      <img *ngIf="p.imagenUrl"
+           [src]="'http://localhost:8080' + p.imagenUrl"
+           alt="Imagen"
+           class="w-48 h-48 object-contain border rounded bg-white p-2" />
+
+      <div class="text-sm space-y-2 w-full">
+        <h2 class="text-xl font-bold text-primary">{{ p.nombre }}</h2>
+        <p><strong>Categoría:</strong> {{ p.categoriaNombre }}</p>
+        <p><strong>Proveedor:</strong> {{ p.proveedorNombre }}</p>
+        <p><strong>Cantidad:</strong> {{ p.cantidad }}</p>
+        <p><strong>Precio:</strong> {{ p.precio.toFixed(2) }} €</p>
+        <p *ngIf="p.ubicacion"><strong>Ubicación:</strong> {{ p.ubicacion }}</p>
+      </div>
+    </div>
   </div>
 </div>

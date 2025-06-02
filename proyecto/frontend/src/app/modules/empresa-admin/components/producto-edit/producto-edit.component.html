@@ -39,11 +39,21 @@
     </select>
   </div>
 
-  <div class="mb-6">
+  <div class="mb-4">
     <label class="block font-medium mb-1">Proveedor (opcional)</label>
     <select formControlName="proveedorId" class="input w-full" [compareWith]="compararIds">
       <option [ngValue]="null">Sin proveedor</option>
       <option *ngFor="let prov of proveedores" [ngValue]="prov.id">{{ prov.nombre }}</option>
+    </select>
+  </div>
+
+  <div class="mb-6">
+    <label class="block font-medium mb-1">Estantería</label>
+    <select formControlName="estanteriaId" class="input w-full" [compareWith]="compararIds">
+      <option [ngValue]="null">Selecciona una estantería</option>
+      <option *ngFor="let e of estanterias" [ngValue]="e.id">
+        {{ e.codigo }} <span *ngIf="e.planta">({{ e.planta.nombre }})</span>
+      </option>
     </select>
   </div>
 

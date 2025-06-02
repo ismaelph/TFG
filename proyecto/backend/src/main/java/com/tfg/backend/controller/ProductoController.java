@@ -80,18 +80,34 @@ public class ProductoController {
         String imagenUrl = null;
         if (imagen != null && !imagen.isEmpty()) {
             try {
-                String rutaBase = "uploads/productos/" + empresa.getNombre();
+                // 🔧 Normaliza nombre de empresa: quita espacios, tildes, ñ y símbolos raros
+                String carpetaEmpresa = empresa.getNombre()
+                        .toLowerCase()
+                        .replaceAll("[áàäâÁÀÄÂ]", "a")
+                        .replaceAll("[éèëêÉÈËÊ]", "e")
+                        .replaceAll("[íìïîÍÌÏÎ]", "i")
+                        .replaceAll("[óòöôÓÒÖÔ]", "o")
+                        .replaceAll("[úùüûÚÙÜÛ]", "u")
+                        .replaceAll("ñ", "n")
+                        .replaceAll("[^a-z0-9]", "_");
+
+                // 📂 Crear carpeta si no existe
+                String rutaBase = "uploads/productos/" + carpetaEmpresa;
                 File carpeta = new File(rutaBase);
                 if (!carpeta.exists()) carpeta.mkdirs();
 
+                // 🖼️ Guardar archivo
                 String nombreArchivo = UUID.randomUUID() + "_" + imagen.getOriginalFilename();
                 Path rutaImagen = Paths.get(rutaBase, nombreArchivo);
                 Files.write(rutaImagen, imagen.getBytes());
 
-                imagenUrl = "/productos/" + empresa.getNombre() + "/" + nombreArchivo;
+                // 🌐 Ruta accesible desde el frontend
+                imagenUrl = "/uploads/productos/" + carpetaEmpresa + "/" + nombreArchivo;
+
             } catch (IOException e) {
                 return ResponseEntity.status(500).body("Error al guardar la imagen.");
             }
+
         }
 
         Producto nuevo = dto.to();
@@ -151,7 +167,7 @@ public class ProductoController {
                 Path rutaImagen = Paths.get(rutaBase, nombreArchivo);
                 Files.write(rutaImagen, imagen.getBytes());
 
-                imagenUrl = "/productos/" + existente.getEmpresa().getNombre() + "/" + nombreArchivo;
+                imagenUrl = "uploads/productos/" + existente.getEmpresa().getNombre() + "/" + nombreArchivo;
                 System.out.println("✅ Imagen guardada: " + imagenUrl);
 
             } catch (IOException e) {

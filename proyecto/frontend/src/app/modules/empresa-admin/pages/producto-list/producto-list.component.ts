@@ -29,13 +29,16 @@ export class ProductoListComponent implements OnInit {
 
   mostrarModalCrear = false;
   mostrarModalEditar = false;
+  mostrarModalVer = false;
+
   productoIdEditar: number | null = null;
+  productoSeleccionado: Producto | null = null;
 
   constructor(
     private productoService: ProductoService,
     private categoriaService: CategoriaService,
     private proveedorService: ProveedorService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.cargarCategorias();
@@ -115,6 +118,16 @@ export class ProductoListComponent implements OnInit {
     this.mostrarModalEditar = true;
   }
 
+  abrirModalVer(producto: Producto): void {
+    this.productoSeleccionado = producto;
+    this.mostrarModalVer = true;
+  }
+
+  cerrarModalVer(): void {
+    this.mostrarModalVer = false;
+    this.productoSeleccionado = null;
+  }
+
   cerrarModales(): void {
     this.mostrarModalCrear = false;
     this.mostrarModalEditar = false;
@@ -151,9 +164,4 @@ export class ProductoListComponent implements OnInit {
       }
     });
   }
-
-  encodeUrl(url: string): string {
-    return encodeURI(url);
-  }
-
 }
