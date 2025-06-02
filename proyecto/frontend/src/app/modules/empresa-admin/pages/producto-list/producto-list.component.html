@@ -3,8 +3,8 @@
     <h2 class="text-2xl font-bold text-primary">Productos</h2>
 
     <div class="flex flex-wrap gap-2 items-center">
-      <input type="text" [(ngModel)]="searchTerm" (ngModelChange)="actualizarFiltro()"
-        placeholder="Buscar producto..." class="p-2 border rounded-md w-60">
+      <input type="text" [(ngModel)]="searchTerm" (ngModelChange)="actualizarFiltro()" placeholder="Buscar producto..."
+        class="p-2 border rounded-md w-60">
 
       <button (click)="cambiarOrden()"
         class="px-3 py-2 bg-secondary text-white rounded hover:bg-secondary-light transition text-sm">
@@ -36,6 +36,7 @@
       <thead class="bg-secondary text-white">
         <tr>
           <th class="px-4 py-2">Nombre</th>
+          <th class="px-4 py-2">Imagen</th>
           <th class="px-4 py-2">Categoría</th>
           <th class="px-4 py-2">Proveedor</th>
           <th class="px-4 py-2">Cantidad</th>
@@ -46,6 +47,11 @@
       <tbody>
         <tr *ngFor="let p of productosPaginados" class="hover:bg-gray-50 transition">
           <td class="px-4 py-2">{{ p.nombre }}</td>
+          <td class="px-4 py-2">
+            <img *ngIf="p.imagenUrl" [src]="'http://localhost:8080' + encodeUrl(p.imagenUrl)" alt="Imagen"
+              class="h-12 w-12 object-cover rounded-md" />
+
+          </td>
           <td class="px-4 py-2">{{ p.categoriaNombre }}</td>
           <td class="px-4 py-2">{{ p.proveedorNombre }}</td>
           <td class="px-4 py-2">{{ p.cantidad }}</td>
@@ -53,12 +59,11 @@
           <td class="px-4 py-2 flex gap-2">
             <i class="bi bi-pencil-square icon-action text-blue-600" title="Editar"
               (click)="abrirModalEditar(p.id!)"></i>
-            <i class="bi bi-trash icon-action text-red-600" title="Eliminar"
-              (click)="confirmarEliminacion(p.id!)"></i>
+            <i class="bi bi-trash icon-action text-red-600" title="Eliminar" (click)="confirmarEliminacion(p.id!)"></i>
           </td>
         </tr>
         <tr *ngIf="productosPaginados.length === 0">
-          <td colspan="6" class="text-center py-4 text-gray-500">No hay productos que coincidan</td>
+          <td colspan="7" class="text-center py-4 text-gray-500">No hay productos que coincidan</td>
         </tr>
       </tbody>
     </table>

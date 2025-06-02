@@ -20,9 +20,9 @@
       <input formControlName="cantidad" type="number" class="input w-full">
     </div>
 
-    <!-- Cantidad -->
+    <!-- Stock mínimo -->
     <div class="mb-4">
-      <label class="block font-medium mb-1">Minimo de Stock</label>
+      <label class="block font-medium mb-1">Mínimo de Stock</label>
       <input formControlName="stockMinimo" type="number" class="input w-full">
     </div>
 
@@ -42,12 +42,24 @@
     </div>
 
     <!-- Proveedor -->
-    <div class="mb-6">
+    <div class="mb-4">
       <label class="block font-medium mb-1">Proveedor (opcional)</label>
       <select formControlName="proveedorId" class="input w-full">
         <option value="">Sin proveedor</option>
         <option *ngFor="let prov of proveedores" [value]="prov.id">{{ prov.nombre }}</option>
       </select>
+    </div>
+
+    <!-- Estantería -->
+    <div class="mb-4">
+      <label class="block font-medium mb-1">ID Estantería</label>
+      <input formControlName="estanteriaId" type="number" class="input w-full">
+    </div>
+
+    <!-- Imagen -->
+    <div class="mb-6">
+      <label class="block font-medium mb-1">Imagen del producto</label>
+      <input type="file" (change)="seleccionarImagen($event)" class="input w-full">
     </div>
 
     <!-- Botones -->

@@ -33,6 +33,7 @@ public class ProductoController {
     @Autowired private ProveedorService proveedorService;
     @Autowired private UserService userService;
     @Autowired private MovimientoProductoService movimientoService;
+    @Autowired private EstanteriaService estanteriaService;
 
     // LISTAR productos de mi empresa
     @GetMapping("")
@@ -79,7 +80,7 @@ public class ProductoController {
         String imagenUrl = null;
         if (imagen != null && !imagen.isEmpty()) {
             try {
-                String rutaBase = "src/main/resources/productos/" + empresa.getNombre();
+                String rutaBase = "uploads/productos/" + empresa.getNombre();
                 File carpeta = new File(rutaBase);
                 if (!carpeta.exists()) carpeta.mkdirs();
 
@@ -113,36 +114,72 @@ public class ProductoController {
             @RequestPart(value = "imagen", required = false) MultipartFile imagen,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
 
-        Producto existente = productoService.findById(id);
-        User user = userService.findById(userDetails.getId());
+        System.out.println("📡 [PUT] /api/productos/" + id + " | EDITAR PRODUCTO");
 
-        if (existente == null || !existente.getEmpresa().equals(user.getEmpresa())) {
+        Producto existente = productoService.findById(id);
+        User usuario = userService.findById(userDetails.getId());
+
+        System.out.println("🟢 Producto ID: " + (existente != null ? existente.getId() : "null"));
+        System.out.println("🏢 Empresa del producto: " + (existente != null && existente.getEmpresa() != null ? existente.getEmpresa().getNombre() : "null"));
+        System.out.println("👤 Usuario autenticado: " + usuario.getUsername());
+        System.out.println("🏢 Empresa del usuario: " + (usuario.getEmpresa() != null ? usuario.getEmpresa().getNombre() : "null"));
+
+        if (existente == null) {
+            System.err.println("❌ Producto no encontrado con ID: " + id);
+            return ResponseEntity.status(404).body(ErrorDto.from("Producto no encontrado"));
+        }
+
+        if (usuario.getEmpresa() == null || !existente.getEmpresa().getId().equals(usuario.getEmpresa().getId())) {
+            System.err.println("🚫 El usuario no pertenece a la empresa del producto. Acceso denegado.");
             return ResponseEntity.status(403).body(ErrorDto.from("No puedes modificar este producto"));
         }
 
         String imagenUrl = existente.getImagenUrl(); // mantener imagen actual si no se cambia
+
         if (imagen != null && !imagen.isEmpty()) {
             try {
-                String rutaBase = "src/main/resources/productos/" + existente.getEmpresa().getNombre();
+                System.out.println("📎 Nueva imagen recibida: " + imagen.getOriginalFilename());
+
+                String rutaBase = "uploads/productos/" + existente.getEmpresa().getNombre();
                 File carpeta = new File(rutaBase);
-                if (!carpeta.exists()) carpeta.mkdirs();
+                if (!carpeta.exists()) {
+                    boolean creada = carpeta.mkdirs();
+                    System.out.println("📁 Carpeta creada: " + rutaBase + " → " + creada);
+                }
 
                 String nombreArchivo = UUID.randomUUID() + "_" + imagen.getOriginalFilename();
                 Path rutaImagen = Paths.get(rutaBase, nombreArchivo);
                 Files.write(rutaImagen, imagen.getBytes());
 
                 imagenUrl = "/productos/" + existente.getEmpresa().getNombre() + "/" + nombreArchivo;
+                System.out.println("✅ Imagen guardada: " + imagenUrl);
+
             } catch (IOException e) {
+                System.err.println("❌ Error al guardar la imagen:");
+                e.printStackTrace();
                 return ResponseEntity.status(500).body("Error al guardar la imagen.");
             }
+        } else {
+            System.out.println("📂 No se recibió imagen nueva. Se mantiene la existente.");
         }
 
+        // Construir el producto actualizado
         Producto actualizado = dto.to();
         actualizado.setImagenUrl(imagenUrl);
         actualizado.setCategoria(categoriaService.findById(dto.getCategoriaId()));
         actualizado.setProveedor(dto.getProveedorId() != null ? proveedorService.findById(dto.getProveedorId()) : null);
+        actualizado.setEstanteria(estanteriaService.findById(dto.getEstanteriaId())); // ✅ Cargar completa la estantería
 
-        Producto finalizado = productoService.update(actualizado, id);
+        productoService.update(actualizado, id);
+        Producto finalizado = productoService.findById(id);
+
+        // 🔁 Recargar estantería con ubicación para evitar null
+        if (finalizado.getEstanteria() != null) {
+            finalizado.setEstanteria(estanteriaService.findById(finalizado.getEstanteria().getId()));
+            System.out.println("🔁 Estantería recargada: ID = " + finalizado.getEstanteria().getId());
+        }
+
+        System.out.println("✅ Producto actualizado correctamente. ID: " + finalizado.getId() + ", Nombre: " + finalizado.getNombre());
         return ResponseEntity.ok(ProductoDto.from(finalizado));
     }
 

@@ -151,4 +151,9 @@ export class ProductoListComponent implements OnInit {
       }
     });
   }
+
+  encodeUrl(url: string): string {
+    return encodeURI(url);
+  }
+
 }
