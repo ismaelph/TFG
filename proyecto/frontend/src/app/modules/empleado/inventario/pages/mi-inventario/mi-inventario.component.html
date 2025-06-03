@@ -1,15 +1,28 @@
 <div class="fade-slide-in p-8 max-w-7xl mx-auto">
+  <!-- Encabezado y filtros -->
   <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
-    <h2 class="text-2xl font-bold text-primary">Mi Inventario</h2>
+    <h2 class="text-2xl font-bold text-primary">Productos</h2>
 
     <div class="flex flex-wrap gap-2 items-center">
-      <input [(ngModel)]="searchTerm" (ngModelChange)="actualizarFiltro()"
-        type="text" placeholder="Buscar producto..." class="p-2 border rounded-md w-60">
+      <input type="text" [(ngModel)]="searchTerm" (ngModelChange)="actualizarFiltro()" placeholder="Buscar producto..."
+        class="p-2 border rounded-md w-60 text-sm">
 
-      <button (click)="limpiarBusqueda()"
-        class="bg-secondary-light hover:bg-secondary text-white px-4 py-2 rounded text-sm transition">
-        Limpiar
+      <button (click)="cambiarOrden()"
+        class="px-3 py-2 bg-secondary text-white rounded hover:bg-secondary-light transition text-sm flex items-center gap-1">
+        <i class="bi" [ngClass]="ordenAscendente ? 'bi-sort-alpha-down' : 'bi-sort-alpha-up'"></i> Ordenar
       </button>
+
+      <select [(ngModel)]="categoriaSeleccionada" (ngModelChange)="actualizarFiltro()"
+        class="p-2 border rounded-md text-sm">
+        <option [ngValue]="null">Todas las categorías</option>
+        <option *ngFor="let cat of categorias" [ngValue]="cat.id">{{ cat.nombre }}</option>
+      </select>
+
+      <select [(ngModel)]="proveedorSeleccionado" (ngModelChange)="actualizarFiltro()"
+        class="p-2 border rounded-md text-sm">
+        <option [ngValue]="null">Todos los proveedores</option>
+        <option *ngFor="let prov of proveedores" [ngValue]="prov.id">{{ prov.nombre }}</option>
+      </select>
     </div>
   </div>
 
@@ -19,6 +32,9 @@
       <thead class="bg-secondary text-white">
         <tr>
           <th class="px-4 py-2">Nombre</th>
+          <th class="px-4 py-2">Imagen</th>
+          <th class="px-4 py-2">Categoría</th>
+          <th class="px-4 py-2">Proveedor</th>
           <th class="px-4 py-2">Cantidad</th>
           <th class="px-4 py-2">Precio</th>
           <th class="px-4 py-2">Acciones</th>
@@ -27,29 +43,68 @@
       <tbody>
         <tr *ngFor="let p of productosPaginados" class="hover:bg-gray-50 transition">
           <td class="px-4 py-2">{{ p.nombre }}</td>
+          <td class="px-4 py-2 text-center align-middle">
+            <img *ngIf="p.imagenUrl" [src]="'http://localhost:8080' + p.imagenUrl"
+              class="inline-block align-middle h-12 w-12 object-contain rounded-md bg-white p-1 border"
+              alt="Imagen del producto">
+          </td>
+
+
+          <td class="px-4 py-2">{{ p.categoriaNombre }}</td>
+          <td class="px-4 py-2">{{ p.proveedorNombre }}</td>
           <td class="px-4 py-2">{{ p.cantidad }}</td>
           <td class="px-4 py-2">{{ p.precio.toFixed(2) }} €</td>
-          <td class="px-4 py-2">
-            <i class="bi bi-send-fill icon-solicitar" title="Solicitar" (click)="abrirModal(p)"></i>
+          <td class="px-4 py-2 flex gap-3">
+            <i class="bi bi-send-fill icon-action text-accent" title="Solicitar"
+              (click)="abrirModalSolicitud(p.id!)"></i>
+            <i class="bi bi-info-circle-fill icon-action text-secondary" title="Más información"
+              (click)="abrirModalInfo(p.id!)"></i>
           </td>
+        </tr>
+        <tr *ngIf="productosPaginados.length === 0">
+          <td colspan="7" class="text-center py-4 text-gray-500">No hay productos que coincidan</td>
         </tr>
       </tbody>
     </table>
   </div>
 
+  <!-- Paginador -->
   <div class="mt-6 flex justify-center">
-    <app-paginator
-      [total]="filtrados.length"
-      [pageSize]="pageSize"
-      [currentPage]="currentPage"
+    <app-paginator [total]="filtrados.length" [pageSize]="pageSize" [currentPage]="currentPage"
       (pageChange)="cambiarPagina($event)">
     </app-paginator>
   </div>
 
-  <!-- Modal de solicitud -->
-  <app-formulario-solicitud
-    *ngIf="mostrarModal"
-    [producto]="productoSeleccionado!"
-    (cerrarModal)="cerrarModal()">
-  </app-formulario-solicitud>
+  <!-- Modal de Solicitud -->
+  <div *ngIf="mostrarModalSolicitud && productoSeleccionado"
+    class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+    <div class="bg-white p-6 rounded-xl shadow-lg w-full max-w-xl relative fade-slide-in">
+      <button (click)="cerrarModales()"
+        class="absolute top-2 right-2 text-gray-500 hover:text-black text-xl">&times;</button>
+      <app-formulario-solicitud [producto]="productoSeleccionado"
+        (cerrarModal)="cerrarModales()"></app-formulario-solicitud>
+    </div>
+  </div>
+
+  <!-- Modal de Información -->
+  <div *ngIf="mostrarModalInfo && productoSeleccionado as p"
+    class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+    <div class="bg-white p-6 rounded-xl shadow-lg w-full max-w-2xl relative fade-slide-in">
+      <button (click)="cerrarModales()"
+        class="absolute top-2 right-2 text-gray-500 hover:text-black text-xl">&times;</button>
+
+      <div class="flex flex-col md:flex-row gap-6 items-center">
+        <img *ngIf="p.imagenUrl" [src]="'http://localhost:8080' + p.imagenUrl" alt="Imagen del producto"
+          class="w-48 h-48 object-contain border rounded bg-white p-2" />
+
+        <div class="text-sm space-y-2 w-full">
+          <h2 class="text-xl font-bold text-primary">{{ p.nombre }}</h2>
+          <p><strong>Categoría:</strong> {{ p.categoriaNombre }}</p>
+          <p><strong>Proveedor:</strong> {{ p.proveedorNombre }}</p>
+          <p><strong>Cantidad:</strong> {{ p.cantidad }}</p>
+          <p><strong>Precio:</strong> {{ p.precio.toFixed(2) }} €</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

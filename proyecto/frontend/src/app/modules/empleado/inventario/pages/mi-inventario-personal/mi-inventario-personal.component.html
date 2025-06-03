@@ -1,1 +1,26 @@
-<p>mi-inventario-personal works!</p>
+<div class="fade-slide-in p-8 max-w-7xl mx-auto">
+  <h2 class="text-2xl font-bold mb-6 text-primary">Mi Inventario Personal</h2>
+
+  <div *ngIf="cargando" class="text-center text-secondary py-10">
+    <i class="bi bi-arrow-repeat animate-spin text-3xl"></i>
+    <p class="mt-2 text-sm">Cargando inventario...</p>
+  </div>
+
+  <div *ngIf="!cargando && inventario.length === 0" class="text-center py-10 text-gray-500">
+    No tienes productos entregados.
+  </div>
+
+  <app-table *ngIf="!cargando && inventario.length > 0"
+             [headers]="headers"
+             [rows]="rows">
+  </app-table>
+
+  <div *ngIf="!cargando && inventario.length > pageSize" class="mt-6 flex justify-center">
+    <app-paginator
+      [total]="inventario.length"
+      [pageSize]="pageSize"
+      [currentPage]="currentPage"
+      (pageChange)="cambiarPagina($event)">
+    </app-paginator>
+  </div>
+</div>

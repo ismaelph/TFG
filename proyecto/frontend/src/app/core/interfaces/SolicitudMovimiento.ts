@@ -10,4 +10,5 @@ export interface SolicitudMovimiento {
 
   // opcionales para visualización
   productoNombre?: string;
+  usuarioNombre?: string;
 }

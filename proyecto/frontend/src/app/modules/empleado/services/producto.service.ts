@@ -12,7 +12,7 @@ export class ProductoService {
 
   private baseUrl = PRODUCTO_ENDPOINT;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getTodos(): Observable<Producto[]> {
     return this.http.get<Producto[]>(this.baseUrl).pipe(
@@ -65,7 +65,6 @@ export class ProductoService {
   }
 
   getProductos(): Observable<Producto[]> {
-  return this.http.get<Producto[]>(`${this.baseUrl}`);
-}
-
+    return this.http.get<Producto[]>(`${this.baseUrl}`);
+  }
 }

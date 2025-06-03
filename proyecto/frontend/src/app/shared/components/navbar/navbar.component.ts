@@ -6,6 +6,9 @@ import { UserService } from 'src/app/core/services/user.service';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 
+import { SolicitudMovimientoService } from 'src/app/modules/empresa-admin/services/solicitud-movimiento-service.service';
+import { SolicitudPersonalizadaService } from 'src/app/modules/empresa-admin/services/solicitud-personalizada-service.service';
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -15,7 +18,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
   dropdownVisible = false;
   timeoutRef: any;
   sesionIniciada = false;
-  menuAbierto: boolean = false;
+  menuAbierto = false;
+  mostrarModalNotificaciones = false;
 
   esAdmin = false;
   esAdminEmpresa = false;
@@ -23,6 +27,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   esUsuario = false;
 
   nombreUsuario: string = 'Cuenta';
+  notificaciones: number = 0;
 
   private sessionSub!: Subscription;
 
@@ -30,20 +35,61 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private tokenService: TokenService,
     private sessionService: SessionService,
     private userService: UserService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private solicitudService: SolicitudMovimientoService,
+    private solicitudPersonalizadaService: SolicitudPersonalizadaService
+  ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
+    console.log('🔄 Navbar inicializado');
     this.actualizarEstado();
 
-    // 🔄 Escucha cualquier cambio de sesión (incluye actualizar perfil)
     this.sessionSub = this.sessionService.cambios$.subscribe(() => {
+      console.log('🟢 Sesión actualizada por cambios$');
       this.actualizarEstado();
+    });
+
+    if (this.tokenService.isLogged() && this.tokenService.hasRole('ROLE_ADMIN_EMPRESA')) {
+      setTimeout(() => this.cargarNotificaciones(), 150);
+    }
+  }
+
+  private cargarNotificaciones(): void {
+    const token = this.tokenService.getToken();
+    if (!token) {
+      console.warn('⚠️ Token no disponible aún. Cancelando carga de notificaciones.');
+      return;
+    }
+
+    let total = 0;
+
+    this.solicitudService.getSolicitudesNoLeidas().subscribe({
+      next: (movimientos) => {
+        total += movimientos.length;
+
+        this.solicitudPersonalizadaService.getSolicitudesNoLeidas().subscribe({
+          next: (personalizadas) => {
+            total += personalizadas.length;
+            this.notificaciones = total;
+            console.log('🔔 Total notificaciones:', this.notificaciones);
+          },
+          error: () => {
+            console.warn('⚠️ Error cargando solicitudes personalizadas');
+            this.notificaciones = total;
+          }
+        });
+      },
+      error: () => {
+        console.warn('⚠️ Error cargando solicitudes normales');
+        this.notificaciones = 0;
+      }
     });
   }
 
-  private actualizarEstado() {
+  private actualizarEstado(): void {
     this.sesionIniciada = this.tokenService.isLogged();
+    console.log('✅ Token:', this.tokenService.getToken());
+    console.log('👤 Usuario:', this.tokenService.getUser());
 
     if (this.sesionIniciada) {
       const usuario = this.tokenService.getUser();
@@ -53,37 +99,37 @@ export class NavbarComponent implements OnInit, OnDestroy {
       this.esAdminEmpresa = this.tokenService.hasRole('ROLE_ADMIN_EMPRESA');
       this.esEmpleado = this.tokenService.hasRole('ROLE_EMPLEADO');
       this.esUsuario = this.tokenService.hasRole('ROLE_USER');
+
+      console.log('🎯 Roles → Admin:', this.esAdmin, '| AdminEmpresa:', this.esAdminEmpresa, '| Empleado:', this.esEmpleado, '| User:', this.esUsuario);
     } else {
+      console.warn('⛔ No hay sesión activa.');
       this.nombreUsuario = 'Cuenta';
-      this.esAdmin = false;
-      this.esAdminEmpresa = false;
-      this.esEmpleado = false;
-      this.esUsuario = false;
+      this.esAdmin = this.esAdminEmpresa = this.esEmpleado = this.esUsuario = false;
     }
 
     this.dropdownVisible = false;
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     if (this.sessionSub) {
       this.sessionSub.unsubscribe();
     }
   }
 
-  mostrarMenu() {
+  mostrarMenu(): void {
     clearTimeout(this.timeoutRef);
     this.dropdownVisible = true;
   }
 
-  ocultarMenu() {
+  ocultarMenu(): void {
     this.timeoutRef = setTimeout(() => {
       this.dropdownVisible = false;
     }, 150);
   }
 
-  cerrarSesion() {
+  cerrarSesion(): void {
     this.sessionService.cerrarSesion();
-    this.router.navigate(['/auth/login']);
+    setTimeout(() => this.router.navigate(['/auth/login']), 50);
   }
 
   confirmarAbandono(): void {
@@ -108,7 +154,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
           next: () => {
             Swal.fire('Listo', 'Has abandonado la empresa.', 'success').then(() => {
               this.tokenService.clearAll();
-              window.location.href = '/login';
+              this.router.navigate(['/auth/login']);
             });
           },
           error: () => {

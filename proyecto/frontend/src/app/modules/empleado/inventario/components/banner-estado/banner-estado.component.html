@@ -1,1 +1,9 @@
-<p>banner-estado works!</p>
+<div *ngIf="esUsoInterno || esStockBajo" class="text-sm mt-1 space-y-2">
+    <div *ngIf="esUsoInterno" class="alert alert-yellow">
+        ⚠ Producto de uso interno exclusivo
+    </div>
+
+    <div *ngIf="esStockBajo" class="alert alert-red">
+        🔴 Stock por debajo del mínimo
+    </div>
+</div>

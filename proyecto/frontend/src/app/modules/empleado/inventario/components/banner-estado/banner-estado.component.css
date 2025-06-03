@@ -1,0 +1,18 @@
+.alert {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    border: 1px solid;
+}
+
+.alert-yellow {
+    background-color: #FEF3C7;
+    color: #92400E;
+    border-color: #FCD34D;
+}
+
+.alert-red {
+    background-color: #FEE2E2;
+    color: #991B1B;
+    border-color: #FCA5A5;
+}

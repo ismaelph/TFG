@@ -1,0 +1,7 @@
+<div class="relative cursor-pointer" (click)="abrir()">
+  <i class="bi bi-bell-fill text-xl text-white hover:text-accent transition"></i>
+  <span *ngIf="totalNotificaciones > 0"
+        class="badge absolute -top-1 -right-1">
+    {{ totalNotificaciones }}
+  </span>
+</div>
