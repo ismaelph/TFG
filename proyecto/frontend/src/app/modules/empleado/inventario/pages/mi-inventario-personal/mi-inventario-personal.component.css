@@ -1,14 +1,29 @@
-.fade-slide-in {
-  animation: fadeSlideIn 0.4s ease-out;
+h2 {
+  margin-bottom: 1rem;
 }
 
-@keyframes fadeSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+img {
+  border: 1px solid #ccc;
+  padding: 2px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  text-align: left;
+  padding: 8px;
+  background-color: #f5f5f5;
+  font-weight: 600;
+}
+
+td {
+  padding: 8px;
+  vertical-align: middle;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
 }

@@ -157,6 +157,7 @@ public class SolicitudPersonalizadaServiceImpl implements SolicitudPersonalizada
 
         solicitud.setRespuestaAdmin(respuestaAdmin);
         solicitud.setFechaResolucion(Instant.now());
+        solicitud.setLeida(true);
 
         return solicitudRepository.save(solicitud);
     }

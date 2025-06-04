@@ -96,9 +96,8 @@
     </div>
   </div>
 
-  <!-- Modal lateral -->
-  <app-notificacion-modal
-    *ngIf="mostrarModalNotificaciones"
-    (cerrarModal)="mostrarModalNotificaciones = false">
+  <app-notificacion-modal *ngIf="mostrarModalNotificaciones"
+    (cerrar)="mostrarModalNotificaciones = false">
   </app-notificacion-modal>
+
 </nav>

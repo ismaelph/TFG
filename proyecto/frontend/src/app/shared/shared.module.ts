@@ -12,8 +12,8 @@ import { AlertWarningComponent } from './components/alerts/alert-warning/alert-w
 import { AlertErrorComponent } from './components/alerts/alert-error/alert-error.component';
 import { AlertInfoComponent } from './components/alerts/alert-info/alert-info.component';
 import { SidnavComponent } from './components/sidnav/sidnav.component';
-import { NotificacionModalComponent } from './components/notificacion-modal/notificacion-modal.component';
-import { NotificacionBadgeComponent } from './components/notificacion-badge/notificacion-badge.component';
+import { NotificacionBadgeComponent } from '../modules/empresa-admin/components/notificacion-badge/notificacion-badge.component';
+import { NotificacionModalComponent } from '../modules/empresa-admin/components/notificacion-modal/notificacion-modal.component';
 
 @NgModule({
   declarations: [
@@ -26,13 +26,13 @@ import { NotificacionBadgeComponent } from './components/notificacion-badge/noti
     AlertErrorComponent,
     AlertInfoComponent,
     SidnavComponent,
-    NotificacionModalComponent,
     NotificacionBadgeComponent,
+    NotificacionModalComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule
+    RouterModule,
   ],
   exports: [
     NavbarComponent,
@@ -44,8 +44,6 @@ import { NotificacionBadgeComponent } from './components/notificacion-badge/noti
     RouterModule,
     AlertSuccessComponent,
     SidnavComponent,
-    NotificacionBadgeComponent,
-    NotificacionModalComponent,
   ]
 })
 export class SharedModule {}

@@ -13,4 +13,6 @@ public class InventarioPersonalDto {
     private Integer cantidad;
     private String categoriaNombre;
     private String proveedorNombre;
+    private String imagenUrl;
+    private String ubicacion;
 }

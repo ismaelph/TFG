@@ -27,8 +27,6 @@ import { EstructuraEditComponent } from './components/estructura-edit/estructura
 import { ProductoEditComponent } from './components/producto-edit/producto-edit.component';
 import { EmpresaCorreoComponent } from './components/empresa-correo/empresa-correo.component';
 import { EmpresaCambiarClaveComponent } from './components/empresa-cambiar-clave/empresa-cambiar-clave.component';
-import { NotificacionBadgeComponent } from './components/notificacion-badge/notificacion-badge.component';
-import { NotificacionModalComponent } from './components/notificacion-modal/notificacion-modal.component';
 
 @NgModule({
   declarations: [
@@ -51,8 +49,6 @@ import { NotificacionModalComponent } from './components/notificacion-modal/noti
     ProductoEditComponent,
     EmpresaCorreoComponent,
     EmpresaCambiarClaveComponent,
-    NotificacionBadgeComponent,
-    NotificacionModalComponent
   ],
   imports: [
     CommonModule,
@@ -61,6 +57,6 @@ import { NotificacionModalComponent } from './components/notificacion-modal/noti
     ReactiveFormsModule,
     FormsModule,
     SharedModule
-  ]
+  ],
 })
 export class EmpresaAdminModule { }

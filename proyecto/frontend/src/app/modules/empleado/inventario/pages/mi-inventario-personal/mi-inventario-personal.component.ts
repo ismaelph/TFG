@@ -8,47 +8,53 @@ import { InventarioPersonalService } from '../../../services/inventario-personal
   styleUrls: ['./mi-inventario-personal.component.css']
 })
 export class MiInventarioPersonalComponent implements OnInit {
-  headers: string[] = ['Nombre', 'Categoría', 'Proveedor', 'Cantidad', 'Ubicación'];
-  rows: any[][] = [];
-
-  inventario: InventarioPersonal[] = [];
-  paginados: InventarioPersonal[] = [];
-
-  cargando = true;
-
-  currentPage: number = 1;
-  pageSize: number = 6;
+  productos: InventarioPersonal[] = [];
+  productosPaginados: InventarioPersonal[] = [];
+  pageSize = 5;
+  paginaActual = 1;
 
   constructor(private inventarioService: InventarioPersonalService) {}
 
   ngOnInit(): void {
-    this.inventarioService.getInventarioPersonal().subscribe({
-      next: (data) => {
-        this.inventario = data;
-        this.actualizarTabla();
-        this.cargando = false;
-      },
-      error: (err) => {
-        console.error('Error al cargar inventario personal:', err);
-        this.cargando = false;
-      }
-    });
+    this.cargarInventario();
   }
 
-  actualizarTabla(): void {
-    const start = (this.currentPage - 1) * this.pageSize;
-    this.paginados = this.inventario.slice(start, start + this.pageSize);
-    this.rows = this.paginados.map(item => [
-      item.nombre,
-      item.categoria,
-      item.proveedor,
-      item.cantidad,
-      item.ubicacion || '—'
-    ]);
+  cargarInventario(): void {
+    try {
+      this.inventarioService.getInventarioPersonal().subscribe({
+        next: (data) => {
+          this.productos = data;
+          this.actualizarPaginacion();
+          console.log('📦 Inventario personal cargado:', this.productos);
+        },
+        error: (err) => {
+          console.error('❌ Error al cargar inventario personal:', err);
+        }
+      });
+    } catch (e) {
+      console.error('🚨 Error inesperado:', e);
+    }
+  }
+
+  actualizarPaginacion(): void {
+    const inicio = (this.paginaActual - 1) * this.pageSize;
+    this.productosPaginados = this.productos.slice(inicio, inicio + this.pageSize);
   }
 
   cambiarPagina(pagina: number): void {
-    this.currentPage = pagina;
-    this.actualizarTabla();
+    this.paginaActual = pagina;
+    this.actualizarPaginacion();
+  }
+
+  eliminarProducto(id: number): void {
+    this.inventarioService.eliminarProducto(id).subscribe({
+      next: () => {
+        console.log(`✅ Producto ${id} eliminado`);
+        this.cargarInventario(); // Recargar inventario después de eliminar
+      },
+      error: (err) => {
+        console.error(`❌ Error al eliminar producto ${id}:`, err);
+      }
+    });
   }
 }

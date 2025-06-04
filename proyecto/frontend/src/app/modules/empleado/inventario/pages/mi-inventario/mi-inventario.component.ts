@@ -126,4 +126,15 @@ export class MiInventarioComponent implements OnInit {
     this.mostrarModalInfo = false;
     this.productoSeleccionado = null;
   }
+
+  mostrarModalPersonalizada = false;
+
+  abrirModalPersonalizada(): void {
+    this.mostrarModalPersonalizada = true;
+  }
+
+  cerrarModalesPersonal(): void {
+    this.mostrarModalPersonalizada = false;
+  }
+
 }

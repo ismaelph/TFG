@@ -1,25 +1,60 @@
-<div class="fade-slide-in p-8 max-w-7xl mx-auto">
-  <h2 class="text-2xl font-bold mb-6 text-primary">Mi Inventario Personal</h2>
+<div class="max-w-5xl mx-auto px-4">
+  <h2 class="text-2xl font-bold text-primary mb-6 flex items-center gap-2">
+    <i class="bi bi-box-seam text-primary text-2xl"></i>
+    Mi Inventario Personal
+  </h2>
 
-  <div *ngIf="cargando" class="text-center text-secondary py-10">
-    <i class="bi bi-arrow-repeat animate-spin text-3xl"></i>
-    <p class="mt-2 text-sm">Cargando inventario...</p>
-  </div>
-
-  <div *ngIf="!cargando && inventario.length === 0" class="text-center py-10 text-gray-500">
-    No tienes productos entregados.
-  </div>
-
-  <app-table *ngIf="!cargando && inventario.length > 0"
-             [headers]="headers"
-             [rows]="rows">
+  <!-- Tabla de productos -->
+  <app-table *ngIf="productosPaginados && productosPaginados.length">
+    <thead>
+      <tr>
+        <th>Imagen</th>
+        <th>Nombre</th>
+        <th>Cantidad</th>
+        <th>Categoría</th>
+        <th>Proveedor</th>
+        <th>Ubicación</th>
+        <th class="text-center">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of productosPaginados">
+        <td>
+          <img
+            *ngIf="p.imagenUrl"
+            [src]="p.imagenUrl"
+            alt="imagen"
+            class="w-12 h-12 object-cover rounded border" />
+          <span *ngIf="!p.imagenUrl" class="text-xs italic text-gray-400">Sin imagen</span>
+        </td>
+        <td class="font-semibold">{{ p.nombre }}</td>
+        <td>{{ p.cantidad }}</td>
+        <td>{{ p.categoriaNombre }}</td>
+        <td>{{ p.proveedorNombre }}</td>
+        <td>{{ p.ubicacion || 'Sin ubicación' }}</td>
+        <td class="text-center">
+          <button
+            class="text-red-600 hover:text-red-800 text-sm underline"
+            (click)="eliminarProducto(productos.indexOf(p))">
+            Eliminar
+          </button>
+        </td>
+      </tr>
+    </tbody>
   </app-table>
 
-  <div *ngIf="!cargando && inventario.length > pageSize" class="mt-6 flex justify-center">
+  <!-- Si no hay productos -->
+  <div *ngIf="productos.length === 0" class="text-center text-sm text-gray-500 mt-10">
+    <i class="bi bi-emoji-neutral text-xl mb-2 block"></i>
+    No tienes productos asignados aún.
+  </div>
+
+  <!-- Paginador -->
+  <div class="mt-6 flex justify-center" *ngIf="productos.length > pageSize">
     <app-paginator
-      [total]="inventario.length"
+      [total]="productos.length"
       [pageSize]="pageSize"
-      [currentPage]="currentPage"
+      [currentPage]="paginaActual"
       (pageChange)="cambiarPagina($event)">
     </app-paginator>
   </div>

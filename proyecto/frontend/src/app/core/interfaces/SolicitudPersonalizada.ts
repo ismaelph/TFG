@@ -7,4 +7,6 @@ export interface SolicitudPersonalizada {
   fechaSolicitud?: string;
   fechaResolucion?: string;
   respuestaAdmin?: string;
+  usuarioNombre?: string;
+
 }

@@ -9,6 +9,7 @@ import com.tfg.backend.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -214,51 +215,50 @@ public class ProductoController {
         return ResponseEntity.noContent().build();
     }
 
-    // Inventario personal del usuario autenticado
     @GetMapping("/mi-inventario")
+    @PreAuthorize("hasRole('ROLE_EMPLEADO')")
     public ResponseEntity<?> getInventarioDelUsuario(@AuthenticationPrincipal UserDetailsImpl userDetails) {
         User user = userService.findById(userDetails.getId());
-        List<MovimientoProducto> movimientos = movimientoService.findByUsuarioId(user.getId());
 
-        System.out.println("🔍 Movimientos encontrados para el usuario " + user.getUsername() + ": " + movimientos.size());
-
-        Map<Long, InventarioPersonalDto> inventario = new HashMap<>();
-
-        for (MovimientoProducto mov : movimientos) {
-            Producto producto = mov.getProducto();
-            if (producto == null) {
-                System.out.println("⚠️ Movimiento con producto NULL, ID: " + mov.getId());
-                continue;
-            }
-
-            String tipo = mov.getTipo() != null ? mov.getTipo().toString() : "NULL";
-            int cantidad = mov.getCantidad();
-
-            System.out.println("✅ Movimiento → Producto: " + producto.getNombre()
-                    + " | Tipo: " + tipo
-                    + " | Cantidad: " + cantidad);
-
-            Long id = producto.getId();
-            String nombre = producto.getNombre();
-            String categoria = producto.getCategoria() != null ? producto.getCategoria().getNombre() : "Sin categoría";
-            String proveedor = producto.getProveedor() != null ? producto.getProveedor().getNombre() : "Sin proveedor";
-            int ajuste = cantidad * ("ENTRADA".equals(tipo) ? 1 : -1);
-
-            inventario.compute(id, (k, v) -> {
-                if (v == null) return new InventarioPersonalDto(id, nombre, ajuste, categoria, proveedor);
-                v.setCantidad(v.getCantidad() + ajuste);
-                return v;
-            });
-        }
-
-        List<InventarioPersonalDto> resultado = inventario.values().stream()
-                .filter(i -> i.getCantidad() > 0)
+        List<MovimientoProducto> movimientos = movimientoService.findByUsuarioId(user.getId()).stream()
+                .filter(mov -> mov.getTipo() == TipoMovimiento.SALIDA)
                 .toList();
 
-        System.out.println("📦 Inventario generado con " + resultado.size() + " productos únicos.");
+        System.out.println("📦 Productos SALIDA para " + user.getUsername() + ": " + movimientos.size());
+
+        List<InventarioPersonalDto> resultado = movimientos.stream().map(mov -> {
+            Producto producto = mov.getProducto();
+
+            String categoria = producto.getCategoria() != null ? producto.getCategoria().getNombre() : "Sin categoría";
+            String proveedor = producto.getProveedor() != null ? producto.getProveedor().getNombre() : "Sin proveedor";
+            String imagenUrl = producto.getImagenUrl() != null ? producto.getImagenUrl() : "";
+
+            String ubicacion = "Sin ubicación";
+            if (producto.getEstanteria() != null &&
+                    producto.getEstanteria().getPlanta() != null &&
+                    producto.getEstanteria().getPlanta().getAlmacen() != null) {
+                String almacen = producto.getEstanteria().getPlanta().getAlmacen().getNombre();
+                int planta = producto.getEstanteria().getPlanta().getNumero();
+                String est = producto.getEstanteria().getCodigo();
+                ubicacion = almacen + " - Planta " + planta + " - " + est;
+            }
+
+            return new InventarioPersonalDto(
+                    producto.getId(),
+                    producto.getNombre(),
+                    mov.getCantidad(), // directo
+                    categoria,
+                    proveedor,
+                    imagenUrl,
+                    ubicacion
+            );
+        }).toList();
 
         return ResponseEntity.ok(resultado);
     }
+
+
+
 
     @PostMapping("/transferir")
     public ResponseEntity<?> transferirProducto(@RequestBody MovimientoProductoDto dto,

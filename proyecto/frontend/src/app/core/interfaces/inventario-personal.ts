@@ -2,7 +2,8 @@ export interface InventarioPersonal {
   productoId: number;
   nombre: string;
   cantidad: number;
-  categoria: string;
-  proveedor: string;
+  categoriaNombre: string;
+  proveedorNombre: string;
+  imagenUrl?: string;
   ubicacion?: string;
 }

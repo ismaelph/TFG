@@ -23,4 +23,14 @@ export class InventarioPersonalService {
       })
     );
   }
+
+  eliminarProducto(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.miInventarioUrl}/${id}`).pipe(
+      tap(() => console.log(`✅ Producto ${id} eliminado`)),
+      catchError(err => {
+        console.error(`❌ Error al eliminar producto ${id}:`, err);
+        return of();
+      })
+    );
+  }
 }

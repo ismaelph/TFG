@@ -26,6 +26,9 @@ public class SolicitudPersonalizadaDto {
     private Instant fechaSolicitud;
     private Instant fechaResolucion;
 
+    private String usuarioNombre;
+
+
     public static SolicitudPersonalizadaDto from(SolicitudPersonalizada entity) {
         SolicitudPersonalizadaDto dto = new SolicitudPersonalizadaDto();
 
@@ -63,6 +66,10 @@ public class SolicitudPersonalizadaDto {
 
         if (entity.getFechaResolucion() != null) {
             dto.setFechaResolucion(entity.getFechaResolucion());
+        }
+
+        if (entity.getUsuario() != null && entity.getUsuario().getUsername() != null) {
+            dto.setUsuarioNombre(entity.getUsuario().getUsername());
         }
 
         // Logs y consola

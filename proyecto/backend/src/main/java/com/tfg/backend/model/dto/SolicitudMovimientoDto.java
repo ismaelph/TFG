@@ -25,6 +25,10 @@ public class SolicitudMovimientoDto {
     private Instant fechaResolucion;
     private String respuestaAdmin;
 
+
+    private String productoNombre;
+    private String usuarioNombre;
+
     public static SolicitudMovimientoDto from(SolicitudMovimiento entity) {
         System.out.println("➡ CONVERT -> SolicitudMovimiento ID: " + entity.getId());
         System.out.println("   - Producto ID: " + (entity.getProducto() != null ? entity.getProducto().getId() : "null"));
@@ -40,6 +44,14 @@ public class SolicitudMovimientoDto {
         dto.setFechaSolicitud(entity.getFechaSolicitud());
         dto.setFechaResolucion(entity.getFechaResolucion());
         dto.setRespuestaAdmin(entity.getRespuestaAdmin());
+
+        if (entity.getProducto() != null) {
+            dto.setProductoNombre(entity.getProducto().getNombre());
+        }
+
+        if (entity.getUsuario() != null) {
+            dto.setUsuarioNombre(entity.getUsuario().getUsername());
+        }
 
         return dto;
     }
