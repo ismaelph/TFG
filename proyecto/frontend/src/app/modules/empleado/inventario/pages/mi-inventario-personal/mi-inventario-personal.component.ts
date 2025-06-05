@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { InventarioPersonal } from 'src/app/core/interfaces/inventario-personal';
 import { InventarioPersonalService } from '../../../services/inventario-personal.service';
 
@@ -13,27 +13,33 @@ export class MiInventarioPersonalComponent implements OnInit {
   pageSize = 5;
   paginaActual = 1;
 
-  constructor(private inventarioService: InventarioPersonalService) {}
+  // Modal de información
+  mostrarModalInfo = false;
+  productoSeleccionado: InventarioPersonal | null = null;
+
+  // Modal de eliminación
+  mostrarModalEliminar = false;
+  productoIdAEliminar: number | null = null;
+  cantidadAEliminar: number = 1;
+
+  constructor(
+    private inventarioService: InventarioPersonalService,
+    private cdr: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
     this.cargarInventario();
   }
 
   cargarInventario(): void {
-    try {
-      this.inventarioService.getInventarioPersonal().subscribe({
-        next: (data) => {
-          this.productos = data;
-          this.actualizarPaginacion();
-          console.log('📦 Inventario personal cargado:', this.productos);
-        },
-        error: (err) => {
-          console.error('❌ Error al cargar inventario personal:', err);
-        }
-      });
-    } catch (e) {
-      console.error('🚨 Error inesperado:', e);
-    }
+    this.inventarioService.getInventarioPersonal().subscribe({
+      next: (data) => {
+        this.productos = data;
+        this.actualizarPaginacion();
+        this.cdr.detectChanges();
+      },
+      error: (err) => console.error('❌ Error al cargar inventario:', err)
+    });
   }
 
   actualizarPaginacion(): void {
@@ -46,15 +52,48 @@ export class MiInventarioPersonalComponent implements OnInit {
     this.actualizarPaginacion();
   }
 
-  eliminarProducto(id: number): void {
-    this.inventarioService.eliminarProducto(id).subscribe({
+  abrirModalInfo(id: number): void {
+    const producto = this.productos.find(p => p.productoId === id);
+    if (producto) {
+      this.productoSeleccionado = producto;
+      this.mostrarModalInfo = true;
+    }
+  }
+
+  abrirModalEliminar(id: number): void {
+    this.productoIdAEliminar = id;
+    this.cantidadAEliminar = 1;
+    this.mostrarModalEliminar = true;
+  }
+
+  confirmarEliminarProducto(): void {
+    if (!this.productoIdAEliminar || !this.cantidadAEliminar) return;
+
+    console.log(`📤 Reduciendo cantidad del producto ID ${this.productoIdAEliminar} en ${this.cantidadAEliminar} unidades`);
+
+    this.inventarioService.reducirCantidadInventarioPersonal(this.productoIdAEliminar, this.cantidadAEliminar).subscribe({
       next: () => {
-        console.log(`✅ Producto ${id} eliminado`);
-        this.cargarInventario(); // Recargar inventario después de eliminar
+        console.log('✅ Cantidad reducida con éxito');
+        this.mostrarModalEliminar = false;
+        this.productoIdAEliminar = null;
+        this.cantidadAEliminar = 1; // Restablecer valor por defecto
+        this.cargarInventario();    // Recargar la lista
       },
       error: (err) => {
-        console.error(`❌ Error al eliminar producto ${id}:`, err);
+        console.error('❌ Error al reducir la cantidad del producto:', err);
       }
     });
+  }
+
+
+  cerrarModales(): void {
+    this.mostrarModalInfo = false;
+    this.mostrarModalEliminar = false;
+    this.productoSeleccionado = null;
+    this.productoIdAEliminar = null;
+  }
+
+  trackById(index: number, item: InventarioPersonal): number {
+    return item.productoId;
   }
 }

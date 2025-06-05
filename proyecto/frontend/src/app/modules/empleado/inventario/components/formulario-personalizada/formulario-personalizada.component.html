@@ -1,49 +1,52 @@
 <!-- Fondo oscuro -->
 <div class="fixed inset-0 bg-black bg-opacity-30 z-40" (click)="cancelar()"></div>
 
-<!-- Modal principal -->
-<div class="fixed bottom-0 right-0 m-6 w-full max-w-md bg-white rounded-lg shadow-xl z-50 p-6 animate-slide-up">
-  <h2 class="text-lg font-bold text-primary mb-4">📦 Solicitud personalizada</h2>
+<!-- Modal centrado -->
+<div class="fixed inset-0 flex items-center justify-center z-50">
+  <div class="w-full max-w-md bg-white rounded-lg shadow-xl p-6 animate-slide-up">
 
-  <form [formGroup]="form" (ngSubmit)="enviarSolicitud()">
+    <h2 class="text-lg font-bold text-primary mb-4">📦 Solicitud personalizada</h2>
 
-    <!-- Nombre producto -->
-    <div class="mb-4">
-      <label class="block text-sm font-medium mb-1">Nombre del producto</label>
-      <input type="text" formControlName="nombreProductoSugerido"
-             class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent" />
-    </div>
+    <form [formGroup]="form" (ngSubmit)="enviarSolicitud()">
 
-    <!-- Cantidad -->
-    <div class="mb-4">
-      <label class="block text-sm font-medium mb-1">Cantidad</label>
-      <input type="number" formControlName="cantidadDeseada" min="1"
-             class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent" />
-    </div>
+      <!-- Nombre producto -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium mb-1">Nombre del producto</label>
+        <input type="text" formControlName="nombreProductoSugerido"
+               class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent" />
+      </div>
 
-    <!-- Descripción -->
-    <div class="mb-4">
-      <label class="block text-sm font-medium mb-1">Motivo o descripción</label>
-      <textarea rows="3" formControlName="descripcion"
-                class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent"
-                placeholder="¿Por qué se necesita?"></textarea>
-    </div>
+      <!-- Cantidad -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium mb-1">Cantidad</label>
+        <input type="number" formControlName="cantidadDeseada" min="1"
+               class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent" />
+      </div>
 
-    <!-- Errores -->
-    <div class="text-red-600 text-sm mb-2" *ngIf="error">{{ error }}</div>
+      <!-- Descripción -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium mb-1">Motivo o descripción</label>
+        <textarea rows="3" formControlName="descripcion"
+                  class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent"
+                  placeholder="¿Por qué se necesita?"></textarea>
+      </div>
 
-    <!-- Botones -->
-    <div class="flex justify-end gap-2">
-      <button type="button"
-              class="px-3 py-1 bg-gray-300 text-sm rounded hover:bg-gray-400"
-              (click)="cancelar()">
-        Cancelar
-      </button>
-      <button type="submit"
-              [disabled]="enviado"
-              class="px-4 py-1 bg-accent text-white text-sm rounded hover:bg-accent-dark">
-        Enviar
-      </button>
-    </div>
-  </form>
+      <!-- Errores -->
+      <div class="text-red-600 text-sm mb-2" *ngIf="error">{{ error }}</div>
+
+      <!-- Botones -->
+      <div class="flex justify-end gap-2">
+        <button type="button"
+                class="px-3 py-1 bg-gray-300 text-sm rounded hover:bg-gray-400"
+                (click)="cancelar()">
+          Cancelar
+        </button>
+        <button type="submit"
+                [disabled]="enviado"
+                class="px-4 py-1 bg-accent text-white text-sm rounded hover:bg-accent-dark">
+          Enviar
+        </button>
+      </div>
+    </form>
+  </div>
 </div>

@@ -1,6 +1,7 @@
 package com.tfg.backend.controller;
 
 import com.tfg.backend.auth.models.User;
+import com.tfg.backend.auth.payload.response.MessageResponse;
 import com.tfg.backend.auth.services.UserDetailsImpl;
 import com.tfg.backend.model.dto.*;
 import com.tfg.backend.model.entity.*;
@@ -8,6 +9,7 @@ import com.tfg.backend.model.enums.TipoMovimiento;
 import com.tfg.backend.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -306,6 +308,19 @@ public class ProductoController {
         return ResponseEntity.ok("Transferencia completada");
     }
 
+    @PutMapping("/mi-inventario/{productoId}/reducir")
+    public ResponseEntity<?> reducirCantidadPersonal(
+            @AuthenticationPrincipal UserDetailsImpl userDetails,
+            @PathVariable Long productoId,
+            @RequestParam int cantidad) {
+
+        try {
+            movimientoService.reducirCantidadInventarioPersonal(userDetails.getId(), productoId, cantidad);
+            return ResponseEntity.ok(new MessageResponse("Cantidad reducida correctamente en tu inventario."));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse("Error: " + e.getMessage()));
+        }
+    }
 
 
 }

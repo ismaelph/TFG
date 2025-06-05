@@ -23,6 +23,12 @@
         <option [ngValue]="null">Todos los proveedores</option>
         <option *ngFor="let prov of proveedores" [ngValue]="prov.id">{{ prov.nombre }}</option>
       </select>
+
+      <!-- Modal de Solicitud Personalizada -->
+      <button class="bg-accent text-white rounded-md text-sm p-1 shadow-lg hover:bg-accent-dark transition"
+        (click)="abrirModalPersonalizada()">
+        <i class="bi bi-lightbulb-fill text-xl"></i> Solicitud Personalizada
+      </button>
     </div>
   </div>
 
@@ -107,12 +113,6 @@
       </div>
     </div>
   </div>
-
-  <!-- Modal de Solicitud Personalizada -->
-  <button class="fixed bottom-6 right-6 bg-accent text-white p-3 rounded-full shadow-lg hover:bg-accent-dark transition"
-    (click)="abrirModalPersonalizada()">
-    <i class="bi bi-lightbulb-fill text-xl"></i>
-  </button>
 
 
   <app-formulario-personalizada *ngIf="mostrarModalPersonalizada" (cerrarse)="cerrarModalesPersonal()">

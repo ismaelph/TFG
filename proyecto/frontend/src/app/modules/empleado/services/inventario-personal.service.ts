@@ -4,6 +4,7 @@ import { InventarioPersonal } from 'src/app/core/interfaces/inventario-personal'
 import { Observable, of } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { PRODUCTO_ENDPOINT } from 'src/app/core/constants/constants';
+import { MovimientoSalidaDto } from 'src/app/core/interfaces/MovimientoSalidaDto';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +12,9 @@ import { PRODUCTO_ENDPOINT } from 'src/app/core/constants/constants';
 export class InventarioPersonalService {
 
   private miInventarioUrl = PRODUCTO_ENDPOINT + '/mi-inventario';
+  private salidaPersonalUrl = PRODUCTO_ENDPOINT + '/salida-personal';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getInventarioPersonal(): Observable<InventarioPersonal[]> {
     return this.http.get<InventarioPersonal[]>(this.miInventarioUrl).pipe(
@@ -24,13 +26,16 @@ export class InventarioPersonalService {
     );
   }
 
-  eliminarProducto(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.miInventarioUrl}/${id}`).pipe(
-      tap(() => console.log(`✅ Producto ${id} eliminado`)),
+  reducirCantidadInventarioPersonal(productoId: number, cantidad: number): Observable<any> {
+    const url = `${PRODUCTO_ENDPOINT}/mi-inventario/${productoId}/reducir?cantidad=${cantidad}`;
+    console.log(`📤 Enviando reducción → productoId=${productoId}, cantidad=${cantidad}`);
+    return this.http.put(url, {}).pipe(
+      tap(() => console.log('✅ Cantidad reducida correctamente')),
       catchError(err => {
-        console.error(`❌ Error al eliminar producto ${id}:`, err);
+        console.error('❌ Error al reducir cantidad del inventario personal:', err);
         return of();
       })
     );
   }
+
 }

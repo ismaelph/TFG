@@ -1,52 +1,44 @@
-<div class="max-w-5xl mx-auto px-4">
-  <h2 class="text-2xl font-bold text-primary mb-6 flex items-center gap-2">
-    <i class="bi bi-box-seam text-primary text-2xl"></i>
-    Mi Inventario Personal
-  </h2>
-
-  <!-- Tabla de productos -->
-  <app-table *ngIf="productosPaginados && productosPaginados.length">
-    <thead>
-      <tr>
-        <th>Imagen</th>
-        <th>Nombre</th>
-        <th>Cantidad</th>
-        <th>Categoría</th>
-        <th>Proveedor</th>
-        <th>Ubicación</th>
-        <th class="text-center">Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let p of productosPaginados">
-        <td>
-          <img
-            *ngIf="p.imagenUrl"
-            [src]="p.imagenUrl"
-            alt="imagen"
-            class="w-12 h-12 object-cover rounded border" />
-          <span *ngIf="!p.imagenUrl" class="text-xs italic text-gray-400">Sin imagen</span>
-        </td>
-        <td class="font-semibold">{{ p.nombre }}</td>
-        <td>{{ p.cantidad }}</td>
-        <td>{{ p.categoriaNombre }}</td>
-        <td>{{ p.proveedorNombre }}</td>
-        <td>{{ p.ubicacion || 'Sin ubicación' }}</td>
-        <td class="text-center">
-          <button
-            class="text-red-600 hover:text-red-800 text-sm underline"
-            (click)="eliminarProducto(productos.indexOf(p))">
-            Eliminar
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </app-table>
-
-  <!-- Si no hay productos -->
-  <div *ngIf="productos.length === 0" class="text-center text-sm text-gray-500 mt-10">
-    <i class="bi bi-emoji-neutral text-xl mb-2 block"></i>
-    No tienes productos asignados aún.
+<div class="fade-slide-in p-8 max-w-7xl mx-auto">
+  <!-- Tabla -->
+  <div class="overflow-x-auto rounded-md shadow bg-white fade-slide-in">
+    <table class="min-w-full text-sm text-left">
+      <thead class="bg-secondary text-white">
+        <tr>
+          <th class="px-4 py-2">Imagen</th>
+          <th class="px-4 py-2">Nombre</th>
+          <th class="px-4 py-2">Categoría</th>
+          <th class="px-4 py-2">Proveedor</th>
+          <th class="px-4 py-2">Cantidad</th>
+          <th class="px-4 py-2">Ubicación</th>
+          <th class="px-4 py-2 text-center">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of productosPaginados; trackBy: trackById" class="hover:bg-gray-50 transition">
+          <td class="px-4 py-2 text-center">
+            <img *ngIf="p.imagenUrl; else sinImagen" [src]="'http://localhost:8080' + p.imagenUrl"
+              alt="imagen" class="w-12 h-12 object-contain rounded bg-white border p-1" />
+            <ng-template #sinImagen>
+              <span class="text-xs italic text-gray-400">Sin imagen</span>
+            </ng-template>
+          </td>
+          <td class="px-4 py-2 font-medium">{{ p.nombre }}</td>
+          <td class="px-4 py-2">{{ p.categoriaNombre }}</td>
+          <td class="px-4 py-2">{{ p.proveedorNombre }}</td>
+          <td class="px-4 py-2">{{ p.cantidad }}</td>
+          <td class="px-4 py-2">{{ p.ubicacion || 'Sin ubicación' }}</td>
+          <td class="px-4 py-2 flex items-center justify-center gap-4">
+            <i class="bi bi-info-circle-fill text-secondary cursor-pointer text-lg hover:scale-110 transition"
+              (click)="abrirModalInfo(p.productoId)" title="Más información"></i>
+            <i class="bi bi-box-arrow-up text-accent cursor-pointer text-lg hover:scale-110 transition"
+              (click)="abrirModalEliminar(p.productoId)" title="Registrar salida"></i>
+          </td>
+        </tr>
+        <tr *ngIf="productosPaginados.length === 0">
+          <td colspan="7" class="text-center py-4 text-gray-500">No tienes productos en tu inventario.</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
   <!-- Paginador -->
@@ -57,5 +49,52 @@
       [currentPage]="paginaActual"
       (pageChange)="cambiarPagina($event)">
     </app-paginator>
+  </div>
+
+  <!-- Modal de Información -->
+  <div *ngIf="mostrarModalInfo && productoSeleccionado as p"
+    class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+    <div class="bg-white p-6 rounded-xl shadow-lg w-full max-w-2xl relative fade-slide-in">
+      <button (click)="cerrarModales()"
+        class="absolute top-2 right-2 text-gray-500 hover:text-black text-xl">&times;</button>
+
+      <div class="flex flex-col md:flex-row gap-6 items-center">
+        <img *ngIf="p.imagenUrl" [src]="'http://localhost:8080' + p.imagenUrl"
+          alt="Imagen del producto"
+          class="w-48 h-48 object-contain border rounded bg-white p-2" />
+
+        <div class="text-sm space-y-2 w-full">
+          <h2 class="text-xl font-bold text-primary">{{ p.nombre }}</h2>
+          <p><strong>Categoría:</strong> {{ p.categoriaNombre }}</p>
+          <p><strong>Proveedor:</strong> {{ p.proveedorNombre }}</p>
+          <p><strong>Cantidad:</strong> {{ p.cantidad }}</p>
+          <p><strong>Ubicación:</strong> {{ p.ubicacion || 'Sin ubicación' }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal para seleccionar cantidad a eliminar -->
+  <div *ngIf="mostrarModalEliminar && productoIdAEliminar"
+    class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+    <div class="bg-white p-6 rounded-xl shadow-lg w-full max-w-md relative fade-slide-in">
+      <button (click)="cerrarModales()" class="absolute top-2 right-2 text-gray-500 hover:text-black text-xl">
+        &times;
+      </button>
+      <h2 class="text-lg font-bold text-primary mb-4">Seleccionar cantidad a retirar</h2>
+      <label class="block text-sm font-medium mb-1">Cantidad:</label>
+      <input type="number" [(ngModel)]="cantidadAEliminar" min="1"
+        class="w-full border px-3 py-2 rounded focus:ring-accent focus:outline-none mb-4" />
+
+      <div class="flex justify-end gap-3 mt-2">
+        <button (click)="cerrarModales()" class="px-4 py-1 bg-gray-300 text-sm rounded hover:bg-gray-400">
+          Cancelar
+        </button>
+        <button (click)="confirmarEliminarProducto()"
+          class="px-4 py-1 bg-accent text-white text-sm rounded hover:bg-accent-dark">
+          Confirmar salida
+        </button>
+      </div>
+    </div>
   </div>
 </div>
