@@ -7,7 +7,6 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AdminRoutingModule } from './admin-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AdminUsuariosComponent } from './components/admin-usuarios/admin-usuarios.component';
-import { AdminErroresComponent } from './components/admin-errores/admin-errores.component';
 import { AdminSistemaComponent } from './components/admin-sistema/admin-sistema.component';
 import { AdminEmpresasComponent } from './components/admin-empresas/admin-empresas.component';
 import { AdminEstadisticasComponent } from './components/admin-estadisticas/admin-estadisticas.component';
@@ -19,7 +18,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
   declarations: [
     DashboardComponent,
     AdminUsuariosComponent,
-    AdminErroresComponent,
     AdminSistemaComponent,
     AdminEmpresasComponent,
     AdminEstadisticasComponent,

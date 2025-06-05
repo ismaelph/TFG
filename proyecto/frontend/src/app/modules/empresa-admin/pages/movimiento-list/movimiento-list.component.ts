@@ -15,9 +15,12 @@ export class MovimientoListComponent implements OnInit {
   tablaDatos: any[] = [];
 
   searchTerm: string = '';
+  searchUsuario: string = '';
   tipoSeleccionado: string = '';
   fechaDesde: string = '';
   fechaHasta: string = '';
+  usuariosUnicos: string[] = [];
+
 
   constructor(private movimientoService: MovimientoProductoService) { }
 
@@ -29,6 +32,7 @@ export class MovimientoListComponent implements OnInit {
     this.movimientoService.getMovimientosDeEmpresa().subscribe({
       next: (data) => {
         this.movimientos = data;
+        this.usuariosUnicos = [...new Set(data.map(m => m.usuarioNombre ?? '').filter((n): n is string => n !== ''))];
         this.actualizarFiltro();
       },
       error: (err) => {
@@ -39,11 +43,13 @@ export class MovimientoListComponent implements OnInit {
 
   actualizarFiltro(): void {
     this.filtrados = this.movimientos.filter(m => {
-      const nombre = m.productoNombre ?? '';
+      const nombre = m.productoNombre?.toLowerCase() ?? '';
+      const usuario = m.usuarioNombre?.toLowerCase() ?? '';
       const tipo = m.tipo ?? '';
       const fechaRaw = m.fecha ?? '';
 
-      const coincideTexto = nombre.toLowerCase().includes(this.searchTerm.toLowerCase());
+      const coincideTexto = nombre.includes(this.searchTerm.toLowerCase());
+      const coincideUsuario = usuario.includes(this.searchUsuario.toLowerCase());
       const coincideTipo = this.tipoSeleccionado ? tipo === this.tipoSeleccionado : true;
 
       const fecha = new Date(fechaRaw || '1970-01-01T00:00:00');
@@ -52,7 +58,7 @@ export class MovimientoListComponent implements OnInit {
 
       const dentroDeRango = (!desde || fecha >= desde) && (!hasta || fecha <= hasta);
 
-      return coincideTexto && coincideTipo && dentroDeRango;
+      return coincideTexto && coincideUsuario && coincideTipo && dentroDeRango;
     });
 
     this.tablaDatos = this.filtrados.map(m => ({
@@ -74,6 +80,7 @@ export class MovimientoListComponent implements OnInit {
 
   limpiarFiltros(): void {
     this.searchTerm = '';
+    this.searchUsuario = '';
     this.tipoSeleccionado = '';
     this.fechaDesde = '';
     this.fechaHasta = '';

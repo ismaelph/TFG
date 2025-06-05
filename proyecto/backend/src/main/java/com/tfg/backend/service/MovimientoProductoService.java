@@ -16,5 +16,6 @@ public interface MovimientoProductoService {
     List<MovimientoProducto> findAll();
     List<MovimientoProducto> findByUsuarioId(Long userId);
     void reducirCantidadInventarioPersonal(Long userId, Long productoId, int cantidadAReducir);
+    void entregarProductoAlUsuario(Long productoId, Long usuarioId, int cantidad);
 
 }

@@ -4,7 +4,6 @@ import { InventarioPersonal } from 'src/app/core/interfaces/inventario-personal'
 import { Observable, of } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { PRODUCTO_ENDPOINT } from 'src/app/core/constants/constants';
-import { MovimientoSalidaDto } from 'src/app/core/interfaces/MovimientoSalidaDto';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +11,6 @@ import { MovimientoSalidaDto } from 'src/app/core/interfaces/MovimientoSalidaDto
 export class InventarioPersonalService {
 
   private miInventarioUrl = PRODUCTO_ENDPOINT + '/mi-inventario';
-  private salidaPersonalUrl = PRODUCTO_ENDPOINT + '/salida-personal';
 
   constructor(private http: HttpClient) { }
 
@@ -21,7 +19,7 @@ export class InventarioPersonalService {
       tap(res => console.log('📦 Inventario personal recibido:', res)),
       catchError(err => {
         console.error('❌ Error al obtener inventario personal:', err);
-        return of([]);
+        return of([]); // <-- devolvemos array vacío
       })
     );
   }
@@ -33,9 +31,8 @@ export class InventarioPersonalService {
       tap(() => console.log('✅ Cantidad reducida correctamente')),
       catchError(err => {
         console.error('❌ Error al reducir cantidad del inventario personal:', err);
-        return of();
+        return of({ error: true, message: err.message });
       })
     );
   }
-
 }

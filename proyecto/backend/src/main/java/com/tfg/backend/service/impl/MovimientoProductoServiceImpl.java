@@ -52,7 +52,6 @@ public class MovimientoProductoServiceImpl implements MovimientoProductoService 
         return movimientoRepository.findByEmpresa(empresa);
     }
 
-
     @Override
     public List<MovimientoProducto> findByProducto(Producto producto) {
         return movimientoRepository.findByProducto(producto);
@@ -79,7 +78,6 @@ public class MovimientoProductoServiceImpl implements MovimientoProductoService 
             throw new IllegalArgumentException("La cantidad a reducir debe ser mayor que 0.");
         }
 
-        // Obtener todos los movimientos del usuario para este producto
         List<MovimientoProducto> entradas = movimientoRepository
                 .findByUsuarioIdAndProductoIdAndTipoOrderByFechaAsc(userId, productoId, TipoMovimiento.ENTRADA);
 
@@ -98,17 +96,58 @@ public class MovimientoProductoServiceImpl implements MovimientoProductoService 
             throw new IllegalArgumentException("No tienes suficiente cantidad de este producto para eliminar.");
         }
 
-        // Registrar movimiento de salida para dejar trazabilidad
+        // Cargar entidades necesarias
+        User usuario = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        Producto producto = productoRepository.findById(productoId)
+                .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+
+        // Registrar salida en inventario personal
         MovimientoProducto salida = new MovimientoProducto();
-        salida.setUsuario(userRepository.findById(userId).orElseThrow(() -> new RuntimeException("Usuario no encontrado")));
-        salida.setProducto(productoRepository.findById(productoId).orElseThrow(() -> new RuntimeException("Producto no encontrado")));
+        salida.setUsuario(usuario);
+        salida.setProducto(producto);
+        salida.setEmpresa(producto.getEmpresa()); // ✅ Añadido para evitar error de empresa_id NULL
         salida.setCantidad(cantidadAReducir);
         salida.setTipo(TipoMovimiento.SALIDA);
         salida.setFecha(LocalDateTime.now());
+
         movimientoRepository.save(salida);
 
         System.out.println("✅ Movimiento de salida registrado correctamente. Producto ID: " + productoId + ", cantidad: " + cantidadAReducir);
     }
 
 
+    /**
+     * Registra una entrega desde el inventario de empresa al inventario personal del usuario.
+     */
+    public void entregarProductoAlUsuario(Long productoId, Long usuarioId, int cantidad) {
+        if (cantidad <= 0) {
+            throw new IllegalArgumentException("La cantidad debe ser mayor que 0.");
+        }
+
+        Producto producto = productoRepository.findById(productoId)
+                .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+        User usuario = userRepository.findById(usuarioId)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        if (producto.getCantidad() < cantidad) {
+            throw new IllegalArgumentException("No hay suficiente stock en el inventario de empresa.");
+        }
+
+        // Descontar del stock general
+        producto.setCantidad(producto.getCantidad() - cantidad);
+        productoRepository.save(producto);
+
+        // Registrar ENTRADA al inventario del usuario
+        MovimientoProducto entrada = new MovimientoProducto();
+        entrada.setProducto(producto);
+        entrada.setUsuario(usuario);
+        entrada.setCantidad(cantidad);
+        entrada.setTipo(TipoMovimiento.ENTRADA);
+        entrada.setFecha(LocalDateTime.now());
+        entrada.setEmpresa(producto.getEmpresa());
+        movimientoRepository.save(entrada);
+
+        System.out.println("📦 Entregado producto al usuario ID " + usuarioId + ": " + cantidad + " unidades del producto ID " + productoId);
+    }
 }

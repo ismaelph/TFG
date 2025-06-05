@@ -3,21 +3,26 @@
     <h2 class="text-2xl font-bold text-primary">Movimientos</h2>
 
     <div class="flex flex-wrap gap-2 items-center">
-      <input type="text" [(ngModel)]="searchTerm" (ngModelChange)="actualizarFiltro()"
-        placeholder="Buscar producto..." class="p-2 border rounded-md w-60">
+      <input type="text" [(ngModel)]="searchTerm" (ngModelChange)="actualizarFiltro()" placeholder="Buscar producto..."
+        class="p-2 border rounded-md w-60">
 
-      <select [(ngModel)]="tipoSeleccionado" (ngModelChange)="actualizarFiltro()"
-        class="p-2 border rounded-md text-sm">
+      <select [(ngModel)]="searchUsuario" (ngModelChange)="actualizarFiltro()" class="p-2 border rounded-md text-sm">
+        <option value="">Todos los usuarios</option>
+        <option *ngFor="let usuario of usuariosUnicos" [value]="usuario">
+          {{ usuario }}
+        </option>
+      </select>
+
+
+      <select [(ngModel)]="tipoSeleccionado" (ngModelChange)="actualizarFiltro()" class="p-2 border rounded-md text-sm">
         <option value="">Todos los tipos</option>
         <option value="ENTRADA">ENTRADA</option>
         <option value="SALIDA">SALIDA</option>
       </select>
 
-      <input type="date" [(ngModel)]="fechaDesde" (change)="actualizarFiltro()"
-        class="p-2 border rounded-md text-sm">
+      <input type="date" [(ngModel)]="fechaDesde" (change)="actualizarFiltro()" class="p-2 border rounded-md text-sm">
 
-      <input type="date" [(ngModel)]="fechaHasta" (change)="actualizarFiltro()"
-        class="p-2 border rounded-md text-sm">
+      <input type="date" [(ngModel)]="fechaHasta" (change)="actualizarFiltro()" class="p-2 border rounded-md text-sm">
 
       <button (click)="limpiarFiltros()"
         class="bg-secondary-light hover:bg-secondary text-white px-4 py-2 rounded transition text-sm">

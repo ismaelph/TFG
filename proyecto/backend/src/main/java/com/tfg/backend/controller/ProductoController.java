@@ -222,90 +222,112 @@ public class ProductoController {
     public ResponseEntity<?> getInventarioDelUsuario(@AuthenticationPrincipal UserDetailsImpl userDetails) {
         User user = userService.findById(userDetails.getId());
 
-        List<MovimientoProducto> movimientos = movimientoService.findByUsuarioId(user.getId()).stream()
-                .filter(mov -> mov.getTipo() == TipoMovimiento.SALIDA)
+        List<MovimientoProducto> movimientos = movimientoService.findByUsuarioId(user.getId());
+
+        // Map para calcular stock real por producto
+        Map<Long, Integer> stockMap = new HashMap<>();
+        Map<Long, MovimientoProducto> productoRef = new HashMap<>();
+
+        for (MovimientoProducto mov : movimientos) {
+            Long prodId = mov.getProducto().getId();
+            int cantidad = mov.getTipo() == TipoMovimiento.ENTRADA ? mov.getCantidad() : -mov.getCantidad();
+
+            stockMap.put(prodId, stockMap.getOrDefault(prodId, 0) + cantidad);
+            productoRef.putIfAbsent(prodId, mov); // Guarda referencia a un movimiento para extraer el producto
+        }
+
+        // Filtrar productos con stock > 0
+        List<InventarioPersonalDto> resultado = stockMap.entrySet().stream()
+                .filter(entry -> entry.getValue() > 0)
+                .map(entry -> {
+                    MovimientoProducto mov = productoRef.get(entry.getKey());
+                    Producto producto = mov.getProducto();
+
+                    // 🔧 Forzar carga completa de la estantería
+                    if (producto.getEstanteria() != null) {
+                        producto.setEstanteria(estanteriaService.findById(producto.getEstanteria().getId()));
+                    }
+
+                    String categoria = producto.getCategoria() != null ? producto.getCategoria().getNombre() : "Sin categoría";
+                    String proveedor = producto.getProveedor() != null ? producto.getProveedor().getNombre() : "Sin proveedor";
+                    String imagenUrl = producto.getImagenUrl() != null ? producto.getImagenUrl() : "";
+
+                    String ubicacion = "No asignada";
+                    if (producto.getEstanteria() != null &&
+                            producto.getEstanteria().getPlanta() != null &&
+                            producto.getEstanteria().getPlanta().getAlmacen() != null) {
+                        String almacen = producto.getEstanteria().getPlanta().getAlmacen().getNombre();
+                        int planta = producto.getEstanteria().getPlanta().getNumero();
+                        String est = producto.getEstanteria().getCodigo();
+                        ubicacion = almacen + " - Planta " + planta + " - " + est;
+                    }
+
+                    System.out.println(ubicacion);
+
+                    return new InventarioPersonalDto(
+                            producto.getId(),
+                            producto.getNombre(),
+                            entry.getValue(),
+                            categoria,
+                            proveedor,
+                            imagenUrl,
+                            ubicacion
+                    );
+                })
                 .toList();
-
-        System.out.println("📦 Productos SALIDA para " + user.getUsername() + ": " + movimientos.size());
-
-        List<InventarioPersonalDto> resultado = movimientos.stream().map(mov -> {
-            Producto producto = mov.getProducto();
-
-            String categoria = producto.getCategoria() != null ? producto.getCategoria().getNombre() : "Sin categoría";
-            String proveedor = producto.getProveedor() != null ? producto.getProveedor().getNombre() : "Sin proveedor";
-            String imagenUrl = producto.getImagenUrl() != null ? producto.getImagenUrl() : "";
-
-            String ubicacion = "Sin ubicación";
-            if (producto.getEstanteria() != null &&
-                    producto.getEstanteria().getPlanta() != null &&
-                    producto.getEstanteria().getPlanta().getAlmacen() != null) {
-                String almacen = producto.getEstanteria().getPlanta().getAlmacen().getNombre();
-                int planta = producto.getEstanteria().getPlanta().getNumero();
-                String est = producto.getEstanteria().getCodigo();
-                ubicacion = almacen + " - Planta " + planta + " - " + est;
-            }
-
-            return new InventarioPersonalDto(
-                    producto.getId(),
-                    producto.getNombre(),
-                    mov.getCantidad(), // directo
-                    categoria,
-                    proveedor,
-                    imagenUrl,
-                    ubicacion
-            );
-        }).toList();
 
         return ResponseEntity.ok(resultado);
     }
 
 
 
-
     @PostMapping("/transferir")
     public ResponseEntity<?> transferirProducto(@RequestBody MovimientoProductoDto dto,
                                                 @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        System.out.println("📡 [POST] /api/productos/transferir");
+
         User user = userService.findById(userDetails.getId());
         Empresa empresa = user.getEmpresa();
 
+        System.out.println("👤 Usuario: " + user.getUsername());
+        System.out.println("🏢 Empresa: " + (empresa != null ? empresa.getNombre() : "null"));
+
         if (empresa == null) {
+            System.err.println("🚫 Usuario sin empresa.");
             return ResponseEntity.status(403).body(ErrorDto.from("No perteneces a ninguna empresa"));
         }
 
         Producto producto = productoService.findById(dto.getProductoId());
-        if (producto == null || !producto.getEmpresa().equals(empresa)) {
+
+        if (producto == null) {
+            System.err.println("❌ Producto no encontrado. ID: " + dto.getProductoId());
+            return ResponseEntity.status(404).body(ErrorDto.from("Producto no encontrado"));
+        }
+
+        if (!producto.getEmpresa().equals(empresa)) {
+            System.err.println("🚫 Producto no pertenece a la empresa del usuario.");
             return ResponseEntity.status(403).body(ErrorDto.from("No tienes acceso a este producto"));
         }
 
-        if (dto.getCantidad() <= 0 || producto.getCantidad() < dto.getCantidad()) {
-            return ResponseEntity.status(400).body(ErrorDto.from("Cantidad inválida o sin stock"));
+        if (dto.getCantidad() <= 0) {
+            System.err.println("⚠️ Cantidad inválida: " + dto.getCantidad());
+            return ResponseEntity.status(400).body(ErrorDto.from("La cantidad debe ser mayor que 0"));
         }
 
-        // 1. Movimiento SALIDA (empresa)
-        MovimientoProducto salida = new MovimientoProducto();
-        salida.setProducto(producto);
-        salida.setEmpresa(empresa);
-        salida.setUsuario(user);
-        salida.setTipo(TipoMovimiento.SALIDA);
-        salida.setCantidad(dto.getCantidad());
-        salida.setFecha(LocalDateTime.now());
-        movimientoService.save(salida);
+        if (producto.getCantidad() < dto.getCantidad()) {
+            System.err.println("⚠️ Stock insuficiente. Disponible: " + producto.getCantidad() + ", Solicitado: " + dto.getCantidad());
+            return ResponseEntity.status(400).body(ErrorDto.from("No hay suficiente stock disponible"));
+        }
 
-        // Actualizar stock empresa
-        producto.setCantidad(producto.getCantidad() - dto.getCantidad());
-        productoService.save(producto);
-
-        // 2. Movimiento ENTRADA (usuario personal)
-        MovimientoProducto entrada = new MovimientoProducto();
-        entrada.setProducto(producto);
-        entrada.setEmpresa(empresa);
-        entrada.setUsuario(user);
-        entrada.setTipo(TipoMovimiento.ENTRADA);
-        entrada.setCantidad(dto.getCantidad());
-        entrada.setFecha(LocalDateTime.now());
-        movimientoService.save(entrada);
-
-        return ResponseEntity.ok("Transferencia completada");
+        try {
+            // ✅ Solo registramos ENTRADA al usuario y actualizamos stock (nueva lógica)
+            movimientoService.entregarProductoAlUsuario(dto.getProductoId(), user.getId(), dto.getCantidad());
+            System.out.println("✅ Transferencia realizada con éxito");
+            return ResponseEntity.ok(new MessageResponse("Transferencia completada"));
+        } catch (Exception e) {
+            System.err.println("❌ Error al transferir producto: " + e.getMessage());
+            return ResponseEntity.status(500).body(ErrorDto.from("Error al transferir producto: " + e.getMessage()));
+        }
     }
 
     @PutMapping("/mi-inventario/{productoId}/reducir")

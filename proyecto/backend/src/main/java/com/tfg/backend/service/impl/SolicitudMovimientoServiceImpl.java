@@ -256,23 +256,12 @@ public class SolicitudMovimientoServiceImpl implements SolicitudMovimientoServic
         System.out.println("📦 Stock disponible: " + stockDisponible + " | Solicitado: " + cantidadSolicitada);
 
         if (stockDisponible >= cantidadSolicitada) {
-            producto.setCantidad(stockDisponible - cantidadSolicitada);
-            productoService.save(producto);
-            System.out.println("✅ Stock suficiente. Producto actualizado. Nuevo stock: " + producto.getCantidad());
+            // ✅ Nueva lógica: entregar al usuario (descuenta y registra ENTRADA)
+            movimientoProductoService.entregarProductoAlUsuario(producto.getId(), usuario.getId(), cantidadSolicitada);
+            System.out.println("✅ Producto entregado al usuario correctamente");
 
-            MovimientoProducto movimiento = MovimientoProducto.builder()
-                    .producto(producto)
-                    .usuario(usuario)
-                    .empresa(producto.getEmpresa())
-                    .cantidad(cantidadSolicitada)
-                    .tipo(TipoMovimiento.SALIDA)
-                    .observaciones("Solicitud aprobada automáticamente")
-                    .build();
-            movimientoProductoService.save(movimiento);
-            System.out.println("📄 Movimiento registrado con éxito para producto: " + producto.getNombre());
-
-            solicitud.setEstado(EstadoSolicitud.ENVIADA); // 🔄 Cambiado de STOCK_RECIBIDO a ENVIADA
-            System.out.println("✅ Estado de solicitud actualizado a ENVIADA");
+            solicitud.setEstado(EstadoSolicitud.ENVIADA); // 🎯 Estado final cuando ya fue entregado
+            System.out.println("📌 Estado de solicitud actualizado a ENVIADA");
         } else {
             solicitud.setEstado(EstadoSolicitud.EN_ESPERA_STOCK);
             System.out.println("⏳ No hay stock suficiente. Estado actualizado a EN_ESPERA_STOCK");
@@ -287,5 +276,6 @@ public class SolicitudMovimientoServiceImpl implements SolicitudMovimientoServic
 
         return actualizada;
     }
+
 
 }
