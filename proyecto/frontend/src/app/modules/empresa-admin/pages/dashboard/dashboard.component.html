@@ -76,6 +76,18 @@
       </div>
     </div>
 
+    <!-- Peticiones -->
+    <div *ngIf="empresa" class="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 p-6">
+      <h2 class="text-xl font-semibold text-secondary mb-2">Peticiones</h2>
+      <p class="text-secondary-light mb-4">Gestiona tus Peticiones</p>
+      <div class="flex justify-center">
+        <a routerLink="/empresa/peticiones"
+          class="bg-accent hover:bg-accent-dark text-white px-4 py-2 rounded transition">
+          Gestionar Peticiones
+        </a>
+      </div>
+    </div>
+
     <!-- Almacenes -->
     <div *ngIf="empresa" class="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 p-6">
       <h2 class="text-xl font-semibold text-secondary mb-2">Almacenes</h2>
@@ -91,15 +103,17 @@
 
 
 
+
+
   <!-- Modal Crear Empresa -->
   <app-empresa-create *ngIf="mostrarModalEmpresa" (cerrar)="cerrarModal()"></app-empresa-create>
 
   <!-- Botón flotante de correo -->
   <button *ngIf="empresa"
-        class="fixed bottom-6 right-6 w-14 h-14 bg-accent text-white rounded-full shadow-lg flex items-center justify-center hover:bg-accent-dark transition"
-        (click)="abrirModalCorreo()">
-  <i class="bi bi-envelope-fill text-2xl"></i>
-</button>
+    class="fixed bottom-6 right-6 w-14 h-14 bg-accent text-white rounded-full shadow-lg flex items-center justify-center hover:bg-accent-dark transition"
+    (click)="abrirModalCorreo()">
+    <i class="bi bi-envelope-fill text-2xl"></i>
+  </button>
 
 
   <!-- Modal de correo (estilo modal flotante) -->

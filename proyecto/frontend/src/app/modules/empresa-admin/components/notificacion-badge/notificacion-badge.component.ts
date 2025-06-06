@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output, OnDestroy } from '@angular/core';
 import { SolicitudMovimientoService } from '../../services/solicitud-movimiento-service.service';
 import { SolicitudPersonalizadaService } from '../../services/solicitud-personalizada-service.service';
-import { Subscription, interval } from 'rxjs';
+import { Subscription, interval, forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-notificacion-badge',
@@ -10,8 +10,9 @@ import { Subscription, interval } from 'rxjs';
 })
 export class NotificacionBadgeComponent implements OnInit, OnDestroy {
   @Output() clickBadge = new EventEmitter<void>();
-  totalNotificaciones = 0;
+  @Output() cambioNotificaciones = new EventEmitter<number>();
 
+  totalNotificaciones = 0;
   private actualizadorSub?: Subscription;
 
   constructor(
@@ -20,10 +21,8 @@ export class NotificacionBadgeComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    // Ejecuta cada 5 segundos
-    this.actualizadorSub = interval(5000).subscribe(() => this.actualizarNotificaciones());
-    // Carga inicial inmediata
-    this.actualizarNotificaciones();
+    this.actualizadorSub = interval(1000).subscribe(() => this.actualizarNotificaciones());
+    this.actualizarNotificaciones(); // Carga inicial inmediata
   }
 
   ngOnDestroy(): void {
@@ -31,26 +30,18 @@ export class NotificacionBadgeComponent implements OnInit, OnDestroy {
   }
 
   actualizarNotificaciones(): void {
-    let normales = 0;
-    let personalizadas = 0;
-
-    this.movService.getSolicitudesNoLeidas().subscribe({
-      next: (data) => {
-        normales = data.length;
+    forkJoin({
+      movs: this.movService.getSolicitudesNoLeidas(),
+      pers: this.perService.getSolicitudesNoLeidas()
+    }).subscribe({
+      next: ({ movs, pers }) => {
+        const normales = movs.filter(m => m.estado === 'PENDIENTE').length;
+        const personalizadas = pers.filter(p => p.estado === 'PENDIENTE').length;
         this.totalNotificaciones = normales + personalizadas;
+        this.cambioNotificaciones.emit(this.totalNotificaciones);
       },
-      error: () => {
-        console.warn('❌ Error al cargar solicitudes normales');
-      }
-    });
-
-    this.perService.getSolicitudesNoLeidas().subscribe({
-      next: (data) => {
-        personalizadas = data.length;
-        this.totalNotificaciones = normales + personalizadas;
-      },
-      error: () => {
-        console.warn('❌ Error al cargar solicitudes personalizadas');
+      error: (err) => {
+        console.warn('❌ Error al cargar notificaciones:', err);
       }
     });
   }

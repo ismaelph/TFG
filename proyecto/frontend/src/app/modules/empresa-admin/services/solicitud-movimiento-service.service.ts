@@ -29,4 +29,5 @@ export class SolicitudMovimientoService {
       respuestaAdmin: respuesta
     });
   }
+
 }

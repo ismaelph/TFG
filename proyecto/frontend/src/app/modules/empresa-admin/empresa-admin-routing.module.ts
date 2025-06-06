@@ -13,6 +13,7 @@ import { ProductoCreateComponent } from './pages/producto-create/producto-create
 import { MovimientoListComponent } from './pages/movimiento-list/movimiento-list.component';
 import { UsuariosListComponent } from './pages/usuarios-list/usuarios-list.component';
 import { AlmacenListComponent } from './pages/almacen-list/almacen-list.component';
+import { SolicitudesMovimientoComponent } from './pages/solicitudes-movimiento/solicitudes-movimiento.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -42,6 +43,7 @@ const routes: Routes = [
 
   // MOVIMIENTOS
   { path: 'movimiento-list', component: MovimientoListComponent },
+  { path: 'peticiones', component: SolicitudesMovimientoComponent},
 
 
   // USUARIOS
