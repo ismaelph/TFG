@@ -31,6 +31,16 @@
         </span>
       </div>
 
+      <!-- Campana escritorio para empleado -->
+      <div *ngIf="esEmpleado" class="relative cursor-pointer" (click)="mostrarModalNotificaciones = true">
+        <i class="bi bi-bell-fill text-2xl text-white hover:text-accent transition"></i>
+        <span *ngIf="notificaciones > 0"
+          class="absolute -top-1 -right-1 w-5 h-5 bg-red-600 text-xs text-white rounded-full flex items-center justify-center">
+          {{ notificaciones }}
+        </span>
+      </div>
+
+
       <!-- Login -->
       <a *ngIf="!sesionIniciada" routerLink="/auth/login"
         class="hover:text-accent transition flex items-center space-x-1">
@@ -97,11 +107,14 @@
     </div>
   </div>
 
-  <app-notificacion-modal
-  *ngIf="mostrarModalNotificaciones"
-  (cerrar)="mostrarModalNotificaciones = false"
-  (cambioNotificaciones)="notificaciones = +$event">
-</app-notificacion-modal>
+  <app-notificacion-modal *ngIf="mostrarModalNotificaciones" (cerrar)="mostrarModalNotificaciones = false"
+    (cambioNotificaciones)="notificaciones = +$event">
+  </app-notificacion-modal>
+
+  <!-- Modal lateral notificaciones EMPLEADO -->
+  <app-notificacion-modal-empleado *ngIf="mostrarModalNotificaciones" (cerrar)="mostrarModalNotificaciones = false"
+    (cambioNotificaciones)="notificaciones = +$event">
+  </app-notificacion-modal-empleado>
 
 
 
