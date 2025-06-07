@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SolicitudPersonalizadaService } from '../../../services/solicitud-personalizada.service';
+import { SolicitudPersonalizadaEmpleadoService } from '../../../services/solicitud-personalizada-Empleado.service';
 import { NuevaSolicitudPersonalizada } from 'src/app/core/interfaces/NuevaSolicitudPersonalizada';
 
 @Component({
@@ -17,7 +17,7 @@ export class FormularioPersonalizadaComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private solicitudService: SolicitudPersonalizadaService
+    private solicitudService: SolicitudPersonalizadaEmpleadoService
   ) {}
 
   ngOnInit(): void {

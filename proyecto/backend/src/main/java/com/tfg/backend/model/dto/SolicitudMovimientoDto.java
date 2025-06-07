@@ -25,7 +25,6 @@ public class SolicitudMovimientoDto {
     private Instant fechaResolucion;
     private String respuestaAdmin;
 
-
     private String productoNombre;
     private String usuarioNombre;
 

@@ -240,6 +240,7 @@ public class SolicitudMovimientoServiceImpl implements SolicitudMovimientoServic
             solicitud.setRespuestaAdmin(respuestaAdmin);
             solicitud.setFechaResolucion(Instant.now());
             solicitud.setLeida(true);
+            solicitud.setLeidaEmpleado(false);
             SolicitudMovimiento guardada = solicitudRepository.save(solicitud);
             System.out.println("💾 Solicitud rechazada guardada con ID: " + guardada.getId());
             return guardada;
@@ -270,6 +271,7 @@ public class SolicitudMovimientoServiceImpl implements SolicitudMovimientoServic
         solicitud.setRespuestaAdmin(respuestaAdmin);
         solicitud.setFechaResolucion(Instant.now());
         solicitud.setLeida(true);
+        solicitud.setLeidaEmpleado(false);
 
         SolicitudMovimiento actualizada = solicitudRepository.save(solicitud);
         System.out.println("💾 Solicitud final guardada. Estado: " + actualizada.getEstado() + ", Fecha resolución: " + actualizada.getFechaResolucion());

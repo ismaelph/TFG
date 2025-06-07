@@ -72,6 +72,7 @@ public class SolicitudPersonalizadaDto {
             dto.setUsuarioNombre(entity.getUsuario().getUsername());
         }
 
+
         // Logs y consola
         System.out.println("🟢 DTO generado desde entidad: ID = " + entity.getId());
         if (log != null) {

@@ -9,6 +9,9 @@ import Swal from 'sweetalert2';
 import { SolicitudMovimientoService } from 'src/app/modules/empresa-admin/services/solicitud-movimiento-service.service';
 import { SolicitudPersonalizadaService } from 'src/app/modules/empresa-admin/services/solicitud-personalizada-service.service';
 
+import { SolicitudMovimientoEmpleadoService } from 'src/app/modules/empleado/services/solicitud-movimiento-Empleado.service';
+import { SolicitudPersonalizadaEmpleadoService } from 'src/app/modules/empleado/services/solicitud-personalizada-Empleado.service';
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -19,7 +22,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
   timeoutRef: any;
   sesionIniciada = false;
   menuAbierto = false;
-  mostrarModalNotificaciones = false;
+  mostrarModalNotificacionesAdmin = false;
+  mostrarModalNotificacionesEmpleado = false;
 
   esAdmin = false;
   esAdminEmpresa = false;
@@ -27,7 +31,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
   esUsuario = false;
 
   nombreUsuario: string = 'Cuenta';
-  notificaciones: number = 0;
+  notificacionesAdmin: number = 0;
+  notificacionesEmpleado: number = 0;
 
   private sessionSub!: Subscription;
 
@@ -37,83 +42,86 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private router: Router,
     private solicitudService: SolicitudMovimientoService,
-    private solicitudPersonalizadaService: SolicitudPersonalizadaService
-  ) {}
+    private solicitudPersonalizadaService: SolicitudPersonalizadaService,
+    private solicitudMovimientoServiceEmpleado: SolicitudMovimientoEmpleadoService,
+    private solicitudPersonalizadaServiceEmpleado: SolicitudPersonalizadaEmpleadoService
+  ) { }
 
   ngOnInit(): void {
-    console.log('🔄 Navbar inicializado');
     this.actualizarEstado();
 
     this.sessionSub = this.sessionService.cambios$.subscribe(() => {
-      console.log('🟢 Sesión actualizada por cambios$');
       this.actualizarEstado();
     });
 
-    if (this.tokenService.isLogged() && this.tokenService.hasRole('ROLE_ADMIN_EMPRESA')) {
-      setTimeout(() => this.cargarNotificaciones(), 150);
+    if (this.tokenService.isLogged()) {
+      if (this.tokenService.hasRole('ROLE_ADMIN_EMPRESA')) {
+        setTimeout(() => this.cargarNotificacionesAdmin(), 150);
+      }
+
+      if (this.tokenService.hasRole('ROLE_EMPLEADO')) {
+        setTimeout(() => this.cargarNotificacionesEmpleado(), 150);
+      }
     }
   }
 
-  private cargarNotificaciones(): void {
-    const token = this.tokenService.getToken();
-    if (!token) {
-      console.warn('⚠️ Token no disponible aún. Cancelando carga de notificaciones.');
-      return;
-    }
-
-    let total = 0;
-
+  cargarNotificacionesAdmin(): void {
     this.solicitudService.getSolicitudesNoLeidas().subscribe({
       next: (movimientos) => {
-        total += movimientos.length;
+        const totalMovs = movimientos.length;
 
         this.solicitudPersonalizadaService.getSolicitudesNoLeidas().subscribe({
           next: (personalizadas) => {
-            total += personalizadas.length;
-            this.notificaciones = total;
-            console.log('🔔 Total notificaciones:', this.notificaciones);
+            this.notificacionesAdmin = totalMovs + personalizadas.length;
           },
           error: () => {
-            console.warn('⚠️ Error cargando solicitudes personalizadas');
-            this.notificaciones = total;
+            this.notificacionesAdmin = totalMovs;
           }
         });
       },
       error: () => {
-        console.warn('⚠️ Error cargando solicitudes normales');
-        this.notificaciones = 0;
+        this.notificacionesAdmin = 0;
       }
     });
   }
 
-  private actualizarEstado(): void {
+  cargarNotificacionesEmpleado(): void {
+    const userId = this.tokenService.getUserId();
+    if (!userId) return;
+
+    this.solicitudMovimientoServiceEmpleado.getNoLeidasEmpleado(userId).subscribe({
+      next: (movimientos) => {
+        const totalMovs = movimientos.length;
+
+        this.solicitudPersonalizadaServiceEmpleado.getNoLeidasEmpleado(userId).subscribe({
+          next: (personalizadas) => {
+            this.notificacionesEmpleado = totalMovs + personalizadas.length;
+          },
+          error: () => {
+            this.notificacionesEmpleado = totalMovs;
+          }
+        });
+      },
+      error: () => {
+        this.notificacionesEmpleado = 0;
+      }
+    });
+  }
+
+  actualizarEstado(): void {
     this.sesionIniciada = this.tokenService.isLogged();
-    console.log('✅ Token:', this.tokenService.getToken());
-    console.log('👤 Usuario:', this.tokenService.getUser());
+    const usuario = this.tokenService.getUser();
+    this.nombreUsuario = usuario?.username || 'Cuenta';
 
-    if (this.sesionIniciada) {
-      const usuario = this.tokenService.getUser();
-      this.nombreUsuario = usuario?.username || 'Cuenta';
-
-      this.esAdmin = this.tokenService.hasRole('ROLE_ADMIN');
-      this.esAdminEmpresa = this.tokenService.hasRole('ROLE_ADMIN_EMPRESA');
-      this.esEmpleado = this.tokenService.hasRole('ROLE_EMPLEADO');
-      this.esUsuario = this.tokenService.hasRole('ROLE_USER');
-
-      console.log('🎯 Roles → Admin:', this.esAdmin, '| AdminEmpresa:', this.esAdminEmpresa, '| Empleado:', this.esEmpleado, '| User:', this.esUsuario);
-    } else {
-      console.warn('⛔ No hay sesión activa.');
-      this.nombreUsuario = 'Cuenta';
-      this.esAdmin = this.esAdminEmpresa = this.esEmpleado = this.esUsuario = false;
-    }
-
+    this.esAdmin = this.tokenService.hasRole('ROLE_ADMIN');
+    this.esAdminEmpresa = this.tokenService.hasRole('ROLE_ADMIN_EMPRESA');
+    this.esEmpleado = this.tokenService.hasRole('ROLE_EMPLEADO');
+    this.esUsuario = this.tokenService.hasRole('ROLE_USER');
     this.dropdownVisible = false;
   }
 
   ngOnDestroy(): void {
-    if (this.sessionSub) {
-      this.sessionSub.unsubscribe();
-    }
+    this.sessionSub?.unsubscribe();
   }
 
   mostrarMenu(): void {

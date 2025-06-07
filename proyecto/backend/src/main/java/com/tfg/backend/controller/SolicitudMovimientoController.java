@@ -5,6 +5,7 @@ import com.tfg.backend.auth.services.UserDetailsImpl;
 import com.tfg.backend.model.dto.ErrorDto;
 import com.tfg.backend.model.dto.SolicitudMovimientoDto;
 import com.tfg.backend.model.entity.SolicitudMovimiento;
+import com.tfg.backend.model.enums.EstadoSolicitud;
 import com.tfg.backend.model.repository.SolicitudMovimientoRepository;
 import com.tfg.backend.service.SolicitudMovimientoService;
 import com.tfg.backend.service.UserService;
@@ -196,5 +197,76 @@ public class SolicitudMovimientoController {
                     ));
         }
     }
+
+    @GetMapping("/usuario/{id}/noleidas")
+    @PreAuthorize("hasRole('ROLE_EMPLEADO')")
+    public ResponseEntity<?> getNotificacionesMovimientoEmpleado(@PathVariable Long id) {
+        try {
+            System.out.println("🔍 [INICIO] Buscando solicitudes de movimiento NO leídas para el usuario ID: " + id);
+
+            List<SolicitudMovimiento> todas = solicitudService.findByUsuarioId(id);
+            System.out.println("📦 Total de solicitudes encontradas para usuario ID " + id + ": " + todas.size());
+
+            todas.forEach(s -> {
+                System.out.println("➡️ Solicitud ID: " + s.getId()
+                        + " | Estado: " + s.getEstado()
+                        + " | Leída empleado: " + s.isLeidaEmpleado()
+                        + " | Producto: " + (s.getProducto() != null ? s.getProducto().getNombre() : "null"));
+            });
+
+            List<SolicitudMovimiento> filtradas = todas.stream()
+                    .filter(s ->
+                            (s.getEstado() == EstadoSolicitud.ENVIADA || s.getEstado() == EstadoSolicitud.RECHAZADA)
+                                    && !s.isLeidaEmpleado()
+                    )
+                    .toList();
+
+            System.out.println("✅ Total solicitudes que cumplen filtro (ENVIADA o RECHAZADA y no leída por empleado): " + filtradas.size());
+
+            List<SolicitudMovimientoDto> resultado = filtradas.stream()
+                    .map(SolicitudMovimientoDto::from)
+                    .toList();
+
+            resultado.forEach(dto -> {
+                System.out.println("📤 DTO generado -> ID: " + dto.getId()
+                        + " | Estado: " + dto.getEstado()
+                        + " | Producto: " + dto.getProductoNombre()
+                        + " | Respuesta admin: " + dto.getRespuestaAdmin());
+            });
+
+            System.out.println("🎯 [FIN] Retornando " + resultado.size() + " solicitudes al frontend.");
+            return ResponseEntity.ok(resultado);
+
+        } catch (Exception e) {
+            System.err.println("❌ Error al obtener solicitudes de movimiento no leídas:");
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(Map.of("error", "Error al cargar notificaciones de movimiento"));
+        }
+    }
+
+
+    @PutMapping("/{id}/leida-empleado")
+    @PreAuthorize("hasRole('ROLE_EMPLEADO')")
+    public ResponseEntity<?> marcarComoLeidaPorEmpleado(@PathVariable Long id) {
+        try {
+            SolicitudMovimiento solicitud = solicitudService.findById(id);
+            if (solicitud == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "Solicitud no encontrada"));
+            }
+
+            solicitud.setLeidaEmpleado(true);
+            solicitudService.save(solicitud);
+
+            return ResponseEntity.ok(Map.of("mensaje", "Solicitud marcada como leída por el empleado"));
+        } catch (Exception e) {
+            System.err.println("❌ Error al marcar solicitud como leída por el empleado:");
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("error", "Error al marcar como leída por el empleado"));
+        }
+    }
+
+
+
 
 }

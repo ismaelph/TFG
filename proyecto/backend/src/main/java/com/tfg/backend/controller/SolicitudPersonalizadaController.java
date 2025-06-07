@@ -227,5 +227,74 @@ public class SolicitudPersonalizadaController {
         }
     }
 
+    @GetMapping("/usuario/{id}/noleidas")
+    @PreAuthorize("hasRole('ROLE_EMPLEADO')")
+    public ResponseEntity<?> getNotificacionesPersonalizadasEmpleado(@PathVariable Long id) {
+        try {
+            System.out.println("🔍 [INICIO] Buscando solicitudes personalizadas NO leídas para el usuario ID: " + id);
+
+            List<SolicitudPersonalizada> todas = solicitudService.findByUsuarioId(id);
+            System.out.println("📦 Total solicitudes encontradas: " + todas.size());
+
+            todas.forEach(s -> {
+                System.out.println("➡️ Solicitud ID: " + s.getId()
+                        + " | Estado: " + s.getEstado()
+                        + " | Leída empleado: " + s.isLeidaEmpleado()
+                        + " | Nombre sugerido: " + s.getNombreProductoSugerido());
+            });
+
+            List<SolicitudPersonalizada> filtradas = todas.stream()
+                    .filter(s ->
+                            (s.getEstado() == EstadoSolicitud.ENVIADA || s.getEstado() == EstadoSolicitud.RECHAZADA)
+                                    && !s.isLeidaEmpleado()
+                    )
+                    .toList();
+
+            System.out.println("✅ Total solicitudes que cumplen filtro: " + filtradas.size());
+
+            List<SolicitudPersonalizadaDto> resultado = filtradas.stream()
+                    .map(SolicitudPersonalizadaDto::from)
+                    .toList();
+
+            resultado.forEach(dto -> {
+                System.out.println("📤 DTO generado -> ID: " + dto.getId()
+                        + " | Estado: " + dto.getEstado()
+                        + " | Nombre sugerido: " + dto.getNombreProductoSugerido()
+                        + " | Respuesta admin: " + dto.getRespuestaAdmin());
+            });
+
+            System.out.println("🎯 [FIN] Retornando " + resultado.size() + " solicitudes al frontend.");
+            return ResponseEntity.ok(resultado);
+
+        } catch (Exception e) {
+            System.err.println("❌ Error al obtener solicitudes personalizadas no leídas:");
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(Map.of("error", "Error al cargar notificaciones personalizadas"));
+        }
+    }
+
+
+    @PutMapping("/{id}/leida-empleado")
+    @PreAuthorize("hasRole('ROLE_EMPLEADO')")
+    public ResponseEntity<?> marcarComoLeidaPorEmpleado(@PathVariable Long id) {
+        try {
+            SolicitudPersonalizada solicitud = solicitudService.findById(id);
+            if (solicitud == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "Solicitud no encontrada"));
+            }
+
+            solicitud.setLeidaEmpleado(true);
+            solicitudService.save(solicitud);
+
+            return ResponseEntity.ok(Map.of("mensaje", "Solicitud personalizada marcada como leída por el empleado"));
+        } catch (Exception e) {
+            System.err.println("❌ Error al marcar solicitud personalizada como leída por el empleado:");
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("error", "Error al marcar como leída por el empleado"));
+        }
+    }
+
+
 
 }

@@ -9,10 +9,10 @@ import { PERSONALIZADA_ENDPOINT } from 'src/app/core/constants/constants';
 @Injectable({
   providedIn: 'root'
 })
-export class SolicitudPersonalizadaService {
+export class SolicitudPersonalizadaEmpleadoService {
   private baseUrl = PERSONALIZADA_ENDPOINT;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   crearSolicitud(dto: NuevaSolicitudPersonalizada): Observable<any> {
     return this.http.post(`${this.baseUrl}/crear`, dto).pipe(
@@ -83,4 +83,26 @@ export class SolicitudPersonalizadaService {
       })
     );
   }
+
+  getNoLeidasEmpleado(userId: number): Observable<SolicitudPersonalizada[]> {
+    return this.http.get<SolicitudPersonalizada[]>(`${this.baseUrl}/usuario/${userId}/noleidas`).pipe(
+      tap(data => console.log(`🔔 Solicitudes NO leídas del empleado ID ${userId}:`, data)),
+      catchError(err => {
+        console.error('❌ Error al obtener solicitudes no leídas del empleado:', err);
+        return of([]);
+      })
+    );
+  }
+
+
+  marcarLeidaEmpleado(id: number): Observable<any> {
+    return this.http.put(`${this.baseUrl}/${id}/leida-empleado`, {}).pipe(
+      tap(() => console.log(`✅ Solicitud ${id} marcada como leída por el empleado.`)),
+      catchError(err => {
+        console.error(`❌ Error al marcar como leída por el empleado la solicitud ${id}:`, err);
+        return of(null);
+      })
+    );
+  }
+
 }

@@ -8,10 +8,8 @@ import { MiInventarioPersonalComponent } from './inventario/pages/mi-inventario-
 import { TarjetaProductoComponent } from './inventario/components/tarjeta-producto/tarjeta-producto.component';
 import { FormularioSolicitudComponent } from './inventario/components/formulario-solicitud/formulario-solicitud.component';
 import { BannerEstadoComponent } from './inventario/components/banner-estado/banner-estado.component';
-import { NotificacionBadgeComponent } from './notificaciones/components/notificacion-badge/notificacion-badge.component';
 import { MiInventarioComponent } from './inventario/pages/mi-inventario/mi-inventario.component';
 import { FormularioPersonalizadaComponent } from './inventario/components/formulario-personalizada/formulario-personalizada.component';
-import { NotificacionModalEmpleadoComponent } from './notificaciones/components/notificacion-modal/notificacion-modal.component';
 
 
 @NgModule({
@@ -20,10 +18,8 @@ import { NotificacionModalEmpleadoComponent } from './notificaciones/components/
     TarjetaProductoComponent,
     FormularioSolicitudComponent,
     BannerEstadoComponent,
-    NotificacionBadgeComponent,
-    NotificacionModalEmpleadoComponent,
     MiInventarioComponent,
-    FormularioPersonalizadaComponent
+    FormularioPersonalizadaComponent,
   ],
   imports: [
     CommonModule,

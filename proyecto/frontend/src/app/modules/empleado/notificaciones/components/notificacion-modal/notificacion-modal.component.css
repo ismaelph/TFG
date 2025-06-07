@@ -1,45 +1,15 @@
-/* Estilo general del modal lateral flotante */
-:host {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 100%;
-  max-width: 420px;
-  height: 100%;
-  background-color: #ffffff;
-  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
-  z-index: 50;
-  display: flex;
-  flex-direction: column;
-  transform: translateX(100%);
-  transition: transform 0.3s ease-in-out;
+#modalNotificaciones {
+  transition: transform 0.3s ease;
+  animation: slideInRight 0.3s ease-out;
 }
 
-/* Clase para mostrar el modal cuando se aplica desde el componente padre */
-:host-context(.mostrar) {
-  transform: translateX(0%);
-}
-
-/* Scroll interno si hay muchas solicitudes */
-:host ::ng-deep .scrollable {
-  overflow-y: auto;
-  max-height: calc(100vh - 160px); /* espacio para encabezado y botón */
-}
-
-/* Personaliza los iconos de estado si deseas algo adicional */
-.text-green-600 {
-  font-weight: 600;
-}
-
-.text-red-600 {
-  font-weight: 600;
-}
-
-.text-yellow-600 {
-  font-weight: 600;
-}
-
-/* Botón cerrar más estilizado */
-button.underline:hover {
-  color: #dc2626; /* rojo hover */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }

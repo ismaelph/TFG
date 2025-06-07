@@ -9,11 +9,11 @@ import { SOLICITUD_ENDPOINT } from 'src/app/core/constants/constants';
 @Injectable({
   providedIn: 'root'
 })
-export class SolicitudMovimientoService {
+export class SolicitudMovimientoEmpleadoService {
 
   private baseUrl = SOLICITUD_ENDPOINT;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getTodas(): Observable<SolicitudMovimiento[]> {
     return this.http.get<SolicitudMovimiento[]>(this.baseUrl).pipe(
@@ -94,4 +94,26 @@ export class SolicitudMovimientoService {
       })
     );
   }
+
+  getNoLeidasEmpleado(userId: number): Observable<SolicitudMovimiento[]> {
+    return this.http.get<SolicitudMovimiento[]>(`${this.baseUrl}/usuario/${userId}/noleidas`).pipe(
+      tap(data => console.log(`🔔 Solicitudes NO leídas del empleado ID ${userId}:`, data)),
+      catchError(err => {
+        console.error('❌ Error al obtener solicitudes no leídas del empleado:', err);
+        return of([]);
+      })
+    );
+  }
+
+  marcarLeidaEmpleado(id: number): Observable<any> {
+  return this.http.put(`${this.baseUrl}/${id}/leida-empleado`, {}).pipe(
+    tap(() => console.log(`✅ Solicitud ${id} marcada como leída por el empleado.`)),
+    catchError(err => {
+      console.error(`❌ Error al marcar como leída por el empleado la solicitud ${id}:`, err);
+      return of(null);
+    })
+  );
+}
+
+
 }

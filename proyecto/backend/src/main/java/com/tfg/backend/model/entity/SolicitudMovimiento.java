@@ -44,4 +44,7 @@ public class SolicitudMovimiento {
     @Column(nullable = false)
     private boolean leida = false;
 
+    @Column(name = "leida_empleado", nullable = false)
+    private boolean leidaEmpleado = false;
+
 }

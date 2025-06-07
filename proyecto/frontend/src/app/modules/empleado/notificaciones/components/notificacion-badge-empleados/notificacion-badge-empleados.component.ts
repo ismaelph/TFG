@@ -1,16 +1,15 @@
 import { Component, EventEmitter, OnInit, Output, OnDestroy } from '@angular/core';
 import { Subscription, interval, forkJoin } from 'rxjs';
-import { SolicitudMovimientoService } from '../../../services/solicitud-movimiento.service';
-import { SolicitudPersonalizadaService } from '../../../services/solicitud-personalizada.service';
-
+import { SolicitudMovimientoEmpleadoService } from '../../../services/solicitud-movimiento-Empleado.service';
+import { SolicitudPersonalizadaEmpleadoService } from '../../../services/solicitud-personalizada-Empleado.service';
+import { TokenService } from 'src/app/core/services/token.service';
 
 @Component({
-  selector: 'app-notificacion-badge-empleado',
-  templateUrl: './notificacion-badge.component.html',
-  styleUrls: ['./notificacion-badge.component.css']
+  selector: 'app-notificacion-badge-empleados',
+  templateUrl: './notificacion-badge-empleados.component.html',
+  styleUrls: ['./notificacion-badge-empleados.component.css']
 })
-export class NotificacionBadgeComponent implements OnInit {
-
+export class NotificacionBadgeEmpleadosComponent implements OnInit, OnDestroy {
   @Output() clickBadge = new EventEmitter<void>();
   @Output() cambioNotificaciones = new EventEmitter<number>();
 
@@ -18,8 +17,9 @@ export class NotificacionBadgeComponent implements OnInit {
   private actualizadorSub?: Subscription;
 
   constructor(
-    private movService: SolicitudMovimientoService,
-    private perService: SolicitudPersonalizadaService
+    private movService: SolicitudMovimientoEmpleadoService,
+    private perService: SolicitudPersonalizadaEmpleadoService,
+    private tokenService: TokenService
   ) {}
 
   ngOnInit(): void {
@@ -32,9 +32,15 @@ export class NotificacionBadgeComponent implements OnInit {
   }
 
   actualizarNotificaciones(): void {
+    const userId = this.tokenService.getUserId();
+    if (!userId) {
+      console.warn('⛔ No se encontró userId para cargar notificaciones del empleado');
+      return;
+    }
+
     forkJoin({
-      movs: this.movService.getNoLeidas(),
-      pers: this.perService.getNoLeidas()
+      movs: this.movService.getNoLeidasEmpleado(userId),
+      pers: this.perService.getNoLeidasEmpleado(userId)
     }).subscribe({
       next: ({ movs, pers }) => {
         const normales = movs.filter(m => m.estado === 'PENDIENTE').length;
@@ -51,5 +57,4 @@ export class NotificacionBadgeComponent implements OnInit {
   abrir(): void {
     this.clickBadge.emit();
   }
-
 }

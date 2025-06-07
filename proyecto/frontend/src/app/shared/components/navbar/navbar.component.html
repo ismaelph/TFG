@@ -19,31 +19,28 @@
       <a *ngIf="esEmpleado" routerLink="/empleado/inventario" class="hover:text-accent transition">Inventario</a>
       <a *ngIf="esEmpleado" routerLink="/empleado/mi-inventario" class="hover:text-accent transition">Mi Inventario</a>
       <a *ngIf="esUsuario" routerLink="/main/ver-empresa" class="hover:text-accent transition">Ver Empresas</a>
-      <a *ngIf="esAdminEmpresa" routerLink="/empresa/movimiento-list"
-        class="hover:text-accent transition">Movimientos</a>
+      <a *ngIf="esAdminEmpresa" routerLink="/empresa/movimiento-list" class="hover:text-accent transition">Movimientos</a>
 
-      <!-- Campana escritorio -->
-      <div *ngIf="esAdminEmpresa" class="relative cursor-pointer" (click)="mostrarModalNotificaciones = true">
+      <!-- Campana escritorio ADMIN_EMPRESA -->
+      <div *ngIf="esAdminEmpresa" class="relative cursor-pointer" (click)="mostrarModalNotificacionesAdmin = true">
         <i class="bi bi-bell-fill text-2xl text-white hover:text-accent transition"></i>
-        <span *ngIf="notificaciones > 0"
-          class="absolute -top-1 -right-1 w-5 h-5 bg-red-600 text-xs text-white rounded-full flex items-center justify-center">
-          {{ notificaciones }}
+        <span *ngIf="notificacionesAdmin > 0"
+              class="absolute -top-1 -right-1 w-5 h-5 bg-red-600 text-xs text-white rounded-full flex items-center justify-center">
+          {{ notificacionesAdmin }}
         </span>
       </div>
 
-      <!-- Campana escritorio para empleado -->
-      <div *ngIf="esEmpleado" class="relative cursor-pointer" (click)="mostrarModalNotificaciones = true">
+      <!-- Campana escritorio EMPLEADO -->
+      <div *ngIf="esEmpleado" class="relative cursor-pointer" (click)="mostrarModalNotificacionesEmpleado = true">
         <i class="bi bi-bell-fill text-2xl text-white hover:text-accent transition"></i>
-        <span *ngIf="notificaciones > 0"
-          class="absolute -top-1 -right-1 w-5 h-5 bg-red-600 text-xs text-white rounded-full flex items-center justify-center">
-          {{ notificaciones }}
+        <span *ngIf="notificacionesEmpleado > 0"
+              class="absolute -top-1 -right-1 w-5 h-5 bg-red-600 text-xs text-white rounded-full flex items-center justify-center">
+          {{ notificacionesEmpleado }}
         </span>
       </div>
-
 
       <!-- Login -->
-      <a *ngIf="!sesionIniciada" routerLink="/auth/login"
-        class="hover:text-accent transition flex items-center space-x-1">
+      <a *ngIf="!sesionIniciada" routerLink="/auth/login" class="hover:text-accent transition flex items-center space-x-1">
         <i class="bi bi-box-arrow-in-right"></i>
         <span>Iniciar Sesión</span>
       </a>
@@ -75,16 +72,23 @@
     <a *ngIf="esAdmin" routerLink="/admin" class="hover:text-accent">Administración</a>
     <a *ngIf="esAdminEmpresa || esUsuario" routerLink="/empresa" class="hover:text-accent">Mi Empresa</a>
     <a *ngIf="esEmpleado || esAdminEmpresa" routerLink="/empleado/inventario" class="hover:text-accent">Inventario</a>
-    <a *ngIf="esEmpleado || esAdminEmpresa" routerLink="/empleado/mi-inventario" class="hover:text-accent">Mi
-      Inventario</a>
+    <a *ngIf="esEmpleado || esAdminEmpresa" routerLink="/empleado/mi-inventario" class="hover:text-accent">Mi Inventario</a>
 
-    <!-- Notificaciones móvil -->
-    <div *ngIf="esAdminEmpresa" class="flex items-center gap-2 hover:text-accent cursor-pointer"
-      (click)="mostrarModalNotificaciones = true">
+    <!-- Notificaciones móvil ADMIN_EMPRESA -->
+    <div *ngIf="esAdminEmpresa" class="flex items-center gap-2 hover:text-accent cursor-pointer" (click)="mostrarModalNotificacionesAdmin = true">
       <i class="bi bi-bell-fill text-xl"></i>
       <span>Notificaciones</span>
-      <span *ngIf="notificaciones > 0" class="bg-red-600 text-white text-xs px-2 py-0.5 rounded-full">
-        {{ notificaciones }}
+      <span *ngIf="notificacionesAdmin > 0" class="bg-red-600 text-white text-xs px-2 py-0.5 rounded-full">
+        {{ notificacionesAdmin }}
+      </span>
+    </div>
+
+    <!-- Notificaciones móvil EMPLEADO -->
+    <div *ngIf="esEmpleado" class="flex items-center gap-2 hover:text-accent cursor-pointer" (click)="mostrarModalNotificacionesEmpleado = true">
+      <i class="bi bi-bell-fill text-xl"></i>
+      <span>Notificaciones</span>
+      <span *ngIf="notificacionesEmpleado > 0" class="bg-red-600 text-white text-xs px-2 py-0.5 rounded-full">
+        {{ notificacionesEmpleado }}
       </span>
     </div>
 
@@ -100,23 +104,20 @@
       <button (click)="cerrarSesion()" class="flex items-center gap-2 hover:text-accent">
         <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
       </button>
-      <button *ngIf="esEmpleado" class="flex items-center gap-2 text-red-600 hover:text-red-800"
-        (click)="confirmarAbandono()">
+      <button *ngIf="esEmpleado" class="flex items-center gap-2 text-red-600 hover:text-red-800" (click)="confirmarAbandono()">
         <i class="bi bi-door-open-fill"></i> Abandonar Empresa
       </button>
     </div>
   </div>
 
-  <app-notificacion-modal *ngIf="mostrarModalNotificaciones" (cerrar)="mostrarModalNotificaciones = false"
-    (cambioNotificaciones)="notificaciones = +$event">
+  <!-- MODALES -->
+  <app-notificacion-modal *ngIf="mostrarModalNotificacionesAdmin"
+                          (cerrar)="mostrarModalNotificacionesAdmin = false"
+                          (cambioNotificaciones)="notificacionesAdmin = +$event">
   </app-notificacion-modal>
 
-  <!-- Modal lateral notificaciones EMPLEADO -->
-  <app-notificacion-modal-empleado *ngIf="mostrarModalNotificaciones" (cerrar)="mostrarModalNotificaciones = false"
-    (cambioNotificaciones)="notificaciones = +$event">
+  <app-notificacion-modal-empleado *ngIf="mostrarModalNotificacionesEmpleado"
+                                   (cerrar)="mostrarModalNotificacionesEmpleado = false"
+                                   (cambioNotificaciones)="notificacionesEmpleado = +$event">
   </app-notificacion-modal-empleado>
-
-
-
-
 </nav>

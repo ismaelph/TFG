@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Producto } from 'src/app/core/interfaces/producto';
 import { NuevaSolicitudMovimiento } from 'src/app/core/interfaces/NuevaSolicitudMovimiento';
-import { SolicitudMovimientoService } from '../../../services/solicitud-movimiento.service';
+import { SolicitudMovimientoEmpleadoService } from '../../../services/solicitud-movimiento-Empleado.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -16,7 +16,7 @@ export class FormularioSolicitudComponent {
   cantidadSolicitada: number = 1;
   motivo: string = '';
 
-  constructor(private solicitudService: SolicitudMovimientoService) {}
+  constructor(private solicitudService: SolicitudMovimientoEmpleadoService) {}
 
   enviar(): void {
     const dto: NuevaSolicitudMovimiento = {

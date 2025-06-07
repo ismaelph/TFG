@@ -14,6 +14,8 @@ import { AlertInfoComponent } from './components/alerts/alert-info/alert-info.co
 import { SidnavComponent } from './components/sidnav/sidnav.component';
 import { NotificacionBadgeComponent } from '../modules/empresa-admin/components/notificacion-badge/notificacion-badge.component';
 import { NotificacionModalComponent } from '../modules/empresa-admin/components/notificacion-modal/notificacion-modal.component';
+import { NotificacionModalEmpleadoComponent } from '../modules/empleado/notificaciones/components/notificacion-modal/notificacion-modal.component';
+import { NotificacionBadgeEmpleadosComponent } from '../modules/empleado/notificaciones/components/notificacion-badge-empleados/notificacion-badge-empleados.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { NotificacionModalComponent } from '../modules/empresa-admin/components/
     AlertInfoComponent,
     SidnavComponent,
     NotificacionBadgeComponent,
-    NotificacionModalComponent
+    NotificacionModalComponent,
+    NotificacionModalEmpleadoComponent,
+    NotificacionBadgeEmpleadosComponent
   ],
   imports: [
     CommonModule,
