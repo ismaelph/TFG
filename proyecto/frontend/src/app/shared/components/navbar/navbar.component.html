@@ -20,6 +20,8 @@
       <a *ngIf="esEmpleado" routerLink="/empleado/mi-inventario" class="hover:text-accent transition">Mi Inventario</a>
       <a *ngIf="esUsuario" routerLink="/main/ver-empresa" class="hover:text-accent transition">Ver Empresas</a>
       <a *ngIf="esAdminEmpresa" routerLink="/empresa/movimiento-list" class="hover:text-accent transition">Movimientos</a>
+      <a *ngIf="esAdminEmpresa" routerLink="/empresa/peticiones" class="hover:text-accent transition">Peticiones</a>
+
 
       <!-- Campana escritorio ADMIN_EMPRESA -->
       <div *ngIf="esAdminEmpresa" class="relative cursor-pointer" (click)="mostrarModalNotificacionesAdmin = true">

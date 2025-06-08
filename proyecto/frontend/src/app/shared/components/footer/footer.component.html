@@ -1,46 +1,45 @@
-<footer class="footer-fade bg-primary text-white border-t border-secondary-light px-6 py-8">
-  <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-sm">
+<footer class="bg-primary text-white border-t border-secondary-light px-6 py-10 text-sm">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
 
-    <!-- Logo y misión -->
-    <div class="space-y-2">
-      <img src="assets/images/logo3.png" alt="Logo Invecta" class="w-10 h-10 object-contain">
-      <h2 class="text-lg font-bold">Invecta</h2>
-      <p class="text-secondary-light leading-snug">
+    <!-- LOGO Y DESCRIPCIÓN -->
+    <div class="space-y-3">
+      <img src="assets/images/logo3.png" alt="Logo Invecta" class="w-12 h-12 object-contain">
+      <h2 class="text-xl font-bold">Invecta</h2>
+      <p class="text-secondary-light">
         Plataforma libre para la gestión de inventario y operaciones empresariales.
       </p>
     </div>
 
-    <!-- Navegación -->
-    <div class="space-y-1">
-      <h3 class="font-semibold mb-2">Enlaces útiles</h3>
-      <a routerLink="/" class="hover:text-accent">Inicio</a><br>
-      <a routerLink="/auth/login" class="hover:text-accent">Iniciar sesión</a><br>
-      <a routerLink="/main/ver-empresa" class="hover:text-accent">Explorar empresas</a>
+    <!-- NAVEGACIÓN SEGÚN SESIÓN -->
+    <div>
+      <h3 class="text-base font-semibold mb-3">Navegación</h3>
+      <div class="flex flex-col space-y-2">
+        <a routerLink="/" class="hover:text-accent transition">Inicio</a>
+        <a *ngIf="mostrarLogin" routerLink="/auth/login" class="hover:text-accent transition">
+          Iniciar sesión
+        </a>
+        <a *ngIf="mostrarUnirseEmpresa" routerLink="/main/ver-empresa" class="hover:text-accent transition">
+          Unirse a una empresa
+        </a>
+      </div>
     </div>
 
-    <!-- Legal -->
-    <div class="space-y-1">
-      <h3 class="font-semibold mb-2">Legal</h3>
-      <a href="/terminos" class="hover:text-accent">Términos y Condiciones</a><br>
-      <a href="/privacidad" class="hover:text-accent">Política de Privacidad</a><br>
-      <a href="/cookies" class="hover:text-accent">Política de Cookies</a>
-    </div>
-
-    <!-- Redes -->
-    <div class="space-y-2">
-      <h3 class="font-semibold mb-2">Síguenos</h3>
-      <div class="flex space-x-4 text-xl">
-        <a href="https://github.com/ismaelph/TFG" target="_blank" class="hover:text-accent transition-transform transform hover:scale-110">
+    <!-- REDES SOCIALES -->
+    <div>
+      <h3 class="text-base font-semibold mb-3">Síguenos</h3>
+      <div class="flex space-x-5 text-2xl">
+        <a href="https://github.com/ismaelph/TFG" target="_blank" class="hover:text-accent transition-transform hover:scale-110">
           <i class="bi bi-github"></i>
         </a>
-        <a href="https://www.linkedin.com/feed/" target="_blank" class="hover:text-accent transition-transform transform hover:scale-110">
+        <a href="https://www.linkedin.com/feed/" target="_blank" class="hover:text-accent transition-transform hover:scale-110">
           <i class="bi bi-linkedin"></i>
         </a>
       </div>
     </div>
   </div>
 
-  <div class="text-center text-xs text-secondary-light mt-8 border-t border-secondary-light pt-4">
-    &copy; {{ currentYear }} Invecta. Todos los derechos reservados.
+  <!-- COPYRIGHT -->
+  <div class="text-center text-xs text-secondary-light mt-10 pt-5 border-t border-secondary-light">
+    &copy; 2025 Invecta. Todos los derechos reservados.
   </div>
 </footer>
