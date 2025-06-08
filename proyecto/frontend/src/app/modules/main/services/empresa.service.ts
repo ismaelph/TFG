@@ -17,7 +17,9 @@ export class EmpresaService {
     return this.http.get<Empresa[]>(this.apiUrl);
   }
 
-  unirseAEmpresa(userId: number, empresaId: number): Observable<any> {
-    return this.http.post(`${this.usuarioUrl}/${userId}/empresa/${empresaId}`, null);
-  }
+  unirseAEmpresa(userId: number, empresaId: number, claveAcceso: string): Observable<any> {
+  const body = { claveAcceso };
+  return this.http.post(`${this.usuarioUrl}/${userId}/empresa/${empresaId}`, body);
+}
+
 }

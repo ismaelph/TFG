@@ -19,65 +19,68 @@ export class EmpresaJoinComponent implements OnInit {
     private empresaService: EmpresaService,
     private tokenService: TokenService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
+    console.log('🔄 Cargando empresas...');
     this.empresaService.obtenerTodas().subscribe({
-      next: (res) => this.empresas = res,
-      error: () => Swal.fire('Error', 'No se pudieron cargar las empresas.', 'error')
+      next: (res) => {
+        this.empresas = res;
+        console.log('✅ Empresas cargadas:', this.empresas);
+      },
+      error: (err) => {
+        console.error('❌ Error al cargar empresas:', err);
+        Swal.fire('Error', 'No se pudieron cargar las empresas.', 'error');
+      }
     });
   }
 
   mostrarInput(empresaId: number): void {
+    console.log('📝 Mostrando input para empresa ID:', empresaId);
     this.mostrandoClave = empresaId;
   }
 
   unirse(empresaId: number): void {
-  const clave = this.claves[empresaId]?.trim();
-  if (!clave) {
-    console.error('Campo vacío:', clave);
-    Swal.fire('Campo vacío', 'Debes ingresar la clave de acceso.', 'warning');
-    return;
-  }
+    console.log('🚀 Iniciando proceso para unirse a empresa ID:', empresaId);
+    const clave = this.claves[empresaId]?.trim();
+    console.log('🔑 Clave introducida:', clave);
 
-  const empresa = this.empresas.find(e => e.id === empresaId);
-  if (!empresa) return;
-
-  if (empresa.claveAcceso !== clave) {
-    console.error('Clave incorrecta:', clave);
-    Swal.fire('Clave incorrecta', 'La clave no coincide con la empresa seleccionada.', 'error');
-    return;
-  }
-
-  const userId = this.tokenService.getUserId();
-  if (userId == null) {
-    console.error('No se pudo obtener el ID del usuario.');
-    Swal.fire('Error', 'No se pudo obtener el ID del usuario.', 'error');
-    return;
-  }
-
-  this.empresaService.unirseAEmpresa(userId, empresaId).subscribe({
-    next: () => {
-      Swal.fire({
-        icon: 'success',
-        title: '¡Te has unido a la empresa!',
-        text: `Ahora perteneces a ${empresa.nombre}. Tu sesión se cerrará para aplicar los cambios.`,
-        confirmButtonText: 'Aceptar',
-        allowOutsideClick: false
-      }).then(() => {
-        console.log('Unido a la empresa:', empresaId);
-        this.tokenService.clearAll(); // cerrar sesión y token
-        window.location.href = '/login'; // redirigir a login
-      });
-
-      this.mostrandoClave = null;
-      this.claves[empresaId] = '';
-    },
-    error: (err) => {
-      console.error('ERROR AL UNIRSE:', err);
-      Swal.fire('Error', 'No se pudo completar la solicitud.', 'error');
+    if (!clave) {
+      console.warn('⚠️ Clave vacía');
+      Swal.fire('Campo vacío', 'Debes ingresar la clave de acceso.', 'warning');
+      return;
     }
-  });
-}
 
+    const empresa = this.empresas.find(e => e.id === empresaId);
+    if (!empresa) {
+      console.error('❌ Empresa no encontrada en la lista local');
+      return;
+    }
+
+    const userId = this.tokenService.getUserId();
+    console.log('👤 ID del usuario actual:', userId);
+
+    if (userId == null) {
+      console.error('❌ No se pudo obtener el ID del usuario desde el token');
+      Swal.fire('Error', 'No se pudo obtener el ID del usuario.', 'error');
+      return;
+    }
+
+    console.log('📡 Enviando solicitud al backend...');
+    this.empresaService.unirseAEmpresa(userId, empresaId, clave).subscribe({
+      next: () => {
+        console.log('✅ Unión a empresa completada. Cerrando sesión y redirigiendo.');
+        this.tokenService.clearAll();
+        window.location.href = '/login';
+      },
+      error: (err) => {
+        console.error('❌ ERROR AL UNIRSE:', err);
+        const mensaje = err?.error?.error || 'No se pudo completar la solicitud.';
+        Swal.fire('Error', mensaje, 'error');
+      }
+    });
+
+    this.mostrandoClave = null;
+    this.claves[empresaId] = '';
+  }
 }

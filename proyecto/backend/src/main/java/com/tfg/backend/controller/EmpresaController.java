@@ -12,6 +12,7 @@ import com.tfg.backend.model.dto.EmpresaDto;
 import com.tfg.backend.model.dto.ErrorDto;
 import com.tfg.backend.model.entity.Empresa;
 import com.tfg.backend.service.EmpresaService;
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -54,6 +55,13 @@ public class EmpresaController {
 
     @Autowired
     private CategoriaRepository categoriaRepository;
+
+    @PostConstruct
+    public void imprimirHash() {
+        String textoPlano = "castelar";
+        String hash = passwordEncoder.encode(textoPlano);
+        System.out.println("🔐 HASH para '" + textoPlano + "' = " + hash);
+    }
 
     // GET – Listar todas
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER' , 'ROLE_ADMIN_EMPRESA')")

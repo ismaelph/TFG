@@ -152,17 +152,48 @@ public class UserController {
 
     // POST – unir usuario a empresa
     @PostMapping("/{userId}/empresa/{empresaId}")
-    public ResponseEntity<?> unirUsuarioAEmpresa(@PathVariable long userId, @PathVariable long empresaId) {
-        User user = userService.findById(userId);
-        Empresa empresa = empresaService.findById(empresaId);
+    public ResponseEntity<?> unirUsuarioAEmpresa(
+            @PathVariable long userId,
+            @PathVariable long empresaId,
+            @RequestBody Map<String, String> body) {
 
-        if (user != null && empresa != null) {
-            userService.agregarUsuarioAEmpresa(user, empresa);
-            return ResponseEntity.noContent().build();
+        System.out.println("🔍 [UNIR EMPRESA] Petición recibida para unir userId=" + userId + " a empresaId=" + empresaId);
+
+        String claveAcceso = body.get("claveAcceso");
+        System.out.println("🔑 Clave introducida: " + claveAcceso);
+
+        Empresa empresa = empresaService.findById(empresaId);
+        System.out.println("🏢 Empresa encontrada: " + (empresa != null ? empresa.getNombre() : "null"));
+
+        User user = userService.findById(userId);
+        System.out.println("👤 Usuario encontrado: " + (user != null ? user.getUsername() : "null"));
+
+        if (empresa == null || user == null) {
+            System.out.println("❌ Empresa o usuario no encontrados.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(ErrorDto.from("Usuario o empresa no encontrados"));
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(ErrorDto.from("Usuario o empresa no encontrados"));
+
+        String hashGuardado = empresa.getClaveAcceso();
+        System.out.println("🧠 Hash guardado en empresa: " + hashGuardado);
+
+        boolean coincide = passwordEncoder.matches(claveAcceso, hashGuardado);
+        System.out.println("🔍 Comparación passwordEncoder.matches(): " + coincide);
+
+        if (!coincide) {
+            System.out.println("❌ Clave incorrecta: acceso denegado.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(ErrorDto.from("Clave de acceso incorrecta"));
+        }
+
+        System.out.println("✅ Clave válida. Procediendo a unir el usuario a la empresa...");
+        userService.agregarUsuarioAEmpresa(user, empresa);
+
+        System.out.println("✅ Usuario unido correctamente. Finalizando...");
+        return ResponseEntity.noContent().build();
     }
+
+
 
     @DeleteMapping("/{userId}/empresa")
     public ResponseEntity<?> abandonarEmpresa(@PathVariable long userId) {

@@ -5,8 +5,8 @@ INSERT INTO roles (name, created_at, updated_at) VALUES ('ROLE_EMPLEADO', '2025-
 INSERT INTO roles (name, created_at, updated_at) VALUES ('ROLE_USER', '2025-05-28 11:13:40', '2025-05-28 11:13:40');
 
 -- Empresas
-INSERT INTO empresa (id, nombre, clave_acceso, fecha_creacion) VALUES (1, 'SBS Ingeniería', 'sbs123', '2025-05-28 11:13:40');
-INSERT INTO empresa (id, nombre, clave_acceso, fecha_creacion) VALUES (2, 'SBS Digital', 'sbsd456', '2025-05-28 11:13:40');
+INSERT INTO empresa (id, nombre, clave_acceso, fecha_creacion) VALUES (1, 'SBS Ingeniería', '$2a$10$lsAeF7DD2PDcXYM9B2Vad.DFzYg7SY6T7ENccSPcmrisilk7EQ66S', '2025-05-28 11:13:40');
+INSERT INTO empresa (id, nombre, clave_acceso, fecha_creacion) VALUES (2, 'SBS Digital', '$2a$10$lsAeF7DD2PDcXYM9B2Vad.DFzYg7SY6T7ENccSPcmrisilk7EQ66S', '2025-05-28 11:13:40');
 
 -- Usuarios
 INSERT INTO users (id, username, email, password, empresa_id, created_at, updated_at) VALUES (1, 'admin', 'admin@example.com', '$2a$10$bbxuAS5vRkmaEPkG5DHiw.9.ttIT6Ejzs10GGkseWmlzzX5D/9LuG', NULL, '2025-05-28 11:13:40', '2025-05-28 11:13:40');

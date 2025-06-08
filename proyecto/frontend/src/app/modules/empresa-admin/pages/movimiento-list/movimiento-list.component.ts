@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MovimientoProducto } from 'src/app/core/interfaces/movimiento-producto';
 import { MovimientoProductoService } from '../../services/movimiento-producto.service';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
 @Component({
   selector: 'app-movimiento-list',
@@ -21,8 +23,7 @@ export class MovimientoListComponent implements OnInit {
   fechaHasta: string = '';
   usuariosUnicos: string[] = [];
 
-
-  constructor(private movimientoService: MovimientoProductoService) { }
+  constructor(private movimientoService: MovimientoProductoService) {}
 
   ngOnInit(): void {
     this.cargarMovimientos();
@@ -68,12 +69,12 @@ export class MovimientoListComponent implements OnInit {
       Usuario: m.usuarioNombre ?? '—',
       Fecha: m.fecha
         ? new Date(m.fecha).toLocaleString('es-ES', {
-          day: '2-digit',
-          month: '2-digit',
-          year: 'numeric',
-          hour: '2-digit',
-          minute: '2-digit'
-        })
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+          })
         : '—'
     }));
   }
@@ -85,5 +86,55 @@ export class MovimientoListComponent implements OnInit {
     this.fechaDesde = '';
     this.fechaHasta = '';
     this.actualizarFiltro();
+  }
+
+  exportarFiltradosComoPDF(): void {
+    const doc = new jsPDF();
+
+    const fechaActual = new Date().toLocaleString('es-ES');
+    doc.setFontSize(14);
+    doc.text(`Exportación de Movimientos – ${fechaActual}`, 14, 35);
+
+    const datos = this.filtrados.map(m => [
+      m.productoNombre ?? '—',
+      m.tipo ?? '—',
+      m.cantidad ?? 0,
+      m.usuarioNombre ?? '—',
+      m.fecha
+        ? new Date(m.fecha).toLocaleString('es-ES', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+          })
+        : '—'
+    ]);
+
+    autoTable(doc, {
+      head: [this.headers],
+      body: datos,
+      startY: 45,
+      styles: {
+        fontSize: 9,
+        cellPadding: 3,
+        halign: 'center'
+      },
+      headStyles: {
+        fillColor: [107, 178, 167], // verde suave
+        textColor: 255,
+        fontStyle: 'bold'
+      },
+      margin: { top: 45 }
+    });
+
+    // Insertar logo2.png
+    const logo = new Image();
+    logo.src = 'assets/images/logo2.png';
+
+    logo.onload = () => {
+      doc.addImage(logo, 'PNG', 150, 8, 40, 20); // posX, posY, width, height
+      doc.save('movimientos-filtrados.pdf');
+    };
   }
 }
